@@ -57,6 +57,8 @@ public class ContO {
 		
         float f1 = 1.0F;
         boolean hidepoly = false;
+        boolean randomcolor = false;
+        boolean randoutline = false;
         byte light = 0;
         
         float nfmm_scale[] = {
@@ -79,6 +81,8 @@ public class ContO {
 					j1 = 0;
 					light = 0;
 					hidepoly = false;
+					randomcolor = false;
+					randoutline = false;
 				}
 				if (flag) {
 					if (s2.startsWith("gr"))
@@ -100,6 +104,10 @@ public class ContO {
 						ai2[l] = (int) ((int) (getvalue("p", s2, 2) * f) * nfmm_scale[0]);
 						l++;
 					}
+                    if(s2.startsWith("random()") || s2.startsWith("rainbow()"))
+						randomcolor = true;
+                    if(s2.startsWith("randoutline()"))
+						randoutline = true;
 					if(s2.startsWith("lightF"))
 						light = 1;
 	                if(s2.startsWith("lightB"))
@@ -110,7 +118,7 @@ public class ContO {
 						hidepoly = true;
 				}
 				if (s2.startsWith("</p>")) {
-					p[npl] = new Plane(m, ai, ai2, ai1, l, ai3, flag1, i1, j1, 0, 0, light, hidepoly);
+					p[npl] = new Plane(m, ai, ai2, ai1, l, ai3, flag1, i1, j1, 0, 0, light, hidepoly, randomcolor, randoutline);
 					npl++;
 					flag = false;
 				}
@@ -226,7 +234,7 @@ public class ContO {
 		z = k;
 		for (int l = 0; l < npl; l++)
 			p[l] = new Plane(m, conto.p[l].ox, conto.p[l].oz, conto.p[l].oy, conto.p[l].n, conto.p[l].c,
-					conto.p[l].glass, conto.p[l].gr, conto.p[l].fs, conto.p[l].wx, conto.p[l].wz, conto.p[l].light, conto.p[l].hidepoly);
+					conto.p[l].glass, conto.p[l].gr, conto.p[l].fs, conto.p[l].wx, conto.p[l].wz, conto.p[l].light, conto.p[l].hidepoly, conto.p[l].randomcolor, conto.p[l].randoutline);
 
 	}
 

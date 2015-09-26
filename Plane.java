@@ -10,8 +10,10 @@ public class Plane
 {
 
     public Plane(Medium medium, int ai[], int ai1[], int ai2[], int i, int ai3[], boolean flag, 
-            int j, int k, int l, int i1, byte light, boolean hidepoly)
+            int j, int k, int l, int i1, byte light, boolean hidepoly, boolean randomcolor, boolean randoutline)
     {
+    	this.randoutline = randoutline;
+    	this.randomcolor = randomcolor;
     	this.hidepoly = hidepoly;
     	this.light = light;
         c = new int[3];
@@ -283,8 +285,10 @@ public class Plane
                     i7 = (i7 * 3 + m.cfade[1]) / 4;
                     k7 = (k7 * 3 + m.cfade[2]) / 4;
                 }
-            
-            g.setColor(new Color(k6, i7, k7));
+            if (!randomcolor)
+            	g.setColor(new Color(k6, i7, k7));
+            else
+            	g.setColor(Color.getHSBColor((float)Math.random(), (float)Math.random(), (float)Math.random()));
             g.fillPolygon(ai5, ai6, n);
         }
         if(!toofar && !hidepoly)
@@ -311,7 +315,9 @@ public class Plane
 					k7 = 0;  
                 g.setColor(new Color(k6, i7, k7));
             }
-        	else 
+        	else if (randoutline)
+        		g.setColor(Color.getHSBColor((float)Math.random(), (float)Math.random(), (float)Math.random()));
+        	else
         		g.setColor(new Color(0, 0, 0));
             g.drawPolygon(ai5, ai6, n);
         }
@@ -450,7 +456,9 @@ public class Plane
     int c[];
     float hsb[];
     boolean glass;
+    boolean randomcolor;
     boolean hidepoly;
+    boolean randoutline;
     byte light;
     int gr;
     int fs;
