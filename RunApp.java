@@ -7,6 +7,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.InputMethodListener;
+import java.awt.event.InputMethodEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 public class RunApp extends Panel implements KeyListener {
 	
@@ -26,13 +32,20 @@ public class RunApp extends Panel implements KeyListener {
 	public RunApp() {
 		setLayout(new BorderLayout(0, 0));
 		
-		JPanel panel = new JPanel();
+		panel = new JPanel();
 		add(panel, BorderLayout.SOUTH);
         frame = new JFrame("LiveO");//Change this to the name of your preference
+        /*frame.addComponentListener(new ComponentAdapter() {
+        	@Override
+        	public void componentResized(ComponentEvent e) {
+        		
+        	}
+        });*/
         frame.setBackground(new Color(0, 0, 0));
         frame.setIgnoreRepaint(true);
         frame.setIconImages(getIcons());
         applet = new F51();
+        applet.setPreferredSize(new java.awt.Dimension(700, 475));//The resolution of your game goes here
         applet.setStub(new DesktopStub());
         frame.addWindowListener(new WindowAdapter() {
             @Override
@@ -41,12 +54,10 @@ public class RunApp extends Panel implements KeyListener {
             }
         });
         frame.getContentPane().setLayout(new BorderLayout(0, 0));
-        applet.setPreferredSize(new java.awt.Dimension(700, 460));//The resolution of your game goes here
         frame.getContentPane().add(applet);
+        panel_1 = new JPanel(new FlowLayout(FlowLayout.LEFT));
         
-        JPanel panel_1 = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        
-        JButton btnNewButton = new JButton("Refresh");
+        btnNewButton = new JButton("Refresh");
         btnNewButton.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		applet.remake();
@@ -70,6 +81,17 @@ public class RunApp extends Panel implements KeyListener {
         	}
         });
         panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+        
+        slider_1 = new JSlider();
+        slider_1.setMinimum(-360);
+        slider_1.setMaximum(360);
+        slider_1.setValue(0);
+        slider_1.addChangeListener(new ChangeListener() {
+        	public void stateChanged(ChangeEvent e) {
+        		applet.o.xy = -slider_1.getValue();
+        	}
+        });
+        panel_1.add(slider_1);
         panel_1.add(button_1);
         
         button = new JButton("<");
@@ -122,12 +144,29 @@ public class RunApp extends Panel implements KeyListener {
         });
         panel_1.add(chckbxAutorefresh);
         
+
+        panel_2 = new JPanel();
+        frame.getContentPane().add(panel_2, BorderLayout.WEST);
+        
+        slider = new JSlider();
+        slider.setMinimum(-360);
+        slider.setMaximum(360);
+        slider.setValue(0);
+        slider.addChangeListener(new ChangeListener() {
+        	public void stateChanged(ChangeEvent e) {
+        		applet.o.zy = -slider.getValue();
+        	}
+        });
+        slider.setOrientation(SwingConstants.VERTICAL);
+        panel_2.add(slider);
+        
         frame.setResizable(false);//If you plan to make you game support changes in resolution, you can comment out this line.
         frame.pack();
         frame.setMinimumSize(frame.getSize());
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-        frame.getContentPane().add(panel_1, BorderLayout.SOUTH); //always after the buttons pls
+        frame.getContentPane().add(panel_1, BorderLayout.SOUTH);
+        
         applet.init();
         applet.start();
 	}
@@ -142,10 +181,16 @@ public class RunApp extends Panel implements KeyListener {
     private JButton button;
     private JButton button_1;
     private JButton button_2;
+    private JButton btnNewButton;
     private JButton button_3;
     private JButton btnTransGlass;
     private RefreshThread rt;
     private JCheckBox chckbxAutorefresh;
+    private JSlider slider;
+    private JPanel panel;
+    private JPanel panel_2;
+    private JPanel panel_1;
+    private JSlider slider_1;
 
     /**
     * Fetches icons of 16, 32 and 48 pixels from the 'data' folder.

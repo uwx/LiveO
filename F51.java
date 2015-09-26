@@ -116,12 +116,19 @@ public class F51 extends Applet
     
     public void remake()
     {
-    	medium = new Medium();
+        int storeowxz = o.wxz;
+        int storeoxz = o.xz;
+        int storeoxy = o.xy;
+        int storeozy = o.zy;
+        int storeoy = o.y;
+        int storeoz = o.z;
     	o = new ContO("o", medium, 350, 150, 600, this);
-        o.y = 120;
-        o.z += 200;
-        medium.y -= 300;
-        medium.zy += 10;
+        o.wxz = storeowxz;
+        o.xz = storeoxz;
+        o.xy = storeoxy;
+        o.zy = storeozy;
+        o.y = storeoy;
+        o.z = storeoz;
     }
 
     public void run()

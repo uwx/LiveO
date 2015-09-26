@@ -360,6 +360,7 @@ public class ContO
 
     Medium m;
     Plane p[];
+    F51 f51;
     int npl;
     int x;
     int y;
