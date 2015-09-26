@@ -44,7 +44,7 @@ public class F51 extends Applet
             rd = offImage.getGraphics();
     }
 
-    /*public boolean keyDown(Event event, int i)
+    public boolean keyDown(Event event, int i)
     {
         if(i == 56)
             forward = true;
@@ -108,7 +108,7 @@ public class F51 extends Applet
             up = false;
         return false;
     }
-*/
+
     public void paint(Graphics g)
     {
         g.drawImage(offImage, 0, 0, this);
