@@ -27,6 +27,10 @@ import javax.swing.KeyStroke;
 
 import org.fife.ui.rtextarea.*;
 import org.fife.ui.rsyntaxtextarea.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.InputMethodListener;
+import java.awt.event.InputMethodEvent;
 
 /*
  * A simple Text Editor.  This demonstrates the use of a
@@ -53,6 +57,8 @@ public class TextEditor implements ActionListener {
    private JTextField searchField;
    private JCheckBox regexCB;
    private JCheckBox matchCaseCB;
+   private JPanel panel;
+   private JLabel lblPolys;
 
 	// Creates the GUI
 	public TextEditor(final F51 f51, final RunApp runapp) {
@@ -60,6 +66,12 @@ public class TextEditor implements ActionListener {
 		final JFrame frame = new JFrame("Editor");
 
 		text = new RSyntaxTextArea(NUM_ROWS, NUM_COLS);
+		text.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				countPolys();
+			}
+		});
 		text.setFont(new Font("Courier New", Font.PLAIN, fontsize));
 		final RTextScrollPane textScroller = new RTextScrollPane(text);
 		final Container contentPane = frame.getContentPane();
@@ -215,6 +227,12 @@ public class TextEditor implements ActionListener {
 		});
 		buttonPanel.add(btnShowSelection);
 		
+		panel = new JPanel();
+		frame.getContentPane().add(panel, BorderLayout.SOUTH);
+		
+		lblPolys = new JLabel("0 Polys");
+		panel.add(lblPolys);
+		
 		saveButton.addActionListener(saveAction);
 		loadButton.addActionListener(reloadAction);
 		newButton.addActionListener(newAction);
@@ -251,6 +269,13 @@ public class TextEditor implements ActionListener {
 			if (!found) {
 			   JOptionPane.showMessageDialog(null, "Text not found");
 			}
+		}
+	}
+	
+	public void countPolys() {
+		if (f51.o != null) {
+			lblPolys.setText("" + f51.o.npl + " Polys");
+			System.out.println(f51.o.npl);
 		}
 	}
 
