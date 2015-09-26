@@ -10,8 +10,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -20,6 +23,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
+import javax.swing.KeyStroke;
 
 import org.fife.ui.rtextarea.*;
 import org.fife.ui.rsyntaxtextarea.*;
@@ -84,9 +88,73 @@ public class TextEditor implements ActionListener {
 		matchCaseCB = new JCheckBox("Match Case");
 		toolBar.add(matchCaseCB);
 		final JPanel buttonPanel = new JPanel();
-		saveButton = new JButton("Save");
-		loadButton = new JButton("Reload");
-		newButton = new JButton("New");
+		
+		// create an Action doing what you want
+		AbstractAction saveAction = new AbstractAction("doSomething") {
+
+			private static final long serialVersionUID = -1507795546151323861L;
+
+			@Override
+		    public void actionPerformed(ActionEvent e) {
+		        System.out.println("triggered the action");
+		        saveFile();
+		    }
+
+		};
+		// configure the Action with the accelerator (aka: short cut)
+		saveAction.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control S"));
+		
+		saveButton = new JButton(saveAction);
+		saveButton.setText("Save");
+		
+		saveButton.getActionMap().put("saveAction", saveAction);
+		saveButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+		        (KeyStroke) saveAction.getValue(Action.ACCELERATOR_KEY), "saveAction");
+		
+		// create an Action doing what you want
+		AbstractAction reloadAction = new AbstractAction("doSomething") {
+
+			private static final long serialVersionUID = -1507795546151323861L;
+
+			@Override
+		    public void actionPerformed(ActionEvent e) {
+		        System.out.println("triggered the action");
+		        loadFile();
+		    }
+
+		};
+		// configure the Action with the accelerator (aka: short cut)
+		reloadAction.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control R"));
+		
+		loadButton = new JButton(reloadAction);
+		loadButton.setText("Reload");
+		
+		loadButton.getActionMap().put("reloadAction", reloadAction);
+		loadButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+		        (KeyStroke) reloadAction.getValue(Action.ACCELERATOR_KEY), "reloadAction");
+				
+		// create an Action doing what you want
+		AbstractAction newAction = new AbstractAction("doSomething") {
+
+			private static final long serialVersionUID = -1507795546151323861L;
+
+			@Override
+		    public void actionPerformed(ActionEvent e) {
+		        System.out.println("triggered the action");
+		        newFile();
+		    }
+
+		};
+		// configure the Action with the accelerator (aka: short cut)
+		newAction.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control N"));
+		
+		newButton = new JButton(newAction);
+		newButton.setText("New");
+		
+		newButton.getActionMap().put("newAction", newAction);
+		newButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+		        (KeyStroke) newAction.getValue(Action.ACCELERATOR_KEY), "newAction");
+		
 		buttonPanel.add(saveButton);
 		buttonPanel.add(loadButton);
 		buttonPanel.add(newButton);
@@ -147,9 +215,9 @@ public class TextEditor implements ActionListener {
 		});
 		buttonPanel.add(btnShowSelection);
 		
-		saveButton.addActionListener(this);
-		loadButton.addActionListener(this);
-		newButton.addActionListener(this);
+		saveButton.addActionListener(saveAction);
+		loadButton.addActionListener(reloadAction);
+		newButton.addActionListener(newAction);
 
 
 		frame.pack();
@@ -163,11 +231,7 @@ public class TextEditor implements ActionListener {
 	// editor.
 	@Override
 	public void actionPerformed(final ActionEvent event) {
-		if (event.getSource() == saveButton)
-			saveFile();
-		else if (event.getSource() == loadButton)
-			loadFile();
-		else if (event.getSource() == prevButton || event.getSource() == nextButton) {
+		if (event.getSource() == prevButton || event.getSource() == nextButton) {
 			String command = event.getActionCommand();
 			boolean forward = "FindNext".equals(command);
 			
@@ -188,10 +252,6 @@ public class TextEditor implements ActionListener {
 			   JOptionPane.showMessageDialog(null, "Text not found");
 			}
 		}
-		else
-			newFile();
-		
-		
 	}
 
 	private void newFile() {
