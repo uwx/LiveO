@@ -1,7 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Font;
-import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -12,19 +11,16 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.JEditorPane;
 import javax.swing.JTextField;
-import javax.swing.text.JTextComponent;
-import javax.swing.JLabel;
 
 /*
- * A simple Text Editor.  This demonstrates the use of a 
+ * A simple Text Editor.  This demonstrates the use of a
  * JFileChooser for the user to select a file to read from or write to.
  * It also demonstrates reading and writing text files.
  */
@@ -32,25 +28,25 @@ public class TextEditor implements ActionListener {
 	// Size of editing text area.
 	private static final int NUM_ROWS = 25;
 	private static final int NUM_COLS = 50;
-	private int fontsize = 24;
+	private final int fontsize = 24;
 
 	// Buttons to save and load files.
-	private JButton saveButton, loadButton, newButton;
+	private final JButton saveButton, loadButton, newButton;
 
 	// Area where the user does the editing
-	private JTextArea text;
-	private JTextField textField;
-	private JLabel lblFontSize;
-	private F51 f51;
-	private JButton btnMirrorXAxis;
-	private JButton btnMirrorYAxis;
-	private JButton btnMirrorZAxis;
+	private final JTextArea text;
+	private final JTextField textField;
+	private final JLabel lblFontSize;
+	private final F51 f51;
+	private final JButton btnMirrorXAxis;
+	private final JButton btnMirrorYAxis;
+	private final JButton btnMirrorZAxis;
 
 	// Creates the GUI
-	public TextEditor(F51 f51) {
+	public TextEditor(final F51 f51) {
 		this.f51 = f51;
-		JFrame frame = new JFrame("Editor");
-		JPanel buttonPanel = new JPanel();
+		final JFrame frame = new JFrame("Editor");
+		final JPanel buttonPanel = new JPanel();
 		saveButton = new JButton("Save");
 		loadButton = new JButton("Reload");
 		newButton = new JButton("New");
@@ -60,49 +56,53 @@ public class TextEditor implements ActionListener {
 
 		text = new JTextArea(NUM_ROWS, NUM_COLS);
 		text.setFont(new Font("Courier New", Font.PLAIN, fontsize));
-		JScrollPane textScroller = new JScrollPane(text);
-		Container contentPane = frame.getContentPane();
+		final JScrollPane textScroller = new JScrollPane(text);
+		final Container contentPane = frame.getContentPane();
 		contentPane.add(textScroller, BorderLayout.CENTER);
 		contentPane.add(buttonPanel, BorderLayout.NORTH);
-		
+
 		lblFontSize = new JLabel("Font size");
 		buttonPanel.add(lblFontSize);
-		
+
 		textField = new JTextField();
 		textField.setToolTipText("Enter to apply");
 		textField.setText("24");
 		textField.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			@Override
+			public void actionPerformed(final ActionEvent e) {
 				try {
-					int fsize = Integer.parseInt(textField.getText());
+					final int fsize = Integer.parseInt(textField.getText());
 					text.setFont(new Font("Courier New", Font.PLAIN, fsize));
-				} catch (Exception ex) {
+				} catch (final Exception ex) {
 					JOptionPane.showMessageDialog(null, "Invalid number " + textField.getText());
 				}
 			}
 		});
 		buttonPanel.add(textField);
 		textField.setColumns(3);
-		
+
 		btnMirrorXAxis = new JButton("Mirror X Axis");
 		btnMirrorXAxis.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			@Override
+			public void actionPerformed(final ActionEvent e) {
 				mirror(3);
 			}
 		});
 		buttonPanel.add(btnMirrorXAxis);
-		
+
 		btnMirrorYAxis = new JButton("Mirror Y Axis");
 		btnMirrorYAxis.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			@Override
+			public void actionPerformed(final ActionEvent e) {
 				mirror(4);
 			}
 		});
 		buttonPanel.add(btnMirrorYAxis);
-		
+
 		btnMirrorZAxis = new JButton("Mirror Z Axis");
 		btnMirrorZAxis.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			@Override
+			public void actionPerformed(final ActionEvent e) {
 				mirror(5);
 			}
 		});
@@ -114,28 +114,30 @@ public class TextEditor implements ActionListener {
 
 		frame.pack();
 		frame.setVisible(true);
-		
+
 		loadFile();
 	}
 
 	// Listener for button clicks that loads the
 	// specified files and puts it in the
 	// editor.
-	public void actionPerformed(ActionEvent event) {
-		if (event.getSource() == saveButton) {
+	@Override
+	public void actionPerformed(final ActionEvent event) {
+		if (event.getSource() == saveButton)
 			saveFile();
-		} else if (event.getSource() == loadButton) {
+		else if (event.getSource() == loadButton)
 			loadFile();
-		} else {
+		else
 			newFile();
-		}
 	}
-	
+
 	private void newFile() {
-		int opt = JOptionPane.showConfirmDialog(null, "This will discard all unsaved changes!", "Create new file", JOptionPane.OK_CANCEL_OPTION);
-		
+		final int opt = JOptionPane.showConfirmDialog(null, "This will discard all unsaved changes!", "Create new file",
+				JOptionPane.OK_CANCEL_OPTION);
+
 		if (opt == JOptionPane.OK_OPTION)
-			text.setText("MaxRadius(300)\r\nshadow()\r\ndiv(24)\r\n\r\n\r\n\r\n\r\n\r\nw(-33,0,55,11,10,10,1)\r\nw(33,0,55,11,-10,10,1)\r\nw(-31,-1,-60,1,16,11,1)\r\nw(31,-1,-60,1,-16,11,1)");
+			text.setText(
+					"MaxRadius(300)\r\nshadow()\r\ndiv(24)\r\n\r\n\r\n\r\n\r\n\r\nw(-33,0,55,11,10,10,1)\r\nw(33,0,55,11,-10,10,1)\r\nw(-31,-1,-60,1,16,11,1)\r\nw(31,-1,-60,1,-16,11,1)");
 	}
 
 	// Display a file chooser so the user can select a file
@@ -143,25 +145,23 @@ public class TextEditor implements ActionListener {
 	// to that file. Does nothing if the user cancels out
 	// of the file chooser.
 	private void saveFile() {
-		File file = new File(".\\o.rad");
+		final File file = new File(".\\o.rad");
 
 		try {
 			// Now write to the file
-			PrintWriter output = new PrintWriter(new FileWriter(file));
+			final PrintWriter output = new PrintWriter(new FileWriter(file));
 			output.println(text.getText());
 			output.close();
-		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null, "Can't save file "
-					+ e.getMessage());
+		} catch (final IOException e) {
+			JOptionPane.showMessageDialog(null, "Can't save file " + e.getMessage());
 		}
-		
+
 		f51.remake();
 	}
-	
-	private void mirror(int axis) {
+
+	private void mirror(final int axis) {
 		if (axis == 3 || axis == 4 || axis == 5) {
-			final String string = new StringBuilder().append("").append(text.getSelectedText()).append("\n")
-					.toString();
+			final String string = new StringBuilder().append("").append(text.getSelectedText()).append("\n").toString();
 			String output = "\n\n";
 			output = output + "// Mirror of the polygons above along the ";
 			if (axis == 3)
@@ -195,33 +195,28 @@ public class TextEditor implements ActionListener {
 					final int i_203_ = string_202_.indexOf(",", 0);
 					if (i_203_ >= 0)
 						if (string_202_.startsWith(",-", i_203_))
-							string_202_ = new StringBuilder().append("")
-									.append(string_202_.substring(0, i_203_)).append(",")
-									.append(string_202_.substring(i_203_ + 2, string_202_.length())).append("")
-									.toString();
+							string_202_ = new StringBuilder().append("").append(string_202_.substring(0, i_203_))
+									.append(",").append(string_202_.substring(i_203_ + 2, string_202_.length()))
+									.append("").toString();
 						else if (string_202_.startsWith(",", i_203_))
-							string_202_ = new StringBuilder().append("")
-									.append(string_202_.substring(0, i_203_)).append(",-")
-									.append(string_202_.substring(i_203_ + 1, string_202_.length())).append("")
-									.toString();
+							string_202_ = new StringBuilder().append("").append(string_202_.substring(0, i_203_))
+									.append(",-").append(string_202_.substring(i_203_ + 1, string_202_.length()))
+									.append("").toString();
 				}
 				if (axis == 5 && string_202_.startsWith("p(")) {
 					int i_204_ = string_202_.indexOf(",", 0);
 					i_204_ = string_202_.indexOf(",", i_204_ + 1);
 					if (i_204_ >= 0)
 						if (string_202_.startsWith(",-", i_204_))
-							string_202_ = new StringBuilder().append("")
-									.append(string_202_.substring(0, i_204_)).append(",")
-									.append(string_202_.substring(i_204_ + 2, string_202_.length())).append("")
-									.toString();
+							string_202_ = new StringBuilder().append("").append(string_202_.substring(0, i_204_))
+									.append(",").append(string_202_.substring(i_204_ + 2, string_202_.length()))
+									.append("").toString();
 						else if (string_202_.startsWith(",", i_204_))
-							string_202_ = new StringBuilder().append("")
-									.append(string_202_.substring(0, i_204_)).append(",-")
-									.append(string_202_.substring(i_204_ + 1, string_202_.length())).append("")
-									.toString();
+							string_202_ = new StringBuilder().append("").append(string_202_.substring(0, i_204_))
+									.append(",-").append(string_202_.substring(i_204_ + 1, string_202_.length()))
+									.append("").toString();
 				}
-				output = new StringBuilder().append(output).append("").append(string_202_)
-						.append("\n").toString();
+				output = new StringBuilder().append(output).append("").append(string_202_).append("\n").toString();
 			}
 			output = new StringBuilder().append(output).append("\n// End of mirror").toString();
 			text.insert(output, text.getSelectionEnd());
@@ -233,11 +228,11 @@ public class TextEditor implements ActionListener {
 	// the user cancels the file chooser.
 	private void loadFile() {
 		String line;
-		File file = new File(".\\o.rad");
+		final File file = new File(".\\o.rad");
 
 		try {
 			// Open the file.
-			BufferedReader input = new BufferedReader(new FileReader(file));
+			final BufferedReader input = new BufferedReader(new FileReader(file));
 
 			// Clear the editing area
 			text.setText("");
@@ -252,9 +247,8 @@ public class TextEditor implements ActionListener {
 
 			// Close the file
 			input.close();
-		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null, "Can't load file "
-					+ e.getMessage());
+		} catch (final IOException e) {
+			JOptionPane.showMessageDialog(null, "Can't load file " + e.getMessage());
 		}
 	}
 }

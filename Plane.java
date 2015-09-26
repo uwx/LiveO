@@ -10,8 +10,10 @@ public class Plane
 {
 
     public Plane(Medium medium, int ai[], int ai1[], int ai2[], int i, int ai3[], boolean flag, 
-            int j, int k, int l, int i1)
+            int j, int k, int l, int i1, byte light, boolean hidepoly)
     {
+    	this.hidepoly = hidepoly;
+    	this.light = light;
         c = new int[3];
         hsb = new float[3];
         glass = false;
@@ -38,28 +40,20 @@ public class Plane
 
         glass = flag;
         if(!glass)
-        {
-            for(int k1 = 0; k1 < 3; k1++)
+			for(int k1 = 0; k1 < 3; k1++)
                 c[k1] = ai3[k1];
-
-        } else
-        {
-            for(int l1 = 0; l1 < 3; l1++)
+		else
+			for(int l1 = 0; l1 < 3; l1++)
                 c[l1] = m.csky[l1];
-
-        }
         Color.RGBtoHSB(c[0], c[1], c[2], hsb);
         gr = j;
         fs = k;
         wx = l;
         wz = i1;
         for(int i2 = 0; i2 < 3; i2++)
-        {
-            for(int j2 = 0; j2 < 3; j2++)
+			for(int j2 = 0; j2 < 3; j2++)
                 if(j2 != i2)
                     deltaf *= (float)(Math.sqrt((ox[j2] - ox[i2]) * (ox[j2] - ox[i2]) + (oy[j2] - oy[i2]) * (oy[j2] - oy[i2]) + (oz[j2] - oz[i2]) * (oz[j2] - oz[i2])) / 100D);
-
-        }
 
         deltaf /= 3F;
     }
@@ -68,18 +62,15 @@ public class Plane
     {
         projf = 1.0F;
         for(int i = 0; i < 3; i++)
-        {
-            for(int j = 0; j < 3; j++)
+			for(int j = 0; j < 3; j++)
                 if(j != i)
                     projf *= (float)(Math.sqrt((ox[i] - ox[j]) * (ox[i] - ox[j]) + (oz[i] - oz[j]) * (oz[i] - oz[j])) / 100D);
-
-        }
 
         projf /= 3F;
     }
 
     public void d(Graphics g, int i, int j, int k, int l, int i1, int j1, 
-            int k1, boolean flag, boolean flag1)
+            int k1, boolean flag, boolean flag1, boolean toofar)
     {
         int ai[] = new int[n];
         int ai1[] = new int[n];
@@ -100,12 +91,9 @@ public class Plane
         {
             projf = 1.0F;
             for(int i2 = 0; i2 < 3; i2++)
-            {
-                for(int j2 = 0; j2 < 3; j2++)
+				for(int j2 = 0; j2 < 3; j2++)
                     if(j2 != i2)
                         projf *= (float)(Math.sqrt((ai[i2] - ai[j2]) * (ai[i2] - ai[j2]) + (ai1[i2] - ai1[j2]) * (ai1[i2] - ai1[j2])) / 100D);
-
-            }
 
             projf /= 3F;
         }
@@ -123,16 +111,13 @@ public class Plane
         int i3 = 0;
         int j3 = 1;
         for(int k3 = 0; k3 < n; k3++)
-        {
-            for(int j4 = 0; j4 < n; j4++)
+			for(int j4 = 0; j4 < n; j4++)
                 if(k3 != j4 && Math.abs(ai3[k3] - ai3[j4]) - Math.abs(ai4[k3] - ai4[j4]) < k2)
                 {
                     j3 = k3;
                     i3 = j4;
                     k2 = Math.abs(ai3[k3] - ai3[j4]) - Math.abs(ai4[k3] - ai4[j4]);
                 }
-
-        }
 
         if(ai4[i3] < ai4[j3])
         {
@@ -156,14 +141,12 @@ public class Plane
         }
         rot(ai2, ai1, m.cy, m.cz, m.zy, n);
         boolean flag3 = true;
-        boolean flag4 = false;
         int ai5[] = new int[n];
         int ai6[] = new int[n];
         int l4 = 0;
         int i5 = 0;
         int j5 = 0;
         int k5 = 0;
-        boolean flag5 = false;
         for(int l5 = 0; l5 < n; l5++)
         {
             ai5[l5] = xs(ai[l5], ai1[l5]);
@@ -181,19 +164,16 @@ public class Plane
         if(j5 == n || l4 == n || i5 == n || k5 == n)
         {
             flag3 = false;
-            flag4 = true;
+            toofar = true;
         }
         if(flag3)
         {
             if(imlast)
-            {
-                for(int i6 = 0; i6 < 3; i6++)
+				for(int i6 = 0; i6 < 3; i6++)
                 {
                     m.lxp[i6] = ai5[i6];
                     m.lyp[i6] = ai6[i6];
                 }
-
-            }
             int j6 = 1;
             byte byte0 = 1;
             byte byte1 = 1;
@@ -273,14 +253,14 @@ public class Plane
             if(av > m.fade[7] || av == 0)
             {
                 flag3 = false;
-                flag4 = true;
+                toofar = true;
             }
             if(l6 > 0 && av > 2500)
                 flag3 = false;
             if(l6 > 0 && av > 1000)
-                flag4 = true;
+                toofar = true;
             if(av > 2000)
-                flag4 = true;
+                toofar = true;
         }
         if(flag3)
         {
@@ -289,7 +269,7 @@ public class Plane
                 f = 1.0F;
             if((double)f < 0.5D || flag2)
                 f = 0.5F;
-            if(flag4)
+            if(toofar)
                 f = (float)((double)f * 0.90000000000000002D);
             new Color(c[0], c[1], c[2]);
             Color color = Color.getHSBColor(hsb[0], hsb[1], hsb[2] * f);
@@ -303,13 +283,36 @@ public class Plane
                     i7 = (i7 * 3 + m.cfade[1]) / 4;
                     k7 = (k7 * 3 + m.cfade[2]) / 4;
                 }
-
+            
             g.setColor(new Color(k6, i7, k7));
             g.fillPolygon(ai5, ai6, n);
         }
-        if(!flag4)
+        if(!toofar && !hidepoly)
         {
-            g.setColor(new Color(0, 0, 0));
+            int k6;
+            int i7;
+            int k7;
+        	if(m.lightson && light != 0)
+            {
+            	k6 = c[0];
+                if(k6 > 255)
+					k6 = 255;
+                if(k6 < 0)
+					k6 = 0;
+                i7 = c[1];
+                if(i7 > 255)
+					i7 = 255;
+                if(i7 < 0)
+					i7 = 0;
+                k7 = c[2];
+                if(k7 > 255)
+					k7 = 255;
+                if(k7 < 0)
+					k7 = 0;  
+                g.setColor(new Color(k6, i7, k7));
+            }
+        	else 
+        		g.setColor(new Color(0, 0, 0));
             g.drawPolygon(ai5, ai6, n);
         }
     }
@@ -425,16 +428,13 @@ public class Plane
     public void rot(int ai[], int ai1[], int i, int j, int k, int l)
     {
         if(k != 0)
-        {
-            for(int i1 = 0; i1 < l; i1++)
+			for(int i1 = 0; i1 < l; i1++)
             {
                 int j1 = ai[i1];
                 int k1 = ai1[i1];
                 ai[i1] = i + (int)((double)(j1 - i) * Math.cos((double)k * 0.017453292519943295D) - (double)(k1 - j) * Math.sin((double)k * 0.017453292519943295D));
                 ai1[i1] = j + (int)((double)(j1 - i) * Math.sin((double)k * 0.017453292519943295D) + (double)(k1 - j) * Math.cos((double)k * 0.017453292519943295D));
             }
-
-        }
     }
 
     public int spy(int i, int j)
@@ -450,6 +450,8 @@ public class Plane
     int c[];
     float hsb[];
     boolean glass;
+    boolean hidepoly;
+    byte light;
     int gr;
     int fs;
     int wx;
