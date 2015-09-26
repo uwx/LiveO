@@ -1,6 +1,7 @@
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Font;
+import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -19,6 +20,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JEditorPane;
 import javax.swing.JTextField;
+import javax.swing.text.JTextComponent;
 import javax.swing.JLabel;
 
 /*
@@ -40,6 +42,9 @@ public class TextEditor implements ActionListener {
 	private JTextField textField;
 	private JLabel lblFontSize;
 	private F51 f51;
+	private JButton btnMirrorXAxis;
+	private JButton btnMirrorYAxis;
+	private JButton btnMirrorZAxis;
 
 	// Creates the GUI
 	public TextEditor(F51 f51) {
@@ -78,6 +83,30 @@ public class TextEditor implements ActionListener {
 		});
 		buttonPanel.add(textField);
 		textField.setColumns(3);
+		
+		btnMirrorXAxis = new JButton("Mirror X Axis");
+		btnMirrorXAxis.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				mirror(3);
+			}
+		});
+		buttonPanel.add(btnMirrorXAxis);
+		
+		btnMirrorYAxis = new JButton("Mirror Y Axis");
+		btnMirrorYAxis.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				mirror(4);
+			}
+		});
+		buttonPanel.add(btnMirrorYAxis);
+		
+		btnMirrorZAxis = new JButton("Mirror Z Axis");
+		btnMirrorZAxis.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				mirror(5);
+			}
+		});
+		buttonPanel.add(btnMirrorZAxis);
 
 		saveButton.addActionListener(this);
 		loadButton.addActionListener(this);
@@ -127,6 +156,76 @@ public class TextEditor implements ActionListener {
 		}
 		
 		f51.remake();
+	}
+	
+	private void mirror(int axis) {
+		if (axis == 3 || axis == 4 || axis == 5) {
+			final String string = new StringBuilder().append("").append(text.getSelectedText()).append("\n")
+					.toString();
+			String output = "\n\n";
+			output = output + "// Mirror of the polygons above along the ";
+			if (axis == 3)
+				output = output + "X axis:";
+			if (axis == 4)
+				output = output + "Y axis:";
+			if (axis == 5)
+				output = output + "Z axis:";
+			output = new StringBuilder().append(output).append("\n\n").toString();
+			int i_200_ = 0;
+			int i_201_ = string.indexOf("\n", 0);
+			while (i_201_ != -1 && i_200_ < string.length()) {
+				String string_202_ = string.substring(i_200_, i_201_);
+				string_202_ = string_202_.trim();
+				i_200_ = i_201_ + 1;
+				i_201_ = string.indexOf("\n", i_200_);
+				if (string_202_.startsWith("fs(-"))
+					string_202_ = new StringBuilder().append("fs(")
+							.append(string_202_.substring(4, string_202_.length())).append("").toString();
+				else if (string_202_.startsWith("fs("))
+					string_202_ = new StringBuilder().append("fs(-")
+							.append(string_202_.substring(3, string_202_.length())).append("").toString();
+				if (axis == 3)
+					if (string_202_.startsWith("p(-"))
+						string_202_ = new StringBuilder().append("p(")
+								.append(string_202_.substring(3, string_202_.length())).append("").toString();
+					else if (string_202_.startsWith("p("))
+						string_202_ = new StringBuilder().append("p(-")
+								.append(string_202_.substring(2, string_202_.length())).append("").toString();
+				if (axis == 4 && string_202_.startsWith("p(")) {
+					final int i_203_ = string_202_.indexOf(",", 0);
+					if (i_203_ >= 0)
+						if (string_202_.startsWith(",-", i_203_))
+							string_202_ = new StringBuilder().append("")
+									.append(string_202_.substring(0, i_203_)).append(",")
+									.append(string_202_.substring(i_203_ + 2, string_202_.length())).append("")
+									.toString();
+						else if (string_202_.startsWith(",", i_203_))
+							string_202_ = new StringBuilder().append("")
+									.append(string_202_.substring(0, i_203_)).append(",-")
+									.append(string_202_.substring(i_203_ + 1, string_202_.length())).append("")
+									.toString();
+				}
+				if (axis == 5 && string_202_.startsWith("p(")) {
+					int i_204_ = string_202_.indexOf(",", 0);
+					i_204_ = string_202_.indexOf(",", i_204_ + 1);
+					if (i_204_ >= 0)
+						if (string_202_.startsWith(",-", i_204_))
+							string_202_ = new StringBuilder().append("")
+									.append(string_202_.substring(0, i_204_)).append(",")
+									.append(string_202_.substring(i_204_ + 2, string_202_.length())).append("")
+									.toString();
+						else if (string_202_.startsWith(",", i_204_))
+							string_202_ = new StringBuilder().append("")
+									.append(string_202_.substring(0, i_204_)).append(",-")
+									.append(string_202_.substring(i_204_ + 1, string_202_.length())).append("")
+									.toString();
+				}
+				output = new StringBuilder().append(output).append("").append(string_202_)
+						.append("\n").toString();
+			}
+			output = new StringBuilder().append(output).append("\n// End of mirror").toString();
+			text.insert(output, text.getSelectionEnd());
+		}
 	}
 
 	// Display a file chooser so the user can select a file to load.
