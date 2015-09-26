@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -18,6 +19,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.JToolBar;
+
+import org.fife.ui.rtextarea.*;
+import org.fife.ui.rsyntaxtextarea.*;
 
 /*
  * A simple Text Editor.  This demonstrates the use of a
@@ -34,18 +39,50 @@ public class TextEditor implements ActionListener {
 	private final JButton saveButton, loadButton, newButton;
 
 	// Area where the user does the editing
-	private final JTextArea text;
+	final RSyntaxTextArea text;
 	private final JTextField textField;
 	private final JLabel lblFontSize;
 	private final F51 f51;
-	private final JButton btnMirrorXAxis;
-	private final JButton btnMirrorYAxis;
-	private final JButton btnMirrorZAxis;
+	private final JButton btnMirrorXAxis, btnMirrorYAxis, btnMirrorZAxis, prevButton, nextButton;
+	private JButton btnShowSelection;
+	
+   private JTextField searchField;
+   private JCheckBox regexCB;
+   private JCheckBox matchCaseCB;
 
 	// Creates the GUI
-	public TextEditor(final F51 f51) {
+	public TextEditor(final F51 f51, final RunApp runapp) {
 		this.f51 = f51;
 		final JFrame frame = new JFrame("Editor");
+
+		text = new RSyntaxTextArea(NUM_ROWS, NUM_COLS);
+		text.setFont(new Font("Courier New", Font.PLAIN, fontsize));
+		final RTextScrollPane textScroller = new RTextScrollPane(text);
+		final Container contentPane = frame.getContentPane();
+		contentPane.add(textScroller, BorderLayout.CENTER);
+		
+		// Create a toolbar with searching options.
+		JPanel toolBar = new JPanel();
+		textScroller.setColumnHeaderView(toolBar);
+		searchField = new JTextField(30);
+		toolBar.add(searchField);
+		nextButton = new JButton("Find Next");
+		nextButton.setActionCommand("FindNext");
+		nextButton.addActionListener(this);
+		toolBar.add(nextButton);
+		searchField.addActionListener(new ActionListener() {
+		   public void actionPerformed(ActionEvent e) {
+		      nextButton.doClick(0);
+		   }
+		});
+		prevButton = new JButton("Find Previous");
+		prevButton.setActionCommand("FindPrev");
+		prevButton.addActionListener(this);
+		toolBar.add(prevButton);
+		regexCB = new JCheckBox("Regex");
+		toolBar.add(regexCB);
+		matchCaseCB = new JCheckBox("Match Case");
+		toolBar.add(matchCaseCB);
 		final JPanel buttonPanel = new JPanel();
 		saveButton = new JButton("Save");
 		loadButton = new JButton("Reload");
@@ -53,17 +90,11 @@ public class TextEditor implements ActionListener {
 		buttonPanel.add(saveButton);
 		buttonPanel.add(loadButton);
 		buttonPanel.add(newButton);
-
-		text = new JTextArea(NUM_ROWS, NUM_COLS);
-		text.setFont(new Font("Courier New", Font.PLAIN, fontsize));
-		final JScrollPane textScroller = new JScrollPane(text);
-		final Container contentPane = frame.getContentPane();
-		contentPane.add(textScroller, BorderLayout.CENTER);
 		contentPane.add(buttonPanel, BorderLayout.NORTH);
-
+		
 		lblFontSize = new JLabel("Font size");
 		buttonPanel.add(lblFontSize);
-
+		
 		textField = new JTextField();
 		textField.setToolTipText("Enter to apply");
 		textField.setText("24");
@@ -73,14 +104,14 @@ public class TextEditor implements ActionListener {
 				try {
 					final int fsize = Integer.parseInt(textField.getText());
 					text.setFont(new Font("Courier New", Font.PLAIN, fsize));
-				} catch (final Exception ex) {
-					JOptionPane.showMessageDialog(null, "Invalid number " + textField.getText());
+		} catch (final Exception ex) {
+			JOptionPane.showMessageDialog(null, "Invalid number " + textField.getText());
 				}
 			}
 		});
 		buttonPanel.add(textField);
 		textField.setColumns(3);
-
+		
 		btnMirrorXAxis = new JButton("Mirror X Axis");
 		btnMirrorXAxis.addActionListener(new ActionListener() {
 			@Override
@@ -89,7 +120,7 @@ public class TextEditor implements ActionListener {
 			}
 		});
 		buttonPanel.add(btnMirrorXAxis);
-
+		
 		btnMirrorYAxis = new JButton("Mirror Y Axis");
 		btnMirrorYAxis.addActionListener(new ActionListener() {
 			@Override
@@ -98,7 +129,7 @@ public class TextEditor implements ActionListener {
 			}
 		});
 		buttonPanel.add(btnMirrorYAxis);
-
+		
 		btnMirrorZAxis = new JButton("Mirror Z Axis");
 		btnMirrorZAxis.addActionListener(new ActionListener() {
 			@Override
@@ -107,10 +138,19 @@ public class TextEditor implements ActionListener {
 			}
 		});
 		buttonPanel.add(btnMirrorZAxis);
-
+		
+		btnShowSelection = new JButton("View Selection");
+		btnShowSelection.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				runapp.showSelectedPolygons(text.getText(), text.getSelectedText());
+			}
+		});
+		buttonPanel.add(btnShowSelection);
+		
 		saveButton.addActionListener(this);
 		loadButton.addActionListener(this);
 		newButton.addActionListener(this);
+
 
 		frame.pack();
 		frame.setVisible(true);
@@ -127,8 +167,31 @@ public class TextEditor implements ActionListener {
 			saveFile();
 		else if (event.getSource() == loadButton)
 			loadFile();
+		else if (event.getSource() == prevButton || event.getSource() == nextButton) {
+			String command = event.getActionCommand();
+			boolean forward = "FindNext".equals(command);
+			
+			// Create an object defining our search parameters.
+			SearchContext context = new SearchContext();
+			String text = searchField.getText();
+			if (text.length() == 0) {
+			   return;
+			}
+			context.setSearchFor(text);
+			context.setMatchCase(matchCaseCB.isSelected());
+			context.setRegularExpression(regexCB.isSelected());
+			context.setSearchForward(forward);
+			context.setWholeWord(false);
+			
+			boolean found = SearchEngine.find(this.text, context).wasFound();
+			if (!found) {
+			   JOptionPane.showMessageDialog(null, "Text not found");
+			}
+		}
 		else
 			newFile();
+		
+		
 	}
 
 	private void newFile() {

@@ -191,6 +191,181 @@ public class ContO {
 		p[npl - 1].imlast = true;
 	}
 
+	public ContO(final DataInputStream s, final Medium medium, final int i, final int j, final int k, final Applet applet) {
+		npl = 0;
+		x = 0;
+		y = 0;
+		z = 0;
+		xz = 0;
+		xy = 0;
+		zy = 0;
+		wxz = 0;
+		dist = 0;
+		maxR = 0;
+		disp = 0;
+		shadow = false;
+		stonecold = false;
+		loom = false;
+		grounded = 1;
+		colides = false;
+		rcol = 0;
+		pcol = 0;
+		track = -2;
+		out = false;
+		nhits = 0;
+		maxhits = -1;
+		grat = 0;
+		wire = false;
+		m = medium;
+		p = new Plane[0x186a0];
+		x = i;
+		y = j;
+		z = k;
+		boolean flag = false;
+		int l = 0;
+		float f = 1.0F;
+		final int ai[] = new int[350];
+		final int ai1[] = new int[350];
+		final int ai2[] = new int[350];
+		final int ai3[] = new int[3];
+		boolean flag1 = false;
+		final Wheels wheels = new Wheels();
+		int i1 = 1;
+		int j1 = 0;
+		
+        float f1 = 1.0F;
+        boolean hidepoly = false;
+        boolean randomcolor = false;
+        boolean randoutline = false;
+        byte light = 0;
+        
+        float nfmm_scale[] = {
+            1.0F, 1.0F, 1.0F
+        };
+		
+		try {
+			do {
+				String s1;
+				if ((s1 = s.readLine()) == null)
+					break;
+				final String s2 = (new StringBuilder()).append("").append(s1.trim()).toString();
+				if (s2.startsWith("<p>")) {
+					flag = true;
+					l = 0;
+					i1 = 0;
+					j1 = 0;
+					light = 0;
+					hidepoly = false;
+					randomcolor = false;
+					randoutline = false;
+				}
+				if (flag) {
+					if (s2.startsWith("gr"))
+						i1 = getvalue("gr", s2, 0);
+					if (s2.startsWith("fs"))
+						j1 = getvalue("fs", s2, 0);
+					if (s2.startsWith("glass"))
+						flag1 = true;
+					if (s2.startsWith("c")) {
+						if (flag1)
+							flag1 = false;
+						ai3[0] = getvalue("c", s2, 0);
+						ai3[1] = getvalue("c", s2, 1);
+						ai3[2] = getvalue("c", s2, 2);
+					}
+					if (s2.startsWith("p")) {
+						ai[l] = (int) ((int) (getvalue("p", s2, 0) * f * f1) * nfmm_scale[0]);
+						ai1[l] = (int) ((int) (getvalue("p", s2, 1) * f) * nfmm_scale[0]);
+						ai2[l] = (int) ((int) (getvalue("p", s2, 2) * f) * nfmm_scale[0]);
+						l++;
+					}
+                    if(s2.startsWith("random()") || s2.startsWith("rainbow()"))
+						randomcolor = true;
+                    if(s2.startsWith("randoutline()"))
+						randoutline = true;
+					if(s2.startsWith("lightF"))
+						light = 1;
+	                if(s2.startsWith("lightB"))
+						light = 2;
+	                if(s2.startsWith("light()"))
+						light = 1;
+	                if(s2.startsWith("noOutline()"))
+						hidepoly = true;
+				}
+				if (s2.startsWith("</p>")) {
+					p[npl] = new Plane(m, ai, ai2, ai1, l, ai3, flag1, i1, j1, 0, 0, light, hidepoly, randomcolor, randoutline);
+					npl++;
+					flag = false;
+				}
+				if (s2.startsWith("w"))
+					npl += wheels.make(applet, m, p, npl, (int) (getvalue("w", s2, 0) * f),
+							(int) (getvalue("w", s2, 1) * f), (int) (getvalue("w", s2, 2) * f), getvalue("w", s2, 3),
+							(int) (getvalue("w", s2, 4) * f), (int) (getvalue("w", s2, 5) * f),
+							(int) (getvalue("w", s2, 6) * f));
+				if (s2.startsWith("<track>"))
+					track = -1;
+				if (track == -1) {
+					if (s2.startsWith("c")) {
+						m.tr.c[m.tr.nt][0] = getvalue("c", s2, 0);
+						m.tr.c[m.tr.nt][1] = getvalue("c", s2, 1);
+						m.tr.c[m.tr.nt][2] = getvalue("c", s2, 2);
+					}
+					if (s2.startsWith("xy"))
+						m.tr.xy[m.tr.nt] = getvalue("xy", s2, 0);
+					if (s2.startsWith("zy"))
+						m.tr.zy[m.tr.nt] = getvalue("zy", s2, 0);
+					if (s2.startsWith("radx"))
+						m.tr.radx[m.tr.nt] = (int) (getvalue("radx", s2, 0) * f);
+					if (s2.startsWith("radz"))
+						m.tr.radz[m.tr.nt] = (int) (getvalue("radz", s2, 0) * f);
+				}
+				if (s2.startsWith("</track>")) {
+					track = m.tr.nt;
+					m.tr.nt++;
+				}
+				if (s2.startsWith("MaxRadius"))
+					maxR = (int) (getvalue("MaxRadius", s2, 0) * f);
+				if (s2.startsWith("disp"))
+					disp = getvalue("disp", s2, 0);
+				if (s2.startsWith("shadow"))
+					shadow = true;
+				if (s2.startsWith("loom"))
+					loom = true;
+				if (s2.startsWith("out"))
+					out = true;
+				if (s2.startsWith("hits"))
+					maxhits = getvalue("hits", s2, 0);
+				if (s2.startsWith("colid")) {
+					colides = true;
+					rcol = getvalue("colid", s2, 0);
+					pcol = getvalue("colid", s2, 1);
+				}
+				if (s2.startsWith("grounded"))
+					grounded = getvalue("grounded", s2, 0);
+				if (s2.startsWith("div"))
+					f = getvalue("div", s2, 0) / 10F;
+                if (s2.startsWith("idiv"))
+					f = (float)getvalue("idiv", s1, 0) / 100F;
+                if (s2.startsWith("iwid"))
+					f1 = (float)getvalue("iwid", s1, 0) / 100F;
+                if (s2.startsWith("ScaleX"))
+					nfmm_scale[0] = (float)getvalue("ScaleX", s1, 0) / 100F;
+                if (s2.startsWith("ScaleY"))
+					nfmm_scale[1] = (float)getvalue("ScaleY", s1, 0) / 100F;
+                if (s2.startsWith("ScaleZ"))
+					nfmm_scale[2] = (float)getvalue("ScaleZ", s1, 0) / 100F;
+                if (s2.startsWith("stonecold"))
+					stonecold = true;
+			} while (true);
+			s.close();
+		} catch (final Exception exception) {
+			exception.printStackTrace();
+		}
+		System.out.println((new StringBuilder()).append("polygantos: ").append(npl).toString());
+		grat = wheels.ground;
+		p[npl - 1].imlast = true;
+	}
+
 	public ContO(final Medium medium, final ContO conto, final int i, final int j, final int k) {
 		npl = 0;
 		x = 0;
