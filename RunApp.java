@@ -30,17 +30,13 @@ public class RunApp extends Panel implements KeyListener {
 	}
 	
 	public RunApp() {
+		
 		setLayout(new BorderLayout(0, 0));
 		
 		panel = new JPanel();
 		add(panel, BorderLayout.SOUTH);
         frame = new JFrame("LiveO");//Change this to the name of your preference
-        /*frame.addComponentListener(new ComponentAdapter() {
-        	@Override
-        	public void componentResized(ComponentEvent e) {
-        		
-        	}
-        });*/
+        
         frame.setBackground(new Color(0, 0, 0));
         frame.setIgnoreRepaint(true);
         frame.setIconImages(getIcons());
@@ -110,6 +106,20 @@ public class RunApp extends Panel implements KeyListener {
         		applet.o.xz += 25;
         	}
         });
+        
+        btnReset = new JButton("Reset");
+        btnReset.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+                applet.o.x = 350;
+                applet.o.y = 120;
+                applet.o.z = 800;
+                applet.o.xz = 0;
+                applet.o.xy = 0;
+                applet.o.zy = 0;
+                applet.o.wxz = 0;
+        	}
+        });
+        panel_1.add(btnReset);
         panel_1.add(button_2);
         
         button_3 = new JButton(">>");
@@ -126,6 +136,14 @@ public class RunApp extends Panel implements KeyListener {
         		applet.trans = !applet.trans;
         	}
         });
+        
+        btnAa = new JButton("AA");
+        btnAa.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		applet.aa = !applet.aa;
+        	}
+        });
+        panel_1.add(btnAa);
         btnTransGlass.setHorizontalAlignment(SwingConstants.RIGHT);
         panel_1.add(btnTransGlass);
         
@@ -169,6 +187,8 @@ public class RunApp extends Panel implements KeyListener {
         
         applet.init();
         applet.start();
+        
+		t = new TextEditor(applet);
 	}
 
     /**
@@ -178,19 +198,12 @@ public class RunApp extends Panel implements KeyListener {
 	static JFrame frame;
     static F51 applet;
     public static ArrayList<Image> icons;
-    private JButton button;
-    private JButton button_1;
-    private JButton button_2;
-    private JButton btnNewButton;
-    private JButton button_3;
-    private JButton btnTransGlass;
+    private JButton button, button_1, button_2, btnNewButton, button_3, btnTransGlass, btnAa, btnReset;
     private RefreshThread rt;
     private JCheckBox chckbxAutorefresh;
-    private JSlider slider;
-    private JPanel panel;
-    private JPanel panel_2;
-    private JPanel panel_1;
-    private JSlider slider_1;
+    private JSlider slider, slider_1;
+    private JPanel panel, panel_2, panel_1;
+    private TextEditor t;
 
     /**
     * Fetches icons of 16, 32 and 48 pixels from the 'data' folder.

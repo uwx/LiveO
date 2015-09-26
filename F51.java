@@ -4,15 +4,17 @@
 // Source File Name:   F51.java
 
 import java.applet.Applet;
-import java.applet.AudioClip;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 public class F51 extends Applet
     implements Runnable
 {
-    public F51()
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -765181569317530304L;
+	
+	public F51()
     {
         show3 = false;
         right = false;
@@ -25,21 +27,12 @@ public class F51 extends Applet
         rotr = false;
         plus = false;
         minus = false;
-    }
-
-    private AudioClip getSound(String s)
-    {
-        AudioClip audioclip = getAudioClip(getCodeBase(), s);
-        audioclip.play();
-        Thread.yield();
-        audioclip.stop();
-        return audioclip;
+        aa = false;
     }
 
     public void init()
     {
-        //Dimension dimension = getSize();
-        offImage = createImage(700, 460);
+        offImage = createImage(700, 475);
         if(offImage != null)
             rd = offImage.getGraphics();
     }
@@ -170,6 +163,10 @@ public class F51 extends Applet
                 o.z += 10;
             if(out)
                 o.z -= 10;
+            if(aa)
+            	((Graphics2D)rd).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            else
+            	((Graphics2D)rd).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
             rd.setColor(new Color(0, 0, 0));
             repaint();
             try
@@ -214,11 +211,12 @@ public class F51 extends Applet
     {
         paint(g);
     }
-
+    
     Graphics rd;
     Image offImage;
     Thread gamer;
     ContO o;
+    boolean aa;
     boolean right;
     boolean left;
     boolean up;
