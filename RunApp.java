@@ -8,6 +8,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.ByteArrayInputStream;
+import java.io.DataInputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
@@ -198,7 +201,7 @@ public class RunApp extends Panel {
 																	// here
 		applet.setStub(new DesktopStub());
 
-		t = new TextEditor(applet);
+		t = new TextEditor(applet, this);
 		chckbxAutorefresh.addActionListener(new ActionListener() {
 			@Override
 			@SuppressWarnings("deprecation")
@@ -224,6 +227,63 @@ public class RunApp extends Panel {
 		frame.setVisible(true);
 		applet.init();
 		applet.start();
+	}
+	
+	public void showSelectedPolygons(final String benis, final String selection) {
+		final int storeowxz = applet.o.wxz;
+		final int storeoxz = applet.o.xz;
+		final int storeoxy = applet.o.xy;
+		final int storeozy = applet.o.zy;
+		final int storeoy = applet.o.y;
+		final int storeoz = applet.o.z;
+		
+		final String[] benis2 = benis.split("\\r\\n");
+		
+		int benis_scalez = 0;
+		int benis_scalex = 0;
+		int benis_scaley = 0;
+		int benis_div = 0;
+		int benis_idiv = 0;
+		int benis_iwid = 0;
+
+		for (int i = 0; i < benis2.length; i++) {
+			if (benis2[i].startsWith("div"))
+				benis_div = applet.o.getvalue("div", benis2[i], 0);
+			if (benis2[i].startsWith("iwid"))
+				benis_iwid = applet.o.getvalue("iwid", benis2[i], 0);
+			if (benis2[i].startsWith("idiv"))
+				benis_idiv = applet.o.getvalue("idiv", benis2[i], 0);
+			if (benis2[i].startsWith("ScaleZ"))
+				benis_scalez = applet.o.getvalue("ScaleZ", benis2[i], 0);
+			if (benis2[i].startsWith("ScaleX"))
+				benis_scalex = applet.o.getvalue("ScaleX", benis2[i], 0);
+			if (benis2[i].startsWith("ScaleY"))
+				benis_scaley = applet.o.getvalue("ScaleY", benis2[i], 0);
+		}
+		
+		String realselection = "MaxRadius(300)";
+		if (benis_scalez != 0)
+			realselection = realselection + "\r\n" + benis_scalez;
+		if (benis_scalex != 0)
+			realselection = realselection + "\r\n" + benis_scalex;
+		if (benis_scaley != 0)
+			realselection = realselection + "\r\n" + benis_scaley;
+		if (benis_div != 0)
+			realselection = realselection + "\r\n" + benis_div;
+		if (benis_iwid != 0)
+			realselection = realselection + "\r\n" + benis_iwid;
+		if (benis_idiv != 0)
+			realselection = realselection + "\r\n" + benis_idiv;
+		realselection = realselection + "\r\n" + selection;
+		
+		DataInputStream stream = new DataInputStream(new ByteArrayInputStream(realselection.getBytes(/*StandardCharsets.UTF_8*/)));
+		applet.o = new ContO(stream, applet.medium, 350, 150, 600, applet);
+		applet.o.wxz = storeowxz;
+		applet.o.xz = storeoxz;
+		applet.o.xy = storeoxy;
+		applet.o.zy = storeozy;
+		applet.o.y = storeoy;
+		applet.o.z = storeoz;
 	}
 
 	/**
