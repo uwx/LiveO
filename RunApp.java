@@ -178,6 +178,14 @@ public class RunApp extends Panel {
 				applet.aa = !applet.aa;
 			}
 		});
+		
+		btnLights = new JButton("Lights");
+		btnLights.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				applet.medium.lightson = !applet.medium.lightson;
+			}
+		});
+		panel_1.add(btnLights);
 
 		chckbxAutorefresh = new JCheckBox("Auto-refresh");
 		panel_1.add(chckbxAutorefresh);
@@ -232,6 +240,7 @@ public class RunApp extends Panel {
 	private final JPanel panel, panel_2, panel_1;
 	private final TextEditor t;
 	private final JPanel panel_3;
+	private JButton btnLights;
 
 	/**
 	 * Fetches icons of 16, 32 and 48 pixels from the 'data' folder.
