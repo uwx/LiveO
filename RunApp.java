@@ -30,6 +30,7 @@ public class RunApp extends Panel {
 		public void run() {
 			while (true) {
 				applet.remake();
+				t.countPolys();
 				System.out.println("autorefresh'd!");
 				try {
 					sleep(1000L);
@@ -99,6 +100,7 @@ public class RunApp extends Panel {
 			@Override
 			public void actionPerformed(final ActionEvent e) {
 				applet.remake();
+				t.countPolys();
 			}
 		});
 
@@ -193,6 +195,7 @@ public class RunApp extends Panel {
 		chckbxAutorefresh = new JCheckBox("Auto-refresh");
 		panel_1.add(chckbxAutorefresh);
 		applet = new F51();
+		t = new TextEditor(applet, this);
 		panel_3.add(applet, BorderLayout.CENTER);
 		applet.setPreferredSize(new java.awt.Dimension(700, 475));// The
 																	// resolution
@@ -201,7 +204,6 @@ public class RunApp extends Panel {
 																	// here
 		applet.setStub(new DesktopStub());
 
-		t = new TextEditor(applet, this);
 		chckbxAutorefresh.addActionListener(new ActionListener() {
 			@Override
 			@SuppressWarnings("deprecation")
@@ -227,6 +229,7 @@ public class RunApp extends Panel {
 		frame.setVisible(true);
 		applet.init();
 		applet.start();
+		//t.countPolys();
 	}
 	
 	public void showSelectedPolygons(final String benis, final String selection) {
