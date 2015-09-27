@@ -9,6 +9,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.StringReader;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -230,7 +231,7 @@ public class TextEditor implements ActionListener {
 		panel = new JPanel();
 		frame.getContentPane().add(panel, BorderLayout.SOUTH);
 		
-		lblPolys = new JLabel("0 Polys");
+		lblPolys = new JLabel("0 Polys, 0 Points");
 		panel.add(lblPolys);
 		
 		saveButton.addActionListener(saveAction);
@@ -242,6 +243,7 @@ public class TextEditor implements ActionListener {
 		frame.setVisible(true);
 
 		loadFile();
+		countPolys();
 	}
 
 	// Listener for button clicks that loads the
@@ -273,9 +275,26 @@ public class TextEditor implements ActionListener {
 	}
 	
 	public void countPolys() {
-		if (f51.o != null) {
-			lblPolys.setText("" + f51.o.npl + " Polys");
-			System.out.println(f51.o.npl);
+		int polys = 0;
+		int points = 0;
+		boolean flag = false;
+		try {
+			BufferedReader reader = new BufferedReader(new StringReader(text.getText()));
+			String benis2 = reader.readLine();
+			while (benis2 != null) {
+				if (benis2.startsWith("<p>"))
+					flag = true;
+				if (benis2.startsWith("</p>") && flag) {
+					flag = false;
+					polys++;
+				}
+				if (benis2.startsWith("p("))
+					points++;
+				benis2 = reader.readLine();
+			}
+			
+		} catch (IOException e) {} finally {
+			lblPolys.setText("" + polys + " Polys, " + points + " Points");
 		}
 	}
 

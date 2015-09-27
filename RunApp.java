@@ -8,8 +8,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
+import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
@@ -17,6 +19,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.SwingConstants;
@@ -232,61 +235,80 @@ public class RunApp extends Panel {
 		//t.countPolys();
 	}
 	
+	boolean show = false;
+	ContO storeo;
+	
 	public void showSelectedPolygons(final String benis, final String selection) {
-		final int storeowxz = applet.o.wxz;
-		final int storeoxz = applet.o.xz;
-		final int storeoxy = applet.o.xy;
-		final int storeozy = applet.o.zy;
-		final int storeoy = applet.o.y;
-		final int storeoz = applet.o.z;
-		
-		final String[] benis2 = benis.split("\\r\\n");
-		
-		int benis_scalez = 0;
-		int benis_scalex = 0;
-		int benis_scaley = 0;
-		int benis_div = 0;
-		int benis_idiv = 0;
-		int benis_iwid = 0;
+		try {
+			if (!show) {
+				show = true;
+				storeo = applet.o;
+				
+				int benis_scalez = 0;
+				int benis_scalex = 0;
+				int benis_scaley = 0;
+				int benis_div = 0;
+				int benis_idiv = 0;
+				int benis_iwid = 0;
 
-		for (int i = 0; i < benis2.length; i++) {
-			if (benis2[i].startsWith("div"))
-				benis_div = applet.o.getvalue("div", benis2[i], 0);
-			if (benis2[i].startsWith("iwid"))
-				benis_iwid = applet.o.getvalue("iwid", benis2[i], 0);
-			if (benis2[i].startsWith("idiv"))
-				benis_idiv = applet.o.getvalue("idiv", benis2[i], 0);
-			if (benis2[i].startsWith("ScaleZ"))
-				benis_scalez = applet.o.getvalue("ScaleZ", benis2[i], 0);
-			if (benis2[i].startsWith("ScaleX"))
-				benis_scalex = applet.o.getvalue("ScaleX", benis2[i], 0);
-			if (benis2[i].startsWith("ScaleY"))
-				benis_scaley = applet.o.getvalue("ScaleY", benis2[i], 0);
+				BufferedReader reader = new BufferedReader(new StringReader(benis));
+				String benis2 = reader.readLine();
+				
+				while(benis2 != null) {
+					benis2 = benis2.trim();
+					System.out.println(benis2.startsWith("div"));
+					if (benis2.startsWith("div"))
+						benis_div = applet.o.getvalue("div", benis2, 0);
+					if (benis2.startsWith("iwid"))
+						benis_iwid = applet.o.getvalue("iwid", benis2, 0);
+					if (benis2.startsWith("idiv"))
+						benis_idiv = applet.o.getvalue("idiv", benis2, 0);
+					if (benis2.startsWith("ScaleZ"))
+						benis_scalez = applet.o.getvalue("ScaleZ", benis2, 0);
+					if (benis2.startsWith("ScaleX"))
+						benis_scalex = applet.o.getvalue("ScaleX", benis2, 0);
+					if (benis2.startsWith("ScaleY"))
+						benis_scaley = applet.o.getvalue("ScaleY", benis2, 0);
+					benis2 = reader.readLine();
+				}
+				reader.close();
+				
+				//System.out.println(benis_div);
+				//System.out.println(selection);
+				
+				String realselection = "MaxRadius(300)";
+				if (benis_scalez != 0)
+					realselection = realselection + "\r\n" + "ScaleZ(" + benis_scalez + ")";
+				if (benis_scalex != 0)
+					realselection = realselection + "\r\n" + "ScaleX(" + benis_scalex + ")";
+				if (benis_scaley != 0)
+					realselection = realselection + "\r\n" + "ScaleY(" + benis_scaley + ")";
+				if (benis_div != 0)
+					realselection = realselection + "\r\n" + "div(" + benis_div + ")";
+				if (benis_iwid != 0)
+					realselection = realselection + "\r\n" + "iwid(" + benis_iwid + ")";
+				if (benis_idiv != 0)
+					realselection = realselection + "\r\n" + "idiv(" + benis_idiv + ")";
+				//System.out.println(realselection);
+				realselection = realselection + "\r\n" + selection;
+				//System.out.println(realselection);
+				
+				DataInputStream stream = new DataInputStream(new ByteArrayInputStream(realselection.getBytes(/*StandardCharsets.UTF_8*/)));
+				applet.o = new ContO(stream, applet.medium, 350, 150, 600, applet);
+				applet.o.wxz = storeo.wxz;
+				applet.o.xz = storeo.xz;
+				applet.o.xy = storeo.xy;
+				applet.o.zy = storeo.zy;
+				applet.o.y = storeo.y;
+				applet.o.z = storeo.z;
+			} else {
+				show = false;
+				applet.o = storeo;
+				storeo = null;
+			}
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Could not show selected polygons! Error:\r\n\r\n" + e);
 		}
-		
-		String realselection = "MaxRadius(300)";
-		if (benis_scalez != 0)
-			realselection = realselection + "\r\n" + benis_scalez;
-		if (benis_scalex != 0)
-			realselection = realselection + "\r\n" + benis_scalex;
-		if (benis_scaley != 0)
-			realselection = realselection + "\r\n" + benis_scaley;
-		if (benis_div != 0)
-			realselection = realselection + "\r\n" + benis_div;
-		if (benis_iwid != 0)
-			realselection = realselection + "\r\n" + benis_iwid;
-		if (benis_idiv != 0)
-			realselection = realselection + "\r\n" + benis_idiv;
-		realselection = realselection + "\r\n" + selection;
-		
-		DataInputStream stream = new DataInputStream(new ByteArrayInputStream(realselection.getBytes(/*StandardCharsets.UTF_8*/)));
-		applet.o = new ContO(stream, applet.medium, 350, 150, 600, applet);
-		applet.o.wxz = storeowxz;
-		applet.o.xz = storeoxz;
-		applet.o.xy = storeoxy;
-		applet.o.zy = storeozy;
-		applet.o.y = storeoy;
-		applet.o.z = storeoz;
 	}
 
 	/**
