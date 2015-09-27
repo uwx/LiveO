@@ -8,10 +8,7 @@ import java.applet.Applet;
 import java.awt.AlphaComposite;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.io.BufferedReader;
 import java.io.DataInputStream;
-import java.io.InputStreamReader;
-import java.io.StringReader;
 import java.net.URL;
 
 public class ContO {
@@ -74,8 +71,7 @@ public class ContO {
 			final DataInputStream datainputstream = new DataInputStream(url.openStream());
 			do {
 				String s1;
-				BufferedReader reader = new BufferedReader(new InputStreamReader(datainputstream));
-				if ((s1 = reader.readLine()) == null)
+				if ((s1 = datainputstream.readLine()) == null)
 					break;
 				final String s2 = (new StringBuilder()).append("").append(s1.trim()).toString();
 				if (s2.startsWith("<p>")) {
@@ -250,8 +246,7 @@ public class ContO {
 		try {
 			do {
 				String s1;
-				BufferedReader reader = new BufferedReader(new InputStreamReader(s));
-				if ((s1 = reader.readLine()) == null)
+				if ((s1 = s.readLine()) == null)
 					break;
 				final String s2 = (new StringBuilder()).append("").append(s1.trim()).toString();
 				if (s2.startsWith("<p>")) {
