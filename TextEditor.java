@@ -244,6 +244,7 @@ public class TextEditor implements ActionListener {
 
 		loadFile();
 		countPolys();
+		getRadius();
 	}
 
 	// Listener for button clicks that loads the
@@ -272,6 +273,122 @@ public class TextEditor implements ActionListener {
 			   JOptionPane.showMessageDialog(null, "Text not found");
 			}
 		}
+	}
+	
+	public void getRadius() {
+		int maxX = 0;
+		int maxY = 0;
+		int maxZ = 0;
+		int minX = 0;
+		int minY = 0;
+		int minZ = 0;
+		try {
+			BufferedReader reader = new BufferedReader(new StringReader(text.getText()));
+			String benis2 = reader.readLine();
+			while (benis2 != null) {
+				if (benis2.startsWith("p(")) {
+					int curX = getvalue("p", benis2, 0);
+					if (curX > maxX)
+						maxX = curX;
+					if (curX < minX)
+						minX = curX;
+					int curY = getvalue("p", benis2, 1);
+					if (curY > maxY)
+						maxY = curY;
+					if (curY < minY)
+						minY = curY;
+					int curZ = getvalue("p", benis2, 2);
+					if (curZ > maxZ)
+						maxZ = curZ;
+					if (curZ < minZ)
+						minZ = curZ;
+				}
+				benis2 = reader.readLine();
+			}
+			
+		} catch (IOException e) {} finally {
+			text.setText("max(" + 
+						 maxX + "," + maxY + "," + maxZ + ")\r\n" + 
+						 "min(" + 
+						 minX + "," + minY + "," + minZ + ")\r\n" + 
+						 text.getText()
+						 );
+			System.out.println("maxX " + maxX);
+			System.out.println("maxY " + maxY);
+			System.out.println("maxZ " + maxZ);
+			System.out.println("minX " + minX);
+			System.out.println("minY " + minY);
+			System.out.println("minZ " + minZ);
+		}
+	}
+	
+	public void getSelectedRadius() {
+		int maxX = 0;
+		int maxY = 0;
+		int maxZ = 0;
+		int minX = 0;
+		int minY = 0;
+		int minZ = 0;
+		try {
+			BufferedReader reader = new BufferedReader(new StringReader(text.getSelectedText()));
+			String benis2 = reader.readLine();
+			while (benis2 != null) {
+				if (benis2.startsWith("p(")) {
+					int curX = getvalue("p", benis2, 0);
+					if (curX > maxX)
+						maxX = curX;
+					if (curX < minX)
+						minX = curX;
+					int curY = getvalue("p", benis2, 1);
+					if (curY > maxY)
+						maxY = curY;
+					if (curY < minY)
+						minY = curY;
+					int curZ = getvalue("p", benis2, 2);
+					if (curZ > maxZ)
+						maxZ = curZ;
+					if (curZ < minZ)
+						minZ = curZ;
+				}
+				benis2 = reader.readLine();
+			}
+			
+		} catch (IOException e) {} finally {
+			text.setText("max (selection) (" + 
+						 maxX + "," + maxY + "," + maxZ + ")\r\n" + 
+						 "min (selection) (" + 
+						 minX + "," + minY + "," + minZ + ")\r\n" + 
+						 text.getText()
+						 );
+			JOptionPane.showMessageDialog(null, "maxX: " + maxX);
+			JOptionPane.showMessageDialog(null, "maxY: " + maxY);
+			JOptionPane.showMessageDialog(null, "maxZ: " + maxZ);
+			JOptionPane.showMessageDialog(null, "minX: " + minX);
+			JOptionPane.showMessageDialog(null, "minY: " + minY);
+			JOptionPane.showMessageDialog(null, "minZ: " + minZ);
+			System.out.println("maxX " + maxX);
+			System.out.println("maxY " + maxY);
+			System.out.println("maxZ " + maxZ);
+			System.out.println("minX " + minX);
+			System.out.println("minY " + minY);
+			System.out.println("minZ " + minZ);
+		}
+	}
+	
+	public int getvalue(final String s, final String s1, final int i) {
+		int k = 0;
+		String s3 = "";
+		for (int j = s.length() + 1; j < s1.length(); j++) {
+			final String s2 = (new StringBuilder()).append("").append(s1.charAt(j)).toString();
+			if (s2.equals(",") || s2.equals(")")) {
+				k++;
+				j++;
+			}
+			if (k == i)
+				s3 = (new StringBuilder()).append(s3).append(s1.charAt(j)).toString();
+		}
+
+		return Integer.valueOf(s3).intValue();
 	}
 	
 	public void countPolys() {
