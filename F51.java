@@ -156,10 +156,10 @@ public class F51 extends Applet implements Runnable {
 				o.zy -= 5;
 			if (down)
 				o.zy += 5;
-			//if (plus)
-			//	o.y += 5;
-			//if (minus)
-			//	o.y -= 5;
+			if (plus)
+				o.y += 5;
+			if (minus)
+				o.y -= 5;
 			if (in)
 				o.z += 10;
 			if (out)

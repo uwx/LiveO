@@ -6,16 +6,24 @@ import java.awt.Panel;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
+import java.io.File;
+import java.io.IOException;
 import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BoxLayout;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
@@ -25,6 +33,9 @@ import javax.swing.JSlider;
 import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.JComboBox;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
 
 public class RunApp extends Panel {
 
@@ -186,7 +197,7 @@ public class RunApp extends Panel {
 				applet.aa = !applet.aa;
 			}
 		});
-		
+
 		btnLights = new JButton("Lights");
 		btnLights.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -206,6 +217,30 @@ public class RunApp extends Panel {
 																	// game goes
 																	// here
 		applet.setStub(new DesktopStub());
+
+		panel_4 = new JPanel();
+		panel_3.add(panel_4, BorderLayout.NORTH);
+
+		List<File> dong = new ArrayList<File>();
+		try {
+			Files.walk(Paths.get("./wheels/")).forEach(filePath -> {
+			    if (Files.isRegularFile(filePath)) {
+			    	dong.add(filePath.toFile());
+			    }
+			});
+		} catch (IOException e1) {
+		}
+		File[] fArray = new File[dong.size()];
+		fArray = dong.toArray(fArray);
+		String[] sArray = new String[dong.size()];
+		for (int i = 0; i < fArray.length; i++)
+		{
+			sArray[i] = fArray[i].getName();
+		}
+
+		comboBox = new JComboBox<String>();
+		comboBox.setModel(new DefaultComboBoxModel<String>(sArray));
+		panel_4.add(comboBox);
 
 		chckbxAutorefresh.addActionListener(new ActionListener() {
 			@Override
@@ -233,17 +268,30 @@ public class RunApp extends Panel {
 		applet.init();
 		applet.start();
 		//t.countPolys();
+		comboBox.addItemListener (new ItemListener () {
+
+			@Override
+			public void itemStateChanged(ItemEvent event) {
+				if (event.getStateChange() == ItemEvent.SELECTED) {
+			          String item = (String) event.getItem();
+			          Wheels.wheelfile = item;
+			          applet.remake();
+			          t.countPolys();
+			          System.out.println("autorefresh'd!");
+			    }
+			}
+		});
 	}
-	
+
 	boolean show = false;
 	ContO storeo;
-	
+
 	public void showSelectedPolygons(final String benis, final String selection) {
 		try {
 			if (!show) {
 				show = true;
 				storeo = applet.o;
-				
+
 				int benis_scalez = 0;
 				int benis_scalex = 0;
 				int benis_scaley = 0;
@@ -253,7 +301,7 @@ public class RunApp extends Panel {
 
 				BufferedReader reader = new BufferedReader(new StringReader(benis));
 				String benis2 = reader.readLine();
-				
+
 				while(benis2 != null) {
 					benis2 = benis2.trim();
 					System.out.println(benis2.startsWith("div"));
@@ -272,10 +320,10 @@ public class RunApp extends Panel {
 					benis2 = reader.readLine();
 				}
 				reader.close();
-				
+
 				//System.out.println(benis_div);
 				//System.out.println(selection);
-				
+
 				String realselection = "MaxRadius(300)";
 				if (benis_scalez != 0)
 					realselection = realselection + "\r\n" + "ScaleZ(" + benis_scalez + ")";
@@ -292,7 +340,7 @@ public class RunApp extends Panel {
 				//System.out.println(realselection);
 				realselection = realselection + "\r\n" + selection;
 				//System.out.println(realselection);
-				
+
 				DataInputStream stream = new DataInputStream(new ByteArrayInputStream(realselection.getBytes(/*StandardCharsets.UTF_8*/)));
 				applet.o = new ContO(stream, applet.medium, 350, 150, 600, applet);
 				applet.o.wxz = storeo.wxz;
@@ -326,6 +374,8 @@ public class RunApp extends Panel {
 	private final TextEditor t;
 	private final JPanel panel_3;
 	private JButton btnLights;
+	private JPanel panel_4;
+	private JComboBox<String> comboBox;
 
 	/**
 	 * Fetches icons of 16, 32 and 48 pixels from the 'data' folder.
