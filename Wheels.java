@@ -11,6 +11,8 @@ import java.net.URL;
 
 public class Wheels {
 
+	static String wheelfile = "449s.rad";
+
 	public Wheels() {
 		ground = 0;
 	}
@@ -25,7 +27,7 @@ public class Wheels {
 			l1 = (int) (j + 4F * f);
 		try {
 			final BufferedReader br = new BufferedReader(
-					new InputStreamReader((new URL(applet.getCodeBase(), "wheel.rad")).openStream()));
+					new InputStreamReader((new URL(applet.getCodeBase(), "wheels/" + wheelfile)).openStream()));
 			final int tmx[] = new int[100];
 			final int tmy[] = new int[100];
 			final int tmz[] = new int[100];
