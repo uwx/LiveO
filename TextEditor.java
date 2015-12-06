@@ -260,7 +260,8 @@ public class TextEditor implements ActionListener {
 				else {
 					System.out.println("You chose " + files[0]);
 					F51.contofile = files[0];
-			        runapp.refresh();
+					RunApp.applet.remake();
+					countPolys();
 			        loadFile();
 				}
 			}
@@ -1261,6 +1262,8 @@ public class TextEditor implements ActionListener {
 			output = new StringBuilder().append(output).append("\n// End of mirror").toString();
 			text.insert(output, text.getSelectionEnd());
 		}
+		RunApp.applet.remake();
+		countPolys();
 	}
 
 	// Display a file chooser so the user can select a file to load.

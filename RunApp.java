@@ -55,11 +55,6 @@ public class RunApp extends Panel {
 		}
 	}
 
-	public void refresh() {
-		applet.remake();
-		t.countPolys();
-	}
-
 	public RunApp() {
 
 		setLayout(new BorderLayout(0, 0));
