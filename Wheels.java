@@ -5,6 +5,7 @@
 // Source File Name:   Wheels.java
 
 import java.applet.Applet;
+import java.awt.BasicStroke;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -59,7 +60,7 @@ public class Wheels {
 						color[1] = (int) getValue(line, 1);
 						color[2] = (int) getValue(line, 2);
 					} else if (line.equals("</p>")) {
-						aplane[i] = new Plane(medium, tmx, tmz, tmy, npts, color, false, gr, l1, j, l, (byte)0, false, false, false);
+						aplane[i] = new Plane(medium, tmx, tmz, tmy, npts, color, false, gr, l1, j, l, (byte)0, false, false, false, false, 1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10);
 						i++;
 						npts = 0;
 						gr = 0;

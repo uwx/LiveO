@@ -6,6 +6,7 @@
 
 import java.applet.Applet;
 import java.awt.AlphaComposite;
+import java.awt.BasicStroke;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.io.DataInputStream;
@@ -61,6 +62,12 @@ public class ContO {
         boolean randoutline = false;
         byte light = 0;
 
+        boolean customstroke = false;
+        int strokewidth = 1;
+        int strokecap = BasicStroke.CAP_BUTT;
+        int strokejoin = BasicStroke.JOIN_MITER;
+        int strokemtlimit = 10;
+
         float nfmm_scale[] = {
             1.0F, 1.0F, 1.0F
         };
@@ -85,20 +92,20 @@ public class ContO {
 					randoutline = false;
 				}
 				if (flag) {
-					if (s2.startsWith("gr"))
+					if (s2.startsWith("gr("))
 						i1 = getvalue("gr", s2, 0);
-					if (s2.startsWith("fs"))
+					if (s2.startsWith("fs("))
 						j1 = getvalue("fs", s2, 0);
 					if (s2.startsWith("glass"))
 						flag1 = true;
-					if (s2.startsWith("c")) {
+					if (s2.startsWith("c(")) {
 						if (flag1)
 							flag1 = false;
 						ai3[0] = getvalue("c", s2, 0);
 						ai3[1] = getvalue("c", s2, 1);
 						ai3[2] = getvalue("c", s2, 2);
 					}
-					if (s2.startsWith("p")) {
+					if (s2.startsWith("p(")) {
 						ai[l] = (int) ((int) (getvalue("p", s2, 0) * f * f1) * nfmm_scale[0]);
 						ai1[l] = (int) ((int) (getvalue("p", s2, 1) * f) * nfmm_scale[1]);
 						ai2[l] = (int) ((int) (getvalue("p", s2, 2) * f) * nfmm_scale[2]);
@@ -116,9 +123,33 @@ public class ContO {
 						light = 1;
 	                if(s2.startsWith("noOutline()"))
 						hidepoly = true;
+	                if(s2.startsWith("customOutline"))
+	                	customstroke = true;
+	                if(s2.startsWith("outlineW("))
+	                	strokewidth = getvalue("outlineW", s2, 0);
+	                if(s2.startsWith("outlineCap(")) {
+		                if(s2.startsWith("outlineCap(butt)"))
+		                	strokecap = BasicStroke.CAP_BUTT;
+		                if(s2.startsWith("outlineCap(round)"))
+		                	strokecap = BasicStroke.CAP_ROUND;
+		                if(s2.startsWith("outlineCap(square)"))
+		                	strokecap = BasicStroke.CAP_SQUARE;
+	                }
+	                if(s2.startsWith("outlineJoin(")) {
+		                if(s2.startsWith("outlineCap(bevel)"))
+		                	strokejoin = BasicStroke.JOIN_BEVEL;
+		                if(s2.startsWith("outlineCap(miter)"))
+		                	strokejoin = BasicStroke.JOIN_MITER;
+		                if(s2.startsWith("outlineCap(round)"))
+		                	strokejoin = BasicStroke.JOIN_ROUND;
+	                }
+	                if(s2.startsWith("outlineMtlimit("))
+	                	strokemtlimit = getvalue("outlineW", s2, 0);
+
+
 				}
 				if (s2.startsWith("</p>")) {
-					p[npl] = new Plane(m, ai, ai2, ai1, l, ai3, flag1, i1, j1, 0, 0, light, hidepoly, randomcolor, randoutline);
+					p[npl] = new Plane(m, ai, ai2, ai1, l, ai3, flag1, i1, j1, 0, 0, light, hidepoly, randomcolor, randoutline, customstroke, strokewidth, strokecap, strokejoin, strokemtlimit);
 					npl++;
 					flag = false;
 				}
@@ -241,6 +272,12 @@ public class ContO {
         boolean randoutline = false;
         byte light = 0;
 
+        boolean customstroke = false;
+        int strokewidth = 1;
+        int strokecap = BasicStroke.CAP_BUTT;
+        int strokejoin = BasicStroke.JOIN_MITER;
+        int strokemtlimit = 10;
+
         float nfmm_scale[] = {
             1.0F, 1.0F, 1.0F
         };
@@ -293,9 +330,31 @@ public class ContO {
 						light = 1;
 	                if(s2.startsWith("noOutline()"))
 						hidepoly = true;
+	                if(s2.startsWith("customOutline"))
+	                	customstroke = true;
+	                if(s2.startsWith("outlineW("))
+	                	strokewidth = getvalue("outlineW", s2, 0);
+	                if(s2.startsWith("outlineCap(")) {
+		                if(s2.startsWith("outlineCap(butt)"))
+		                	strokecap = BasicStroke.CAP_BUTT;
+		                if(s2.startsWith("outlineCap(round)"))
+		                	strokecap = BasicStroke.CAP_ROUND;
+		                if(s2.startsWith("outlineCap(square)"))
+		                	strokecap = BasicStroke.CAP_SQUARE;
+	                }
+	                if(s2.startsWith("outlineJoin(")) {
+		                if(s2.startsWith("outlineCap(bevel)"))
+		                	strokejoin = BasicStroke.JOIN_BEVEL;
+		                if(s2.startsWith("outlineCap(miter)"))
+		                	strokejoin = BasicStroke.JOIN_MITER;
+		                if(s2.startsWith("outlineCap(round)"))
+		                	strokejoin = BasicStroke.JOIN_ROUND;
+	                }
+	                if(s2.startsWith("outlineMtlimit("))
+	                	strokemtlimit = getvalue("outlineW", s2, 0);
 				}
 				if (s2.startsWith("</p>")) {
-					p[npl] = new Plane(m, ai, ai2, ai1, l, ai3, flag1, i1, j1, 0, 0, light, hidepoly, randomcolor, randoutline);
+					p[npl] = new Plane(m, ai, ai2, ai1, l, ai3, flag1, i1, j1, 0, 0, light, hidepoly, randomcolor, randoutline, customstroke, strokewidth, strokecap, strokejoin, strokemtlimit);
 					npl++;
 					flag = false;
 				}
@@ -411,7 +470,7 @@ public class ContO {
 		z = k;
 		for (int l = 0; l < npl; l++)
 			p[l] = new Plane(m, conto.p[l].ox, conto.p[l].oz, conto.p[l].oy, conto.p[l].n, conto.p[l].c,
-					conto.p[l].glass, conto.p[l].gr, conto.p[l].fs, conto.p[l].wx, conto.p[l].wz, conto.p[l].light, conto.p[l].hidepoly, conto.p[l].randomcolor, conto.p[l].randoutline);
+					conto.p[l].glass, conto.p[l].gr, conto.p[l].fs, conto.p[l].wx, conto.p[l].wz, conto.p[l].light, conto.p[l].hidepoly, conto.p[l].randomcolor, conto.p[l].randoutline, conto.p[l].customstroke, conto.p[l].strokewidth, conto.p[l].strokecap, conto.p[l].strokejoin, conto.p[l].strokemtlimit);
 
 	}
 
@@ -459,7 +518,7 @@ public class ContO {
 							if (ai[k2] == i2) {
 								if (F51.trans && p[k2].glass)
 									((Graphics2D) g).setComposite(AlphaComposite.getInstance(3, 0.7F));
-								p[k2].d(g, x - m.x, y - m.y, z - m.z, xz, xy, zy, wxz, wire, loom, stonecold);
+								p[k2].d(((Graphics2D)g), x - m.x, y - m.y, z - m.z, xz, xy, zy, wxz, wire, loom, stonecold);
 								if (F51.trans && p[k2].glass)
 									((Graphics2D) g).setComposite(AlphaComposite.getInstance(3, 1.0F));
 							}
