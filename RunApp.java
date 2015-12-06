@@ -39,6 +39,13 @@ import java.beans.PropertyChangeEvent;
 import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
 import java.awt.Component;
+import java.awt.GridLayout;
+import java.awt.CardLayout;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class RunApp extends Panel {
 
@@ -112,19 +119,7 @@ public class RunApp extends Panel {
 			}
 		});
 		panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-
-		slider_1 = new JSlider();
-		slider_1.setMinimum(-360);
-		slider_1.setMaximum(360);
-		slider_1.setValue(0);
-		slider_1.addChangeListener(new ChangeListener() {
-			@Override
-			public void stateChanged(final ChangeEvent e) {
-				applet.o.xy = -slider_1.getValue();
-			}
-		});
 		panel_1.setLayout(new BoxLayout(panel_1, BoxLayout.X_AXIS));
-		panel_1.add(slider_1);
 		panel_1.add(button_1);
 
 		button = new JButton("<");
@@ -190,20 +185,73 @@ public class RunApp extends Panel {
 
 														panel_2 = new JPanel();
 														panel_6.add(panel_2);
-
-																slider = new JSlider();
-																slider.setMinimum(-360);
-																slider.setMaximum(360);
-																slider.setValue(0);
-																slider.addChangeListener(new ChangeListener() {
-																	@Override
-																	public void stateChanged(final ChangeEvent e) {
-																		applet.o.zy = -slider.getValue();
-																	}
-																});
 																panel_2.setLayout(new BoxLayout(panel_2, BoxLayout.Y_AXIS));
-																slider.setOrientation(SwingConstants.VERTICAL);
-																panel_2.add(slider);
+
+																panel_8 = new JPanel();
+																panel_2.add(panel_8);
+
+																																																		slider = new JSlider();
+																																																		slider.setAlignmentX(Component.RIGHT_ALIGNMENT);
+																																																		slider.setMinimum(-360);
+																																																		slider.setMaximum(360);
+																																																		slider.setValue(0);
+																																																		slider.addChangeListener(new ChangeListener() {
+																																																			@Override
+																																																			public void stateChanged(final ChangeEvent e) {
+																																																				applet.o.zy = -slider.getValue();
+																																																			}
+																																																		});
+																																																		slider.setOrientation(SwingConstants.VERTICAL);
+
+																																		slider_1 = new JSlider();
+																																		slider_1.setMinimum(-360);
+																																		slider_1.setMaximum(360);
+																																		slider_1.setValue(0);
+
+																																		slider_2 = new JSlider();
+																																		slider_2.setValue(0);
+																																		slider_2.setMinimum(-360);
+																																		slider_2.setMaximum(360);
+																																		slider_2.addChangeListener(new ChangeListener() {
+																																			@Override
+																																			public void stateChanged(final ChangeEvent e) {
+																																				applet.o.xz = -slider_2.getValue();
+																																			}
+																																		});
+																																		GroupLayout gl_panel_8 = new GroupLayout(panel_8);
+																																		gl_panel_8.setHorizontalGroup(
+																																			gl_panel_8.createParallelGroup(Alignment.LEADING)
+																																				.addGroup(gl_panel_8.createSequentialGroup()
+																																					.addGap(1)
+																																					.addComponent(slider, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+																																					.addGroup(gl_panel_8.createParallelGroup(Alignment.LEADING)
+																																						.addGroup(gl_panel_8.createSequentialGroup()
+																																							.addGap(1)
+																																							.addComponent(slider_1, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE))
+																																						.addGroup(gl_panel_8.createSequentialGroup()
+																																							.addGap(1)
+																																							.addComponent(slider_2, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)))
+																																					.addGap(1))
+																																		);
+																																		gl_panel_8.setVerticalGroup(
+																																			gl_panel_8.createParallelGroup(Alignment.LEADING)
+																																				.addGroup(gl_panel_8.createSequentialGroup()
+																																					.addGap(1)
+																																					.addGroup(gl_panel_8.createParallelGroup(Alignment.LEADING, false)
+																																						.addGroup(gl_panel_8.createSequentialGroup()
+																																							.addComponent(slider_1, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE)
+																																							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+																																							.addComponent(slider_2, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE))
+																																						.addComponent(slider, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE))
+																																					.addGap(1))
+																																		);
+																																		panel_8.setLayout(gl_panel_8);
+																																		slider_1.addChangeListener(new ChangeListener() {
+																																			@Override
+																																			public void stateChanged(final ChangeEvent e) {
+																																				applet.o.xy = -slider_1.getValue();
+																																			}
+																																		});
 
 																panel_7 = new JPanel();
 																panel_2.add(panel_7);
@@ -427,6 +475,8 @@ public class RunApp extends Panel {
 	private JPanel panel_5;
 	private JPanel panel_6;
 	private JPanel panel_7;
+	private JPanel panel_8;
+	private JSlider slider_2;
 
 	/**
 	 * Fetches icons of 16, 32 and 48 pixels from the 'data' folder.

@@ -85,6 +85,7 @@ public class TextEditor implements ActionListener {
    private JMenu mnSettings;
    private JPanel panel_4;
    private JMenu mnTools;
+	boolean fffff = false;
 
 	// Creates the GUI
 	public TextEditor(final F51 f51, final RunApp runapp) {
@@ -141,7 +142,9 @@ public class TextEditor implements ActionListener {
 			@Override
 		    public void actionPerformed(ActionEvent e) {
 		        System.out.println("triggered the action");
-		        newFile();
+		        if (!fffff)
+		        	newFile();
+		        fffff = !fffff;
 		    }
 
 		};
@@ -260,7 +263,7 @@ public class TextEditor implements ActionListener {
 				else {
 					System.out.println("You chose " + files[0]);
 					F51.contofile = files[0];
-					RunApp.applet.remake();
+					f51.remake();
 					countPolys();
 			        loadFile();
 				}
@@ -1132,6 +1135,22 @@ public class TextEditor implements ActionListener {
 		return new Object[] {maxX, maxY, maxZ, minX, minY, minZ};
 	}
 
+	public int getvalueintext(final String s) {
+		try {
+			BufferedReader reader = new BufferedReader(new StringReader(text.getText()));
+			String benis2 = reader.readLine();
+			while (benis2 != null) {
+				if (benis2.startsWith(s))
+					return getvalue(s, benis2, 0);
+				benis2 = reader.readLine();
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		throw new RuntimeException("could not get value "+s+" in text");
+	}
+
 	public int getvalue(final String s, final String s1, final int i) {
 		int k = 0;
 		String s3 = "";
@@ -1172,13 +1191,16 @@ public class TextEditor implements ActionListener {
 		}
 	}
 
-	private void newFile() {
+	private void newFile() { //doesn't (and shouldn't) save
 		final int opt = JOptionPane.showConfirmDialog(null, "This will discard all unsaved changes!", "Create new file",
 				JOptionPane.OK_CANCEL_OPTION);
 
 		if (opt == JOptionPane.OK_OPTION)
 			text.setText(
 					"MaxRadius(300)\r\nshadow()\r\ndiv(24)\r\n\r\n\r\n\r\n\r\n\r\nw(-33,0,55,11,10,10,1)\r\nw(33,0,55,11,-10,10,1)\r\nw(-31,-1,-60,1,16,11,1)\r\nw(31,-1,-60,1,-16,11,1)");
+
+		//f51.remake();
+		countPolys();
 	}
 
 	// Display a file chooser so the user can select a file
@@ -1262,7 +1284,7 @@ public class TextEditor implements ActionListener {
 			output = new StringBuilder().append(output).append("\n// End of mirror").toString();
 			text.insert(output, text.getSelectionEnd());
 		}
-		RunApp.applet.remake();
+		f51.remake();
 		countPolys();
 	}
 
