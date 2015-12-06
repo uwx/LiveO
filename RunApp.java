@@ -41,6 +41,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.JTextField;
 
 public class RunApp extends Panel {
 
@@ -325,6 +326,43 @@ public class RunApp extends Panel {
 		comboBox = new JComboBox<String>();
 		comboBox.setModel(new DefaultComboBoxModel<String>(sArray));
 		panel_4.add(comboBox);
+
+		panel_9 = new JPanel();
+		tabbedPane.addTab("Car", null, panel_9, null);
+		panel_9.setLayout(new BoxLayout(panel_9, BoxLayout.Y_AXIS));
+
+		panel_10 = new JPanel();
+		panel_10.setAlignmentY(Component.TOP_ALIGNMENT);
+		panel_9.add(panel_10);
+
+		lblNewLabel = new JLabel("div");
+		panel_10.add(lblNewLabel);
+
+		textField = new JTextField();
+		panel_10.add(textField);
+		textField.setColumns(10);
+
+		panel_11 = new JPanel();
+		panel_11.setAlignmentY(Component.TOP_ALIGNMENT);
+		panel_9.add(panel_11);
+
+		lblIdiv = new JLabel("idiv");
+		panel_11.add(lblIdiv);
+
+		textField_1 = new JTextField();
+		textField_1.setColumns(10);
+		panel_11.add(textField_1);
+
+		panel_12 = new JPanel();
+		panel_9.add(panel_12);
+		panel_12.setAlignmentY(0.0f);
+
+		lblIwid = new JLabel("iwid");
+		panel_12.add(lblIwid);
+
+		textField_2 = new JTextField();
+		textField_2.setColumns(10);
+		panel_12.add(textField_2);
 		//t.countPolys();
 		comboBox.addItemListener(new ItemListener() {
 
@@ -465,6 +503,16 @@ public class RunApp extends Panel {
 	private final JPanel panel_7;
 	private final JPanel panel_8;
 	private final JSlider slider_2;
+	private JPanel panel_9;
+	private JTextField textField;
+	private JLabel lblNewLabel;
+	private JPanel panel_10;
+	private JPanel panel_11;
+	private JLabel lblIdiv;
+	private JTextField textField_1;
+	private JPanel panel_12;
+	private JLabel lblIwid;
+	private JTextField textField_2;
 
 	/**
 	 * Fetches icons of 16, 32 and 48 pixels from the 'data' folder.
