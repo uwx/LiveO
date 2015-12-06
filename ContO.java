@@ -149,7 +149,7 @@ public class ContO {
 		                	strokejoin = BasicStroke.JOIN_ROUND;
 	                }
 	                if(s2.startsWith("$outlineMtlimit("))
-	                	strokemtlimit = getvalue("$outlineW", s2, 0);
+	                	strokemtlimit = getvalue("$outlineMtlimit", s2, 0);
 
 
 				}
