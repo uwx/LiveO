@@ -90,6 +90,11 @@ public class ContO {
 					hidepoly = false;
 					randomcolor = false;
 					randoutline = false;
+			        customstroke = false;
+			        strokewidth = 1;
+			        strokecap = BasicStroke.CAP_BUTT;
+			        strokejoin = BasicStroke.JOIN_MITER;
+			        strokemtlimit = 10;
 				}
 				if (flag) {
 					if (s2.startsWith("gr("))
@@ -125,26 +130,26 @@ public class ContO {
 						hidepoly = true;
 	                if(s2.startsWith("customOutline"))
 	                	customstroke = true;
-	                if(s2.startsWith("outlineW("))
-	                	strokewidth = getvalue("outlineW", s2, 0);
-	                if(s2.startsWith("outlineCap(")) {
-		                if(s2.startsWith("outlineCap(butt)"))
+	                if(s2.startsWith("$outlineW("))
+	                	strokewidth = getvalue("$outlineW", s2, 0);
+	                if(s2.startsWith("$outlineCap(")) {
+		                if(s2.startsWith("$outlineCap(butt)"))
 		                	strokecap = BasicStroke.CAP_BUTT;
-		                if(s2.startsWith("outlineCap(round)"))
+		                if(s2.startsWith("$outlineCap(round)"))
 		                	strokecap = BasicStroke.CAP_ROUND;
-		                if(s2.startsWith("outlineCap(square)"))
+		                if(s2.startsWith("$outlineCap(square)"))
 		                	strokecap = BasicStroke.CAP_SQUARE;
 	                }
-	                if(s2.startsWith("outlineJoin(")) {
-		                if(s2.startsWith("outlineCap(bevel)"))
+	                if(s2.startsWith("$outlineJoin(")) {
+		                if(s2.startsWith("$outlineJoin(bevel)"))
 		                	strokejoin = BasicStroke.JOIN_BEVEL;
-		                if(s2.startsWith("outlineCap(miter)"))
+		                if(s2.startsWith("$outlineJoin(miter)"))
 		                	strokejoin = BasicStroke.JOIN_MITER;
-		                if(s2.startsWith("outlineCap(round)"))
+		                if(s2.startsWith("$outlineJoin(round)"))
 		                	strokejoin = BasicStroke.JOIN_ROUND;
 	                }
-	                if(s2.startsWith("outlineMtlimit("))
-	                	strokemtlimit = getvalue("outlineW", s2, 0);
+	                if(s2.startsWith("$outlineMtlimit("))
+	                	strokemtlimit = getvalue("$outlineW", s2, 0);
 
 
 				}
