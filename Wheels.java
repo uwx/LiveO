@@ -12,7 +12,7 @@ import java.net.URL;
 
 public class Wheels {
 
-	static String wheelfile = "449s.rad";
+	static String wheelfile = "throwbacks.rad";
 
 	public Wheels() {
 		ground = 0;
