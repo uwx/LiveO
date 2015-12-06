@@ -299,10 +299,6 @@ public class Plane
             	g.setColor(new Color(k6, i7, k7));
             else
             	g.setColor(Color.getHSBColor((float)Math.random(), (float)Math.random(), (float)Math.random()));
-            if (customstroke)
-            	g.setStroke(new BasicStroke(strokewidth, strokecap, strokejoin,  strokemtlimit));
-            else
-            	g.setStroke(new BasicStroke());
             g.fillPolygon(ai5, ai6, n);
         }
         if(!toofar && !hidepoly)
@@ -333,6 +329,10 @@ public class Plane
         		g.setColor(Color.getHSBColor((float)Math.random(), (float)Math.random(), (float)Math.random()));
         	else
         		g.setColor(new Color(0, 0, 0));
+            if (customstroke)
+            	g.setStroke(new BasicStroke(strokewidth, strokecap, strokejoin,  strokemtlimit));
+            else
+            	g.setStroke(new BasicStroke());
             g.drawPolygon(ai5, ai6, n);
         }
     }
