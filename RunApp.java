@@ -37,6 +37,8 @@ import javax.swing.JComboBox;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
 import javax.swing.JLabel;
+import javax.swing.JTabbedPane;
+import java.awt.Component;
 
 public class RunApp extends Panel {
 
@@ -90,23 +92,6 @@ public class RunApp extends Panel {
 		panel_3 = new JPanel();
 		frame.getContentPane().add(panel_3);
 		panel_3.setLayout(new BorderLayout(0, 0));
-
-		panel_2 = new JPanel();
-		panel_3.add(panel_2, BorderLayout.WEST);
-
-		slider = new JSlider();
-		slider.setMinimum(-360);
-		slider.setMaximum(360);
-		slider.setValue(0);
-		slider.addChangeListener(new ChangeListener() {
-			@Override
-			public void stateChanged(final ChangeEvent e) {
-				applet.o.zy = -slider.getValue();
-			}
-		});
-		panel_2.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		slider.setOrientation(SwingConstants.VERTICAL);
-		panel_2.add(slider);
 		panel_1 = new JPanel();
 		panel_3.add(panel_1, BorderLayout.SOUTH);
 
@@ -186,29 +171,6 @@ public class RunApp extends Panel {
 			}
 		});
 		panel_1.add(button_3);
-
-		btnTransGlass = new JButton("Trans. Glass");
-		panel_1.add(btnTransGlass);
-
-		btnAa = new JButton("AA");
-		panel_1.add(btnAa);
-		btnAa.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(final ActionEvent e) {
-				applet.aa = !applet.aa;
-			}
-		});
-
-		btnLights = new JButton("Lights");
-		btnLights.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				applet.medium.lightson = !applet.medium.lightson;
-			}
-		});
-		panel_1.add(btnLights);
-
-		chckbxAutorefresh = new JCheckBox("Auto-refresh");
-		panel_1.add(chckbxAutorefresh);
 		applet = new F51();
 		t = new TextEditor(applet, this);
 		panel_3.add(applet, BorderLayout.CENTER);
@@ -219,10 +181,131 @@ public class RunApp extends Panel {
 																	// here
 		applet.setStub(new DesktopStub());
 
-		panel_4 = new JPanel();
-		panel_3.add(panel_4, BorderLayout.NORTH);
+		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		panel_3.add(tabbedPane, BorderLayout.EAST);
 
-		List<File> dong = new ArrayList<File>();
+		panel_6 = new JPanel();
+		tabbedPane.addTab("Controls", null, panel_6, null);
+				panel_6.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+
+														panel_2 = new JPanel();
+														panel_6.add(panel_2);
+
+																slider = new JSlider();
+																slider.setMinimum(-360);
+																slider.setMaximum(360);
+																slider.setValue(0);
+																slider.addChangeListener(new ChangeListener() {
+																	@Override
+																	public void stateChanged(final ChangeEvent e) {
+																		applet.o.zy = -slider.getValue();
+																	}
+																});
+																panel_2.setLayout(new BoxLayout(panel_2, BoxLayout.Y_AXIS));
+																slider.setOrientation(SwingConstants.VERTICAL);
+																panel_2.add(slider);
+
+																panel_7 = new JPanel();
+																panel_2.add(panel_7);
+																panel_7.setLayout(new BoxLayout(panel_7, BoxLayout.Y_AXIS));
+
+																		chckbxAutorefresh = new JCheckBox("Auto-refresh");
+																		panel_7.add(chckbxAutorefresh);
+																		chckbxAutorefresh.setAlignmentX(Component.CENTER_ALIGNMENT);
+																		chckbxAutorefresh.setAlignmentY(Component.TOP_ALIGNMENT);
+																		chckbxAutorefresh.setVerticalAlignment(SwingConstants.TOP);
+
+																				chckbxAutorefresh.addActionListener(new ActionListener() {
+																					@Override
+																					@SuppressWarnings("deprecation")
+																					public void actionPerformed(final ActionEvent e) {
+																						if (chckbxAutorefresh.isSelected() && rt == null) {
+																							rt = new RefreshThread();
+																							rt.start();
+																						} else {
+																							rt.stop();
+																							rt = null;
+																						}
+																					}
+																				});
+
+																						btnLights = new JButton("Lights");
+																						panel_7.add(btnLights);
+																						btnLights.setAlignmentX(Component.CENTER_ALIGNMENT);
+																						btnLights.setAlignmentY(Component.TOP_ALIGNMENT);
+																						btnLights.setVerticalAlignment(SwingConstants.BOTTOM);
+
+																								btnTransGlass = new JButton("Trans. Glass");
+																								btnTransGlass.setAlignmentX(Component.CENTER_ALIGNMENT);
+																								panel_7.add(btnTransGlass);
+
+																										btnAa = new JButton("Antialiasing");
+																										btnAa.setAlignmentX(Component.CENTER_ALIGNMENT);
+																										panel_7.add(btnAa);
+																										btnAa.addActionListener(new ActionListener() {
+																											@Override
+																											public void actionPerformed(final ActionEvent e) {
+																												applet.aa = !applet.aa;
+																											}
+																										});
+																										btnTransGlass.addActionListener(new ActionListener() {
+																											@Override
+																											public void actionPerformed(final ActionEvent e) {
+																												F51.trans = !F51.trans;
+																											}
+																										});
+																										btnLights.addActionListener(new ActionListener() {
+																											public void actionPerformed(ActionEvent e) {
+																												applet.medium.lightson = !applet.medium.lightson;
+																											}
+																										});
+
+		panel_5 = new JPanel();
+		tabbedPane.addTab("Models", null, panel_5, null);
+
+		panel_4 = new JPanel();
+		panel_5.add(panel_4);
+
+				lblWheel = new JLabel("Wheel:");
+				panel_4.add(lblWheel);
+
+
+				List<File> dong = new ArrayList<File>();
+				try {
+					Files.walk(Paths.get("./wheels/")).forEach(filePath -> {
+					    if (Files.isRegularFile(filePath)) {
+					    	dong.add(filePath.toFile());
+					    }
+					});
+				} catch (IOException e1) {
+				}
+				File[] fArray = new File[dong.size()];
+				fArray = dong.toArray(fArray);
+				String[] sArray = new String[dong.size()];
+				for (int i = 0; i < fArray.length; i++)
+				{
+					sArray[i] = fArray[i].getName();
+				}
+
+						comboBox = new JComboBox<String>();
+						comboBox.setModel(new DefaultComboBoxModel<String>(sArray));
+						panel_4.add(comboBox);
+						//t.countPolys();
+						comboBox.addItemListener (new ItemListener () {
+
+							@Override
+							public void itemStateChanged(ItemEvent event) {
+								if (event.getStateChange() == ItemEvent.SELECTED) {
+							          String item = (String) event.getItem();
+							          Wheels.wheelfile = item;
+							          applet.remake();
+							          t.countPolys();
+							          System.out.println("autorefresh'd!");
+							    }
+							}
+						});
+
+		/*List<File> dong = new ArrayList<File>();
 		try {
 			Files.walk(Paths.get("./wheels/")).forEach(filePath -> {
 			    if (Files.isRegularFile(filePath)) {
@@ -230,61 +313,20 @@ public class RunApp extends Panel {
 			    }
 			});
 		} catch (IOException e1) {
-		}
-		File[] fArray = new File[dong.size()];
+		}*/
+		/*File[] fArray = new File[dong.size()];
 		fArray = dong.toArray(fArray);
 		String[] sArray = new String[dong.size()];
 		for (int i = 0; i < fArray.length; i++)
 		{
 			sArray[i] = fArray[i].getName();
-		}
-
-		lblWheel = new JLabel("Wheel:");
-		panel_4.add(lblWheel);
-
-		comboBox = new JComboBox<String>();
-		comboBox.setModel(new DefaultComboBoxModel<String>(sArray));
-		panel_4.add(comboBox);
-
-		chckbxAutorefresh.addActionListener(new ActionListener() {
-			@Override
-			@SuppressWarnings("deprecation")
-			public void actionPerformed(final ActionEvent e) {
-				if (chckbxAutorefresh.isSelected() && rt == null) {
-					rt = new RefreshThread();
-					rt.start();
-				} else {
-					rt.stop();
-					rt = null;
-				}
-			}
-		});
-		btnTransGlass.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(final ActionEvent e) {
-				F51.trans = !F51.trans;
-			}
-		});
+		}*/
 
 		frame.pack();
 		frame.setMinimumSize(frame.getSize());
 		frame.setVisible(true);
 		applet.init();
 		applet.start();
-		//t.countPolys();
-		comboBox.addItemListener (new ItemListener () {
-
-			@Override
-			public void itemStateChanged(ItemEvent event) {
-				if (event.getStateChange() == ItemEvent.SELECTED) {
-			          String item = (String) event.getItem();
-			          Wheels.wheelfile = item;
-			          applet.remake();
-			          t.countPolys();
-			          System.out.println("autorefresh'd!");
-			    }
-			}
-		});
 	}
 
 	boolean show = false;
@@ -381,6 +423,10 @@ public class RunApp extends Panel {
 	private JPanel panel_4;
 	private JComboBox<String> comboBox;
 	private JLabel lblWheel;
+	private JTabbedPane tabbedPane;
+	private JPanel panel_5;
+	private JPanel panel_6;
+	private JPanel panel_7;
 
 	/**
 	 * Fetches icons of 16, 32 and 48 pixels from the 'data' folder.
