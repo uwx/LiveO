@@ -11,6 +11,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
+import java.io.File;
 
 public class F51 extends Applet implements Runnable {
 	/**
@@ -110,6 +111,8 @@ public class F51 extends Applet implements Runnable {
 		g.drawImage(offImage, 0, 0, this);
 	}
 
+	static File contofile = new File("./o.rad");
+
 	public void remake() {
 		final int storeowxz = o.wxz;
 		final int storeoxz = o.xz;
@@ -117,7 +120,7 @@ public class F51 extends Applet implements Runnable {
 		final int storeozy = o.zy;
 		final int storeoy = o.y;
 		final int storeoz = o.z;
-		o = new ContO("o", medium, 350, 150, 600, this);
+		o = new ContO(contofile, medium, 350, 150, 600, this);
 		o.wxz = storeowxz;
 		o.xz = storeoxz;
 		o.xy = storeoxy;
@@ -130,7 +133,7 @@ public class F51 extends Applet implements Runnable {
 	public void run() {
 		gamer.setPriority(10);
 		medium = new Medium();
-		o = new ContO("o", medium, 350, 150, 600, this);
+		o = new ContO(contofile, medium, 350, 150, 600, this);
 		o.y = 120;
 		o.z += 200;
 		medium.y -= 300;

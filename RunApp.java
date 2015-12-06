@@ -36,6 +36,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.JComboBox;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
+import javax.swing.JLabel;
 
 public class RunApp extends Panel {
 
@@ -52,6 +53,11 @@ public class RunApp extends Panel {
 				}
 			}
 		}
+	}
+
+	public void refresh() {
+		applet.remake();
+		t.countPolys();
 	}
 
 	public RunApp() {
@@ -238,6 +244,9 @@ public class RunApp extends Panel {
 			sArray[i] = fArray[i].getName();
 		}
 
+		lblWheel = new JLabel("Wheel:");
+		panel_4.add(lblWheel);
+
 		comboBox = new JComboBox<String>();
 		comboBox.setModel(new DefaultComboBoxModel<String>(sArray));
 		panel_4.add(comboBox);
@@ -376,6 +385,7 @@ public class RunApp extends Panel {
 	private JButton btnLights;
 	private JPanel panel_4;
 	private JComboBox<String> comboBox;
+	private JLabel lblWheel;
 
 	/**
 	 * Fetches icons of 16, 32 and 48 pixels from the 'data' folder.

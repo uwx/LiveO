@@ -10,11 +10,13 @@ import java.awt.BasicStroke;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.net.URL;
 
 public class ContO {
 
-	public ContO(final String s, final Medium medium, final int i, final int j, final int k, final Applet applet) {
+	public ContO(final File s, final Medium medium, final int i, final int j, final int k, final Applet applet) {
 		npl = 0;
 		x = 0;
 		y = 0;
@@ -73,9 +75,9 @@ public class ContO {
         };
 
 		try {
-			final URL url = new URL(applet.getCodeBase(), (new StringBuilder()).append(s).append(".rad").toString());
-			System.out.println(url);
-			final DataInputStream datainputstream = new DataInputStream(url.openStream());
+			//final File fl = new File(s);
+			System.out.println(s.getPath());
+			final DataInputStream datainputstream = new DataInputStream(new FileInputStream(s));
 			do {
 				String s1;
 				if ((s1 = datainputstream.readLine()) == null)
