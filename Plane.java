@@ -1,21 +1,31 @@
 // Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
 // Jad home page: http://www.kpdus.com/jad.html
-// Decompiler options: packimports(3) 
+// Decompiler options: packimports(3)
 // Source File Name:   Plane.java
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 public class Plane
 {
 
-    public Plane(Medium medium, int ai[], int ai1[], int ai2[], int i, int ai3[], boolean flag, 
-            int j, int k, int l, int i1, byte light, boolean hidepoly, boolean randomcolor, boolean randoutline)
+
+    public Plane(Medium medium, int ai[], int ai1[], int ai2[], int i, int ai3[], boolean flag,
+            int j, int k, int l, int i1, byte light, boolean hidepoly, boolean randomcolor, boolean randoutline,
+            boolean customstroke, int strokewidth, int strokecap, int strokejoin, int strokemtlimit)
     {
     	this.randoutline = randoutline;
     	this.randomcolor = randomcolor;
     	this.hidepoly = hidepoly;
     	this.light = light;
+    	//stroke
+        this.customstroke = customstroke;
+        this.strokewidth = strokewidth;
+        this.strokecap = strokecap;
+        this.strokejoin = strokejoin;
+        this.strokemtlimit = strokemtlimit;
         c = new int[3];
         hsb = new float[3];
         glass = false;
@@ -71,7 +81,7 @@ public class Plane
         projf /= 3F;
     }
 
-    public void d(Graphics g, int i, int j, int k, int l, int i1, int j1, 
+    public void d(Graphics2D g, int i, int j, int k, int l, int i1, int j1,
             int k1, boolean flag, boolean flag1, boolean toofar)
     {
         int ai[] = new int[n];
@@ -266,13 +276,13 @@ public class Plane
         }
         if(flag3)
         {
-            float f = (float)((double)(projf / deltaf) + 0.5D);
+            float f = (float)(projf / deltaf + 0.5D);
             if(f > 1.0F)
                 f = 1.0F;
-            if((double)f < 0.5D || flag2)
+            if(f < 0.5D || flag2)
                 f = 0.5F;
             if(toofar)
-                f = (float)((double)f * 0.90000000000000002D);
+                f = (float)(f * 0.90000000000000002D);
             new Color(c[0], c[1], c[2]);
             Color color = Color.getHSBColor(hsb[0], hsb[1], hsb[2] * f);
             int k6 = color.getRed();
@@ -289,6 +299,10 @@ public class Plane
             	g.setColor(new Color(k6, i7, k7));
             else
             	g.setColor(Color.getHSBColor((float)Math.random(), (float)Math.random(), (float)Math.random()));
+            if (customstroke)
+            	g.setStroke(new BasicStroke(strokewidth, strokecap, strokejoin,  strokemtlimit));
+            else
+            	g.setStroke(new BasicStroke());
             g.fillPolygon(ai5, ai6, n);
         }
         if(!toofar && !hidepoly)
@@ -312,7 +326,7 @@ public class Plane
                 if(k7 > 255)
 					k7 = 255;
                 if(k7 < 0)
-					k7 = 0;  
+					k7 = 0;
                 g.setColor(new Color(k6, i7, k7));
             }
         	else if (randoutline)
@@ -323,7 +337,7 @@ public class Plane
         }
     }
 
-    public void s(Graphics g, int i, int j, int k, int l, int i1, int j1, 
+    public void s(Graphics g, int i, int j, int k, int l, int i1, int j1,
             boolean flag)
     {
         if(gr <= 0 && av < m.fade[7] && av != 0)
@@ -341,9 +355,9 @@ public class Plane
             rot(ai, ai2, i, j, i1, n);
             rot(ai2, ai1, j, k, j1, n);
             rot(ai, ai1, i, k, l, n);
-            int l1 = (int)((double)(float)m.cgrnd[0] / 1.5D);
-            int i2 = (int)((double)(float)m.cgrnd[1] / 1.5D);
-            int j2 = (int)((double)(float)m.cgrnd[2] / 1.5D);
+            int l1 = (int)(m.cgrnd[0] / 1.5D);
+            int i2 = (int)(m.cgrnd[1] / 1.5D);
+            int j2 = (int)(m.cgrnd[2] / 1.5D);
             for(int k2 = 0; k2 < n; k2++)
                 ai2[k2] = m.ground;
 
@@ -365,7 +379,7 @@ public class Plane
                             for(int l3 = 0; l3 < n; l3++)
                             {
                                 ai[l3] -= i;
-                                ai[l3] = (int)((double)ai[l3] * (1.0D / Math.cos((double)m.tr.xy[l2] * 0.017453292519943295D)));
+                                ai[l3] = (int)(ai[l3] * (1.0D / Math.cos(m.tr.xy[l2] * 0.017453292519943295D)));
                                 ai[l3] += i;
                             }
 
@@ -376,15 +390,15 @@ public class Plane
                             for(int i4 = 0; i4 < n; i4++)
                             {
                                 ai1[i4] -= k;
-                                ai1[i4] = (int)((double)ai1[i4] * (1.0D / Math.cos((double)m.tr.zy[l2] * 0.017453292519943295D)));
+                                ai1[i4] = (int)(ai1[i4] * (1.0D / Math.cos(m.tr.zy[l2] * 0.017453292519943295D)));
                                 ai1[i4] += k;
                             }
 
                             rot(ai1, ai2, m.tr.z[l2], m.tr.y[l2], m.tr.zy[l2], n);
                         }
-                        l1 = (int)((double)(float)m.tr.c[l2][0] / 1.5D);
-                        i2 = (int)((double)(float)m.tr.c[l2][1] / 1.5D);
-                        j2 = (int)((double)(float)m.tr.c[l2][2] / 1.5D);
+                        l1 = (int)(m.tr.c[l2][0] / 1.5D);
+                        i2 = (int)(m.tr.c[l2][1] / 1.5D);
+                        j2 = (int)(m.tr.c[l2][2] / 1.5D);
                     }
                 }
 
@@ -438,8 +452,8 @@ public class Plane
             {
                 int j1 = ai[i1];
                 int k1 = ai1[i1];
-                ai[i1] = i + (int)((double)(j1 - i) * Math.cos((double)k * 0.017453292519943295D) - (double)(k1 - j) * Math.sin((double)k * 0.017453292519943295D));
-                ai1[i1] = j + (int)((double)(j1 - i) * Math.sin((double)k * 0.017453292519943295D) + (double)(k1 - j) * Math.cos((double)k * 0.017453292519943295D));
+                ai[i1] = i + (int)((j1 - i) * Math.cos(k * 0.017453292519943295D) - (k1 - j) * Math.sin(k * 0.017453292519943295D));
+                ai1[i1] = j + (int)((j1 - i) * Math.sin(k * 0.017453292519943295D) + (k1 - j) * Math.cos(k * 0.017453292519943295D));
             }
     }
 
@@ -469,4 +483,9 @@ public class Plane
     int av;
     int lav;
     boolean imlast;
+    boolean customstroke;
+    int strokewidth;
+    int strokecap;
+    int strokejoin;
+    int strokemtlimit;
 }
