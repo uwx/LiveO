@@ -1,5 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.Panel;
@@ -16,36 +17,30 @@ import java.io.DataInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
+import javax.swing.JTabbedPane;
+import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.JComboBox;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeEvent;
-import javax.swing.JLabel;
-import javax.swing.JTabbedPane;
-import java.awt.Component;
-import java.awt.GridLayout;
-import java.awt.CardLayout;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class RunApp extends Panel {
 
@@ -91,8 +86,8 @@ public class RunApp extends Panel {
 		frame.setResizable(false);// If you plan to make you game support
 									// changes in resolution, you can comment
 									// out this line.
-		// frame.pack();
-		// frame.setMinimumSize(frame.getSize());
+									// frame.pack();
+									// frame.setMinimumSize(frame.getSize());
 		frame.setLocationRelativeTo(null);
 		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.X_AXIS));
 
@@ -176,137 +171,130 @@ public class RunApp extends Panel {
 																	// here
 		applet.setStub(new DesktopStub());
 
-		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane = new JTabbedPane(SwingConstants.TOP);
 		panel_3.add(tabbedPane, BorderLayout.EAST);
 
 		panel_6 = new JPanel();
 		tabbedPane.addTab("Controls", null, panel_6, null);
-				panel_6.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		panel_6.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
-														panel_2 = new JPanel();
-														panel_6.add(panel_2);
-																panel_2.setLayout(new BoxLayout(panel_2, BoxLayout.Y_AXIS));
+		panel_2 = new JPanel();
+		panel_6.add(panel_2);
+		panel_2.setLayout(new BoxLayout(panel_2, BoxLayout.Y_AXIS));
 
-																panel_8 = new JPanel();
-																panel_2.add(panel_8);
+		panel_8 = new JPanel();
+		panel_2.add(panel_8);
 
-																																																		slider = new JSlider();
-																																																		slider.setAlignmentX(Component.RIGHT_ALIGNMENT);
-																																																		slider.setMinimum(-360);
-																																																		slider.setMaximum(360);
-																																																		slider.setValue(0);
-																																																		slider.addChangeListener(new ChangeListener() {
-																																																			@Override
-																																																			public void stateChanged(final ChangeEvent e) {
-																																																				applet.o.zy = -slider.getValue();
-																																																			}
-																																																		});
-																																																		slider.setOrientation(SwingConstants.VERTICAL);
+		slider = new JSlider();
+		slider.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		slider.setMinimum(-360);
+		slider.setMaximum(360);
+		slider.setValue(0);
+		slider.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(final ChangeEvent e) {
+				applet.o.zy = -slider.getValue();
+			}
+		});
+		slider.setOrientation(SwingConstants.VERTICAL);
 
-																																		slider_1 = new JSlider();
-																																		slider_1.setMinimum(-360);
-																																		slider_1.setMaximum(360);
-																																		slider_1.setValue(0);
+		slider_1 = new JSlider();
+		slider_1.setMinimum(-360);
+		slider_1.setMaximum(360);
+		slider_1.setValue(0);
 
-																																		slider_2 = new JSlider();
-																																		slider_2.setValue(0);
-																																		slider_2.setMinimum(-360);
-																																		slider_2.setMaximum(360);
-																																		slider_2.addChangeListener(new ChangeListener() {
-																																			@Override
-																																			public void stateChanged(final ChangeEvent e) {
-																																				applet.o.xz = -slider_2.getValue();
-																																			}
-																																		});
-																																		GroupLayout gl_panel_8 = new GroupLayout(panel_8);
-																																		gl_panel_8.setHorizontalGroup(
-																																			gl_panel_8.createParallelGroup(Alignment.LEADING)
-																																				.addGroup(gl_panel_8.createSequentialGroup()
-																																					.addGap(1)
-																																					.addComponent(slider, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-																																					.addGroup(gl_panel_8.createParallelGroup(Alignment.LEADING)
-																																						.addGroup(gl_panel_8.createSequentialGroup()
-																																							.addGap(1)
-																																							.addComponent(slider_1, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE))
-																																						.addGroup(gl_panel_8.createSequentialGroup()
-																																							.addGap(1)
-																																							.addComponent(slider_2, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)))
-																																					.addGap(1))
-																																		);
-																																		gl_panel_8.setVerticalGroup(
-																																			gl_panel_8.createParallelGroup(Alignment.LEADING)
-																																				.addGroup(gl_panel_8.createSequentialGroup()
-																																					.addGap(1)
-																																					.addGroup(gl_panel_8.createParallelGroup(Alignment.LEADING, false)
-																																						.addGroup(gl_panel_8.createSequentialGroup()
-																																							.addComponent(slider_1, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE)
-																																							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-																																							.addComponent(slider_2, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE))
-																																						.addComponent(slider, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE))
-																																					.addGap(1))
-																																		);
-																																		panel_8.setLayout(gl_panel_8);
-																																		slider_1.addChangeListener(new ChangeListener() {
-																																			@Override
-																																			public void stateChanged(final ChangeEvent e) {
-																																				applet.o.xy = -slider_1.getValue();
-																																			}
-																																		});
+		slider_2 = new JSlider();
+		slider_2.setValue(0);
+		slider_2.setMinimum(-360);
+		slider_2.setMaximum(360);
+		slider_2.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(final ChangeEvent e) {
+				applet.o.xz = -slider_2.getValue();
+			}
+		});
+		final GroupLayout gl_panel_8 = new GroupLayout(panel_8);
+		gl_panel_8.setHorizontalGroup(gl_panel_8.createParallelGroup(Alignment.LEADING).addGroup(gl_panel_8
+				.createSequentialGroup().addGap(1)
+				.addComponent(slider, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+				.addGroup(gl_panel_8.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_8.createSequentialGroup().addGap(1).addComponent(slider_1,
+								GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panel_8.createSequentialGroup().addGap(1).addComponent(slider_2,
+								GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)))
+				.addGap(1)));
+		gl_panel_8.setVerticalGroup(gl_panel_8.createParallelGroup(Alignment.LEADING).addGroup(gl_panel_8
+				.createSequentialGroup().addGap(1)
+				.addGroup(gl_panel_8.createParallelGroup(Alignment.LEADING, false)
+						.addGroup(gl_panel_8.createSequentialGroup()
+								.addComponent(slider_1, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(slider_2, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE))
+						.addComponent(slider, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE))
+				.addGap(1)));
+		panel_8.setLayout(gl_panel_8);
+		slider_1.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(final ChangeEvent e) {
+				applet.o.xy = -slider_1.getValue();
+			}
+		});
 
-																panel_7 = new JPanel();
-																panel_2.add(panel_7);
-																panel_7.setLayout(new BoxLayout(panel_7, BoxLayout.Y_AXIS));
+		panel_7 = new JPanel();
+		panel_2.add(panel_7);
+		panel_7.setLayout(new BoxLayout(panel_7, BoxLayout.Y_AXIS));
 
-																		chckbxAutorefresh = new JCheckBox("Auto-refresh");
-																		panel_7.add(chckbxAutorefresh);
-																		chckbxAutorefresh.setAlignmentX(Component.CENTER_ALIGNMENT);
-																		chckbxAutorefresh.setAlignmentY(Component.TOP_ALIGNMENT);
-																		chckbxAutorefresh.setVerticalAlignment(SwingConstants.TOP);
+		chckbxAutorefresh = new JCheckBox("Auto-refresh");
+		panel_7.add(chckbxAutorefresh);
+		chckbxAutorefresh.setAlignmentX(Component.CENTER_ALIGNMENT);
+		chckbxAutorefresh.setAlignmentY(Component.TOP_ALIGNMENT);
+		chckbxAutorefresh.setVerticalAlignment(SwingConstants.TOP);
 
-																				chckbxAutorefresh.addActionListener(new ActionListener() {
-																					@Override
-																					@SuppressWarnings("deprecation")
-																					public void actionPerformed(final ActionEvent e) {
-																						if (chckbxAutorefresh.isSelected() && rt == null) {
-																							rt = new RefreshThread();
-																							rt.start();
-																						} else {
-																							rt.stop();
-																							rt = null;
-																						}
-																					}
-																				});
+		chckbxAutorefresh.addActionListener(new ActionListener() {
+			@Override
+			@SuppressWarnings("deprecation")
+			public void actionPerformed(final ActionEvent e) {
+				if (chckbxAutorefresh.isSelected() && rt == null) {
+					rt = new RefreshThread();
+					rt.start();
+				} else {
+					rt.stop();
+					rt = null;
+				}
+			}
+		});
 
-																						btnLights = new JButton("Lights");
-																						panel_7.add(btnLights);
-																						btnLights.setAlignmentX(Component.CENTER_ALIGNMENT);
-																						btnLights.setAlignmentY(Component.TOP_ALIGNMENT);
-																						btnLights.setVerticalAlignment(SwingConstants.BOTTOM);
+		btnLights = new JButton("Lights");
+		panel_7.add(btnLights);
+		btnLights.setAlignmentX(Component.CENTER_ALIGNMENT);
+		btnLights.setAlignmentY(Component.TOP_ALIGNMENT);
+		btnLights.setVerticalAlignment(SwingConstants.BOTTOM);
 
-																								btnTransGlass = new JButton("Trans. Glass");
-																								btnTransGlass.setAlignmentX(Component.CENTER_ALIGNMENT);
-																								panel_7.add(btnTransGlass);
+		btnTransGlass = new JButton("Trans. Glass");
+		btnTransGlass.setAlignmentX(Component.CENTER_ALIGNMENT);
+		panel_7.add(btnTransGlass);
 
-																										btnAa = new JButton("Antialiasing");
-																										btnAa.setAlignmentX(Component.CENTER_ALIGNMENT);
-																										panel_7.add(btnAa);
-																										btnAa.addActionListener(new ActionListener() {
-																											@Override
-																											public void actionPerformed(final ActionEvent e) {
-																												applet.aa = !applet.aa;
-																											}
-																										});
-																										btnTransGlass.addActionListener(new ActionListener() {
-																											@Override
-																											public void actionPerformed(final ActionEvent e) {
-																												F51.trans = !F51.trans;
-																											}
-																										});
-																										btnLights.addActionListener(new ActionListener() {
-																											public void actionPerformed(ActionEvent e) {
-																												applet.medium.lightson = !applet.medium.lightson;
-																											}
-																										});
+		btnAa = new JButton("Antialiasing");
+		btnAa.setAlignmentX(Component.CENTER_ALIGNMENT);
+		panel_7.add(btnAa);
+		btnAa.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent e) {
+				applet.aa = !applet.aa;
+			}
+		});
+		btnTransGlass.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent e) {
+				F51.trans = !F51.trans;
+			}
+		});
+		btnLights.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent e) {
+				applet.medium.lightson = !applet.medium.lightson;
+			}
+		});
 
 		panel_5 = new JPanel();
 		tabbedPane.addTab("Models", null, panel_5, null);
@@ -314,44 +302,43 @@ public class RunApp extends Panel {
 		panel_4 = new JPanel();
 		panel_5.add(panel_4);
 
-				lblWheel = new JLabel("Wheel:");
-				panel_4.add(lblWheel);
+		lblWheel = new JLabel("Wheel:");
+		panel_4.add(lblWheel);
 
-
-				List<File> dong = new ArrayList<File>();
-				try {
-					Files.walk(Paths.get("./wheels/")).forEach(filePath -> {
-					    if (Files.isRegularFile(filePath)) {
-					    	dong.add(filePath.toFile());
-					    }
-					});
-				} catch (IOException e1) {
+		final List<File> dong = new ArrayList<File>();
+		try {
+			Files.walk(Paths.get("./wheels/")).forEach(new Consumer<Path>() {
+				@Override
+				public void accept(Path filePath) {
+					if (Files.isRegularFile(filePath))
+						dong.add(filePath.toFile());
 				}
-				File[] fArray = new File[dong.size()];
-				fArray = dong.toArray(fArray);
-				String[] sArray = new String[dong.size()];
-				for (int i = 0; i < fArray.length; i++)
-				{
-					sArray[i] = fArray[i].getName();
+			});
+		} catch (final IOException e1) {
+		}
+		File[] fArray = new File[dong.size()];
+		fArray = dong.toArray(fArray);
+		final String[] sArray = new String[dong.size()];
+		for (int i = 0; i < fArray.length; i++)
+			sArray[i] = fArray[i].getName();
+
+		comboBox = new JComboBox<String>();
+		comboBox.setModel(new DefaultComboBoxModel<String>(sArray));
+		panel_4.add(comboBox);
+		//t.countPolys();
+		comboBox.addItemListener(new ItemListener() {
+
+			@Override
+			public void itemStateChanged(final ItemEvent event) {
+				if (event.getStateChange() == ItemEvent.SELECTED) {
+					final String item = (String) event.getItem();
+					Wheels.wheelfile = item;
+					applet.remake();
+					t.countPolys();
+					System.out.println("autorefresh'd!");
 				}
-
-						comboBox = new JComboBox<String>();
-						comboBox.setModel(new DefaultComboBoxModel<String>(sArray));
-						panel_4.add(comboBox);
-						//t.countPolys();
-						comboBox.addItemListener (new ItemListener () {
-
-							@Override
-							public void itemStateChanged(ItemEvent event) {
-								if (event.getStateChange() == ItemEvent.SELECTED) {
-							          String item = (String) event.getItem();
-							          Wheels.wheelfile = item;
-							          applet.remake();
-							          t.countPolys();
-							          System.out.println("autorefresh'd!");
-							    }
-							}
-						});
+			}
+		});
 
 		/*List<File> dong = new ArrayList<File>();
 		try {
@@ -393,10 +380,10 @@ public class RunApp extends Panel {
 				int benis_idiv = 0;
 				int benis_iwid = 0;
 
-				BufferedReader reader = new BufferedReader(new StringReader(benis));
+				final BufferedReader reader = new BufferedReader(new StringReader(benis));
 				String benis2 = reader.readLine();
 
-				while(benis2 != null) {
+				while (benis2 != null) {
 					benis2 = benis2.trim();
 					System.out.println(benis2.startsWith("div"));
 					if (benis2.startsWith("div"))
@@ -435,7 +422,8 @@ public class RunApp extends Panel {
 				realselection = realselection + "\r\n" + selection;
 				//System.out.println(realselection);
 
-				DataInputStream stream = new DataInputStream(new ByteArrayInputStream(realselection.getBytes(/*StandardCharsets.UTF_8*/)));
+				final DataInputStream stream = new DataInputStream(
+						new ByteArrayInputStream(realselection.getBytes(/*StandardCharsets.UTF_8*/)));
 				applet.o = new ContO(stream, applet.medium, 350, 150, 600, applet);
 				applet.o.wxz = storeo.wxz;
 				applet.o.xz = storeo.xz;
@@ -448,7 +436,7 @@ public class RunApp extends Panel {
 				applet.o = storeo;
 				storeo = null;
 			}
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			JOptionPane.showMessageDialog(null, "Could not show selected polygons! Error:\r\n\r\n" + e);
 		}
 	}
@@ -467,16 +455,16 @@ public class RunApp extends Panel {
 	private final JPanel panel, panel_2, panel_1;
 	private final TextEditor t;
 	private final JPanel panel_3;
-	private JButton btnLights;
-	private JPanel panel_4;
-	private JComboBox<String> comboBox;
-	private JLabel lblWheel;
-	private JTabbedPane tabbedPane;
-	private JPanel panel_5;
-	private JPanel panel_6;
-	private JPanel panel_7;
-	private JPanel panel_8;
-	private JSlider slider_2;
+	private final JButton btnLights;
+	private final JPanel panel_4;
+	private final JComboBox<String> comboBox;
+	private final JLabel lblWheel;
+	private final JTabbedPane tabbedPane;
+	private final JPanel panel_5;
+	private final JPanel panel_6;
+	private final JPanel panel_7;
+	private final JPanel panel_8;
+	private final JSlider slider_2;
 
 	/**
 	 * Fetches icons of 16, 32 and 48 pixels from the 'data' folder.

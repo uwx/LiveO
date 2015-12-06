@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * An implementation of <code>AppletContext</code>, optimized for desktop apps.
  * It's not complete though, only the methods needed by Nfm2 are implemented.
- * 
+ *
  * @author DragShot
  */
 public class DesktopContext implements AppletContext, Runnable {

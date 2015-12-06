@@ -58,11 +58,11 @@ public class Medium {
 			i = 180 - i;
 		if (i < -90)
 			i = -180 - i;
-		final int k = conto.y + (int) (((conto.y + yart) - conto.y) * Math.cos(conto.zy * 0.017453292519943295D)
+		final int k = conto.y + (int) ((conto.y + yart - conto.y) * Math.cos(conto.zy * 0.017453292519943295D)
 				- (conto.z - 600 - conto.z) * Math.sin(conto.zy * 0.017453292519943295D));
-		final int l = conto.z + (int) (((conto.y + yart) - conto.y) * Math.sin(conto.zy * 0.017453292519943295D)
+		final int l = conto.z + (int) ((conto.y + yart - conto.y) * Math.sin(conto.zy * 0.017453292519943295D)
 				+ (conto.z - 600 - conto.z) * Math.cos(conto.zy * 0.017453292519943295D));
-		final int i1 = conto.x + (int) ((-(l - conto.z)) * Math.sin(conto.xz * 0.017453292519943295D));
+		final int i1 = conto.x + (int) (-(l - conto.z) * Math.sin(conto.xz * 0.017453292519943295D));
 		final int j1 = conto.z + (int) ((l - conto.z) * Math.cos(conto.xz * 0.017453292519943295D));
 		zy = -i;
 		xz = -j;
@@ -90,11 +90,11 @@ public class Medium {
 			i = 180 - i;
 		if (i < -90)
 			i = -180 - i;
-		final int k = conto.y + (int) (((conto.y + yart) - conto.y) * Math.cos(conto.zy * 0.017453292519943295D)
-				- ((conto.z + 800) - conto.z) * Math.sin(conto.zy * 0.017453292519943295D));
-		final int l = conto.z + (int) (((conto.y + yart) - conto.y) * Math.sin(conto.zy * 0.017453292519943295D)
-				+ ((conto.z + 800) - conto.z) * Math.cos(conto.zy * 0.017453292519943295D));
-		final int i1 = conto.x + (int) ((-(l - conto.z)) * Math.sin(conto.xz * 0.017453292519943295D));
+		final int k = conto.y + (int) ((conto.y + yart - conto.y) * Math.cos(conto.zy * 0.017453292519943295D)
+				- (conto.z + 800 - conto.z) * Math.sin(conto.zy * 0.017453292519943295D));
+		final int l = conto.z + (int) ((conto.y + yart - conto.y) * Math.sin(conto.zy * 0.017453292519943295D)
+				+ (conto.z + 800 - conto.z) * Math.cos(conto.zy * 0.017453292519943295D));
+		final int i1 = conto.x + (int) (-(l - conto.z) * Math.sin(conto.xz * 0.017453292519943295D));
 		final int j1 = conto.z + (int) ((l - conto.z) * Math.cos(conto.xz * 0.017453292519943295D));
 		zy = i;
 		xz = -(j + 180);
@@ -105,8 +105,8 @@ public class Medium {
 
 	public void left(final ContO conto) {
 		final int i = conto.y;
-		final int j = conto.x + (int) (((conto.x + 600) - conto.x) * Math.cos(conto.xz * 0.017453292519943295D));
-		final int k = conto.z + (int) (((conto.x + 600) - conto.x) * Math.sin(conto.xz * 0.017453292519943295D));
+		final int j = conto.x + (int) ((conto.x + 600 - conto.x) * Math.cos(conto.xz * 0.017453292519943295D));
+		final int k = conto.z + (int) ((conto.x + 600 - conto.x) * Math.sin(conto.xz * 0.017453292519943295D));
 		zy = 0;
 		xz = -(conto.xz + 90);
 		x += (j - cx - x) / 1.5D;
@@ -128,12 +128,12 @@ public class Medium {
 	public void watch(final ContO conto) {
 		if (!td) {
 			y = conto.y + (int) ((conto.y - 300 - conto.y) * Math.cos(conto.zy * 0.017453292519943295D)
-					- ((conto.z + 3000) - conto.z) * Math.sin(conto.zy * 0.017453292519943295D));
+					- (conto.z + 3000 - conto.z) * Math.sin(conto.zy * 0.017453292519943295D));
 			final int i = conto.z + (int) ((conto.y - 300 - conto.y) * Math.sin(conto.zy * 0.017453292519943295D)
-					+ ((conto.z + 3000) - conto.z) * Math.cos(conto.zy * 0.017453292519943295D));
-			x = conto.x + (int) (((conto.x + 400) - conto.x) * Math.cos(conto.xz * 0.017453292519943295D)
+					+ (conto.z + 3000 - conto.z) * Math.cos(conto.zy * 0.017453292519943295D));
+			x = conto.x + (int) ((conto.x + 400 - conto.x) * Math.cos(conto.xz * 0.017453292519943295D)
 					- (i - conto.z) * Math.sin(conto.xz * 0.017453292519943295D));
-			z = conto.z + (int) (((conto.x + 400) - conto.x) * Math.sin(conto.xz * 0.017453292519943295D)
+			z = conto.z + (int) ((conto.x + 400 - conto.x) * Math.sin(conto.xz * 0.017453292519943295D)
 					+ (i - conto.z) * Math.cos(conto.xz * 0.017453292519943295D));
 			td = true;
 		}
@@ -159,8 +159,8 @@ public class Medium {
 		if (i == 6000)
 			byte0 = 2;
 		y = conto.y + adv;
-		x = conto.x + (int) ((((conto.x - i) + adv * byte0) - conto.x) * Math.cos(vxz * 0.017453292519943295D));
-		z = conto.z + (int) ((((conto.x - i) + adv * byte0) - conto.x) * Math.sin(vxz * 0.017453292519943295D));
+		x = conto.x + (int) ((conto.x - i + adv * byte0 - conto.x) * Math.cos(vxz * 0.017453292519943295D));
+		z = conto.z + (int) ((conto.x - i + adv * byte0 - conto.x) * Math.sin(vxz * 0.017453292519943295D));
 		if (i == 6000) {
 			if (!vert)
 				adv -= 10;
@@ -305,7 +305,7 @@ public class Medium {
 	public int ys(final int i, int j) {
 		if (j < 10)
 			j = 10;
-		return ((j - focus_point) * (cy - i)) / j + i;
+		return (j - focus_point) * (cy - i) / j + i;
 	}
 
 	boolean lightson;

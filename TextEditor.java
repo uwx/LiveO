@@ -1,9 +1,12 @@
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.FileDialog;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -14,34 +17,24 @@ import java.io.StringReader;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
 
-import org.fife.ui.rtextarea.*;
-import org.fife.ui.rsyntaxtextarea.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.InputMethodListener;
-import java.awt.event.InputMethodEvent;
-import javax.swing.BoxLayout;
-import java.awt.Component;
-import javax.swing.JRadioButtonMenuItem;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import java.awt.FlowLayout;
+import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
+import org.fife.ui.rtextarea.RTextScrollPane;
+import org.fife.ui.rtextarea.SearchContext;
+import org.fife.ui.rtextarea.SearchEngine;
 
 /*
  * A simple Text Editor.  This demonstrates the use of a
@@ -64,27 +57,27 @@ public class TextEditor implements ActionListener {
 	private final JLabel lblFontSize;
 	private final F51 f51;
 	private final JButton btnMirrorXAxis, btnMirrorYAxis, btnMirrorZAxis, prevButton, nextButton;
-	private JButton btnShowSelection;
+	private final JButton btnShowSelection;
 
-   private JTextField searchField;
-   private JCheckBox regexCB;
-   private JCheckBox matchCaseCB;
-   private JPanel panel;
-   private JLabel lblPolys;
-   private JPanel panel_1;
-   private JMenuItem btnSolidifyRoad;
-   private JMenuItem btnSolidifyWall;
-   private JMenuItem btnGet;
-   private JMenuItem btnSolidifyRoofna;
-   private JMenuItem btnSolidifyWallOld;
-   private JMenuItem btnSolidifyRoadOld;
-   private JPanel panel_3;
-   private JMenuBar menuBar;
-   private JMenu mnFile;
-   private JMenuItem mntmLoad;
-   private JMenu mnSettings;
-   private JPanel panel_4;
-   private JMenu mnTools;
+	private final JTextField searchField;
+	private final JCheckBox regexCB;
+	private final JCheckBox matchCaseCB;
+	private final JPanel panel;
+	private final JLabel lblPolys;
+	private final JPanel panel_1;
+	private final JMenuItem btnSolidifyRoad;
+	private final JMenuItem btnSolidifyWall;
+	private final JMenuItem btnGet;
+	private final JMenuItem btnSolidifyRoofna;
+	private final JMenuItem btnSolidifyWallOld;
+	private final JMenuItem btnSolidifyRoadOld;
+	private final JPanel panel_3;
+	private final JMenuBar menuBar;
+	private final JMenu mnFile;
+	private final JMenuItem mntmLoad;
+	private final JMenu mnSettings;
+	private final JPanel panel_4;
+	private final JMenu mnTools;
 	boolean fffff = false;
 
 	// Creates the GUI
@@ -95,7 +88,7 @@ public class TextEditor implements ActionListener {
 		text = new RSyntaxTextArea(NUM_ROWS, NUM_COLS);
 		text.addKeyListener(new KeyAdapter() {
 			@Override
-			public void keyTyped(KeyEvent e) {
+			public void keyTyped(final KeyEvent e) {
 				countPolys();
 			}
 		});
@@ -105,47 +98,47 @@ public class TextEditor implements ActionListener {
 		contentPane.add(textScroller, BorderLayout.CENTER);
 
 		// create an Action doing what you want
-		AbstractAction saveAction = new AbstractAction("doSomething") {
+		final AbstractAction saveAction = new AbstractAction("doSomething") {
 
 			private static final long serialVersionUID = -1507795546151323861L;
 
 			@Override
-		    public void actionPerformed(ActionEvent e) {
-		        System.out.println("triggered the action");
-		        saveFile();
-		    }
+			public void actionPerformed(final ActionEvent e) {
+				System.out.println("triggered the action");
+				saveFile();
+			}
 
 		};
 		// configure the Action with the accelerator (aka: short cut)
 		saveAction.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control S"));
 
 		// create an Action doing what you want
-		AbstractAction reloadAction = new AbstractAction("doSomething") {
+		final AbstractAction reloadAction = new AbstractAction("doSomething") {
 
 			private static final long serialVersionUID = -1507795546151323861L;
 
 			@Override
-		    public void actionPerformed(ActionEvent e) {
-		        System.out.println("triggered the action");
-		        loadFile();
-		    }
+			public void actionPerformed(final ActionEvent e) {
+				System.out.println("triggered the action");
+				loadFile();
+			}
 
 		};
 		// configure the Action with the accelerator (aka: short cut)
 		reloadAction.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control R"));
 
 		// create an Action doing what you want
-		AbstractAction newAction = new AbstractAction("doSomething") {
+		final AbstractAction newAction = new AbstractAction("doSomething") {
 
 			private static final long serialVersionUID = -1507795546151323861L;
 
 			@Override
-		    public void actionPerformed(ActionEvent e) {
-		        System.out.println("triggered the action");
-		        if (!fffff)
-		        	newFile();
-		        fffff = !fffff;
-		    }
+			public void actionPerformed(final ActionEvent e) {
+				System.out.println("triggered the action");
+				if (!fffff)
+					newFile();
+				fffff = !fffff;
+			}
 
 		};
 		// configure the Action with the accelerator (aka: short cut)
@@ -162,7 +155,7 @@ public class TextEditor implements ActionListener {
 		panel_3.setLayout(new BorderLayout(0, 0));
 
 		// Create a toolbar with searching options.
-		JPanel toolBar = new JPanel();
+		final JPanel toolBar = new JPanel();
 		panel_3.add(toolBar, BorderLayout.SOUTH);
 		toolBar.setLayout(new BorderLayout(0, 0));
 
@@ -183,9 +176,10 @@ public class TextEditor implements ActionListener {
 		prevButton.addActionListener(this);
 		nextButton.addActionListener(this);
 		searchField.addActionListener(new ActionListener() {
-		   public void actionPerformed(ActionEvent e) {
-		      nextButton.doClick(0);
-		   }
+			@Override
+			public void actionPerformed(final ActionEvent e) {
+				nextButton.doClick(0);
+			}
 		});
 		final JPanel buttonPanel = new JPanel();
 		panel_3.add(buttonPanel);
@@ -194,15 +188,15 @@ public class TextEditor implements ActionListener {
 		saveButton.setText("Save");
 
 		saveButton.getActionMap().put("saveAction", saveAction);
-		saveButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
-		        (KeyStroke) saveAction.getValue(Action.ACCELERATOR_KEY), "saveAction");
+		saveButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
+				.put((KeyStroke) saveAction.getValue(Action.ACCELERATOR_KEY), "saveAction");
 
 		loadButton = new JButton(reloadAction);
 		loadButton.setText("Reload");
 
 		loadButton.getActionMap().put("reloadAction", reloadAction);
-		loadButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
-		        (KeyStroke) reloadAction.getValue(Action.ACCELERATOR_KEY), "reloadAction");
+		loadButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
+				.put((KeyStroke) reloadAction.getValue(Action.ACCELERATOR_KEY), "reloadAction");
 		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
 
 		buttonPanel.add(saveButton);
@@ -237,7 +231,8 @@ public class TextEditor implements ActionListener {
 
 		btnShowSelection = new JButton("View Selection");
 		btnShowSelection.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			@Override
+			public void actionPerformed(final ActionEvent e) {
 				runapp.showSelectedPolygons(text.getText(), text.getSelectedText());
 			}
 		});
@@ -251,13 +246,14 @@ public class TextEditor implements ActionListener {
 
 		mntmLoad = new JMenuItem("Open");
 		mntmLoad.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				FileDialog fd = new FileDialog(frame, "Choose a file", FileDialog.LOAD);
+			@Override
+			public void actionPerformed(final ActionEvent e) {
+				final FileDialog fd = new FileDialog(frame, "Choose a file", FileDialog.LOAD);
 				fd.setDirectory(new File("./").getPath());
 				fd.setFile("*.rad");
 				fd.setVisible(true);
 				//String filename = fd.getFile();
-				File[] files = fd.getFiles();
+				final File[] files = fd.getFiles();
 				if (files.length == 0)
 					System.out.println("You cancelled the choice");
 				else {
@@ -265,7 +261,7 @@ public class TextEditor implements ActionListener {
 					F51.contofile = files[0];
 					f51.remake();
 					countPolys();
-			        loadFile();
+					loadFile();
 				}
 			}
 		});
@@ -292,8 +288,8 @@ public class TextEditor implements ActionListener {
 				try {
 					final int fsize = Integer.parseInt(textField.getText());
 					text.setFont(new Font("Courier New", Font.PLAIN, fsize));
-		} catch (final Exception ex) {
-			JOptionPane.showMessageDialog(null, "Invalid number " + textField.getText());
+				} catch (final Exception ex) {
+					JOptionPane.showMessageDialog(null, "Invalid number " + textField.getText());
 				}
 			}
 		});
@@ -323,44 +319,49 @@ public class TextEditor implements ActionListener {
 		btnGet = new JMenuItem("get <tracks>");
 		mnTools.add(btnGet);
 		btnGet.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			@Override
+			public void actionPerformed(final ActionEvent e) {
 				getTracks();
 			}
 		});
 		btnSolidifyWallOld.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			@Override
+			public void actionPerformed(final ActionEvent e) {
 				solidifyWallOld();
 			}
 		});
 		btnSolidifyWall.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			@Override
+			public void actionPerformed(final ActionEvent e) {
 				solidifyWall();
 			}
 		});
 		btnSolidifyRoadOld.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			@Override
+			public void actionPerformed(final ActionEvent e) {
 				solidifyRoadOld();
 			}
 		});
 		btnSolidifyRoad.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			@Override
+			public void actionPerformed(final ActionEvent e) {
 				solidifyRoad();
 			}
 		});
 		btnSolidifyRoofna.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			@Override
+			public void actionPerformed(final ActionEvent e) {
 				solidifyRoof();
 			}
 		});
 
 		newButton.getActionMap().put("newAction", newAction);
-		newButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
-		        (KeyStroke) newAction.getValue(Action.ACCELERATOR_KEY), "newAction");
+		newButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
+				.put((KeyStroke) newAction.getValue(Action.ACCELERATOR_KEY), "newAction");
 		newButton.addActionListener(newAction);
 
 		saveButton.addActionListener(saveAction);
 		loadButton.addActionListener(reloadAction);
-
 
 		frame.pack();
 		frame.setVisible(true);
@@ -376,31 +377,29 @@ public class TextEditor implements ActionListener {
 	@Override
 	public void actionPerformed(final ActionEvent event) {
 		if (event.getSource() == prevButton || event.getSource() == nextButton) {
-			String command = event.getActionCommand();
-			boolean forward = "FindNext".equals(command);
+			final String command = event.getActionCommand();
+			final boolean forward = "FindNext".equals(command);
 
 			// Create an object defining our search parameters.
-			SearchContext context = new SearchContext();
-			String text = searchField.getText();
-			if (text.length() == 0) {
-			   return;
-			}
+			final SearchContext context = new SearchContext();
+			final String text = searchField.getText();
+			if (text.length() == 0)
+				return;
 			context.setSearchFor(text);
 			context.setMatchCase(matchCaseCB.isSelected());
 			context.setRegularExpression(regexCB.isSelected());
 			context.setSearchForward(forward);
 			context.setWholeWord(false);
 
-			boolean found = SearchEngine.find(this.text, context).wasFound();
-			if (!found) {
-			   JOptionPane.showMessageDialog(null, "Text not found");
-			}
+			final boolean found = SearchEngine.find(this.text, context).wasFound();
+			if (!found)
+				JOptionPane.showMessageDialog(null, "Text not found");
 		}
 	}
 
 	public void solidifyRoof() {
 		try {
-			Object[] radius = getSelectedRadius();
+			final Object[] radius = getSelectedRadius();
 
 			//final String output = "";
 			//final String outend = "";
@@ -409,27 +408,32 @@ public class TextEditor implements ActionListener {
 			final String rady = "rady(" + radius[1] + ")";
 			final String radz = "radz(" + radius[2] + ")";
 
-			JOptionPane.showMessageDialog(null, "<track>\r\nc(100,100,100)\r\n" + radx + "\r\n" + rady + "\r\n" + radz + "\r\n</track>\r\n ");
-			text.setText("<track>\r\nc(100,100,100)\r\n" + radx + "\r\n" + rady + "\r\n" + radz + "\r\n</track>\r\n "+ text.getText());
+			JOptionPane.showMessageDialog(null,
+					"<track>\r\nc(100,100,100)\r\n" + radx + "\r\n" + rady + "\r\n" + radz + "\r\n</track>\r\n ");
+			text.setText("<track>\r\nc(100,100,100)\r\n" + radx + "\r\n" + rady + "\r\n" + radz + "\r\n</track>\r\n "
+					+ text.getText());
 
-		} catch (NullPointerException e) {JOptionPane.showMessageDialog(null, "You didn't select anything!");
-		} catch (Exception e) {JOptionPane.showMessageDialog(null, "rip");}
+		} catch (final NullPointerException e) {
+			JOptionPane.showMessageDialog(null, "You didn't select anything!");
+		} catch (final Exception e) {
+			JOptionPane.showMessageDialog(null, "rip");
+		}
 	}
 
 	public void solidifyWall() {
 		try {
-			Object[] radius = getSelectedRadius();
+			final Object[] radius = getSelectedRadius();
 
 			/*int pretx = (Math.abs((int)radius[0]) - Math.abs((int)radius[3]));
 			int prety = (Math.abs((int)radius[1]) - Math.abs((int)radius[4]));
 			int pretz = (Math.abs((int)radius[2]) - Math.abs((int)radius[5]));
-
+			
 			String outxy = "";
 			if (pretx < 0)
 				outxy = "xy(-90)";
 			else
 				outxy = "xy(90)";
-
+			
 			String outzy = "";
 			if (pretz < 0)
 				outzy = "zy(-90)";
@@ -453,18 +457,18 @@ public class TextEditor implements ActionListener {
 			final String end = ")";
 			final String l = "\r\n";
 
-			int radx[] = new int[4]; // CUBE HAS 4 SIDES MOTHERFUCKER
-			int radz[] = new int[4]; // CUBE HAS 4 SIDES MOTHERFUCKER
-			int rady[] = new int[4]; // CUBE HAS 4 SIDES MOTHERFUCKER
-			int tx[] = new int[4]; // CUBE HAS 4 SIDES MOTHERFUCKER
-			int ty[] = new int[4]; // CUBE HAS 4 SIDES MOTHERFUCKER
-			int tz[] = new int[4]; // CUBE HAS 4 SIDES MOTHERFUCKER
-			String xy[] = new String[4]; // CUBE HAS 4 SIDES MOTHERFUCKER
-			String zy[] = new String[4]; // CUBE HAS 4 SIDES MOTHERFUCKER
+			final int radx[] = new int[4]; // CUBE HAS 4 SIDES MOTHERFUCKER
+			final int radz[] = new int[4]; // CUBE HAS 4 SIDES MOTHERFUCKER
+			final int rady[] = new int[4]; // CUBE HAS 4 SIDES MOTHERFUCKER
+			final int tx[] = new int[4]; // CUBE HAS 4 SIDES MOTHERFUCKER
+			final int ty[] = new int[4]; // CUBE HAS 4 SIDES MOTHERFUCKER
+			final int tz[] = new int[4]; // CUBE HAS 4 SIDES MOTHERFUCKER
+			final String xy[] = new String[4]; // CUBE HAS 4 SIDES MOTHERFUCKER
+			final String zy[] = new String[4]; // CUBE HAS 4 SIDES MOTHERFUCKER
 
-			int xcoord = (int)radius[0];
-			int zcoord = (int)radius[2];
-			int ycoord = (int)radius[1];
+			final int xcoord = (int) radius[0];
+			final int zcoord = (int) radius[2];
+			final int ycoord = (int) radius[1];
 
 			radx[0] = xcoord;
 			radz[0] = zcoord;
@@ -486,7 +490,7 @@ public class TextEditor implements ActionListener {
 
 			radx[2] = zcoord;
 			radz[2] = xcoord;
-			rady[2] = zcoord/2;
+			rady[2] = zcoord / 2;
 			tx[2] = 0;
 			ty[2] = 0;
 			tz[2] = zcoord;
@@ -495,17 +499,23 @@ public class TextEditor implements ActionListener {
 
 			radx[3] = zcoord;
 			radz[3] = xcoord;
-			rady[3] = zcoord/2;
+			rady[3] = zcoord / 2;
 			tx[3] = 0;
 			ty[3] = 0;
 			tz[3] = -zcoord;
 			xy[3] = ""; // may not be
 			zy[3] = "zy(90)";
 
-			String out = begintrack + l + xy[0] + l + zy[0] + l + startradx + radx[0] + end + l + startradz + radz[0] + end + l + startrady + rady[0] + end + l + starttx + tx[0] + end + l + startty + ty[0] + end + l + starttz + tz[0] + end + l + endtrack + l + l +
-						 begintrack + l + xy[1] + l + zy[1] + l + startradx + radx[1] + end + l + startradz + radz[1] + end + l + startrady + rady[1] + end + l + starttx + tx[1] + end + l + startty + ty[1] + end + l + starttz + tz[1] + end + l + endtrack + l + l +
-						 begintrack + l + xy[2] + l + zy[2] + l + startradx + radx[2] + end + l + startradz + radz[2] + end + l + startrady + rady[2] + end + l + starttx + tx[2] + end + l + startty + ty[2] + end + l + starttz + tz[2] + end + l + endtrack + l + l +
-						 begintrack + l + xy[3] + l + zy[3] + l + startradx + radx[3] + end + l + startradz + radz[3] + end + l + startrady + rady[3] + end + l + starttx + tx[3] + end + l + startty + ty[3] + end + l + starttz + tz[3] + end + l + endtrack + l + l;
+			final String out = begintrack + l + xy[0] + l + zy[0] + l + startradx + radx[0] + end + l + startradz
+					+ radz[0] + end + l + startrady + rady[0] + end + l + starttx + tx[0] + end + l + startty + ty[0]
+					+ end + l + starttz + tz[0] + end + l + endtrack + l + l + begintrack + l + xy[1] + l + zy[1] + l
+					+ startradx + radx[1] + end + l + startradz + radz[1] + end + l + startrady + rady[1] + end + l
+					+ starttx + tx[1] + end + l + startty + ty[1] + end + l + starttz + tz[1] + end + l + endtrack + l
+					+ l + begintrack + l + xy[2] + l + zy[2] + l + startradx + radx[2] + end + l + startradz + radz[2]
+					+ end + l + startrady + rady[2] + end + l + starttx + tx[2] + end + l + startty + ty[2] + end + l
+					+ starttz + tz[2] + end + l + endtrack + l + l + begintrack + l + xy[3] + l + zy[3] + l + startradx
+					+ radx[3] + end + l + startradz + radz[3] + end + l + startrady + rady[3] + end + l + starttx
+					+ tx[3] + end + l + startty + ty[3] + end + l + starttz + tz[3] + end + l + endtrack + l + l;
 			System.out.println(out);
 
 			////////////new
@@ -519,8 +529,8 @@ public class TextEditor implements ActionListener {
 			tx(-zcoord)
 			ty(0)
 			</track>
-
-            <track>
+			
+			<track>
 			xy(-90)
 			radx(xcoord)
 			radz(zcoord)
@@ -528,7 +538,7 @@ public class TextEditor implements ActionListener {
 			tx(zcoord)
 			ty(0)
 			</track>
-
+			
 			<track>
 			zy(-90)
 			radx(zcoord)
@@ -538,7 +548,7 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(zcoord)
 			</track>
-
+			
 			<track>
 			zy(90)
 			radx(zcoord)
@@ -548,7 +558,7 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(-zcoord)
 			</track>
-
+			
 			*/
 
 			//////////// old
@@ -562,8 +572,8 @@ public class TextEditor implements ActionListener {
 			tx(-ycoord)
 			ty(0)
 			</track>
-
-
+			
+			
 			<track>
 			xy(-90)
 			radx(xcoord)
@@ -572,7 +582,7 @@ public class TextEditor implements ActionListener {
 			tx(ycoord)
 			ty(0)
 			</track>
-
+			
 			<track>
 			zy(-90)
 			radx(zcoord)
@@ -582,7 +592,7 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(zcoord)
 			</track>
-
+			
 			<track>
 			zy(90)
 			radx(zcoord)
@@ -597,7 +607,7 @@ public class TextEditor implements ActionListener {
 			////////////original
 
 			/*
-
+			
 			<track>
 			xy(90)
 			radx(200)
@@ -606,7 +616,7 @@ public class TextEditor implements ActionListener {
 			tx(-700)
 			ty(0)
 			</track>
-
+			
 			<track>
 			xy(-90)
 			radx(200)
@@ -615,7 +625,7 @@ public class TextEditor implements ActionListener {
 			tx(700)
 			ty(0)
 			</track>
-
+			
 			<track>
 			zy(-90)
 			radx(700)
@@ -625,7 +635,7 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(700)
 			</track>
-
+			
 			<track>
 			zy(90)
 			radx(700)
@@ -635,14 +645,14 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(-700)
 			</track>
-
+			
 			*/
 
 			////////////flat
 
 			/*
 			<track>
-
+			
 			xy(90)
 			radx(1)
 			rady(2)
@@ -651,9 +661,8 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(0)
 			</track>
-
+			
 			*/
-
 
 			//final String radx = "radx(" + Math.abs(pretx) + ")";
 			//final String rady = "rady(" + Math.abs(prety) + ")";
@@ -661,25 +670,28 @@ public class TextEditor implements ActionListener {
 
 			JOptionPane.showMessageDialog(null, out);
 			text.setText(out + l + l + text.getText());
-		} catch (NullPointerException e) {JOptionPane.showMessageDialog(null, "You didn't select anything!");
-		} catch (Exception e) {JOptionPane.showMessageDialog(null, "rip");}
+		} catch (final NullPointerException e) {
+			JOptionPane.showMessageDialog(null, "You didn't select anything!");
+		} catch (final Exception e) {
+			JOptionPane.showMessageDialog(null, "rip");
+		}
 
 	}
 
 	public void solidifyWallOld() {
 		try {
-			Object[] radius = getSelectedRadius();
+			final Object[] radius = getSelectedRadius();
 
 			/*int pretx = (Math.abs((int)radius[0]) - Math.abs((int)radius[3]));
 			int prety = (Math.abs((int)radius[1]) - Math.abs((int)radius[4]));
 			int pretz = (Math.abs((int)radius[2]) - Math.abs((int)radius[5]));
-
+			
 			String outxy = "";
 			if (pretx < 0)
 				outxy = "xy(-90)";
 			else
 				outxy = "xy(90)";
-
+			
 			String outzy = "";
 			if (pretz < 0)
 				outzy = "zy(-90)";
@@ -703,18 +715,18 @@ public class TextEditor implements ActionListener {
 			final String end = ")";
 			final String l = "\r\n";
 
-			int radx[] = new int[4]; // CUBE HAS 4 SIDES MOTHERFUCKER
-			int radz[] = new int[4]; // CUBE HAS 4 SIDES MOTHERFUCKER
-			int rady[] = new int[4]; // CUBE HAS 4 SIDES MOTHERFUCKER
-			int tx[] = new int[4]; // CUBE HAS 4 SIDES MOTHERFUCKER
-			int ty[] = new int[4]; // CUBE HAS 4 SIDES MOTHERFUCKER
-			int tz[] = new int[4]; // CUBE HAS 4 SIDES MOTHERFUCKER
-			int xy[] = new int[4]; // CUBE HAS 4 SIDES MOTHERFUCKER
-			int zy[] = new int[4]; // CUBE HAS 4 SIDES MOTHERFUCKER
+			final int radx[] = new int[4]; // CUBE HAS 4 SIDES MOTHERFUCKER
+			final int radz[] = new int[4]; // CUBE HAS 4 SIDES MOTHERFUCKER
+			final int rady[] = new int[4]; // CUBE HAS 4 SIDES MOTHERFUCKER
+			final int tx[] = new int[4]; // CUBE HAS 4 SIDES MOTHERFUCKER
+			final int ty[] = new int[4]; // CUBE HAS 4 SIDES MOTHERFUCKER
+			final int tz[] = new int[4]; // CUBE HAS 4 SIDES MOTHERFUCKER
+			final int xy[] = new int[4]; // CUBE HAS 4 SIDES MOTHERFUCKER
+			final int zy[] = new int[4]; // CUBE HAS 4 SIDES MOTHERFUCKER
 
-			int xcoord = (int)radius[0];
-			int zcoord = (int)radius[2];
-			int ycoord = (int)radius[1];
+			final int xcoord = (int) radius[0];
+			final int zcoord = (int) radius[2];
+			final int ycoord = (int) radius[1];
 
 			radx[0] = xcoord;
 			radz[0] = zcoord;
@@ -736,7 +748,7 @@ public class TextEditor implements ActionListener {
 
 			radx[2] = zcoord;
 			radz[2] = xcoord;
-			rady[2] = zcoord/2;
+			rady[2] = zcoord / 2;
 			tx[2] = 0;
 			ty[2] = 0;
 			tz[2] = zcoord;
@@ -745,17 +757,25 @@ public class TextEditor implements ActionListener {
 
 			radx[3] = zcoord;
 			radz[3] = xcoord;
-			rady[3] = zcoord/2;
+			rady[3] = zcoord / 2;
 			tx[3] = 0;
 			ty[3] = 0;
 			tz[3] = -zcoord;
 			xy[3] = 0; // may not be
 			zy[3] = 90;
 
-			String out = begintrack + l + startxy + xy[0] + end + l + startzy + zy[0] + end + l + startradx + radx[0] + end + l + startradz + radz[0] + end + l + startrady + rady[0] + end + l + starttx + tx[0] + end + l + startty + ty[0] + end + l + starttz + tz[0] + end + l + endtrack + l + l +
-							   begintrack + l + startxy + xy[1] + end + l + startzy + zy[1] + end + l + startradx + radx[1] + end + l + startradz + radz[1] + end + l + startrady + rady[1] + end + l + starttx + tx[1] + end + l + startty + ty[1] + end + l + starttz + tz[1] + end + l + endtrack + l + l +
-							   begintrack + l + startxy + xy[2] + end + l + startzy + zy[2] + end + l + startradx + radx[2] + end + l + startradz + radz[2] + end + l + startrady + rady[2] + end + l + starttx + tx[2] + end + l + startty + ty[2] + end + l + starttz + tz[2] + end + l + endtrack + l + l +
-							   begintrack + l + startxy + xy[3] + end + l + startzy + zy[3] + end + l + startradx + radx[3] + end + l + startradz + radz[3] + end + l + startrady + rady[3] + end + l + starttx + tx[3] + end + l + startty + ty[3] + end + l + starttz + tz[3] + end + l + endtrack + l + l;
+			final String out = begintrack + l + startxy + xy[0] + end + l + startzy + zy[0] + end + l + startradx
+					+ radx[0] + end + l + startradz + radz[0] + end + l + startrady + rady[0] + end + l + starttx
+					+ tx[0] + end + l + startty + ty[0] + end + l + starttz + tz[0] + end + l + endtrack + l + l
+					+ begintrack + l + startxy + xy[1] + end + l + startzy + zy[1] + end + l + startradx + radx[1] + end
+					+ l + startradz + radz[1] + end + l + startrady + rady[1] + end + l + starttx + tx[1] + end + l
+					+ startty + ty[1] + end + l + starttz + tz[1] + end + l + endtrack + l + l + begintrack + l
+					+ startxy + xy[2] + end + l + startzy + zy[2] + end + l + startradx + radx[2] + end + l + startradz
+					+ radz[2] + end + l + startrady + rady[2] + end + l + starttx + tx[2] + end + l + startty + ty[2]
+					+ end + l + starttz + tz[2] + end + l + endtrack + l + l + begintrack + l + startxy + xy[3] + end
+					+ l + startzy + zy[3] + end + l + startradx + radx[3] + end + l + startradz + radz[3] + end + l
+					+ startrady + rady[3] + end + l + starttx + tx[3] + end + l + startty + ty[3] + end + l + starttz
+					+ tz[3] + end + l + endtrack + l + l;
 			System.out.println(out);
 
 			////////////new
@@ -769,8 +789,8 @@ public class TextEditor implements ActionListener {
 			tx(-zcoord)
 			ty(0)
 			</track>
-
-            <track>
+			
+			<track>
 			xy(-90)
 			radx(xcoord)
 			radz(zcoord)
@@ -778,7 +798,7 @@ public class TextEditor implements ActionListener {
 			tx(zcoord)
 			ty(0)
 			</track>
-
+			
 			<track>
 			zy(-90)
 			radx(zcoord)
@@ -788,7 +808,7 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(zcoord)
 			</track>
-
+			
 			<track>
 			zy(90)
 			radx(zcoord)
@@ -798,7 +818,7 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(-zcoord)
 			</track>
-
+			
 			*/
 
 			//////////// old
@@ -812,8 +832,8 @@ public class TextEditor implements ActionListener {
 			tx(-ycoord)
 			ty(0)
 			</track>
-
-
+			
+			
 			<track>
 			xy(-90)
 			radx(xcoord)
@@ -822,7 +842,7 @@ public class TextEditor implements ActionListener {
 			tx(ycoord)
 			ty(0)
 			</track>
-
+			
 			<track>
 			zy(-90)
 			radx(zcoord)
@@ -832,7 +852,7 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(zcoord)
 			</track>
-
+			
 			<track>
 			zy(90)
 			radx(zcoord)
@@ -847,7 +867,7 @@ public class TextEditor implements ActionListener {
 			////////////original
 
 			/*
-
+			
 			<track>
 			xy(90)
 			radx(200)
@@ -856,7 +876,7 @@ public class TextEditor implements ActionListener {
 			tx(-700)
 			ty(0)
 			</track>
-
+			
 			<track>
 			xy(-90)
 			radx(200)
@@ -865,7 +885,7 @@ public class TextEditor implements ActionListener {
 			tx(700)
 			ty(0)
 			</track>
-
+			
 			<track>
 			zy(-90)
 			radx(700)
@@ -875,7 +895,7 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(700)
 			</track>
-
+			
 			<track>
 			zy(90)
 			radx(700)
@@ -885,14 +905,14 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(-700)
 			</track>
-
+			
 			*/
 
 			////////////flat
 
 			/*
 			<track>
-
+			
 			xy(90)
 			radx(1)
 			rady(2)
@@ -901,9 +921,8 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(0)
 			</track>
-
+			
 			*/
-
 
 			//final String radx = "radx(" + Math.abs(pretx) + ")";
 			//final String rady = "rady(" + Math.abs(prety) + ")";
@@ -911,8 +930,11 @@ public class TextEditor implements ActionListener {
 
 			JOptionPane.showMessageDialog(null, out);
 			text.setText(out + l + l + text.getText());
-		} catch (NullPointerException e) {JOptionPane.showMessageDialog(null, "You didn't select anything!");
-		} catch (Exception e) {JOptionPane.showMessageDialog(null, "rip");}
+		} catch (final NullPointerException e) {
+			JOptionPane.showMessageDialog(null, "You didn't select anything!");
+		} catch (final Exception e) {
+			JOptionPane.showMessageDialog(null, "rip");
+		}
 
 	}
 
@@ -926,54 +948,61 @@ public class TextEditor implements ActionListener {
 		Object minY = null;
 		Object minZ = null;
 		try {
-			BufferedReader reader = new BufferedReader(new StringReader(text.getText()));
+			final BufferedReader reader = new BufferedReader(new StringReader(text.getText()));
 			String benis2 = reader.readLine();
 			while (benis2 != null) {
 				if (benis2.startsWith("p(")) {
-					int curX = getvalue("p", benis2, 0);
+					final int curX = getvalue("p", benis2, 0);
 					if (maxX != null)
-						if (curX > (int)maxX)
+						if (curX > (int) maxX)
 							maxX = curX;
-						else{}
+						else {
+						}
 					else
 						maxX = curX;
 					if (minX != null)
-						if (curX < (int)minX)
+						if (curX < (int) minX)
 							minX = curX;
-						else{}
+						else {
+						}
 					else
 						minX = curX;
-					int curY = getvalue("p", benis2, 1);
+					final int curY = getvalue("p", benis2, 1);
 					if (maxY != null)
-						if (curY > (int)maxY)
+						if (curY > (int) maxY)
 							maxY = curY;
-						else{}
+						else {
+						}
 					else
 						maxY = curY;
 					if (minY != null)
-						if (curY < (int)minY)
+						if (curY < (int) minY)
 							minY = curY;
-						else{}
+						else {
+						}
 					else
 						minY = curY;
-					int curZ = getvalue("p", benis2, 2);
+					final int curZ = getvalue("p", benis2, 2);
 					if (maxZ != null)
-						if (curZ > (int)maxZ)
+						if (curZ > (int) maxZ)
 							maxZ = curZ;
-						else{}
+						else {
+						}
 					else
 						maxZ = curZ;
 					if (minZ != null)
-						if (curZ < (int)minZ)
+						if (curZ < (int) minZ)
 							minZ = curZ;
-						else{}
+						else {
+						}
 					else
 						minZ = curZ;
 				}
 				benis2 = reader.readLine();
 			}
 
-		} catch (IOException e) {} finally {
+		} catch (final IOException e) {
+		} finally {
 			/*text.setText("max(" +
 						 maxX + "," + maxY + "," + maxZ + ")\r\n" +
 						 "min(" +
@@ -988,22 +1017,24 @@ public class TextEditor implements ActionListener {
 			System.out.println("minZ " + minZ);
 		}
 
-		final String radx = "radx(" + (Math.abs((int)maxX) - Math.abs((int)minX))/2 + ")";
-		final String rady = "rady(" + (Math.abs((int)maxY) - Math.abs((int)minY))/2 + ")";
-		final String radz = "radz(" + (Math.abs((int)maxZ) - Math.abs((int)minZ))/2 + ")";
+		final String radx = "radx(" + (Math.abs((int) maxX) - Math.abs((int) minX)) / 2 + ")";
+		final String rady = "rady(" + (Math.abs((int) maxY) - Math.abs((int) minY)) / 2 + ")";
+		final String radz = "radz(" + (Math.abs((int) maxZ) - Math.abs((int) minZ)) / 2 + ")";
 
-		String pretx = "tx(" + (Math.abs((int)maxX) - Math.abs((int)minX)) + ")";
-		String prety = "ty(" + (Math.abs((int)maxY) - Math.abs((int)minY)) + ")";
-		String pretz = "tz(" + (Math.abs((int)maxZ) - Math.abs((int)minZ)) + ")";
+		final String pretx = "tx(" + (Math.abs((int) maxX) - Math.abs((int) minX)) + ")";
+		final String prety = "ty(" + (Math.abs((int) maxY) - Math.abs((int) minY)) + ")";
+		final String pretz = "tz(" + (Math.abs((int) maxZ) - Math.abs((int) minZ)) + ")";
 
-		JOptionPane.showMessageDialog(null, "<track>\r\nc(100,100,100)\r\n" + radx + "\r\n" + rady + "\r\n" + radz + "\r\n" + pretx + "\r\n" + prety + "\r\n" + pretz + "\r\n" + "</track>\r\n");
-		text.setText("<track>\r\nc(100,100,100)\r\n" + radx + "\r\n" + rady + "\r\n" + radz + "\r\n" + pretx + "\r\n" + prety + "\r\n" + pretz + "\r\n" + "</track>\r\n" + text.getText());
+		JOptionPane.showMessageDialog(null, "<track>\r\nc(100,100,100)\r\n" + radx + "\r\n" + rady + "\r\n" + radz
+				+ "\r\n" + pretx + "\r\n" + prety + "\r\n" + pretz + "\r\n" + "</track>\r\n");
+		text.setText("<track>\r\nc(100,100,100)\r\n" + radx + "\r\n" + rady + "\r\n" + radz + "\r\n" + pretx + "\r\n"
+				+ prety + "\r\n" + pretz + "\r\n" + "</track>\r\n" + text.getText());
 
 	}
 
 	public void solidifyRoadOld() {
 		try {
-			Object[] radius = getSelectedRadius();
+			final Object[] radius = getSelectedRadius();
 
 			//final String output = "";
 			//final String outend = "";
@@ -1012,24 +1043,30 @@ public class TextEditor implements ActionListener {
 			final String rady = "rady(" + radius[1] + ")";
 			final String radz = "radz(" + radius[2] + ")";
 
-			JOptionPane.showMessageDialog(null, "<track>\r\nc(100,100,100)\r\n" + radx + "\r\n" + rady + "\r\n" + radz + "\r\n</track>\r\n ");
-			text.setText("<track>\r\nc(100,100,100)\r\n" + radx + "\r\n" + rady + "\r\n" + radz + "\r\n</track>\r\n "+ text.getText());
-		} catch (NullPointerException e) {JOptionPane.showMessageDialog(null, "You didn't select anything!");}
+			JOptionPane.showMessageDialog(null,
+					"<track>\r\nc(100,100,100)\r\n" + radx + "\r\n" + rady + "\r\n" + radz + "\r\n</track>\r\n ");
+			text.setText("<track>\r\nc(100,100,100)\r\n" + radx + "\r\n" + rady + "\r\n" + radz + "\r\n</track>\r\n "
+					+ text.getText());
+		} catch (final NullPointerException e) {
+			JOptionPane.showMessageDialog(null, "You didn't select anything!");
+		}
 	}
 
 	public void getTracks() {
 		int trax = 0;
 		try {
-			BufferedReader reader = new BufferedReader(new StringReader(text.getText()));
+			final BufferedReader reader = new BufferedReader(new StringReader(text.getText()));
 			String benis2 = reader.readLine();
 			while (benis2 != null) {
-				if (benis2.startsWith("<track>")) {
+				if (benis2.startsWith("<track>"))
 					trax++;
-				}
 				benis2 = reader.readLine();
 			}
 
-		} catch (IOException e) {} finally {JOptionPane.showMessageDialog(null, "no. <tracks> found: "+trax);}
+		} catch (final IOException e) {
+		} finally {
+			JOptionPane.showMessageDialog(null, "no. <tracks> found: " + trax);
+		}
 	}
 
 	public Object[] getRadius() {
@@ -1040,21 +1077,21 @@ public class TextEditor implements ActionListener {
 		int minY = 0;
 		int minZ = 0;
 		try {
-			BufferedReader reader = new BufferedReader(new StringReader(text.getText()));
+			final BufferedReader reader = new BufferedReader(new StringReader(text.getText()));
 			String benis2 = reader.readLine();
 			while (benis2 != null) {
 				if (benis2.startsWith("p(")) {
-					int curX = getvalue("p", benis2, 0);
+					final int curX = getvalue("p", benis2, 0);
 					if (curX > maxX)
 						maxX = curX;
 					if (curX < minX)
 						minX = curX;
-					int curY = getvalue("p", benis2, 1);
+					final int curY = getvalue("p", benis2, 1);
 					if (curY > maxY)
 						maxY = curY;
 					if (curY < minY)
 						minY = curY;
-					int curZ = getvalue("p", benis2, 2);
+					final int curZ = getvalue("p", benis2, 2);
 					if (curZ > maxZ)
 						maxZ = curZ;
 					if (curZ < minZ)
@@ -1063,7 +1100,8 @@ public class TextEditor implements ActionListener {
 				benis2 = reader.readLine();
 			}
 
-		} catch (IOException e) {} finally {
+		} catch (final IOException e) {
+		} finally {
 			/*text.setText("max(" +
 						 maxX + "," + maxY + "," + maxZ + ")\r\n" +
 						 "min(" +
@@ -1078,7 +1116,7 @@ public class TextEditor implements ActionListener {
 			System.out.println("minZ " + minZ);
 		}
 
-		return new Object[] {maxX, maxY, maxZ, minX, minY, minZ};
+		return new Object[] { maxX, maxY, maxZ, minX, minY, minZ };
 	}
 
 	public Object[] getSelectedRadius() {
@@ -1089,21 +1127,21 @@ public class TextEditor implements ActionListener {
 		int minY = 0;
 		int minZ = 0;
 		try {
-			BufferedReader reader = new BufferedReader(new StringReader(text.getSelectedText()));
+			final BufferedReader reader = new BufferedReader(new StringReader(text.getSelectedText()));
 			String benis2 = reader.readLine();
 			while (benis2 != null) {
 				if (benis2.startsWith("p(")) {
-					int curX = getvalue("p", benis2, 0);
+					final int curX = getvalue("p", benis2, 0);
 					if (curX > maxX)
 						maxX = curX;
 					if (curX < minX)
 						minX = curX;
-					int curY = getvalue("p", benis2, 1);
+					final int curY = getvalue("p", benis2, 1);
 					if (curY > maxY)
 						maxY = curY;
 					if (curY < minY)
 						minY = curY;
-					int curZ = getvalue("p", benis2, 2);
+					final int curZ = getvalue("p", benis2, 2);
 					if (curZ > maxZ)
 						maxZ = curZ;
 					if (curZ < minZ)
@@ -1112,7 +1150,8 @@ public class TextEditor implements ActionListener {
 				benis2 = reader.readLine();
 			}
 
-		} catch (IOException e) {} finally {
+		} catch (final IOException e) {
+		} finally {
 			/*text.setText("max (selection) (" +
 						 maxX + "," + maxY + "," + maxZ + ")\r\n" +
 						 "min (selection) (" +
@@ -1132,12 +1171,12 @@ public class TextEditor implements ActionListener {
 			System.out.println("minY " + minY);
 			System.out.println("minZ " + minZ);
 		}
-		return new Object[] {maxX, maxY, maxZ, minX, minY, minZ};
+		return new Object[] { maxX, maxY, maxZ, minX, minY, minZ };
 	}
 
 	public int getvalueintext(final String s) {
 		try {
-			BufferedReader reader = new BufferedReader(new StringReader(text.getText()));
+			final BufferedReader reader = new BufferedReader(new StringReader(text.getText()));
 			String benis2 = reader.readLine();
 			while (benis2 != null) {
 				if (benis2.startsWith(s))
@@ -1145,23 +1184,23 @@ public class TextEditor implements ActionListener {
 				benis2 = reader.readLine();
 			}
 
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			e.printStackTrace();
 		}
-		throw new RuntimeException("could not get value "+s+" in text");
+		throw new RuntimeException("could not get value " + s + " in text");
 	}
 
 	public int getvalue(final String s, final String s1, final int i) {
 		int k = 0;
 		String s3 = "";
 		for (int j = s.length() + 1; j < s1.length(); j++) {
-			final String s2 = (new StringBuilder()).append("").append(s1.charAt(j)).toString();
+			final String s2 = new StringBuilder().append("").append(s1.charAt(j)).toString();
 			if (s2.equals(",") || s2.equals(")")) {
 				k++;
 				j++;
 			}
 			if (k == i)
-				s3 = (new StringBuilder()).append(s3).append(s1.charAt(j)).toString();
+				s3 = new StringBuilder().append(s3).append(s1.charAt(j)).toString();
 		}
 
 		return Integer.valueOf(s3).intValue();
@@ -1172,7 +1211,7 @@ public class TextEditor implements ActionListener {
 		int points = 0;
 		boolean flag = false;
 		try {
-			BufferedReader reader = new BufferedReader(new StringReader(text.getText()));
+			final BufferedReader reader = new BufferedReader(new StringReader(text.getText()));
 			String benis2 = reader.readLine();
 			while (benis2 != null) {
 				if (benis2.startsWith("<p>"))
@@ -1186,7 +1225,8 @@ public class TextEditor implements ActionListener {
 				benis2 = reader.readLine();
 			}
 
-		} catch (IOException e) {} finally {
+		} catch (final IOException e) {
+		} finally {
 			lblPolys.setText("" + polys + " Polys, " + points + " Points");
 		}
 	}

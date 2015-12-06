@@ -28,7 +28,7 @@ public class Wheels {
 			l1 = (int) (j + 4F * f);
 		try {
 			final BufferedReader br = new BufferedReader(
-					new InputStreamReader((new URL(applet.getCodeBase(), "wheels/" + wheelfile)).openStream()));
+					new InputStreamReader(new URL(applet.getCodeBase(), "wheels/" + wheelfile).openStream()));
 			final int tmx[] = new int[100];
 			final int tmy[] = new int[100];
 			final int tmz[] = new int[100];
@@ -60,7 +60,8 @@ public class Wheels {
 						color[1] = (int) getValue(line, 1);
 						color[2] = (int) getValue(line, 2);
 					} else if (line.equals("</p>")) {
-						aplane[i] = new Plane(medium, tmx, tmz, tmy, npts, color, false, gr, l1, j, l, (byte)0, false, false, false, false, 1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10);
+						aplane[i] = new Plane(medium, tmx, tmz, tmy, npts, color, false, gr, l1, j, l, (byte) 0, false,
+								false, false, false, 1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10);
 						i++;
 						npts = 0;
 						gr = 0;

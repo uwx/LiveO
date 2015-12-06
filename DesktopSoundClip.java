@@ -10,7 +10,7 @@ import javax.sound.sampled.DataLine;
 /**
  * An implementation of AudioClip, optimized for desktop apps. The Sun-provided
  * AudioClip for Applets is a bit buggy.
- * 
+ *
  * @author DragShot
  */
 public class DesktopSoundClip implements AudioClip {
@@ -29,7 +29,7 @@ public class DesktopSoundClip implements AudioClip {
 
 	/**
 	 * Creates a SoundClip from an array of bytes.
-	 * 
+	 *
 	 * @param is
 	 *            An array of bytes with the audio file data.
 	 */

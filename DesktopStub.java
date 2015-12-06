@@ -6,7 +6,7 @@ import java.net.URL;
 /**
  * An implementation of <code>AppletStub</code>, optimized for desktop apps.
  * It's not complete though, only the methods needed by Nfm2 are implemented.
- * 
+ *
  * @author DragShot
  */
 public class DesktopStub implements AppletStub {
