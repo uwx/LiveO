@@ -54,17 +54,17 @@ public class ContO {
 		final Wheels wheels = new Wheels();
 		int i1 = 1;
 		int j1 = 0;
-		
+
         float f1 = 1.0F;
         boolean hidepoly = false;
         boolean randomcolor = false;
         boolean randoutline = false;
         byte light = 0;
-        
+
         float nfmm_scale[] = {
             1.0F, 1.0F, 1.0F
         };
-		
+
 		try {
 			final URL url = new URL(applet.getCodeBase(), (new StringBuilder()).append(s).append(".rad").toString());
 			System.out.println(url);
@@ -100,8 +100,8 @@ public class ContO {
 					}
 					if (s2.startsWith("p")) {
 						ai[l] = (int) ((int) (getvalue("p", s2, 0) * f * f1) * nfmm_scale[0]);
-						ai1[l] = (int) ((int) (getvalue("p", s2, 1) * f) * nfmm_scale[0]);
-						ai2[l] = (int) ((int) (getvalue("p", s2, 2) * f) * nfmm_scale[0]);
+						ai1[l] = (int) ((int) (getvalue("p", s2, 1) * f) * nfmm_scale[1]);
+						ai2[l] = (int) ((int) (getvalue("p", s2, 2) * f) * nfmm_scale[2]);
 						l++;
 					}
                     if(s2.startsWith("random()") || s2.startsWith("rainbow()"))
@@ -128,7 +128,7 @@ public class ContO {
 							(int) (getvalue("w", s2, 4) * f), (int) (getvalue("w", s2, 5) * f),
 							(int) (getvalue("w", s2, 6) * f));
 					//npl += wheels.make(applet, m, p, npl, (int)((float)getvalue("w", s1, 0) * f * f1 * nfmm_scale[0]), (int)((float)getvalue("w", s1, 1) * f * nfmm_scale[1]), (int)((float)getvalue("w", s1, 2) * f * nfmm_scale[2]), getvalue("w", s1, 3), (int)((float)getvalue("w", s1, 4) * f * f1), (int)((int)getvalue("w", s1, 5) * f), i1);
-                
+
 				if (s2.startsWith("<track>"))
 					track = -1;
 				if (track == -1) {
@@ -172,15 +172,15 @@ public class ContO {
 				if (s2.startsWith("div"))
 					f = getvalue("div", s2, 0) / 10F;
                 if (s2.startsWith("idiv"))
-					f = (float)getvalue("idiv", s1, 0) / 100F;
+					f = getvalue("idiv", s1, 0) / 100F;
                 if (s2.startsWith("iwid"))
-					f1 = (float)getvalue("iwid", s1, 0) / 100F;
+					f1 = getvalue("iwid", s1, 0) / 100F;
                 if (s2.startsWith("ScaleX"))
-					nfmm_scale[0] = (float)getvalue("ScaleX", s1, 0) / 100F;
+					nfmm_scale[0] = getvalue("ScaleX", s1, 0) / 100F;
                 if (s2.startsWith("ScaleY"))
-					nfmm_scale[1] = (float)getvalue("ScaleY", s1, 0) / 100F;
+					nfmm_scale[1] = getvalue("ScaleY", s1, 0) / 100F;
                 if (s2.startsWith("ScaleZ"))
-					nfmm_scale[2] = (float)getvalue("ScaleZ", s1, 0) / 100F;
+					nfmm_scale[2] = getvalue("ScaleZ", s1, 0) / 100F;
                 if (s2.startsWith("stonecold"))
 					stonecold = true;
 			} while (true);
@@ -234,17 +234,17 @@ public class ContO {
 		final Wheels wheels = new Wheels();
 		int i1 = 1;
 		int j1 = 0;
-		
+
         float f1 = 1.0F;
         boolean hidepoly = false;
         boolean randomcolor = false;
         boolean randoutline = false;
         byte light = 0;
-        
+
         float nfmm_scale[] = {
             1.0F, 1.0F, 1.0F
         };
-		
+
 		try {
 			do {
 				String s1;
@@ -347,15 +347,15 @@ public class ContO {
 				if (s2.startsWith("div"))
 					f = getvalue("div", s2, 0) / 10F;
                 if (s2.startsWith("idiv"))
-					f = (float)getvalue("idiv", s1, 0) / 100F;
+					f = getvalue("idiv", s1, 0) / 100F;
                 if (s2.startsWith("iwid"))
-					f1 = (float)getvalue("iwid", s1, 0) / 100F;
+					f1 = getvalue("iwid", s1, 0) / 100F;
                 if (s2.startsWith("ScaleX"))
-					nfmm_scale[0] = (float)getvalue("ScaleX", s1, 0) / 100F;
+					nfmm_scale[0] = getvalue("ScaleX", s1, 0) / 100F;
                 if (s2.startsWith("ScaleY"))
-					nfmm_scale[1] = (float)getvalue("ScaleY", s1, 0) / 100F;
+					nfmm_scale[1] = getvalue("ScaleY", s1, 0) / 100F;
                 if (s2.startsWith("ScaleZ"))
-					nfmm_scale[2] = (float)getvalue("ScaleZ", s1, 0) / 100F;
+					nfmm_scale[2] = getvalue("ScaleZ", s1, 0) / 100F;
                 if (s2.startsWith("stonecold"))
 					stonecold = true;
 			} while (true);
