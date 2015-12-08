@@ -1,4 +1,3 @@
-import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -30,7 +29,7 @@ public class Storage {
 			}
 			bufferedwriter.close();
 		} catch (final Exception exception) {
-			System.err.println("could not save data ("+exception+")");
+			System.err.println("could not save data (" + exception + ")");
 		}
 	}
 
@@ -46,7 +45,7 @@ public class Storage {
 				bufferedreader.close();
 			}
 			if (!strings[1].equals("")) {
-				File c = new File(strings[1]);
+				final File c = new File(strings[1]);
 				if (c.exists())
 					RunApp.carfolder = new File(strings[1]);
 				else
@@ -54,7 +53,7 @@ public class Storage {
 			} else
 				System.err.println("could not load saved data; it does not exist or is invalid");
 		} catch (final Exception exception) {
-			System.err.println("could not load saved data; it does not exist or is invalid ("+exception+")");
+			System.err.println("could not load saved data; it does not exist or is invalid (" + exception + ")");
 		}
 	}
 }

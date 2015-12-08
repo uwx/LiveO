@@ -161,13 +161,12 @@ public class ContO {
 					int w6 = 0;
 					try {
 						w6 = (int) (getvalue("w", s2, 6) * f);
-					} catch (StringIndexOutOfBoundsException e) {
+					} catch (final StringIndexOutOfBoundsException e) {
 					}
 					npl += wheels.make(applet, m, p, npl, (int) (getvalue("w", s2, 0) * f),
 							(int) (getvalue("w", s2, 1) * f), (int) (getvalue("w", s2, 2) * f), getvalue("w", s2, 3),
-							(int) (getvalue("w", s2, 4) * f), (int) (getvalue("w", s2, 5) * f),
-							w6);
-				//npl += wheels.make(applet, m, p, npl, (int)((float)getvalue("w", s1, 0) * f * f1 * nfmm_scale[0]), (int)((float)getvalue("w", s1, 1) * f * nfmm_scale[1]), (int)((float)getvalue("w", s1, 2) * f * nfmm_scale[2]), getvalue("w", s1, 3), (int)((float)getvalue("w", s1, 4) * f * f1), (int)((int)getvalue("w", s1, 5) * f), i1);
+							(int) (getvalue("w", s2, 4) * f), (int) (getvalue("w", s2, 5) * f), w6);
+					//npl += wheels.make(applet, m, p, npl, (int)((float)getvalue("w", s1, 0) * f * f1 * nfmm_scale[0]), (int)((float)getvalue("w", s1, 1) * f * nfmm_scale[1]), (int)((float)getvalue("w", s1, 2) * f * nfmm_scale[2]), getvalue("w", s1, 3), (int)((float)getvalue("w", s1, 4) * f * f1), (int)((int)getvalue("w", s1, 5) * f), i1);
 				}
 				if (s2.startsWith("<track>"))
 					track = -1;

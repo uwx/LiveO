@@ -2,7 +2,10 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Image;
+import java.awt.Insets;
 import java.awt.Panel;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -15,7 +18,6 @@ import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.StringReader;
 import java.nio.file.Files;
@@ -39,15 +41,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.JTextField;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 
 public class RunApp extends Panel {
 
@@ -72,10 +70,11 @@ public class RunApp extends Panel {
 		Storage.load();
 
 		Runtime.getRuntime().addShutdownHook(new Thread() {
-		    public void run() {
-		        Storage.save();
-		        System.out.println("goodbye");
-		    }
+			@Override
+			public void run() {
+				Storage.save();
+				System.out.println("goodbye");
+			}
 		});
 
 		setLayout(new BorderLayout(0, 0));
@@ -317,7 +316,7 @@ public class RunApp extends Panel {
 		try {
 			Files.walk(Paths.get("./wheels/")).forEach(new Consumer<Path>() {
 				@Override
-				public void accept(Path filePath) {
+				public void accept(final Path filePath) {
 					if (Files.isRegularFile(filePath))
 						dong.add(filePath.toFile());
 				}
@@ -332,47 +331,47 @@ public class RunApp extends Panel {
 
 		panel_5 = new JPanel();
 		tabbedPane.addTab("Models", null, panel_5, null);
-		GridBagLayout gbl_panel_5 = new GridBagLayout();
-		gbl_panel_5.columnWidths = new int[]{35, 87, 10, 0};
-		gbl_panel_5.rowHeights = new int[]{32, 0, 0, 0};
-		gbl_panel_5.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_panel_5.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+		final GridBagLayout gbl_panel_5 = new GridBagLayout();
+		gbl_panel_5.columnWidths = new int[] { 35, 87, 10, 0 };
+		gbl_panel_5.rowHeights = new int[] { 32, 0, 0, 0 };
+		gbl_panel_5.columnWeights = new double[] { 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		gbl_panel_5.rowWeights = new double[] { 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		panel_5.setLayout(gbl_panel_5);
 
-				panel_4 = new JPanel();
-				FlowLayout flowLayout = (FlowLayout) panel_4.getLayout();
-				GridBagConstraints gbc_panel_4 = new GridBagConstraints();
-				gbc_panel_4.anchor = GridBagConstraints.NORTHWEST;
-				gbc_panel_4.insets = new Insets(0, 0, 5, 5);
-				gbc_panel_4.gridx = 1;
-				gbc_panel_4.gridy = 0;
-				panel_5.add(panel_4, gbc_panel_4);
+		panel_4 = new JPanel();
+		panel_4.getLayout();
+		final GridBagConstraints gbc_panel_4 = new GridBagConstraints();
+		gbc_panel_4.anchor = GridBagConstraints.NORTHWEST;
+		gbc_panel_4.insets = new Insets(0, 0, 5, 5);
+		gbc_panel_4.gridx = 1;
+		gbc_panel_4.gridy = 0;
+		panel_5.add(panel_4, gbc_panel_4);
 
-						lblWheel = new JLabel("Wheel:");
-						panel_4.add(lblWheel);
+		lblWheel = new JLabel("Wheel:");
+		panel_4.add(lblWheel);
 
-								comboBox = new JComboBox<String>();
-								comboBox.setModel(new DefaultComboBoxModel<String>(sArray));
-								panel_4.add(comboBox);
-								//t.countPolys();
-								comboBox.addItemListener(new ItemListener() {
+		comboBox = new JComboBox<String>();
+		comboBox.setModel(new DefaultComboBoxModel<String>(sArray));
+		panel_4.add(comboBox);
+		//t.countPolys();
+		comboBox.addItemListener(new ItemListener() {
 
-									@Override
-									public void itemStateChanged(final ItemEvent event) {
-										if (event.getStateChange() == ItemEvent.SELECTED) {
-											final String item = (String) event.getItem();
-											Wheels.wheelfile = item;
-											applet.remake();
-											t.countPolys();
-											System.out.println("autorefresh'd!");
-										}
-									}
-								});
+			@Override
+			public void itemStateChanged(final ItemEvent event) {
+				if (event.getStateChange() == ItemEvent.SELECTED) {
+					final String item = (String) event.getItem();
+					Wheels.wheelfile = item;
+					applet.remake();
+					t.countPolys();
+					System.out.println("autorefresh'd!");
+				}
+			}
+		});
 
 		panel_13 = new JPanel();
-		FlowLayout flowLayout_1 = (FlowLayout) panel_13.getLayout();
+		final FlowLayout flowLayout_1 = (FlowLayout) panel_13.getLayout();
 		flowLayout_1.setHgap(13);
-		GridBagConstraints gbc_panel_13 = new GridBagConstraints();
+		final GridBagConstraints gbc_panel_13 = new GridBagConstraints();
 		gbc_panel_13.insets = new Insets(0, 0, 5, 5);
 		gbc_panel_13.anchor = GridBagConstraints.WEST;
 		gbc_panel_13.gridx = 1;
@@ -407,22 +406,23 @@ public class RunApp extends Panel {
 
 		btnOpenCarFolder = new JButton("Select car folder");
 		btnOpenCarFolder.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JFileChooser fileChooser = new JFileChooser("./");
+			@Override
+			public void actionPerformed(final ActionEvent e) {
+				final JFileChooser fileChooser = new JFileChooser("./");
 				fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 				//fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
-				int result = fileChooser.showOpenDialog(frame);
+				final int result = fileChooser.showOpenDialog(frame);
 				if (result == JFileChooser.APPROVE_OPTION) {
-				    File selectedFile = fileChooser.getSelectedFile();
-				    if (selectedFile.exists() && selectedFile.isDirectory())
-				    	carfolder = selectedFile;
-				    //System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+					final File selectedFile = fileChooser.getSelectedFile();
+					if (selectedFile.exists() && selectedFile.isDirectory())
+						carfolder = selectedFile;
+					//System.out.println("Selected file: " + selectedFile.getAbsolutePath());
 				}
 				makeRadCombobox();
 				comboBox_1.setModel(new DefaultComboBoxModel<String>(carSArray));
 			}
 		});
-		GridBagConstraints gbc_btnOpenCarFolder = new GridBagConstraints();
+		final GridBagConstraints gbc_btnOpenCarFolder = new GridBagConstraints();
 		gbc_btnOpenCarFolder.insets = new Insets(0, 0, 0, 5);
 		gbc_btnOpenCarFolder.gridx = 1;
 		gbc_btnOpenCarFolder.gridy = 2;
@@ -490,9 +490,9 @@ public class RunApp extends Panel {
 			//applet.remake();
 			t.countPolys();
 			t.loadFile();
-		} else {
-			JOptionPane.showMessageDialog(frame,"There seems to have been a problem loading the ContO, please try again manually");
-		}
+		} else
+			JOptionPane.showMessageDialog(frame,
+					"There seems to have been a problem loading the ContO, please try again manually");
 
 		frame.pack();
 		frame.setMinimumSize(frame.getSize());
@@ -516,7 +516,7 @@ public class RunApp extends Panel {
 		try {
 			Files.walk(Paths.get(carfolder.toURI())).forEach(new Consumer<Path>() {
 				@Override
-				public void accept(Path filePath) {
+				public void accept(final Path filePath) {
 					if (Files.isRegularFile(filePath) && filePath.toString().endsWith(".rad"))
 						dong.add(filePath.toFile());
 				}
@@ -631,20 +631,20 @@ public class RunApp extends Panel {
 	private final JPanel panel_7;
 	private final JPanel panel_8;
 	private final JSlider slider_2;
-	private JPanel panel_9;
-	private JTextField textField;
-	private JLabel lblNewLabel;
-	private JPanel panel_10;
-	private JPanel panel_11;
-	private JLabel lblIdiv;
-	private JTextField textField_1;
-	private JPanel panel_12;
-	private JLabel lblIwid;
-	private JTextField textField_2;
-	private JPanel panel_13;
-	private JLabel lblCar;
-	private JComboBox<String> comboBox_1;
-	private JButton btnOpenCarFolder;
+	private final JPanel panel_9;
+	private final JTextField textField;
+	private final JLabel lblNewLabel;
+	private final JPanel panel_10;
+	private final JPanel panel_11;
+	private final JLabel lblIdiv;
+	private final JTextField textField_1;
+	private final JPanel panel_12;
+	private final JLabel lblIwid;
+	private final JTextField textField_2;
+	private final JPanel panel_13;
+	private final JLabel lblCar;
+	private final JComboBox<String> comboBox_1;
+	private final JButton btnOpenCarFolder;
 
 	/**
 	 * Fetches icons of 16, 32 and 48 pixels from the 'data' folder.
