@@ -41,6 +41,7 @@ import javax.swing.JSlider;
 import javax.swing.JTabbedPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.JTextField;
@@ -68,6 +69,14 @@ public class RunApp extends Panel {
 	static File carfolder = new File("./");
 
 	public RunApp() {
+		Storage.load();
+
+		Runtime.getRuntime().addShutdownHook(new Thread() {
+		    public void run() {
+		        Storage.save();
+		        System.out.println("goodbye");
+		    }
+		});
 
 		setLayout(new BorderLayout(0, 0));
 
@@ -390,12 +399,7 @@ public class RunApp extends Panel {
 						applet.remake();
 						t.countPolys();
 						t.loadFile();
-					}/* else {
-						JOptionPane.showMessageDialog(null, "Files in subfolders not allowed!!!!");
-						comboBox_1.setSelectedIndex(0);
-						itemStateChanged(new ItemEvent(comboBox_1, ItemEvent.ITEM_FIRST, comboBox_1.getSelectedItem(), ItemEvent.SELECTED));
-					}*/
-
+					}
 				}
 			}
 		});
@@ -478,11 +482,29 @@ public class RunApp extends Panel {
 			sArray[i] = fArray[i].getName();
 		}*/
 
+		final int item = comboBox_1.getSelectedIndex();
+		final File file = carFArray[item];
+		//final File[] files = fd.getFiles();
+		if (file.exists() && !file.isDirectory()) {
+			F51.contofile = file;
+			//applet.remake();
+			t.countPolys();
+			t.loadFile();
+		} else {
+			JOptionPane.showMessageDialog(frame,"There seems to have been a problem loading the ContO, please try again manually");
+		}
+
 		frame.pack();
 		frame.setMinimumSize(frame.getSize());
 		frame.setVisible(true);
 		applet.init();
 		applet.start();
+		/*try { //we have to wait because applet
+			Thread.sleep(1000L);
+		} catch (InterruptedException e1) {
+		} // load real conto
+		refreshComboboxContO();*/
+
 	}
 
 	static String[] carSArray;
