@@ -1387,6 +1387,97 @@ public class TextEditor implements ActionListener {
 		}
 	}
 
+	void setDiv(int d) {
+
+		try {
+			final BufferedReader reader = new BufferedReader(new StringReader(text.getText()));
+			String benis2 = reader.readLine();
+			String fullbenis2 = "";
+			boolean caughtdiv = false;
+			while (benis2 != null) {
+				benis2 = benis2.trim();
+
+				if (benis2.startsWith("div(")) {
+					benis2 = "div("+d+")";
+				caughtdiv = true;
+			}
+
+				fullbenis2 = fullbenis2 + benis2 + "\r\n";
+				benis2 = reader.readLine();
+			}
+			if (!caughtdiv) {
+				fullbenis2 = "div("+d+")\r\n"+fullbenis2; //prepend
+			}
+			text.setText(fullbenis2);
+
+			f51.remake(text.getText());
+			countPolys();
+			//saveFile();
+		} catch (final IOException e) {
+		}
+	}
+
+	void setiDiv(int d) {
+
+		try {
+			final BufferedReader reader = new BufferedReader(new StringReader(text.getText()));
+			String benis2 = reader.readLine();
+			String fullbenis2 = "";
+			boolean caughtdiv = false;
+
+			while (benis2 != null) {
+				benis2 = benis2.trim();
+
+				if (benis2.startsWith("idiv(")) {
+					benis2 = "idiv("+d+")";
+					caughtdiv = true;
+				}
+
+				fullbenis2 = fullbenis2 + benis2 + "\r\n";
+				benis2 = reader.readLine();
+			}
+			if (!caughtdiv) {
+				fullbenis2 = "idiv("+d+")\r\n"+fullbenis2; //prepend
+			}
+			text.setText(fullbenis2);
+
+			f51.remake(text.getText());
+			countPolys();
+			//saveFile();
+		} catch (final IOException e) {
+		}
+	}
+
+	void setiWid(int d) {
+
+		try {
+			final BufferedReader reader = new BufferedReader(new StringReader(text.getText()));
+			String benis2 = reader.readLine();
+			String fullbenis2 = "";
+			boolean caughtdiv = false;
+			while (benis2 != null) {
+				benis2 = benis2.trim();
+
+				if (benis2.startsWith("iwid(")) {
+					benis2 = "iwid("+d+")";
+					caughtdiv = true;
+				}
+
+				fullbenis2 = fullbenis2 + benis2 + "\r\n";
+				benis2 = reader.readLine();
+			}
+			if (!caughtdiv) {
+				fullbenis2 = "iwid("+d+")\r\n"+fullbenis2; //prepend
+			}
+			text.setText(fullbenis2);
+
+			f51.remake(text.getText());
+			countPolys();
+			//saveFile();
+		} catch (final IOException e) {
+		}
+	}
+
 	void setColor(Color c, boolean second) {
 		String cstring = "("+c.getRed()+","+c.getGreen()+","+c.getBlue()+")";
 		String oldfirstcolor = "("+c.getRed()+","+c.getGreen()+","+c.getBlue()+")";
