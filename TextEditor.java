@@ -428,13 +428,13 @@ public class TextEditor implements ActionListener {
 			/*int pretx = (Math.abs((int)radius[0]) - Math.abs((int)radius[3]));
 			int prety = (Math.abs((int)radius[1]) - Math.abs((int)radius[4]));
 			int pretz = (Math.abs((int)radius[2]) - Math.abs((int)radius[5]));
-
+			
 			String outxy = "";
 			if (pretx < 0)
 				outxy = "xy(-90)";
 			else
 				outxy = "xy(90)";
-
+			
 			String outzy = "";
 			if (pretz < 0)
 				outzy = "zy(-90)";
@@ -530,7 +530,7 @@ public class TextEditor implements ActionListener {
 			tx(-zcoord)
 			ty(0)
 			</track>
-
+			
 			<track>
 			xy(-90)
 			radx(xcoord)
@@ -539,7 +539,7 @@ public class TextEditor implements ActionListener {
 			tx(zcoord)
 			ty(0)
 			</track>
-
+			
 			<track>
 			zy(-90)
 			radx(zcoord)
@@ -549,7 +549,7 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(zcoord)
 			</track>
-
+			
 			<track>
 			zy(90)
 			radx(zcoord)
@@ -559,7 +559,7 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(-zcoord)
 			</track>
-
+			
 			*/
 
 			//////////// old
@@ -573,8 +573,8 @@ public class TextEditor implements ActionListener {
 			tx(-ycoord)
 			ty(0)
 			</track>
-
-
+			
+			
 			<track>
 			xy(-90)
 			radx(xcoord)
@@ -583,7 +583,7 @@ public class TextEditor implements ActionListener {
 			tx(ycoord)
 			ty(0)
 			</track>
-
+			
 			<track>
 			zy(-90)
 			radx(zcoord)
@@ -593,7 +593,7 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(zcoord)
 			</track>
-
+			
 			<track>
 			zy(90)
 			radx(zcoord)
@@ -608,7 +608,7 @@ public class TextEditor implements ActionListener {
 			////////////original
 
 			/*
-
+			
 			<track>
 			xy(90)
 			radx(200)
@@ -617,7 +617,7 @@ public class TextEditor implements ActionListener {
 			tx(-700)
 			ty(0)
 			</track>
-
+			
 			<track>
 			xy(-90)
 			radx(200)
@@ -626,7 +626,7 @@ public class TextEditor implements ActionListener {
 			tx(700)
 			ty(0)
 			</track>
-
+			
 			<track>
 			zy(-90)
 			radx(700)
@@ -636,7 +636,7 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(700)
 			</track>
-
+			
 			<track>
 			zy(90)
 			radx(700)
@@ -646,14 +646,14 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(-700)
 			</track>
-
+			
 			*/
 
 			////////////flat
 
 			/*
 			<track>
-
+			
 			xy(90)
 			radx(1)
 			rady(2)
@@ -662,7 +662,7 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(0)
 			</track>
-
+			
 			*/
 
 			//final String radx = "radx(" + Math.abs(pretx) + ")";
@@ -686,13 +686,13 @@ public class TextEditor implements ActionListener {
 			/*int pretx = (Math.abs((int)radius[0]) - Math.abs((int)radius[3]));
 			int prety = (Math.abs((int)radius[1]) - Math.abs((int)radius[4]));
 			int pretz = (Math.abs((int)radius[2]) - Math.abs((int)radius[5]));
-
+			
 			String outxy = "";
 			if (pretx < 0)
 				outxy = "xy(-90)";
 			else
 				outxy = "xy(90)";
-
+			
 			String outzy = "";
 			if (pretz < 0)
 				outzy = "zy(-90)";
@@ -790,7 +790,7 @@ public class TextEditor implements ActionListener {
 			tx(-zcoord)
 			ty(0)
 			</track>
-
+			
 			<track>
 			xy(-90)
 			radx(xcoord)
@@ -799,7 +799,7 @@ public class TextEditor implements ActionListener {
 			tx(zcoord)
 			ty(0)
 			</track>
-
+			
 			<track>
 			zy(-90)
 			radx(zcoord)
@@ -809,7 +809,7 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(zcoord)
 			</track>
-
+			
 			<track>
 			zy(90)
 			radx(zcoord)
@@ -819,7 +819,7 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(-zcoord)
 			</track>
-
+			
 			*/
 
 			//////////// old
@@ -833,8 +833,8 @@ public class TextEditor implements ActionListener {
 			tx(-ycoord)
 			ty(0)
 			</track>
-
-
+			
+			
 			<track>
 			xy(-90)
 			radx(xcoord)
@@ -843,7 +843,7 @@ public class TextEditor implements ActionListener {
 			tx(ycoord)
 			ty(0)
 			</track>
-
+			
 			<track>
 			zy(-90)
 			radx(zcoord)
@@ -853,7 +853,7 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(zcoord)
 			</track>
-
+			
 			<track>
 			zy(90)
 			radx(zcoord)
@@ -868,7 +868,7 @@ public class TextEditor implements ActionListener {
 			////////////original
 
 			/*
-
+			
 			<track>
 			xy(90)
 			radx(200)
@@ -877,7 +877,7 @@ public class TextEditor implements ActionListener {
 			tx(-700)
 			ty(0)
 			</track>
-
+			
 			<track>
 			xy(-90)
 			radx(200)
@@ -886,7 +886,7 @@ public class TextEditor implements ActionListener {
 			tx(700)
 			ty(0)
 			</track>
-
+			
 			<track>
 			zy(-90)
 			radx(700)
@@ -896,7 +896,7 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(700)
 			</track>
-
+			
 			<track>
 			zy(90)
 			radx(700)
@@ -906,14 +906,14 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(-700)
 			</track>
-
+			
 			*/
 
 			////////////flat
 
 			/*
 			<track>
-
+			
 			xy(90)
 			radx(1)
 			rady(2)
@@ -922,7 +922,7 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(0)
 			</track>
-
+			
 			*/
 
 			//final String radx = "radx(" + Math.abs(pretx) + ")";
@@ -1237,7 +1237,6 @@ public class TextEditor implements ActionListener {
 				JOptionPane.OK_CANCEL_OPTION);
 
 		if (opt == JOptionPane.OK_OPTION) {
-			final File file = F51.contofile;
 			final FileDialog fd = new FileDialog(RunApp.frame, "Choose a file", FileDialog.SAVE);
 			fd.setDirectory(new File("./").getPath());
 			fd.setFile("*.rad");
@@ -1258,19 +1257,6 @@ public class TextEditor implements ActionListener {
 		}
 		//f51.remake();
 		//countPolys();
-	}
-
-	// kept for keeping purposes
-	private void legacyNewFile() { //doesn't (and shouldn't) save
-		final int opt = JOptionPane.showConfirmDialog(null, "This will discard all unsaved changes!", "Create new file",
-				JOptionPane.OK_CANCEL_OPTION);
-
-		if (opt == JOptionPane.OK_OPTION)
-			text.setText(
-					"MaxRadius(300)\r\nshadow()\r\ndiv(24)\r\n\r\n\r\n\r\n\r\n\r\nw(-33,0,55,11,10,10,1)\r\nw(33,0,55,11,-10,10,1)\r\nw(-31,-1,-60,1,16,11,1)\r\nw(31,-1,-60,1,-16,11,1)");
-
-		//f51.remake();
-		countPolys();
 	}
 
 	// Display a file chooser so the user can select a file
@@ -1387,7 +1373,7 @@ public class TextEditor implements ActionListener {
 		}
 	}
 
-	void setDiv(int d) {
+	void setDiv(final int d) {
 
 		try {
 			final BufferedReader reader = new BufferedReader(new StringReader(text.getText()));
@@ -1398,16 +1384,15 @@ public class TextEditor implements ActionListener {
 				benis2 = benis2.trim();
 
 				if (benis2.startsWith("div(")) {
-					benis2 = "div("+d+")";
-				caughtdiv = true;
-			}
+					benis2 = "div(" + d + ")";
+					caughtdiv = true;
+				}
 
 				fullbenis2 = fullbenis2 + benis2 + "\r\n";
 				benis2 = reader.readLine();
 			}
-			if (!caughtdiv) {
-				fullbenis2 = "div("+d+")\r\n"+fullbenis2; //prepend
-			}
+			if (!caughtdiv)
+				fullbenis2 = "div(" + d + ")\r\n" + fullbenis2; //prepend
 			text.setText(fullbenis2);
 
 			f51.remake(text.getText());
@@ -1417,7 +1402,7 @@ public class TextEditor implements ActionListener {
 		}
 	}
 
-	void setiDiv(int d) {
+	void setiDiv(final int d) {
 
 		try {
 			final BufferedReader reader = new BufferedReader(new StringReader(text.getText()));
@@ -1429,16 +1414,15 @@ public class TextEditor implements ActionListener {
 				benis2 = benis2.trim();
 
 				if (benis2.startsWith("idiv(")) {
-					benis2 = "idiv("+d+")";
+					benis2 = "idiv(" + d + ")";
 					caughtdiv = true;
 				}
 
 				fullbenis2 = fullbenis2 + benis2 + "\r\n";
 				benis2 = reader.readLine();
 			}
-			if (!caughtdiv) {
-				fullbenis2 = "idiv("+d+")\r\n"+fullbenis2; //prepend
-			}
+			if (!caughtdiv)
+				fullbenis2 = "idiv(" + d + ")\r\n" + fullbenis2; //prepend
 			text.setText(fullbenis2);
 
 			f51.remake(text.getText());
@@ -1448,7 +1432,7 @@ public class TextEditor implements ActionListener {
 		}
 	}
 
-	void setiWid(int d) {
+	void setiWid(final int d) {
 
 		try {
 			final BufferedReader reader = new BufferedReader(new StringReader(text.getText()));
@@ -1459,16 +1443,15 @@ public class TextEditor implements ActionListener {
 				benis2 = benis2.trim();
 
 				if (benis2.startsWith("iwid(")) {
-					benis2 = "iwid("+d+")";
+					benis2 = "iwid(" + d + ")";
 					caughtdiv = true;
 				}
 
 				fullbenis2 = fullbenis2 + benis2 + "\r\n";
 				benis2 = reader.readLine();
 			}
-			if (!caughtdiv) {
-				fullbenis2 = "iwid("+d+")\r\n"+fullbenis2; //prepend
-			}
+			if (!caughtdiv)
+				fullbenis2 = "iwid(" + d + ")\r\n" + fullbenis2; //prepend
 			text.setText(fullbenis2);
 
 			f51.remake(text.getText());
@@ -1478,10 +1461,10 @@ public class TextEditor implements ActionListener {
 		}
 	}
 
-	void setColor(Color c, boolean second) {
-		String cstring = "("+c.getRed()+","+c.getGreen()+","+c.getBlue()+")";
-		String oldfirstcolor = "("+c.getRed()+","+c.getGreen()+","+c.getBlue()+")";
-		String oldsecondcolor = "("+c.getRed()+","+c.getGreen()+","+c.getBlue()+")";
+	void setColor(final Color c, final boolean second) {
+		final String cstring = "(" + c.getRed() + "," + c.getGreen() + "," + c.getBlue() + ")";
+		String oldfirstcolor = "(" + c.getRed() + "," + c.getGreen() + "," + c.getBlue() + ")";
+		String oldsecondcolor = "(" + c.getRed() + "," + c.getGreen() + "," + c.getBlue() + ")";
 
 		try {
 			final BufferedReader reader = new BufferedReader(new StringReader(text.getText()));
@@ -1492,20 +1475,20 @@ public class TextEditor implements ActionListener {
 				//String ob2 = benis2;
 				System.out.println(benis2);
 				if (benis2.startsWith("1stColor(")) {
-					oldfirstcolor = "(" + getvalue("1stColor", benis2, 0) + "," + getvalue("1stColor", benis2, 1) + "," + getvalue("1stColor", benis2, 2) + ")";
+					oldfirstcolor = "(" + getvalue("1stColor", benis2, 0) + "," + getvalue("1stColor", benis2, 1) + ","
+							+ getvalue("1stColor", benis2, 2) + ")";
 					benis2 = "1stColor" + cstring;
 				}
 				if (benis2.startsWith("2ndColor(")) {
-					oldsecondcolor = "(" + getvalue("2ndColor", benis2, 0) + "," + getvalue("2ndColor", benis2, 1) + "," + getvalue("2ndColor", benis2, 2) + ")";
+					oldsecondcolor = "(" + getvalue("2ndColor", benis2, 0) + "," + getvalue("2ndColor", benis2, 1) + ","
+							+ getvalue("2ndColor", benis2, 2) + ")";
 					if (second)
 						benis2 = "2ndColor" + cstring;
 				}
-				if (benis2.startsWith("c" + oldfirstcolor) && !second) {
+				if (benis2.startsWith("c" + oldfirstcolor) && !second)
 					benis2 = "c" + cstring;
-				}
-				if (benis2.startsWith("c" + oldsecondcolor) && second) {
+				if (benis2.startsWith("c" + oldsecondcolor) && second)
 					benis2 = "c" + cstring;
-				}
 				fullbenis2 = fullbenis2 + benis2 + "\r\n";
 				benis2 = reader.readLine();
 			}

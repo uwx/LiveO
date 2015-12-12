@@ -446,136 +446,135 @@ public class RunApp extends Panel {
 		panel_10.add(textField);
 		textField.setColumns(10);
 
-				panel_11 = new JPanel();
-				panel_11.setAlignmentY(Component.TOP_ALIGNMENT);
+		panel_11 = new JPanel();
+		panel_11.setAlignmentY(Component.TOP_ALIGNMENT);
 
-						lblIdiv = new JLabel("idiv");
-						panel_11.add(lblIdiv);
+		lblIdiv = new JLabel("idiv");
+		panel_11.add(lblIdiv);
 
-								textField_1 = new JTextField();
-								textField_1.setColumns(10);
-								panel_11.add(textField_1);
+		textField_1 = new JTextField();
+		textField_1.setColumns(10);
+		panel_11.add(textField_1);
 
-				panel_12 = new JPanel();
-				panel_12.setAlignmentY(0.0f);
+		panel_12 = new JPanel();
+		panel_12.setAlignmentY(0.0f);
 
-						lblIwid = new JLabel("iwid");
-						panel_12.add(lblIwid);
+		lblIwid = new JLabel("iwid");
+		panel_12.add(lblIwid);
 
-								textField_2 = new JTextField();
-								textField_2.setColumns(10);
-								panel_12.add(textField_2);
+		textField_2 = new JTextField();
+		textField_2.setColumns(10);
+		panel_12.add(textField_2);
 
 		btnSet = new JButton("Set");
 		btnSet.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) { //can't do this without try catch... for whatever reason
+			@Override
+			public void actionPerformed(final ActionEvent e) { //can't do this without try catch... for whatever reason
 				try {
 					t.setDiv(Integer.valueOf(textField.getText()));
-				} catch (NumberFormatException er) {System.err.println("div is empty");}
+				} catch (final NumberFormatException er) {
+					System.err.println("div is empty");
+				}
 				try {
 					t.setiDiv(Integer.valueOf(textField_1.getText()));
-				} catch (NumberFormatException er) {System.err.println("idiv is empty");}
+				} catch (final NumberFormatException er) {
+					System.err.println("idiv is empty");
+				}
 				try {
 					t.setiWid(Integer.valueOf(textField_2.getText()));
-				} catch (NumberFormatException er) {System.err.println("iwid is empty");}
+				} catch (final NumberFormatException er) {
+					System.err.println("iwid is empty");
+				}
 			}
 		});
-		GroupLayout gl_panel_15 = new GroupLayout(panel_15);
-		gl_panel_15.setHorizontalGroup(
-			gl_panel_15.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_15.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_panel_15.createParallelGroup(Alignment.LEADING)
-						.addComponent(panel_10, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(panel_11, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(panel_12, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(31, Short.MAX_VALUE))
-				.addGroup(Alignment.TRAILING, gl_panel_15.createSequentialGroup()
-					.addContainerGap(77, Short.MAX_VALUE)
-					.addComponent(btnSet)
-					.addGap(69))
-		);
-		gl_panel_15.setVerticalGroup(
-			gl_panel_15.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_15.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(panel_10, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panel_11, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panel_12, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
-					.addComponent(btnSet)
-					.addContainerGap())
-		);
+		final GroupLayout gl_panel_15 = new GroupLayout(panel_15);
+		gl_panel_15.setHorizontalGroup(gl_panel_15.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_15.createSequentialGroup().addContainerGap()
+						.addGroup(gl_panel_15.createParallelGroup(Alignment.LEADING)
+								.addComponent(panel_10, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE)
+						.addComponent(panel_11, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+								GroupLayout.PREFERRED_SIZE).addComponent(panel_12, GroupLayout.PREFERRED_SIZE,
+										GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+				.addContainerGap(31, Short.MAX_VALUE))
+				.addGroup(Alignment.TRAILING, gl_panel_15.createSequentialGroup().addContainerGap(77, Short.MAX_VALUE)
+						.addComponent(btnSet).addGap(69)));
+		gl_panel_15.setVerticalGroup(gl_panel_15.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_15.createSequentialGroup().addContainerGap()
+						.addComponent(panel_10, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+								GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(panel_11, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+								GroupLayout.PREFERRED_SIZE)
+				.addPreferredGap(ComponentPlacement.RELATED)
+				.addComponent(panel_12, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+						GroupLayout.PREFERRED_SIZE).addPreferredGap(ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
+				.addComponent(btnSet).addContainerGap()));
 		panel_15.setLayout(gl_panel_15);
 
 		panel_14 = new JPanel();
 		panel_9.add(panel_14);
 
-				btnSetColor = new JButton("Set 1st color");
-				btnSetColor.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						JFrame f = new JFrame("Color picker");
-						f.setBackground(new Color(0, 0, 0));
-						//frame.setIgnoreRepaint(true);
-						f.setIconImages(getIcons());
-						JColorChooser tcc = new JColorChooser();
-						tcc.getSelectionModel().addChangeListener(new ChangeListener() {
-							@Override
-							public void stateChanged(ChangeEvent e) {
-							    Color newColor = tcc.getColor();
-							    t.setColor(newColor, false);
-							}
-						});
-						f.getContentPane().add(tcc);
-						f.pack();
-						f.setMinimumSize(f.getSize());
-						f.setVisible(true);
+		btnSetColor = new JButton("Set 1st color");
+		btnSetColor.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent e) {
+				final JFrame f = new JFrame("Color picker");
+				f.setBackground(new Color(0, 0, 0));
+				//frame.setIgnoreRepaint(true);
+				f.setIconImages(getIcons());
+				final JColorChooser tcc = new JColorChooser();
+				tcc.getSelectionModel().addChangeListener(new ChangeListener() {
+					@Override
+					public void stateChanged(final ChangeEvent e) {
+						final Color newColor = tcc.getColor();
+						t.setColor(newColor, false);
 					}
 				});
+				f.getContentPane().add(tcc);
+				f.pack();
+				f.setMinimumSize(f.getSize());
+				f.setVisible(true);
+			}
+		});
 
-				JButton btnSetndColor = new JButton("Set 2nd color");
-				btnSetndColor.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						JFrame f = new JFrame("Color picker");
-						f.setBackground(new Color(0, 0, 0));
-						//frame.setIgnoreRepaint(true);
-						f.setIconImages(getIcons());
-						JColorChooser tcc = new JColorChooser();
-						tcc.getSelectionModel().addChangeListener(new ChangeListener() {
-							@Override
-							public void stateChanged(ChangeEvent e) {
-							    Color newColor = tcc.getColor();
-							    t.setColor(newColor, true);
-							}
-						});
-						f.getContentPane().add(tcc);
-						f.pack();
-						f.setMinimumSize(f.getSize());
-						f.setVisible(true);
+		final JButton btnSetndColor = new JButton("Set 2nd color");
+		btnSetndColor.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent e) {
+				final JFrame f = new JFrame("Color picker");
+				f.setBackground(new Color(0, 0, 0));
+				//frame.setIgnoreRepaint(true);
+				f.setIconImages(getIcons());
+				final JColorChooser tcc = new JColorChooser();
+				tcc.getSelectionModel().addChangeListener(new ChangeListener() {
+					@Override
+					public void stateChanged(final ChangeEvent e) {
+						final Color newColor = tcc.getColor();
+						t.setColor(newColor, true);
 					}
 				});
-				GroupLayout gl_panel_14 = new GroupLayout(panel_14);
-				gl_panel_14.setHorizontalGroup(
-					gl_panel_14.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_14.createSequentialGroup()
-							.addGap(12)
-							.addGroup(gl_panel_14.createParallelGroup(Alignment.TRAILING, false)
-								.addComponent(btnSetColor, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(btnSetndColor, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-							.addContainerGap())
-				);
-				gl_panel_14.setVerticalGroup(
-					gl_panel_14.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_14.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(btnSetColor)
-							.addGap(4)
-							.addComponent(btnSetndColor)
-							.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-				);
-				panel_14.setLayout(gl_panel_14);
+				f.getContentPane().add(tcc);
+				f.pack();
+				f.setMinimumSize(f.getSize());
+				f.setVisible(true);
+			}
+		});
+		final GroupLayout gl_panel_14 = new GroupLayout(panel_14);
+		gl_panel_14.setHorizontalGroup(gl_panel_14.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_14.createSequentialGroup().addGap(12)
+						.addGroup(gl_panel_14.createParallelGroup(Alignment.TRAILING, false)
+								.addComponent(btnSetColor, Alignment.LEADING, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(btnSetndColor, Alignment.LEADING, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+						.addContainerGap()));
+		gl_panel_14
+				.setVerticalGroup(gl_panel_14.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_14.createSequentialGroup().addContainerGap().addComponent(btnSetColor)
+								.addGap(4).addComponent(btnSetndColor)
+								.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+		panel_14.setLayout(gl_panel_14);
 
 		/*List<File> dong = new ArrayList<File>();
 		try {
@@ -757,10 +756,10 @@ public class RunApp extends Panel {
 	private final JLabel lblCar;
 	private final JComboBox<String> comboBox_1;
 	private final JButton btnOpenCarFolder;
-	private JPanel panel_14;
-	private JButton btnSetColor;
-	private JPanel panel_15;
-	private JButton btnSet;
+	private final JPanel panel_14;
+	private final JButton btnSetColor;
+	private final JPanel panel_15;
+	private final JButton btnSet;
 
 	/**
 	 * Fetches icons of 16, 32 and 48 pixels from the 'data' folder.

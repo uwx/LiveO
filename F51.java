@@ -11,10 +11,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
-import java.io.InputStreamReader;
 import java.util.Scanner;
 
 public class F51 extends Applet implements Runnable {
@@ -117,7 +114,7 @@ public class F51 extends Applet implements Runnable {
 
 	static File contofile = new File("./o.rad");
 
-	public void remake(String text) {
+	public void remake(final String text) {
 		final int storeowxz = o.wxz;
 		final int storeoxz = o.xz;
 		final int storeoxy = o.xy;
@@ -138,11 +135,11 @@ public class F51 extends Applet implements Runnable {
 		gamer.setPriority(10);
 		medium = new Medium();
 		try {
-			Scanner s = new Scanner(contofile);
-			String content = s.useDelimiter("\\Z").next();
+			final Scanner s = new Scanner(contofile);
+			final String content = s.useDelimiter("\\Z").next();
 			s.close();
 			o = new ContO(content, medium, 350, 150, 600, this);
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			e.printStackTrace();
 		}
 		o.y = 120;

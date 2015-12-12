@@ -10,11 +10,7 @@ import java.awt.BasicStroke;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
 import java.io.StringReader;
 
 public class ContO {
@@ -169,7 +165,8 @@ public class ContO {
 					} catch (final StringIndexOutOfBoundsException e) {
 					}
 					npl += wheels.make(applet, m, p, npl, (int) (getvalue("w", s2, 0) * f * nfmm_scale[0]),
-							(int) (getvalue("w", s2, 1) * f * nfmm_scale[1]), (int) (getvalue("w", s2, 2) * f * nfmm_scale[2]), getvalue("w", s2, 3),
+							(int) (getvalue("w", s2, 1) * f * nfmm_scale[1]),
+							(int) (getvalue("w", s2, 2) * f * nfmm_scale[2]), getvalue("w", s2, 3),
 							(int) (getvalue("w", s2, 4) * f * nfmm_scale[0]), (int) (getvalue("w", s2, 5) * f), w6);
 					//npl += wheels.make(applet, m, p, npl, (int)((float)getvalue("w", s1, 0) * f * f1 * nfmm_scale[0]), (int)((float)getvalue("w", s1, 1) * f * nfmm_scale[1]), (int)((float)getvalue("w", s1, 2) * f * nfmm_scale[2]), getvalue("w", s1, 3), (int)((float)getvalue("w", s1, 4) * f * f1), (int)((int)getvalue("w", s1, 5) * f), i1);
 				}
