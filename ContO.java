@@ -15,7 +15,7 @@ import java.io.StringReader;
 
 public class ContO {
 
-	public ContO(final String s, final Medium medium, final int i, final int j, final int k, final Applet applet) {
+	public ContO(final String s, final Medium medium, final int i, final int j, final int k, final Applet applet) throws Exception {
 		npl = 0;
 		x = 0;
 		y = 0;
@@ -227,7 +227,7 @@ public class ContO {
 			} while (true);
 			datainputstream.close();
 		} catch (final Exception exception) {
-			exception.printStackTrace();
+			throw exception;
 		}
 		System.out.println(new StringBuilder().append("polygantos: ").append(npl).toString());
 		grat = wheels.ground;

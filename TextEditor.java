@@ -6,6 +6,8 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
@@ -36,6 +38,8 @@ import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rtextarea.RTextScrollPane;
 import org.fife.ui.rtextarea.SearchContext;
 import org.fife.ui.rtextarea.SearchEngine;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
 
 /*
  * A simple Text Editor.  This demonstrates the use of a
@@ -80,6 +84,8 @@ public class TextEditor implements ActionListener {
 	private final JPanel panel_4;
 	private final JMenu mnTools;
 	boolean fffff = false;
+	private JCheckBox chckbxSchizznti;
+	private JPanel panel_2;
 
 	// Creates the GUI
 	public TextEditor(final F51 f51, final RunApp runapp) {
@@ -258,11 +264,17 @@ public class TextEditor implements ActionListener {
 				if (files.length == 0)
 					System.out.println("You cancelled the choice");
 				else {
-					System.out.println("You chose " + files[0]);
-					F51.contofile = files[0];
-					loadFile();
-					countPolys();
-					f51.remake(text.getText());
+					try {
+						System.out.println("You chose " + files[0]);
+						F51.contofile = files[0];
+						loadFile();
+						countPolys();
+						f51.remake(text.getText());
+					} catch (Exception er) {
+						System.err.println("Error loading ContO: " + er);
+						JOptionPane.showMessageDialog(frame, "Error loading ContO: " + er + "\r\nIf you're sure this isn't your fault, tell rafa something went wrong and give him the full console log");
+						er.printStackTrace();
+					}
 				}
 			}
 		});
@@ -298,6 +310,21 @@ public class TextEditor implements ActionListener {
 		panel_4.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		panel_4.add(lblFontSize);
 		panel_4.add(textField);
+
+		panel_2 = new JPanel();
+		mnSettings.add(panel_2);
+		panel_2.setLayout(new BoxLayout(panel_2, BoxLayout.X_AXIS));
+
+		chckbxSchizznti = new JCheckBox("Hide error msgs");
+		chckbxSchizznti.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if (e.getStateChange() == ItemEvent.DESELECTED);
+					RunApp.suppressErrorMessages = false;
+				if (e.getStateChange() == ItemEvent.SELECTED);
+					RunApp.suppressErrorMessages = true;
+			}
+		});
+		panel_2.add(chckbxSchizznti);
 
 		mnTools = new JMenu("Tools");
 		menuBar.add(mnTools);
@@ -1250,7 +1277,12 @@ public class TextEditor implements ActionListener {
 				F51.contofile = files[0];
 				text.setText(
 						"MaxRadius(300)\r\nshadow()\r\ndiv(24)\r\n\r\n\r\n\r\n\r\n\r\nw(-33,0,55,11,10,10,1)\r\nw(33,0,55,11,-10,10,1)\r\nw(-31,-1,-60,1,16,11,1)\r\nw(31,-1,-60,1,-16,11,1)");
-				f51.remake(text.getText());
+				try {
+					f51.remake(text.getText());
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(RunApp.frame, "Something went horribly wrong.\r\nTell rafa the \"new\" dialog threw an exception and give him the full console log");
+					e.printStackTrace();
+				}
 				countPolys();
 				saveFile();
 			}
@@ -1274,8 +1306,13 @@ public class TextEditor implements ActionListener {
 		} catch (final IOException e) {
 			JOptionPane.showMessageDialog(null, "Can't save file " + e.getMessage());
 		}
-
-		f51.remake(text.getText());
+		try {
+			f51.remake(text.getText());
+		} catch (Exception er) {
+			System.err.println("Error loading ContO: " + er);
+			JOptionPane.showMessageDialog(RunApp.frame, "Error loading ContO: " + er + "\r\nIf you're sure this isn't your fault, tell rafa something went wrong and give him the full console log");
+			er.printStackTrace();
+		}
 	}
 
 	private void mirror(final int axis) {
@@ -1340,8 +1377,15 @@ public class TextEditor implements ActionListener {
 			output = new StringBuilder().append(output).append("\n// End of mirror").toString();
 			text.insert(output, text.getSelectionEnd());
 		}
-		f51.remake(text.getText());
-		countPolys();
+		try {
+			f51.remake(text.getText());
+			countPolys();
+		} catch (Exception er) {
+			System.err.println("Error loading ContO: " + er);
+			JOptionPane.showMessageDialog(RunApp.frame, "Error loading ContO: " + er + "\r\nIf you're sure this isn't your fault, tell rafa something went wrong and give him the full console log");
+			er.printStackTrace();
+			er.printStackTrace();
+		}
 	}
 
 	// Display a file chooser so the user can select a file to load.
@@ -1394,9 +1438,14 @@ public class TextEditor implements ActionListener {
 			if (!caughtdiv)
 				fullbenis2 = "div(" + d + ")\r\n" + fullbenis2; //prepend
 			text.setText(fullbenis2);
-
-			f51.remake(text.getText());
-			countPolys();
+			try {
+				f51.remake(text.getText());
+				countPolys();
+			} catch (Exception er) {
+				System.err.println("Error loading ContO: " + er);
+				JOptionPane.showMessageDialog(RunApp.frame, "Error loading ContO: " + er + "\r\nIf you're sure this isn't your fault, tell rafa something went wrong and give him the full console log");
+				er.printStackTrace();
+			}
 			//saveFile();
 		} catch (final IOException e) {
 		}
@@ -1424,9 +1473,14 @@ public class TextEditor implements ActionListener {
 			if (!caughtdiv)
 				fullbenis2 = "idiv(" + d + ")\r\n" + fullbenis2; //prepend
 			text.setText(fullbenis2);
-
-			f51.remake(text.getText());
-			countPolys();
+			try {
+				f51.remake(text.getText());
+				countPolys();
+			} catch (Exception er) {
+				System.err.println("Error loading ContO: " + er);
+				JOptionPane.showMessageDialog(RunApp.frame, "Error loading ContO: " + er + "\r\nIf you're sure this isn't your fault, tell rafa something went wrong and give him the full console log");
+				er.printStackTrace();
+			}
 			//saveFile();
 		} catch (final IOException e) {
 		}
@@ -1453,9 +1507,14 @@ public class TextEditor implements ActionListener {
 			if (!caughtdiv)
 				fullbenis2 = "iwid(" + d + ")\r\n" + fullbenis2; //prepend
 			text.setText(fullbenis2);
-
-			f51.remake(text.getText());
-			countPolys();
+			try {
+				f51.remake(text.getText());
+				countPolys();
+			} catch (Exception er) {
+				System.err.println("Error loading ContO: " + er);
+				JOptionPane.showMessageDialog(RunApp.frame, "Error loading ContO: " + er);
+				er.printStackTrace();
+			}
 			//saveFile();
 		} catch (final IOException e) {
 		}
@@ -1494,9 +1553,15 @@ public class TextEditor implements ActionListener {
 				benis2 = reader.readLine();
 			}
 			text.setText(fullbenis2);
+			try {
+				f51.remake(text.getText());
+				countPolys();
 
-			f51.remake(text.getText());
-			countPolys();
+			} catch (Exception er) {
+				System.err.println("Error loading ContO: " + er);
+				JOptionPane.showMessageDialog(RunApp.frame, "Error loading ContO: " + er);
+				er.printStackTrace();
+			}
 			//saveFile();
 		} catch (final IOException e) {
 		}

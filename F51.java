@@ -114,7 +114,7 @@ public class F51 extends Applet implements Runnable {
 
 	static File contofile = new File("./o.rad");
 
-	public void remake(final String text) {
+	public void remake(final String text) throws Exception {
 		final int storeowxz = o.wxz;
 		final int storeoxz = o.xz;
 		final int storeoxy = o.xy;

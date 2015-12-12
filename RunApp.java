@@ -50,12 +50,23 @@ import javax.swing.event.ChangeListener;
 
 public class RunApp extends Panel {
 
+	/**
+	 * Hides error popups
+	 */
+	static boolean suppressErrorMessages = false;
+
 	public class RefreshThread extends Thread {
 		@Override
 		public void run() {
 			while (true) {
-				applet.remake(t.text.getText());
-				t.countPolys();
+				try {
+					applet.remake(t.text.getText());
+					t.countPolys();
+				} catch (Exception e) {
+					// DON'T WARN!
+					//System.err.println("Error loading ContO: " + e);
+					//JOptionPane.showMessageDialog(frame, "Error loading ContO: " + e);
+				}
 				System.out.println("autorefresh'd!");
 				try {
 					sleep(1000L);
@@ -118,8 +129,14 @@ public class RunApp extends Panel {
 		btnNewButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent e) {
-				applet.remake(t.text.getText());
-				t.countPolys();
+				try {
+					applet.remake(t.text.getText());
+					t.countPolys();
+				} catch (Exception er) {
+					System.err.println("Error loading ContO: " + er);
+					JOptionPane.showMessageDialog(frame, "Error loading ContO: " + er + "\r\nIf you're sure this isn't your fault, tell rafa something went wrong and give him the full console log");
+					er.printStackTrace();
+				}
 			}
 		});
 
@@ -360,10 +377,16 @@ public class RunApp extends Panel {
 			@Override
 			public void itemStateChanged(final ItemEvent event) {
 				if (event.getStateChange() == ItemEvent.SELECTED) {
-					final String item = (String) event.getItem();
-					Wheels.wheelfile = item;
-					applet.remake(t.text.getText());
-					t.countPolys();
+					try {
+						final String item = (String) event.getItem();
+						Wheels.wheelfile = item;
+						applet.remake(t.text.getText());
+						t.countPolys();
+					} catch (Exception er) {
+						System.err.println("Error loading ContO: " + er);
+						JOptionPane.showMessageDialog(frame, "Error loading ContO: " + er + "\r\nIf you're sure this isn't your fault, tell rafa something went wrong and give him the full console log");
+						er.printStackTrace();
+					}
 					System.out.println("autorefresh'd!");
 				}
 			}
@@ -395,10 +418,16 @@ public class RunApp extends Panel {
 					final File file = carFArray[item];
 					//final File[] files = fd.getFiles();
 					if (file.exists() && !file.isDirectory()) {
-						F51.contofile = file;
-						applet.remake(t.text.getText());
-						t.countPolys();
-						t.loadFile();
+						try {
+							F51.contofile = file;
+							t.loadFile();
+							t.countPolys();
+							applet.remake(t.text.getText());
+						} catch (Exception e) {
+							System.err.println("Error loading ContO: " + e);
+							JOptionPane.showMessageDialog(frame, "Error loading ContO: " + e + "\r\nIf you're sure this isn't your fault, tell rafa something went wrong and give him the full console log");
+							e.printStackTrace();
+						}
 					}
 				}
 			}
@@ -817,5 +846,10 @@ public class RunApp extends Panel {
 
 	public static int getInt(final String tag, final String str, final int id) {
 		return Integer.parseInt(getString(tag, str, id));
+	}
+
+	public static void postMsg(final String msg) {
+		if (!suppressErrorMessages)
+			JOptionPane.showMessageDialog(frame, msg);
 	}
 }
