@@ -33,6 +33,7 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -53,7 +54,7 @@ public class RunApp extends Panel {
 		@Override
 		public void run() {
 			while (true) {
-				applet.remake();
+				applet.remake(t.text.getText());
 				t.countPolys();
 				System.out.println("autorefresh'd!");
 				try {
@@ -117,7 +118,7 @@ public class RunApp extends Panel {
 		btnNewButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent e) {
-				applet.remake();
+				applet.remake(t.text.getText());
 				t.countPolys();
 			}
 		});
@@ -361,7 +362,7 @@ public class RunApp extends Panel {
 				if (event.getStateChange() == ItemEvent.SELECTED) {
 					final String item = (String) event.getItem();
 					Wheels.wheelfile = item;
-					applet.remake();
+					applet.remake(t.text.getText());
 					t.countPolys();
 					System.out.println("autorefresh'd!");
 				}
@@ -395,7 +396,7 @@ public class RunApp extends Panel {
 					//final File[] files = fd.getFiles();
 					if (file.exists() && !file.isDirectory()) {
 						F51.contofile = file;
-						applet.remake();
+						applet.remake(t.text.getText());
 						t.countPolys();
 						t.loadFile();
 					}
@@ -464,6 +465,32 @@ public class RunApp extends Panel {
 		textField_2 = new JTextField();
 		textField_2.setColumns(10);
 		panel_12.add(textField_2);
+
+		panel_14 = new JPanel();
+		panel_9.add(panel_14);
+
+		btnSetColor = new JButton("Set color");
+		btnSetColor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFrame f = new JFrame("Color picker");
+				f.setBackground(new Color(0, 0, 0));
+				//frame.setIgnoreRepaint(true);
+				f.setIconImages(getIcons());
+				JColorChooser tcc = new JColorChooser();
+				tcc.getSelectionModel().addChangeListener(new ChangeListener() {
+					@Override
+					public void stateChanged(ChangeEvent e) {
+					    Color newColor = tcc.getColor();
+					    t.setColor(newColor, false);
+					}
+				});
+				f.add(tcc);
+				f.pack();
+				f.setMinimumSize(f.getSize());
+				f.setVisible(true);
+			}
+		});
+		panel_14.add(btnSetColor);
 
 		/*List<File> dong = new ArrayList<File>();
 		try {
@@ -645,6 +672,8 @@ public class RunApp extends Panel {
 	private final JLabel lblCar;
 	private final JComboBox<String> comboBox_1;
 	private final JButton btnOpenCarFolder;
+	private JPanel panel_14;
+	private JButton btnSetColor;
 
 	/**
 	 * Fetches icons of 16, 32 and 48 pixels from the 'data' folder.

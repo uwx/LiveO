@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.FileDialog;
 import java.awt.FlowLayout;
@@ -259,7 +260,7 @@ public class TextEditor implements ActionListener {
 				else {
 					System.out.println("You chose " + files[0]);
 					F51.contofile = files[0];
-					f51.remake();
+					f51.remake(text.getText());
 					countPolys();
 					loadFile();
 				}
@@ -427,13 +428,13 @@ public class TextEditor implements ActionListener {
 			/*int pretx = (Math.abs((int)radius[0]) - Math.abs((int)radius[3]));
 			int prety = (Math.abs((int)radius[1]) - Math.abs((int)radius[4]));
 			int pretz = (Math.abs((int)radius[2]) - Math.abs((int)radius[5]));
-			
+
 			String outxy = "";
 			if (pretx < 0)
 				outxy = "xy(-90)";
 			else
 				outxy = "xy(90)";
-			
+
 			String outzy = "";
 			if (pretz < 0)
 				outzy = "zy(-90)";
@@ -529,7 +530,7 @@ public class TextEditor implements ActionListener {
 			tx(-zcoord)
 			ty(0)
 			</track>
-			
+
 			<track>
 			xy(-90)
 			radx(xcoord)
@@ -538,7 +539,7 @@ public class TextEditor implements ActionListener {
 			tx(zcoord)
 			ty(0)
 			</track>
-			
+
 			<track>
 			zy(-90)
 			radx(zcoord)
@@ -548,7 +549,7 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(zcoord)
 			</track>
-			
+
 			<track>
 			zy(90)
 			radx(zcoord)
@@ -558,7 +559,7 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(-zcoord)
 			</track>
-			
+
 			*/
 
 			//////////// old
@@ -572,8 +573,8 @@ public class TextEditor implements ActionListener {
 			tx(-ycoord)
 			ty(0)
 			</track>
-			
-			
+
+
 			<track>
 			xy(-90)
 			radx(xcoord)
@@ -582,7 +583,7 @@ public class TextEditor implements ActionListener {
 			tx(ycoord)
 			ty(0)
 			</track>
-			
+
 			<track>
 			zy(-90)
 			radx(zcoord)
@@ -592,7 +593,7 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(zcoord)
 			</track>
-			
+
 			<track>
 			zy(90)
 			radx(zcoord)
@@ -607,7 +608,7 @@ public class TextEditor implements ActionListener {
 			////////////original
 
 			/*
-			
+
 			<track>
 			xy(90)
 			radx(200)
@@ -616,7 +617,7 @@ public class TextEditor implements ActionListener {
 			tx(-700)
 			ty(0)
 			</track>
-			
+
 			<track>
 			xy(-90)
 			radx(200)
@@ -625,7 +626,7 @@ public class TextEditor implements ActionListener {
 			tx(700)
 			ty(0)
 			</track>
-			
+
 			<track>
 			zy(-90)
 			radx(700)
@@ -635,7 +636,7 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(700)
 			</track>
-			
+
 			<track>
 			zy(90)
 			radx(700)
@@ -645,14 +646,14 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(-700)
 			</track>
-			
+
 			*/
 
 			////////////flat
 
 			/*
 			<track>
-			
+
 			xy(90)
 			radx(1)
 			rady(2)
@@ -661,7 +662,7 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(0)
 			</track>
-			
+
 			*/
 
 			//final String radx = "radx(" + Math.abs(pretx) + ")";
@@ -685,13 +686,13 @@ public class TextEditor implements ActionListener {
 			/*int pretx = (Math.abs((int)radius[0]) - Math.abs((int)radius[3]));
 			int prety = (Math.abs((int)radius[1]) - Math.abs((int)radius[4]));
 			int pretz = (Math.abs((int)radius[2]) - Math.abs((int)radius[5]));
-			
+
 			String outxy = "";
 			if (pretx < 0)
 				outxy = "xy(-90)";
 			else
 				outxy = "xy(90)";
-			
+
 			String outzy = "";
 			if (pretz < 0)
 				outzy = "zy(-90)";
@@ -789,7 +790,7 @@ public class TextEditor implements ActionListener {
 			tx(-zcoord)
 			ty(0)
 			</track>
-			
+
 			<track>
 			xy(-90)
 			radx(xcoord)
@@ -798,7 +799,7 @@ public class TextEditor implements ActionListener {
 			tx(zcoord)
 			ty(0)
 			</track>
-			
+
 			<track>
 			zy(-90)
 			radx(zcoord)
@@ -808,7 +809,7 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(zcoord)
 			</track>
-			
+
 			<track>
 			zy(90)
 			radx(zcoord)
@@ -818,7 +819,7 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(-zcoord)
 			</track>
-			
+
 			*/
 
 			//////////// old
@@ -832,8 +833,8 @@ public class TextEditor implements ActionListener {
 			tx(-ycoord)
 			ty(0)
 			</track>
-			
-			
+
+
 			<track>
 			xy(-90)
 			radx(xcoord)
@@ -842,7 +843,7 @@ public class TextEditor implements ActionListener {
 			tx(ycoord)
 			ty(0)
 			</track>
-			
+
 			<track>
 			zy(-90)
 			radx(zcoord)
@@ -852,7 +853,7 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(zcoord)
 			</track>
-			
+
 			<track>
 			zy(90)
 			radx(zcoord)
@@ -867,7 +868,7 @@ public class TextEditor implements ActionListener {
 			////////////original
 
 			/*
-			
+
 			<track>
 			xy(90)
 			radx(200)
@@ -876,7 +877,7 @@ public class TextEditor implements ActionListener {
 			tx(-700)
 			ty(0)
 			</track>
-			
+
 			<track>
 			xy(-90)
 			radx(200)
@@ -885,7 +886,7 @@ public class TextEditor implements ActionListener {
 			tx(700)
 			ty(0)
 			</track>
-			
+
 			<track>
 			zy(-90)
 			radx(700)
@@ -895,7 +896,7 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(700)
 			</track>
-			
+
 			<track>
 			zy(90)
 			radx(700)
@@ -905,14 +906,14 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(-700)
 			</track>
-			
+
 			*/
 
 			////////////flat
 
 			/*
 			<track>
-			
+
 			xy(90)
 			radx(1)
 			rady(2)
@@ -921,7 +922,7 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(0)
 			</track>
-			
+
 			*/
 
 			//final String radx = "radx(" + Math.abs(pretx) + ")";
@@ -1259,7 +1260,7 @@ public class TextEditor implements ActionListener {
 			JOptionPane.showMessageDialog(null, "Can't save file " + e.getMessage());
 		}
 
-		f51.remake();
+		f51.remake(text.getText());
 	}
 
 	private void mirror(final int axis) {
@@ -1324,7 +1325,7 @@ public class TextEditor implements ActionListener {
 			output = new StringBuilder().append(output).append("\n// End of mirror").toString();
 			text.insert(output, text.getSelectionEnd());
 		}
-		f51.remake();
+		f51.remake(text.getText());
 		countPolys();
 	}
 
@@ -1354,6 +1355,46 @@ public class TextEditor implements ActionListener {
 			input.close();
 		} catch (final IOException e) {
 			JOptionPane.showMessageDialog(null, "Can't load file " + e.getMessage());
+		}
+	}
+
+	void setColor(Color c, boolean second) {
+		String cstring = "("+c.getRed()+","+c.getGreen()+","+c.getBlue()+")";
+		String oldfirstcolor = "("+c.getRed()+","+c.getGreen()+","+c.getBlue()+")";
+		String oldsecondcolor = "("+c.getRed()+","+c.getGreen()+","+c.getBlue()+")";
+
+		try {
+			final BufferedReader reader = new BufferedReader(new StringReader(text.getText()));
+			String benis2 = reader.readLine();
+			String fullbenis2 = "";
+			while (benis2 != null) {
+				benis2 = benis2.trim();
+				//String ob2 = benis2;
+				System.out.println(benis2);
+				if (benis2.startsWith("1stColor(")) {
+					oldfirstcolor = "(" + getvalue("1stColor", benis2, 0) + "," + getvalue("1stColor", benis2, 1) + "," + getvalue("1stColor", benis2, 2) + ")";
+					benis2 = "1stColor" + cstring;
+				}
+				if (benis2.startsWith("2ndColor(")) {
+					oldsecondcolor = "(" + getvalue("2ndColor", benis2, 0) + "," + getvalue("2ndColor", benis2, 1) + "," + getvalue("2ndColor", benis2, 2) + ")";
+					if (second)
+						benis2 = "2ndColor" + cstring;
+				}
+				if (benis2.startsWith("c" + oldfirstcolor) && !second) {
+					benis2 = "c" + cstring;
+				}
+				if (benis2.startsWith("c" + oldfirstcolor) && second) {
+					benis2 = "c" + cstring;
+				}
+				fullbenis2 = fullbenis2 + benis2 + "\r\n";
+				benis2 = reader.readLine();
+			}
+			text.setText(fullbenis2);
+
+			f51.remake(text.getText());
+			countPolys();
+			//saveFile();
+		} catch (final IOException e) {
 		}
 	}
 }

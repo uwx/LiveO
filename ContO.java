@@ -9,13 +9,17 @@ import java.awt.AlphaComposite;
 import java.awt.BasicStroke;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.io.StringReader;
 
 public class ContO {
 
-	public ContO(final File s, final Medium medium, final int i, final int j, final int k, final Applet applet) {
+	public ContO(final String s, final Medium medium, final int i, final int j, final int k, final Applet applet) {
 		npl = 0;
 		x = 0;
 		y = 0;
@@ -73,8 +77,9 @@ public class ContO {
 
 		try {
 			//final File fl = new File(s);
-			System.out.println(s.getPath());
-			final DataInputStream datainputstream = new DataInputStream(new FileInputStream(s));
+			//System.out.println(s.getPath());
+			//final DataInputStream datainputstream = new DataInputStream(new FileInputStream(s));
+			final BufferedReader datainputstream = new BufferedReader(new StringReader(s));
 			do {
 				String s1;
 				if ((s1 = datainputstream.readLine()) == null)
