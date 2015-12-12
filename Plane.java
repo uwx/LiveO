@@ -11,7 +11,7 @@ import java.awt.Graphics2D;
 
 public class Plane {
 
-	public Plane(final Medium medium, final float ai[], final float ai1[], final float ai2[], final int i, final int ai3[],
+	public Plane(final Medium medium, final int ai[], final int ai1[], final int ai2[], final int i, final int ai3[],
 			final boolean flag, final int j, final int k, final int l, final int i1, final byte light,
 			final boolean hidepoly, final boolean randomcolor, final boolean randoutline, final boolean customstroke,
 			final int strokewidth, final int strokecap, final int strokejoin, final int strokemtlimit) {
@@ -39,9 +39,9 @@ public class Plane {
 		imlast = false;
 		m = medium;
 		n = i;
-		ox = new float[n];
-		oz = new float[n];
-		oy = new float[n];
+		ox = new int[n];
+		oz = new int[n];
+		oy = new int[n];
 		for (int j1 = 0; j1 < n; j1++) {
 			ox[j1] = ai[j1];
 			oy[j1] = ai2[j1];
@@ -82,9 +82,9 @@ public class Plane {
 
 	public void d(final Graphics2D g, final int i, final int j, final int k, final int l, final int i1, final int j1,
 			final int k1, final boolean flag, final boolean flag1, boolean toofar) {
-		final float ai[] = new float[n];
-		final float ai1[] = new float[n];
-		final float ai2[] = new float[n];
+		final int ai[] = new int[n];
+		final int ai1[] = new int[n];
+		final int ai2[] = new int[n];
 		for (int l1 = 0; l1 < n; l1++) {
 			ai[l1] = ox[l1] + i;
 			ai2[l1] = oy[l1] + j;
@@ -109,9 +109,9 @@ public class Plane {
 		}
 		rot(ai, ai1, m.cx, m.cz, m.xz, n);
 		boolean flag2 = false;
-		final float ai3[] = new float[n];
-		final float ai4[] = new float[n];
-		float k2 = 500;
+		final int ai3[] = new int[n];
+		final int ai4[] = new int[n];
+		int k2 = 500;
 		for (int l2 = 0; l2 < n; l2++) {
 			ai3[l2] = xs(ai[l2], ai1[l2]);
 			ai4[l2] = ys(ai2[l2], ai1[l2]);
@@ -146,8 +146,8 @@ public class Plane {
 		}
 		rot(ai2, ai1, m.cy, m.cz, m.zy, n);
 		boolean flag3 = true;
-		final float ai5[] = new float[n];
-		final float ai6[] = new float[n];
+		final int ai5[] = new int[n];
+		final int ai6[] = new int[n];
 		int l4 = 0;
 		int i5 = 0;
 		int j5 = 0;
@@ -199,19 +199,19 @@ public class Plane {
 						flag3 = false;
 				}
 			}
-			float j7 = 0;
-			float l7 = 0;
-			float j8 = 0;
-			float k8 = 0;
-			float l8 = 0;
-			float i9 = 0;
+			int j7 = 0;
+			int l7 = 0;
+			int j8 = 0;
+			int k8 = 0;
+			int l8 = 0;
+			int i9 = 0;
 			for (int j9 = 0; j9 < n; j9++) {
-				float l9 = 0;
-				float j10 = 0;
-				float l10 = 0;
-				float i11 = 0;
-				float j11 = 0;
-				float k11 = 0;
+				int l9 = 0;
+				int j10 = 0;
+				int l10 = 0;
+				int i11 = 0;
+				int j11 = 0;
+				int k11 = 0;
 				for (int l11 = 0; l11 < n; l11++) {
 					if (ai2[j9] >= ai2[l11])
 						l9++;
@@ -241,9 +241,9 @@ public class Plane {
 					i9 = ai1[j9];
 			}
 
-			final float k9 = (j7 + l7) / 2;
-			final float i10 = (j8 + k8) / 2;
-			final float k10 = (l8 + i9) / 2;
+			final int k9 = (j7 + l7) / 2;
+			final int i10 = (j8 + k8) / 2;
+			final int k10 = (l8 + i9) / 2;
 			av = (int) Math.sqrt((m.cy - k9) * (m.cy - k9) + (m.cx - i10) * (m.cx - i10) + k10 * k10 + l6 * l6 * l6);
 			if (av > m.fade[7] || av == 0) {
 				flag3 = false;
@@ -279,13 +279,7 @@ public class Plane {
 				g.setColor(new Color(k6, i7, k7));
 			else
 				g.setColor(Color.getHSBColor((float) Math.random(), (float) Math.random(), (float) Math.random()));
-			int[] hnn = new int[n];
-			int[] hnz = new int[n];
-			for (int z = 0; z < hnn.length; z++) {
-				hnn[z] = (int) ai5[z];
-				hnz[z] = (int) ai6[z];
-			}
-			g.fillPolygon(hnn, hnz, n);
+			g.fillPolygon(ai5, ai6, n);
 		}
 		if (!toofar && !hidepoly) {
 			int k6;
@@ -316,22 +310,16 @@ public class Plane {
 				g.setStroke(new BasicStroke(strokewidth, strokecap, strokejoin, strokemtlimit));
 			else
 				g.setStroke(new BasicStroke());
-			int[] hnn = new int[n];
-			int[] hnz = new int[n];
-			for (int z = 0; z < hnn.length; z++) {
-				hnn[z] = (int) ai5[z];
-				hnz[z] = (int) ai6[z];
-			}
-			g.drawPolygon(hnn, hnz, n);
+			g.drawPolygon(ai5, ai6, n);
 		}
 	}
 
 	public void s(final Graphics g, final int i, final int j, final int k, final int l, final int i1, final int j1,
 			final boolean flag) {
 		if (gr <= 0 && av < m.fade[7] && av != 0) {
-			final float ai[] = new float[n];
-			final float ai1[] = new float[n];
-			final float ai2[] = new float[n];
+			final int ai[] = new int[n];
+			final int ai1[] = new int[n];
+			final int ai2[] = new int[n];
 			for (int k1 = 0; k1 < n; k1++) {
 				ai[k1] = ox[k1] + i;
 				ai2[k1] = oy[k1] + j;
@@ -386,8 +374,8 @@ public class Plane {
 			rot(ai, ai1, m.cx, m.cz, m.xz, n);
 			rot(ai2, ai1, m.cy, m.cz, m.zy, n);
 			boolean flag1 = false;
-			final float ai3[] = new float[n];
-			final float ai4[] = new float[n];
+			final int ai3[] = new int[n];
+			final int ai4[] = new int[n];
 			for (int j4 = 0; j4 < n; j4++) {
 				ai3[j4] = xs(ai[j4], ai1[j4]);
 				ai4[j4] = ys(ai2[j4], ai1[j4]);
@@ -404,34 +392,28 @@ public class Plane {
 					}
 
 				g.setColor(new Color(l1, i2, j2));
-				int[] hnn = new int[n];
-				int[] hnz = new int[n];
-				for (int z = 0; z < hnn.length; z++) {
-					hnn[z] = (int) ai3[z];
-					hnz[z] = (int) ai4[z];
-				}
-				g.fillPolygon(hnn, hnz, n);
+				g.fillPolygon(ai3, ai4, n);
 			}
 		}
 	}
 
-	public float xs(final float i, float j) {
+	public int xs(final int i, int j) {
 		if (j < 10)
 			j = 10;
 		return (j - m.focus_point) * (m.cx - i) / j + i;
 	}
 
-	public float ys(final float i, float j) {
+	public int ys(final int i, int j) {
 		if (j < 10)
 			j = 10;
 		return (j - m.focus_point) * (m.cy - i) / j + i;
 	}
 
-	public void rot(final float ai[], final float ai1[], final int i, final int j, final int k, final int l) {
+	public void rot(final int ai[], final int ai1[], final int i, final int j, final int k, final int l) {
 		if (k != 0)
 			for (int i1 = 0; i1 < l; i1++) {
-				final float j1 = ai[i1];
-				final float k1 = ai1[i1];
+				final int j1 = ai[i1];
+				final int k1 = ai1[i1];
 				ai[i1] = i + (int) ((j1 - i) * Math.cos(k * 0.017453292519943295D)
 						- (k1 - j) * Math.sin(k * 0.017453292519943295D));
 				ai1[i1] = j + (int) ((j1 - i) * Math.sin(k * 0.017453292519943295D)
@@ -439,14 +421,14 @@ public class Plane {
 			}
 	}
 
-	public float spy(final float i, final float j) {
-		return (float) Math.sqrt((i - m.cx) * (i - m.cx) + j * j);
+	public int spy(final int i, final int j) {
+		return (int) Math.sqrt((i - m.cx) * (i - m.cx) + j * j);
 	}
 
 	Medium m;
-	float ox[];
-	float oy[];
-	float oz[];
+	int ox[];
+	int oy[];
+	int oz[];
 	int n;
 	int c[];
 	float hsb[];
