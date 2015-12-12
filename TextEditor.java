@@ -260,9 +260,9 @@ public class TextEditor implements ActionListener {
 				else {
 					System.out.println("You chose " + files[0]);
 					F51.contofile = files[0];
-					f51.remake(text.getText());
-					countPolys();
 					loadFile();
+					countPolys();
+					f51.remake(text.getText());
 				}
 			}
 		});
@@ -1233,6 +1233,35 @@ public class TextEditor implements ActionListener {
 	}
 
 	private void newFile() { //doesn't (and shouldn't) save
+		final int opt = JOptionPane.showConfirmDialog(null, "This will discard all unsaved changes!", "Create new file",
+				JOptionPane.OK_CANCEL_OPTION);
+
+		if (opt == JOptionPane.OK_OPTION) {
+			final File file = F51.contofile;
+			final FileDialog fd = new FileDialog(RunApp.frame, "Choose a file", FileDialog.SAVE);
+			fd.setDirectory(new File("./").getPath());
+			fd.setFile("*.rad");
+			fd.setVisible(true);
+			//String filename = fd.getFile();
+			final File[] files = fd.getFiles();
+			if (files.length == 0)
+				System.out.println("You cancelled the choice");
+			else {
+				System.out.println("You chose " + files[0]);
+				F51.contofile = files[0];
+				text.setText(
+						"MaxRadius(300)\r\nshadow()\r\ndiv(24)\r\n\r\n\r\n\r\n\r\n\r\nw(-33,0,55,11,10,10,1)\r\nw(33,0,55,11,-10,10,1)\r\nw(-31,-1,-60,1,16,11,1)\r\nw(31,-1,-60,1,-16,11,1)");
+				f51.remake(text.getText());
+				countPolys();
+				saveFile();
+			}
+		}
+		//f51.remake();
+		//countPolys();
+	}
+
+	// kept for keeping purposes
+	private void legacyNewFile() { //doesn't (and shouldn't) save
 		final int opt = JOptionPane.showConfirmDialog(null, "This will discard all unsaved changes!", "Create new file",
 				JOptionPane.OK_CANCEL_OPTION);
 
