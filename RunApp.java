@@ -65,7 +65,7 @@ public class RunApp extends Panel {
 				} catch (Exception e) {
 					// DON'T WARN!
 					//System.err.println("Error loading ContO: " + e);
-					//JOptionPane.showMessageDialog(frame, "Error loading ContO: " + e);
+					//postMsg("Error loading ContO: " + e);
 				}
 				System.out.println("autorefresh'd!");
 				try {
@@ -134,7 +134,7 @@ public class RunApp extends Panel {
 					t.countPolys();
 				} catch (Exception er) {
 					System.err.println("Error loading ContO: " + er);
-					JOptionPane.showMessageDialog(frame, "Error loading ContO: " + er + "\r\nIf you're sure this isn't your fault, tell rafa something went wrong and give him the full console log");
+					postMsg("Error loading ContO: " + er + "\r\nIf you're sure this isn't your fault, tell rafa something went wrong and give him the full console log");
 					er.printStackTrace();
 				}
 			}
@@ -384,7 +384,7 @@ public class RunApp extends Panel {
 						t.countPolys();
 					} catch (Exception er) {
 						System.err.println("Error loading ContO: " + er);
-						JOptionPane.showMessageDialog(frame, "Error loading ContO: " + er + "\r\nIf you're sure this isn't your fault, tell rafa something went wrong and give him the full console log");
+						postMsg("Error loading ContO: " + er + "\r\nIf you're sure this isn't your fault, tell rafa something went wrong and give him the full console log");
 						er.printStackTrace();
 					}
 					System.out.println("autorefresh'd!");
@@ -425,7 +425,7 @@ public class RunApp extends Panel {
 							applet.remake(t.text.getText());
 						} catch (Exception e) {
 							System.err.println("Error loading ContO: " + e);
-							JOptionPane.showMessageDialog(frame, "Error loading ContO: " + e + "\r\nIf you're sure this isn't your fault, tell rafa something went wrong and give him the full console log");
+							postMsg("Error loading ContO: " + e + "\r\nIf you're sure this isn't your fault, tell rafa something went wrong and give him the full console log");
 							e.printStackTrace();
 						}
 					}

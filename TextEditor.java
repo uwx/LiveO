@@ -272,7 +272,7 @@ public class TextEditor implements ActionListener {
 						f51.remake(text.getText());
 					} catch (Exception er) {
 						System.err.println("Error loading ContO: " + er);
-						JOptionPane.showMessageDialog(frame, "Error loading ContO: " + er + "\r\nIf you're sure this isn't your fault, tell rafa something went wrong and give him the full console log");
+						RunApp.postMsg("Error loading ContO: " + er + "\r\nIf you're sure this isn't your fault, tell rafa something went wrong and give him the full console log");
 						er.printStackTrace();
 					}
 				}
