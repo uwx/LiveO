@@ -48,9 +48,9 @@ public class ContO {
 		boolean flag = false;
 		int l = 0;
 		float f = 1.0F;
-		final int ai[] = new int[350];
-		final int ai1[] = new int[350];
-		final int ai2[] = new int[350];
+		final float ai[] = new float[350];
+		final float ai1[] = new float[350];
+		final float ai2[] = new float[350];
 		final int ai3[] = new int[3];
 		boolean flag1 = false;
 		final Wheels wheels = new Wheels();
@@ -111,9 +111,9 @@ public class ContO {
 						ai3[2] = getvalue("c", s2, 2);
 					}
 					if (s2.startsWith("p(")) {
-						ai[l] = (int) ((int) (getvalue("p", s2, 0) * f * f1) * nfmm_scale[0]);
-						ai1[l] = (int) ((int) (getvalue("p", s2, 1) * f) * nfmm_scale[1]);
-						ai2[l] = (int) ((int) (getvalue("p", s2, 2) * f) * nfmm_scale[2]);
+						ai[l] =  ( (getvalue("p", s2, 0) * f * f1) * nfmm_scale[0]);
+						ai1[l] =  ( (getvalue("p", s2, 1) * f) * nfmm_scale[1]);
+						ai2[l] =  ( (getvalue("p", s2, 2) * f) * nfmm_scale[2]);
 						l++;
 					}
 					if (s2.startsWith("random()") || s2.startsWith("rainbow()"))
@@ -268,9 +268,9 @@ public class ContO {
 		boolean flag = false;
 		int l = 0;
 		float f = 1.0F;
-		final int ai[] = new int[350];
-		final int ai1[] = new int[350];
-		final int ai2[] = new int[350];
+		final float ai[] = new float[350];
+		final float ai1[] = new float[350];
+		final float ai2[] = new float[350];
 		final int ai3[] = new int[3];
 		boolean flag1 = false;
 		final Wheels wheels = new Wheels();
@@ -322,9 +322,9 @@ public class ContO {
 						ai3[2] = getvalue("c", s2, 2);
 					}
 					if (s2.startsWith("p")) {
-						ai[l] = (int) ((int) (getvalue("p", s2, 0) * f * f1) * nfmm_scale[0]);
-						ai1[l] = (int) ((int) (getvalue("p", s2, 1) * f) * nfmm_scale[0]);
-						ai2[l] = (int) ((int) (getvalue("p", s2, 2) * f) * nfmm_scale[0]);
+						ai[l] =  ( (getvalue("p", s2, 0) * f * f1) * nfmm_scale[0]);
+						ai1[l] =  ( (getvalue("p", s2, 1) * f) * nfmm_scale[0]);
+						ai2[l] =  ( (getvalue("p", s2, 2) * f) * nfmm_scale[0]);
 						l++;
 					}
 					if (s2.startsWith("random()") || s2.startsWith("rainbow()"))

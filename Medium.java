@@ -30,8 +30,8 @@ public class Medium {
 		zart = 0;
 		ztgo = 0;
 		mode = 0;
-		lxp = new int[3];
-		lyp = new int[3];
+		lxp = new float[3];
+		lyp = new float[3];
 		td = false;
 		vxz = 0;
 		adv = -500;
@@ -200,11 +200,11 @@ public class Medium {
 	public void d3p(final Graphics g) {
 		g.setColor(new Color(255, 0, 0));
 		for (int i = 0; i < 3; i++)
-			g.fillOval(lxp[i], lyp[i], 4, 4);
+			g.fillOval((int)lxp[i], (int)lyp[i], 4, 4);
 
 		g.setColor(new Color(255, 255, 0));
 		for (int j = 0; j < 3; j++)
-			g.drawOval(lxp[j], lyp[j], 4, 4);
+			g.drawOval((int)lxp[j], (int)lyp[j], 4, 4);
 
 	}
 
@@ -334,8 +334,8 @@ public class Medium {
 	int zart;
 	int ztgo;
 	int mode;
-	int lxp[];
-	int lyp[];
+	float lxp[];
+	float lyp[];
 	boolean td;
 	int vxz;
 	int adv;

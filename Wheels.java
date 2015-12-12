@@ -29,9 +29,9 @@ public class Wheels {
 		try {
 			final BufferedReader br = new BufferedReader(
 					new InputStreamReader(new URL(applet.getCodeBase(), "wheels/" + wheelfile).openStream()));
-			final int tmx[] = new int[100];
-			final int tmy[] = new int[100];
-			final int tmz[] = new int[100];
+			final float tmx[] = new float[100];
+			final float tmy[] = new float[100];
+			final float tmz[] = new float[100];
 			final int color[] = { 128, 128, 128 };
 			int gr = 0;
 			float scale = 1.0F;
