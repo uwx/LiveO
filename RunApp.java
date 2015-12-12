@@ -515,21 +515,21 @@ public class RunApp extends Panel {
 				GroupLayout gl_panel_14 = new GroupLayout(panel_14);
 				gl_panel_14.setHorizontalGroup(
 					gl_panel_14.createParallelGroup(Alignment.LEADING)
-						.addGroup(Alignment.TRAILING, gl_panel_14.createSequentialGroup()
-							.addContainerGap(48, Short.MAX_VALUE)
-							.addGroup(gl_panel_14.createParallelGroup(Alignment.LEADING)
-								.addComponent(btnSetndColor)
-								.addComponent(btnSetColor))
-							.addGap(40))
+						.addGroup(gl_panel_14.createSequentialGroup()
+							.addGap(21)
+							.addGroup(gl_panel_14.createParallelGroup(Alignment.TRAILING)
+								.addComponent(btnSetndColor, Alignment.LEADING, 0, 0, Short.MAX_VALUE)
+								.addComponent(btnSetColor, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+							.addGap(60))
 				);
 				gl_panel_14.setVerticalGroup(
 					gl_panel_14.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel_14.createSequentialGroup()
 							.addContainerGap()
 							.addComponent(btnSetColor)
-							.addGap(13)
+							.addGap(4)
 							.addComponent(btnSetndColor)
-							.addContainerGap(79, Short.MAX_VALUE))
+							.addContainerGap(1, Short.MAX_VALUE))
 				);
 				panel_14.setLayout(gl_panel_14);
 
