@@ -469,28 +469,69 @@ public class RunApp extends Panel {
 		panel_14 = new JPanel();
 		panel_9.add(panel_14);
 
-		btnSetColor = new JButton("Set color");
-		btnSetColor.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JFrame f = new JFrame("Color picker");
-				f.setBackground(new Color(0, 0, 0));
-				//frame.setIgnoreRepaint(true);
-				f.setIconImages(getIcons());
-				JColorChooser tcc = new JColorChooser();
-				tcc.getSelectionModel().addChangeListener(new ChangeListener() {
-					@Override
-					public void stateChanged(ChangeEvent e) {
-					    Color newColor = tcc.getColor();
-					    t.setColor(newColor, false);
+				btnSetColor = new JButton("Set 1st color");
+				btnSetColor.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						JFrame f = new JFrame("Color picker");
+						f.setBackground(new Color(0, 0, 0));
+						//frame.setIgnoreRepaint(true);
+						f.setIconImages(getIcons());
+						JColorChooser tcc = new JColorChooser();
+						tcc.getSelectionModel().addChangeListener(new ChangeListener() {
+							@Override
+							public void stateChanged(ChangeEvent e) {
+							    Color newColor = tcc.getColor();
+							    t.setColor(newColor, false);
+							}
+						});
+						f.getContentPane().add(tcc);
+						f.pack();
+						f.setMinimumSize(f.getSize());
+						f.setVisible(true);
 					}
 				});
-				f.add(tcc);
-				f.pack();
-				f.setMinimumSize(f.getSize());
-				f.setVisible(true);
-			}
-		});
-		panel_14.add(btnSetColor);
+
+				JButton btnSetndColor = new JButton("Set 2nd color");
+				btnSetndColor.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						JFrame f = new JFrame("Color picker");
+						f.setBackground(new Color(0, 0, 0));
+						//frame.setIgnoreRepaint(true);
+						f.setIconImages(getIcons());
+						JColorChooser tcc = new JColorChooser();
+						tcc.getSelectionModel().addChangeListener(new ChangeListener() {
+							@Override
+							public void stateChanged(ChangeEvent e) {
+							    Color newColor = tcc.getColor();
+							    t.setColor(newColor, true);
+							}
+						});
+						f.getContentPane().add(tcc);
+						f.pack();
+						f.setMinimumSize(f.getSize());
+						f.setVisible(true);
+					}
+				});
+				GroupLayout gl_panel_14 = new GroupLayout(panel_14);
+				gl_panel_14.setHorizontalGroup(
+					gl_panel_14.createParallelGroup(Alignment.LEADING)
+						.addGroup(Alignment.TRAILING, gl_panel_14.createSequentialGroup()
+							.addContainerGap(48, Short.MAX_VALUE)
+							.addGroup(gl_panel_14.createParallelGroup(Alignment.LEADING)
+								.addComponent(btnSetndColor)
+								.addComponent(btnSetColor))
+							.addGap(40))
+				);
+				gl_panel_14.setVerticalGroup(
+					gl_panel_14.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_14.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(btnSetColor)
+							.addGap(13)
+							.addComponent(btnSetndColor)
+							.addContainerGap(79, Short.MAX_VALUE))
+				);
+				panel_14.setLayout(gl_panel_14);
 
 		/*List<File> dong = new ArrayList<File>();
 		try {

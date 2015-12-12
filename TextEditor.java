@@ -1412,7 +1412,7 @@ public class TextEditor implements ActionListener {
 				if (benis2.startsWith("c" + oldfirstcolor) && !second) {
 					benis2 = "c" + cstring;
 				}
-				if (benis2.startsWith("c" + oldfirstcolor) && second) {
+				if (benis2.startsWith("c" + oldsecondcolor) && second) {
 					benis2 = "c" + cstring;
 				}
 				fullbenis2 = fullbenis2 + benis2 + "\r\n";
