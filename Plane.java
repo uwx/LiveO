@@ -8,6 +8,8 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Shape;
+import java.awt.geom.Point2D;
 
 public class Plane {
 
@@ -256,7 +258,7 @@ public class Plane {
 			if (av > 2000)
 				toofar = true;
 		}
-		if (flag3) {
+		if (flag3 && !Medium.wire && !Medium.pointwire) {
 			float f = (float) (projf / deltaf + 0.5D);
 			if (f > 1.0F)
 				f = 1.0F;
@@ -279,8 +281,7 @@ public class Plane {
 				g.setColor(new Color(k6, i7, k7));
 			else
 				g.setColor(Color.getHSBColor((float) Math.random(), (float) Math.random(), (float) Math.random()));
-			if (!Medium.wire)
-				g.fillPolygon(ai5, ai6, n);
+			g.fillPolygon(ai5, ai6, n);
 		}
 		if (!toofar && !hidepoly) {
 			int k6;
@@ -311,7 +312,11 @@ public class Plane {
 				g.setStroke(new BasicStroke(strokewidth, strokecap, strokejoin, strokemtlimit));
 			else
 				g.setStroke(new BasicStroke());
-			g.drawPolygon(ai5, ai6, n);
+			if (Medium.pointwire)
+				for (int z = 0; z < n; z++)
+					g.fillRect(ai5[z], ai6[z], 1, 1);
+			else
+				g.drawPolygon(ai5, ai6, n);
 		}
 	}
 
