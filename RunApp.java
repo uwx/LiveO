@@ -323,6 +323,15 @@ public class RunApp extends Panel {
 				}
 			}
 		});
+		
+		btnWireframe = new JButton("Wireframe");
+		btnWireframe.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Medium.wire = !Medium.wire;
+			}
+		});
+		btnWireframe.setAlignmentX(Component.CENTER_ALIGNMENT);
+		panel_7.add(btnWireframe);
 
 		btnLights = new JButton("Lights");
 		panel_7.add(btnLights);
@@ -819,6 +828,7 @@ public class RunApp extends Panel {
 	private final JPanel panel_15;
 	private final JButton btnSet;
 	private JCheckBox chckbxAutosave;
+	private JButton btnWireframe;
 
 	/**
 	 * Fetches icons of 16, 32 and 48 pixels from the 'data' folder.
