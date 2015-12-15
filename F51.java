@@ -225,17 +225,17 @@ public class F51 extends JPanel implements KeyListener, MouseListener {
 			forward = true;
 		if (i == KeyEvent.VK_NUMPAD2 || i == KeyEvent.VK_2)
 			back = true;
-		if (i == KeyEvent.VK_NUMPAD4 || i == KeyEvent.VK_4)
-			rotr = true;
 		if (i == KeyEvent.VK_NUMPAD6 || i == KeyEvent.VK_6)
+			rotr = true;
+		if (i == KeyEvent.VK_NUMPAD4 || i == KeyEvent.VK_4)
 			rotl = true;
 		if (i == KeyEvent.VK_PLUS)
 			plus = true;
 		if (i == KeyEvent.VK_MINUS)
 			minus = true;
-		if (i == KeyEvent.VK_SLASH || i == KeyEvent.VK_DIVIDE)
-			in = true;
 		if (i == KeyEvent.VK_ASTERISK || i == KeyEvent.VK_MULTIPLY)
+			in = true;
+		if (i == KeyEvent.VK_SLASH || i == KeyEvent.VK_DIVIDE)
 			out = true;
 		if (i == KeyEvent.VK_LEFT)
 			left = true;
@@ -258,17 +258,17 @@ public class F51 extends JPanel implements KeyListener, MouseListener {
 			forward = false;
 		if (i == KeyEvent.VK_NUMPAD2 || i == KeyEvent.VK_2)
 			back = false;
-		if (i == KeyEvent.VK_NUMPAD4 || i == KeyEvent.VK_4)
-			rotr = false;
 		if (i == KeyEvent.VK_NUMPAD6 || i == KeyEvent.VK_6)
+			rotr = false;
+		if (i == KeyEvent.VK_NUMPAD4 || i == KeyEvent.VK_4)
 			rotl = false;
 		if (i == KeyEvent.VK_PLUS)
 			plus = false;
 		if (i == KeyEvent.VK_MINUS)
 			minus = false;
-		if (i == KeyEvent.VK_SLASH || i == KeyEvent.VK_DIVIDE)
-			in = false;
 		if (i == KeyEvent.VK_ASTERISK || i == KeyEvent.VK_MULTIPLY)
+			in = false;
+		if (i == KeyEvent.VK_SLASH || i == KeyEvent.VK_DIVIDE)
 			out = false;
 		if (i == KeyEvent.VK_LEFT)
 			left = false;
