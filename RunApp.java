@@ -1,6 +1,7 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -48,6 +49,8 @@ import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 
 public class RunApp extends Panel {
 
@@ -199,63 +202,63 @@ public class RunApp extends Panel {
 		panel_6.add(panel_2);
 		panel_2.setLayout(new BoxLayout(panel_2, BoxLayout.Y_AXIS));
 
-		panel_8 = new JPanel();
-		panel_2.add(panel_8);
+				panel_8 = new JPanel();
+				panel_2.add(panel_8);
 
-		slider = new JSlider();
-		slider.setAlignmentX(Component.RIGHT_ALIGNMENT);
-		slider.setMinimum(-360);
-		slider.setMaximum(360);
-		slider.setValue(0);
-		slider.addChangeListener(new ChangeListener() {
-			@Override
-			public void stateChanged(final ChangeEvent e) {
-				applet.o.zy = -slider.getValue();
-			}
-		});
-		slider.setOrientation(SwingConstants.VERTICAL);
+						slider = new JSlider();
+						slider.setAlignmentX(Component.RIGHT_ALIGNMENT);
+						slider.setMinimum(-360);
+						slider.setMaximum(360);
+						slider.setValue(0);
+						slider.addChangeListener(new ChangeListener() {
+							@Override
+							public void stateChanged(final ChangeEvent e) {
+								applet.o.zy = -slider.getValue();
+							}
+						});
+						slider.setOrientation(SwingConstants.VERTICAL);
 
-		slider_1 = new JSlider();
-		slider_1.setMinimum(-360);
-		slider_1.setMaximum(360);
-		slider_1.setValue(0);
+								slider_1 = new JSlider();
+								slider_1.setMinimum(-360);
+								slider_1.setMaximum(360);
+								slider_1.setValue(0);
 
-		slider_2 = new JSlider();
-		slider_2.setValue(0);
-		slider_2.setMinimum(-360);
-		slider_2.setMaximum(360);
-		slider_2.addChangeListener(new ChangeListener() {
-			@Override
-			public void stateChanged(final ChangeEvent e) {
-				applet.o.xz = -slider_2.getValue();
-			}
-		});
-		final GroupLayout gl_panel_8 = new GroupLayout(panel_8);
-		gl_panel_8.setHorizontalGroup(gl_panel_8.createParallelGroup(Alignment.LEADING).addGroup(gl_panel_8
-				.createSequentialGroup().addGap(1)
-				.addComponent(slider, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-				.addGroup(gl_panel_8.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_8.createSequentialGroup().addGap(1).addComponent(slider_1,
-								GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panel_8.createSequentialGroup().addGap(1).addComponent(slider_2,
-								GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)))
-				.addGap(1)));
-		gl_panel_8.setVerticalGroup(gl_panel_8.createParallelGroup(Alignment.LEADING).addGroup(gl_panel_8
-				.createSequentialGroup().addGap(1)
-				.addGroup(gl_panel_8.createParallelGroup(Alignment.LEADING, false)
-						.addGroup(gl_panel_8.createSequentialGroup()
-								.addComponent(slider_1, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(slider_2, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE))
-						.addComponent(slider, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE))
-				.addGap(1)));
-		panel_8.setLayout(gl_panel_8);
-		slider_1.addChangeListener(new ChangeListener() {
-			@Override
-			public void stateChanged(final ChangeEvent e) {
-				applet.o.xy = -slider_1.getValue();
-			}
-		});
+										slider_2 = new JSlider();
+										slider_2.setValue(0);
+										slider_2.setMinimum(-360);
+										slider_2.setMaximum(360);
+										slider_2.addChangeListener(new ChangeListener() {
+											@Override
+											public void stateChanged(final ChangeEvent e) {
+												applet.o.xz = -slider_2.getValue();
+											}
+										});
+										final GroupLayout gl_panel_8 = new GroupLayout(panel_8);
+										gl_panel_8.setHorizontalGroup(gl_panel_8.createParallelGroup(Alignment.LEADING).addGroup(gl_panel_8
+												.createSequentialGroup().addGap(1)
+												.addComponent(slider, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+												.addGroup(gl_panel_8.createParallelGroup(Alignment.LEADING)
+														.addGroup(gl_panel_8.createSequentialGroup().addGap(1).addComponent(slider_1,
+																GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE))
+														.addGroup(gl_panel_8.createSequentialGroup().addGap(1).addComponent(slider_2,
+																GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)))
+												.addGap(1)));
+										gl_panel_8.setVerticalGroup(gl_panel_8.createParallelGroup(Alignment.LEADING).addGroup(gl_panel_8
+												.createSequentialGroup().addGap(1)
+												.addGroup(gl_panel_8.createParallelGroup(Alignment.LEADING, false)
+														.addGroup(gl_panel_8.createSequentialGroup()
+																.addComponent(slider_1, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE)
+																.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+																.addComponent(slider_2, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE))
+														.addComponent(slider, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE))
+												.addGap(1)));
+										panel_8.setLayout(gl_panel_8);
+										slider_1.addChangeListener(new ChangeListener() {
+											@Override
+											public void stateChanged(final ChangeEvent e) {
+												applet.o.xy = -slider_1.getValue();
+											}
+										});
 
 		panel_7 = new JPanel();
 		panel_2.add(panel_7);
@@ -346,6 +349,49 @@ public class RunApp extends Panel {
 		btnAa = new JButton("Antialiasing");
 		btnAa.setAlignmentX(Component.CENTER_ALIGNMENT);
 		panel_7.add(btnAa);
+
+		panel_17 = new JPanel();
+		panel_2.add(panel_17);
+		panel_17.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+
+		scrollPane = new JScrollPane();
+		scrollPane.setToolTipText("Controls");
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		panel_17.add(scrollPane);
+
+		panel_18 = new JPanel();
+		scrollPane.setViewportView(panel_18);
+		panel_18.setLayout(new BoxLayout(panel_18, BoxLayout.Y_AXIS));
+
+		lblAllanPleaseAdd = new JLabel("8 - Forward");
+		panel_18.add(lblAllanPleaseAdd);
+
+		lblNewLabel_1 = new JLabel("2 - Back");
+		panel_18.add(lblNewLabel_1);
+
+		lblNewLabel_2 = new JLabel("6 - Right\r\n");
+		panel_18.add(lblNewLabel_2);
+
+		lblNewLabel_3 = new JLabel("4 - Left\r\n");
+		panel_18.add(lblNewLabel_3);
+
+		lblUp = new JLabel("+ - Up");
+		panel_18.add(lblUp);
+
+		lblDown = new JLabel("- - Down");
+		panel_18.add(lblDown);
+
+		lblZoom = new JLabel("* - Zoom In");
+		panel_18.add(lblZoom);
+
+		lblZoom_1 = new JLabel("/ - Zoom Out");
+		panel_18.add(lblZoom_1);
+
+		lblArrowKeys = new JLabel("Arrow Keys - IDK");
+		panel_18.add(lblArrowKeys);
+		//scrollPane.setSize(dimension);
+
 		btnAa.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent e) {
@@ -684,6 +730,14 @@ public class RunApp extends Panel {
 					"There seems to have been a problem loading the ContO, please try again manually");
 
 		frame.pack();
+
+
+		Dimension dimension = scrollPane.getSize();
+		dimension.height -= 32;
+		scrollPane.setPreferredSize(dimension);
+
+		//frame.pack();
+
 		frame.setMinimumSize(frame.getSize());
 		t.fourTwenty();
 		frame.setVisible(true);
@@ -841,6 +895,18 @@ public class RunApp extends Panel {
 	private final JButton btnSet;
 	private JCheckBox chckbxAutosave;
 	private JButton btnWireframe;
+	private JPanel panel_17;
+	private JLabel lblAllanPleaseAdd;
+	private JScrollPane scrollPane;
+	private JPanel panel_18;
+	private JLabel lblNewLabel_1;
+	private JLabel lblNewLabel_2;
+	private JLabel lblNewLabel_3;
+	private JLabel lblUp;
+	private JLabel lblDown;
+	private JLabel lblZoom;
+	private JLabel lblZoom_1;
+	private JLabel lblArrowKeys;
 
 	/**
 	 * Fetches icons of 16, 32 and 48 pixels from the 'data' folder.
