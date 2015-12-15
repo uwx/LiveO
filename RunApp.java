@@ -328,6 +328,7 @@ public class RunApp extends Panel {
 		});
 
 		btnWireframe = new JButton("Wireframe");
+		btnWireframe.setToolTipText("Toggles wireframe (only polygon outlines are drawn)");
 		btnWireframe.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Medium.wire = !Medium.wire;
@@ -337,6 +338,7 @@ public class RunApp extends Panel {
 		panel_7.add(btnWireframe);
 
 		btnLights = new JButton("Lights");
+		btnLights.setToolTipText("Turns vehicle lights on/off");
 		panel_7.add(btnLights);
 		btnLights.setAlignmentX(Component.CENTER_ALIGNMENT);
 		btnLights.setAlignmentY(Component.TOP_ALIGNMENT);
