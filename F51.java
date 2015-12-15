@@ -4,6 +4,8 @@
 // Decompiler options: packimports(3)
 // Source File Name:   F51.java
 
+// IF THERE'S NO FOCUS REMEMBER TO CLICK THE RENDER PANEL, DAWG
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -12,6 +14,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.Scanner;
@@ -20,7 +24,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class F51 extends JPanel implements KeyListener {
+public class F51 extends JPanel implements KeyListener, MouseListener {
 	/**
 	 *
 	 */
@@ -41,7 +45,7 @@ public class F51 extends JPanel implements KeyListener {
 		aa = false;
 		doComponentStuff();
 		addKeyListener(this);
-		//addMouseListener(this);
+		addMouseListener(this);
 		//addMouseMotionListener(this);
 		setFocusable(true);
 		requestFocus();
@@ -274,6 +278,29 @@ public class F51 extends JPanel implements KeyListener {
 			down = false;
 		if (i == KeyEvent.VK_UP)
 			up = false;
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		requestFocus();
+		requestFocusInWindow();
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+
 	}
 
 }
