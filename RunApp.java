@@ -45,6 +45,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
+import javax.swing.Timer;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -55,48 +56,10 @@ public class RunApp extends Panel {
 	 */
 	static boolean suppressErrorMessages = false;
 
-	public class RefreshThread extends Thread {
-		@Override
-		public void run() {
-			while (true) {
-				try {
-					applet.remake(t.text.getText());
-					t.countPolys();
-				} catch (final Exception e) {
-					// DON'T WARN!
-					//System.err.println("Error loading ContO: " + e);
-					//postMsg("Error loading ContO: " + e);
-				}
-				System.out.println("autorefresh'd!");
-				try {
-					sleep(1000L);
-				} catch (final InterruptedException e) {
-				}
-			}
-		}
-	}
-
-	public class SaveThread extends Thread {
-		@Override
-		public void run() {
-			while (true) {
-				try {
-					t.saveFile();
-				} catch (final Exception e) {
-				}
-				System.out.println("autosave'd!");
-				try {
-					sleep(30000L);
-				} catch (final InterruptedException e) {
-				}
-			}
-		}
-	}
-
 	static File carfolder = new File("./");
-	protected SaveThread st;
+	protected Timer st;
 
-	public RunApp() {
+	public RunApp() throws Exception {
 		Storage.load();
 
 		Runtime.getRuntime().addShutdownHook(new Thread() {
@@ -306,10 +269,25 @@ public class RunApp extends Panel {
 
 		chckbxAutorefresh.addActionListener(new ActionListener() {
 			@Override
-			@SuppressWarnings("deprecation")
 			public void actionPerformed(final ActionEvent e) {
 				if (chckbxAutorefresh.isSelected() && rt == null) {
-					rt = new RefreshThread();
+
+					final ActionListener refresh = new ActionListener() {
+						@Override
+						public void actionPerformed(final ActionEvent e) {
+							try {
+								applet.remake(t.text.getText());
+								t.countPolys();
+							} catch (final Exception er) {
+								// DON'T WARN!
+								//System.err.println("Error loading ContO: " + e);
+								//postMsg("Error loading ContO: " + e);
+							}
+							System.out.println("autorefresh'd!");
+						}
+					};
+
+					rt = new Timer(1000, refresh);
 					rt.start();
 				} else {
 					rt.stop();
@@ -323,10 +301,21 @@ public class RunApp extends Panel {
 		panel_7.add(chckbxAutosave);
 		chckbxAutosave.addActionListener(new ActionListener() {
 			@Override
-			@SuppressWarnings("deprecation")
 			public void actionPerformed(final ActionEvent e) {
 				if (chckbxAutosave.isSelected() && st == null) {
-					st = new SaveThread();
+
+					final ActionListener autosave = new ActionListener() {
+						@Override
+						public void actionPerformed(final ActionEvent e) {
+							try {
+								t.saveFile();
+							} catch (final Exception er) {
+							}
+							System.out.println("autosave'd!");
+						}
+					};
+
+					st = new Timer(30000, autosave);
 					st.start();
 				} else {
 					st.stop();
@@ -665,15 +654,17 @@ public class RunApp extends Panel {
 		//final File[] files = fd.getFiles();
 		if (file.exists() && !file.isDirectory()) {
 			F51.contofile = file;
-			//applet.remake();
-			t.countPolys();
+			//
 			t.loadFile();
+			t.countPolys();
+			applet.remake(t.text.getText());
 		} else
 			JOptionPane.showMessageDialog(frame,
 					"There seems to have been a problem loading the ContO, please try again manually");
 
 		frame.pack();
 		frame.setMinimumSize(frame.getSize());
+		t.fourTwenty();
 		frame.setVisible(true);
 		frame.repaint();
 
@@ -793,7 +784,7 @@ public class RunApp extends Panel {
 	static F51 applet;
 	public static ArrayList<Image> icons;
 	private final JButton button, button_1, button_2, btnNewButton, button_3, btnTransGlass, btnAa, btnReset;
-	private RefreshThread rt;
+	private Timer rt;
 	private final JCheckBox chckbxAutorefresh;
 	private final JSlider slider, slider_1;
 	private final JPanel panel, panel_2, panel_1;
@@ -842,7 +833,7 @@ public class RunApp extends Panel {
 		return icons;
 	}
 
-	public static void main(final String[] strings) {
+	public static void main(final String[] strings) throws Exception {
 		System.runFinalizersOnExit(true);
 		System.out.println("Nfm2-Mod Console");// Change this to the messgae of
 												// your preference

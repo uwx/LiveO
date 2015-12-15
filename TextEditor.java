@@ -395,6 +395,12 @@ public class TextEditor implements ActionListener {
 		frame.pack();
 		frame.setVisible(true);
 
+	}
+
+	/**
+	 * does that initializing stuff
+	 */
+	public void fourTwenty() {
 		loadFile();
 		countPolys();
 		getRadius();
