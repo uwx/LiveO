@@ -1,4 +1,14 @@
 
+// TODO ...
+// 3D "axis" display
+// auto rotation
+// display another "ghost car"
+// steal dragshot's "polygon selector"
+// better instructions
+// some sort of "virtual keyboard"
+// more UI stuff
+// update the readme
+
 // Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3)
@@ -214,8 +224,6 @@ public class F51 extends JPanel implements KeyListener, MouseListener {
 
 	@Override
 	public void keyTyped(final KeyEvent e) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
