@@ -29,3 +29,6 @@ This version of LiveO was modified by [ApexNova](http://aimgames.forummotion.com
 - Settings menu with, well, settings
 - Much faster than the Car Maker
 - Automatic building through Travis CI
+- Toggle wireframe and point wireframe
+- Display XYZ axis
+- Switch mode? allan please add info
