@@ -696,6 +696,15 @@ public class RunApp extends Panel {
 		btnPointWire.setAlignmentX(Component.CENTER_ALIGNMENT);
 		panel_7.add(btnPointWire);
 
+		btnShowAxis = new JButton("Show axis");
+		btnShowAxis.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				applet.show3 = !applet.show3;
+			}
+		});
+		btnShowAxis.setAlignmentX(Component.CENTER_ALIGNMENT);
+		panel_7.add(btnShowAxis);
+
 		btnLights = new JButton("Lights");
 		btnLights.setToolTipText("Turns vehicle lights on/off");
 		panel_7.add(btnLights);
@@ -940,6 +949,7 @@ public class RunApp extends Panel {
 	private final JLabel lblM;
 	private final JPanel panel_19;
 	private JButton btnPointWire;
+	private JButton btnShowAxis;
 
 	/**
 	 * Fetches icons of 16, 32 and 48 pixels from the 'data' folder.
