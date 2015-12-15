@@ -256,7 +256,7 @@ public class F51 extends JPanel implements KeyListener, MouseListener {
 		if (i == KeyEvent.VK_O)
 			trans = !trans;
 		if (i == KeyEvent.VK_W)
-			o.wire = !o.wire;
+			Medium.wire = !Medium.wire;
 	}
 
 	@Override

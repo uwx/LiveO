@@ -40,7 +40,6 @@ public class ContO {
 		nhits = 0;
 		maxhits = -1;
 		grat = 0;
-		wire = false;
 		m = medium;
 		p = new Plane[0x186a0];
 		x = i;
@@ -259,7 +258,6 @@ public class ContO {
 		nhits = 0;
 		maxhits = -1;
 		grat = 0;
-		wire = false;
 		m = medium;
 		p = new Plane[0x186a0];
 		x = i;
@@ -459,7 +457,6 @@ public class ContO {
 		nhits = 0;
 		maxhits = -1;
 		grat = 0;
-		wire = false;
 		m = medium;
 		npl = conto.npl;
 		maxR = conto.maxR;
@@ -644,5 +641,4 @@ public class ContO {
 	int nhits;
 	int maxhits;
 	int grat;
-	boolean wire;
 }

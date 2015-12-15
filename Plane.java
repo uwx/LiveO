@@ -279,7 +279,8 @@ public class Plane {
 				g.setColor(new Color(k6, i7, k7));
 			else
 				g.setColor(Color.getHSBColor((float) Math.random(), (float) Math.random(), (float) Math.random()));
-			g.fillPolygon(ai5, ai6, n);
+			if (!Medium.wire)
+				g.fillPolygon(ai5, ai6, n);
 		}
 		if (!toofar && !hidepoly) {
 			int k6;

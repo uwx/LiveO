@@ -308,6 +308,7 @@ public class Medium {
 		return (j - focus_point) * (cy - i) / j + i;
 	}
 
+	static boolean wire = false;
 	boolean lightson;
 	Trackers tr;
 	boolean isun;
