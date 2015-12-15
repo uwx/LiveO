@@ -195,7 +195,7 @@ public class RunApp extends Panel {
 		panel_3.add(tabbedPane, BorderLayout.EAST);
 
 		panel_6 = new JPanel();
-		tabbedPane.addTab("Controls", null, panel_6, null);
+		tabbedPane.addTab("Camera", null, panel_6, null);
 		panel_6.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
 		panel_2 = new JPanel();
@@ -260,100 +260,6 @@ public class RunApp extends Panel {
 											}
 										});
 
-		panel_7 = new JPanel();
-		panel_2.add(panel_7);
-		panel_7.setLayout(new BoxLayout(panel_7, BoxLayout.Y_AXIS));
-
-		chckbxAutorefresh = new JCheckBox("Auto-refresh");
-		panel_7.add(chckbxAutorefresh);
-		chckbxAutorefresh.setAlignmentX(Component.CENTER_ALIGNMENT);
-		chckbxAutorefresh.setAlignmentY(Component.TOP_ALIGNMENT);
-		chckbxAutorefresh.setVerticalAlignment(SwingConstants.TOP);
-
-		chckbxAutorefresh.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(final ActionEvent e) {
-				if (chckbxAutorefresh.isSelected() && rt == null) {
-
-					final ActionListener refresh = new ActionListener() {
-						@Override
-						public void actionPerformed(final ActionEvent e) {
-							try {
-								applet.remake(t.text.getText());
-								t.countPolys();
-							} catch (final Exception er) {
-								// DON'T WARN!
-								//System.err.println("Error loading ContO: " + e);
-								//postMsg("Error loading ContO: " + e);
-							}
-							System.out.println("autorefresh'd!");
-						}
-					};
-
-					rt = new Timer(1000, refresh);
-					rt.start();
-				} else {
-					rt.stop();
-					rt = null;
-				}
-			}
-		});
-
-		chckbxAutosave = new JCheckBox("Autosave");
-		chckbxAutosave.setAlignmentX(Component.CENTER_ALIGNMENT);
-		panel_7.add(chckbxAutosave);
-		chckbxAutosave.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(final ActionEvent e) {
-				if (chckbxAutosave.isSelected() && st == null) {
-
-					final ActionListener autosave = new ActionListener() {
-						@Override
-						public void actionPerformed(final ActionEvent e) {
-							try {
-								t.saveFile();
-							} catch (final Exception er) {
-							}
-							System.out.println("autosave'd!");
-						}
-					};
-
-					st = new Timer(30000, autosave);
-					st.start();
-				} else {
-					st.stop();
-					st = null;
-				}
-			}
-		});
-
-		btnWireframe = new JButton("Wireframe");
-		btnWireframe.setToolTipText("Toggles wireframe (only polygon outlines are drawn)");
-		btnWireframe.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Medium.wire = !Medium.wire;
-			}
-		});
-		btnWireframe.setAlignmentX(Component.CENTER_ALIGNMENT);
-		panel_7.add(btnWireframe);
-
-		btnLights = new JButton("Lights");
-		btnLights.setToolTipText("Turns vehicle lights on/off");
-		panel_7.add(btnLights);
-		btnLights.setAlignmentX(Component.CENTER_ALIGNMENT);
-		btnLights.setAlignmentY(Component.TOP_ALIGNMENT);
-		btnLights.setVerticalAlignment(SwingConstants.BOTTOM);
-
-		btnTransGlass = new JButton("Trans. Glass");
-		btnTransGlass.setToolTipText("Toggles transparent glass");
-		btnTransGlass.setAlignmentX(Component.CENTER_ALIGNMENT);
-		panel_7.add(btnTransGlass);
-
-		btnAa = new JButton("Antialiasing");
-		btnAa.setToolTipText("Toggles Anti-aliasing (disable jagged edges)");
-		btnAa.setAlignmentX(Component.CENTER_ALIGNMENT);
-		panel_7.add(btnAa);
-
 		panel_17 = new JPanel();
 		panel_2.add(panel_17);
 		panel_17.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
@@ -411,25 +317,6 @@ public class RunApp extends Panel {
 		panel_18.add(lblM);
 
 		packScrollPane();
-
-		btnAa.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(final ActionEvent e) {
-				applet.aa = !applet.aa;
-			}
-		});
-		btnTransGlass.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(final ActionEvent e) {
-				F51.trans = !F51.trans;
-			}
-		});
-		btnLights.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(final ActionEvent e) {
-				applet.medium.lightson = !applet.medium.lightson;
-			}
-		});
 
 		final List<File> dong = new ArrayList<File>();
 		try {
@@ -718,6 +605,122 @@ public class RunApp extends Panel {
 								.addGap(4).addComponent(btnSetndColor)
 								.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 		panel_14.setLayout(gl_panel_14);
+		
+		panel_19 = new JPanel();
+		tabbedPane.addTab("View", null, panel_19, null);
+		
+				panel_7 = new JPanel();
+				panel_19.add(panel_7);
+				panel_7.setLayout(new BoxLayout(panel_7, BoxLayout.Y_AXIS));
+				
+						chckbxAutorefresh = new JCheckBox("Auto-refresh");
+						panel_7.add(chckbxAutorefresh);
+						chckbxAutorefresh.setAlignmentX(Component.CENTER_ALIGNMENT);
+						chckbxAutorefresh.setAlignmentY(Component.TOP_ALIGNMENT);
+						chckbxAutorefresh.setVerticalAlignment(SwingConstants.TOP);
+						
+								chckbxAutorefresh.addActionListener(new ActionListener() {
+									@Override
+									public void actionPerformed(final ActionEvent e) {
+										if (chckbxAutorefresh.isSelected() && rt == null) {
+						
+											final ActionListener refresh = new ActionListener() {
+												@Override
+												public void actionPerformed(final ActionEvent e) {
+													try {
+														applet.remake(t.text.getText());
+														t.countPolys();
+													} catch (final Exception er) {
+														// DON'T WARN!
+														//System.err.println("Error loading ContO: " + e);
+														//postMsg("Error loading ContO: " + e);
+													}
+													System.out.println("autorefresh'd!");
+												}
+											};
+						
+											rt = new Timer(1000, refresh);
+											rt.start();
+										} else {
+											rt.stop();
+											rt = null;
+										}
+									}
+								});
+								
+										chckbxAutosave = new JCheckBox("Autosave");
+										chckbxAutosave.setAlignmentX(Component.CENTER_ALIGNMENT);
+										panel_7.add(chckbxAutosave);
+										chckbxAutosave.addActionListener(new ActionListener() {
+											@Override
+											public void actionPerformed(final ActionEvent e) {
+												if (chckbxAutosave.isSelected() && st == null) {
+
+													final ActionListener autosave = new ActionListener() {
+														@Override
+														public void actionPerformed(final ActionEvent e) {
+															try {
+																t.saveFile();
+															} catch (final Exception er) {
+															}
+															System.out.println("autosave'd!");
+														}
+													};
+
+													st = new Timer(30000, autosave);
+													st.start();
+												} else {
+													st.stop();
+													st = null;
+												}
+											}
+										});
+										
+												btnWireframe = new JButton("Wireframe");
+												btnWireframe.setToolTipText("Toggles wireframe (only polygon outlines are drawn)");
+												btnWireframe.addActionListener(new ActionListener() {
+													public void actionPerformed(ActionEvent e) {
+														Medium.wire = !Medium.wire;
+													}
+												});
+												btnWireframe.setAlignmentX(Component.CENTER_ALIGNMENT);
+												panel_7.add(btnWireframe);
+												
+														btnLights = new JButton("Lights");
+														btnLights.setToolTipText("Turns vehicle lights on/off");
+														panel_7.add(btnLights);
+														btnLights.setAlignmentX(Component.CENTER_ALIGNMENT);
+														btnLights.setAlignmentY(Component.TOP_ALIGNMENT);
+														btnLights.setVerticalAlignment(SwingConstants.BOTTOM);
+														
+																btnTransGlass = new JButton("Trans. Glass");
+																btnTransGlass.setToolTipText("Toggles transparent glass");
+																btnTransGlass.setAlignmentX(Component.CENTER_ALIGNMENT);
+																panel_7.add(btnTransGlass);
+																
+																		btnAa = new JButton("Antialiasing");
+																		btnAa.setToolTipText("Toggles Anti-aliasing (disable jagged edges)");
+																		btnAa.setAlignmentX(Component.CENTER_ALIGNMENT);
+																		panel_7.add(btnAa);
+																		
+																				btnAa.addActionListener(new ActionListener() {
+																					@Override
+																					public void actionPerformed(final ActionEvent e) {
+																						applet.aa = !applet.aa;
+																					}
+																				});
+																				btnTransGlass.addActionListener(new ActionListener() {
+																					@Override
+																					public void actionPerformed(final ActionEvent e) {
+																						F51.trans = !F51.trans;
+																					}
+																				});
+																				btnLights.addActionListener(new ActionListener() {
+																					@Override
+																					public void actionPerformed(final ActionEvent e) {
+																						applet.medium.lightson = !applet.medium.lightson;
+																					}
+																				});
 
 		/*List<File> dong = new ArrayList<File>();
 		try {
@@ -925,6 +928,7 @@ public class RunApp extends Panel {
 	private JLabel lblPPoint;
 	private JLabel lblTShow;
 	private JLabel lblM;
+	private JPanel panel_19;
 
 	/**
 	 * Fetches icons of 16, 32 and 48 pixels from the 'data' folder.
