@@ -323,7 +323,7 @@ public class RunApp extends Panel {
 				}
 			}
 		});
-		
+
 		btnWireframe = new JButton("Wireframe");
 		btnWireframe.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -531,50 +531,62 @@ public class RunApp extends Panel {
 		textField_2.setColumns(10);
 		panel_12.add(textField_2);
 
-		btnSet = new JButton("Set");
-		btnSet.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(final ActionEvent e) { //can't do this without try catch... for whatever reason
-				try {
-					t.setDiv(Integer.valueOf(textField.getText()));
-				} catch (final NumberFormatException er) {
-					System.err.println("div is empty");
-				}
-				try {
-					t.setiDiv(Integer.valueOf(textField_1.getText()));
-				} catch (final NumberFormatException er) {
-					System.err.println("idiv is empty");
-				}
-				try {
-					t.setiWid(Integer.valueOf(textField_2.getText()));
-				} catch (final NumberFormatException er) {
-					System.err.println("iwid is empty");
-				}
-			}
-		});
+		JPanel panel_16 = new JPanel();
 		final GroupLayout gl_panel_15 = new GroupLayout(panel_15);
-		gl_panel_15.setHorizontalGroup(gl_panel_15.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_15.createSequentialGroup().addContainerGap()
-						.addGroup(gl_panel_15.createParallelGroup(Alignment.LEADING)
-								.addComponent(panel_10, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE)
-						.addComponent(panel_11, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE).addComponent(panel_12, GroupLayout.PREFERRED_SIZE,
-										GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-				.addContainerGap(31, Short.MAX_VALUE))
-				.addGroup(Alignment.TRAILING, gl_panel_15.createSequentialGroup().addContainerGap(77, Short.MAX_VALUE)
-						.addComponent(btnSet).addGap(69)));
-		gl_panel_15.setVerticalGroup(gl_panel_15.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_15.createSequentialGroup().addContainerGap()
-						.addComponent(panel_10, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(panel_11, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE)
-				.addPreferredGap(ComponentPlacement.RELATED)
-				.addComponent(panel_12, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-						GroupLayout.PREFERRED_SIZE).addPreferredGap(ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
-				.addComponent(btnSet).addContainerGap()));
+		gl_panel_15.setHorizontalGroup(
+			gl_panel_15.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_panel_15.createSequentialGroup()
+					.addGap(1)
+					.addGroup(gl_panel_15.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_15.createSequentialGroup()
+							.addComponent(panel_10, GroupLayout.PREFERRED_SIZE, 11, Short.MAX_VALUE)
+							.addGap(1))
+						.addGroup(gl_panel_15.createSequentialGroup()
+							.addComponent(panel_11, GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
+							.addGap(1))
+						.addComponent(panel_12, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addGap(1))
+				.addGroup(gl_panel_15.createSequentialGroup()
+					.addGap(1)
+					.addComponent(panel_16, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addGap(1))
+		);
+		gl_panel_15.setVerticalGroup(
+			gl_panel_15.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_15.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(panel_10, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(1)
+					.addComponent(panel_11, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(1)
+					.addComponent(panel_12, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
+					.addComponent(panel_16, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(45))
+		);
+
+				btnSet = new JButton("Set");
+				panel_16.add(btnSet);
+				btnSet.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(final ActionEvent e) { //can't do this without try catch... for whatever reason
+						try {
+							t.setDiv(Integer.valueOf(textField.getText()));
+						} catch (final NumberFormatException er) {
+							System.err.println("div is empty");
+						}
+						try {
+							t.setiDiv(Integer.valueOf(textField_1.getText()));
+						} catch (final NumberFormatException er) {
+							System.err.println("idiv is empty");
+						}
+						try {
+							t.setiWid(Integer.valueOf(textField_2.getText()));
+						} catch (final NumberFormatException er) {
+							System.err.println("iwid is empty");
+						}
+					}
+				});
 		panel_15.setLayout(gl_panel_15);
 
 		panel_14 = new JPanel();
