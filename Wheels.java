@@ -7,6 +7,8 @@
 import java.applet.Applet;
 import java.awt.BasicStroke;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 
@@ -18,7 +20,7 @@ public class Wheels {
 		ground = 0;
 	}
 
-	public int make(final Applet applet, final Medium medium, final Plane aplane[], int i, final int j, final int k,
+	public int make(final F51 applet, final Medium medium, final Plane aplane[], int i, final int j, final int k,
 			final int l, final int i1, final int j1, final int k1, final int m1) {
 		int l1 = 0;
 		int wheelNum = 0;
@@ -28,7 +30,7 @@ public class Wheels {
 			l1 = (int) (j + 4F * f);
 		try {
 			final BufferedReader br = new BufferedReader(
-					new InputStreamReader(new URL(applet.getCodeBase(), "wheels/" + wheelfile).openStream()));
+					new InputStreamReader(new FileInputStream(new File("./wheels/" + wheelfile))));
 			final int tmx[] = new int[100];
 			final int tmy[] = new int[100];
 			final int tmz[] = new int[100];

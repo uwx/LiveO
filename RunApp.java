@@ -196,6 +196,7 @@ public class RunApp extends Panel {
 		});
 		panel_1.add(button_3);
 		applet = new F51();
+		applet.setIgnoreRepaint(true);
 		t = new TextEditor(applet, this);
 		panel_3.add(applet, BorderLayout.CENTER);
 		applet.setPreferredSize(new java.awt.Dimension(700, 475));// The
@@ -203,7 +204,7 @@ public class RunApp extends Panel {
 																	// of your
 																	// game goes
 																	// here
-		applet.setStub(new DesktopStub());
+		//applet.setStub(new DesktopStub());
 
 		tabbedPane = new JTabbedPane(SwingConstants.TOP);
 		panel_3.add(tabbedPane, BorderLayout.EAST);
@@ -550,7 +551,7 @@ public class RunApp extends Panel {
 			public void actionPerformed(final ActionEvent e) {
 				final JFrame f = new JFrame("Color picker");
 				f.setBackground(new Color(0, 0, 0));
-				//frame.setIgnoreRepaint(true);
+				//f.setIgnoreRepaint(true);
 				f.setIconImages(getIcons());
 				final JColorChooser tcc = new JColorChooser();
 				tcc.getSelectionModel().addChangeListener(new ChangeListener() {
@@ -637,8 +638,8 @@ public class RunApp extends Panel {
 		frame.pack();
 		frame.setMinimumSize(frame.getSize());
 		frame.setVisible(true);
-		applet.init();
-		applet.start();
+		frame.repaint();
+
 		/*try { //we have to wait because applet
 			Thread.sleep(1000L);
 		} catch (InterruptedException e1) {
@@ -818,13 +819,11 @@ public class RunApp extends Panel {
 	}
 
 	public static void exitsequance() {
-		applet.stop();
 		frame.removeAll();
 		try {
 			Thread.sleep(200L);
 		} catch (final Exception exception) {
 		}
-		applet.destroy();
 		applet = null;
 		System.exit(0);
 	}

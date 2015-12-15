@@ -11,11 +11,12 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
+import java.io.InputStreamReader;
 import java.io.StringReader;
 
 public class ContO {
 
-	public ContO(final String s, final Medium medium, final int i, final int j, final int k, final Applet applet) throws Exception {
+	public ContO(final String s, final Medium medium, final int i, final int j, final int k, final F51 applet) throws Exception {
 		npl = 0;
 		x = 0;
 		y = 0;
@@ -235,7 +236,7 @@ public class ContO {
 	}
 
 	public ContO(final DataInputStream s, final Medium medium, final int i, final int j, final int k,
-			final Applet applet) {
+			final F51 applet) {
 		npl = 0;
 		x = 0;
 		y = 0;
@@ -292,10 +293,9 @@ public class ContO {
 		final float nfmm_scale[] = { 1.0F, 1.0F, 1.0F };
 
 		try {
-			do {
-				String s1;
-				if ((s1 = s.readLine()) == null)
-					break;
+			BufferedReader r = new BufferedReader(new InputStreamReader(s));
+			String s1;
+			while ((s1 = r.readLine()) != null) {
 				final String s2 = new StringBuilder().append("").append(s1.trim()).toString();
 				if (s2.startsWith("<p>")) {
 					flag = true;
@@ -427,7 +427,7 @@ public class ContO {
 					nfmm_scale[2] = getvalue("ScaleZ", s1, 0) / 100F;
 				if (s2.startsWith("stonecold"))
 					stonecold = true;
-			} while (true);
+			}
 			s.close();
 		} catch (final Exception exception) {
 			exception.printStackTrace();
