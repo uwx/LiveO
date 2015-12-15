@@ -4,13 +4,11 @@
 // Decompiler options: packimports(3)
 // Source File Name:   Wheels.java
 
-import java.applet.Applet;
 import java.awt.BasicStroke;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
-import java.net.URL;
 
 public class Wheels {
 
@@ -20,8 +18,8 @@ public class Wheels {
 		ground = 0;
 	}
 
-	public int make(final F51 applet, final Medium medium, final Plane aplane[], int i, final int j, final int k,
-			final int l, final int i1, final int j1, final int k1, final int m1) {
+	public int make(final Medium medium, final Plane aplane[], int i, final int j, final int k,
+			final int l, final int i1, final int j1, final int k1) {
 		int l1 = 0;
 		int wheelNum = 0;
 		final float f = j1 / 10F;

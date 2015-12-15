@@ -4,12 +4,9 @@
 // Decompiler options: packimports(3)
 // Source File Name:   F51.java
 
-import java.applet.Applet;
 import java.awt.Color;
-import java.awt.Event;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -53,11 +50,10 @@ public class F51 extends JPanel implements KeyListener {
 		laterComponentStuff();
 	}
 
-
 	public void doComponentStuff() {
 		setBorder(BorderFactory.createLineBorder(Color.black));
-        //
-        setBackground(new Color(0, 0, 0));
+		//
+		setBackground(new Color(0, 0, 0));
 
 		//rd.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 		//rd.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -69,40 +65,42 @@ public class F51 extends JPanel implements KeyListener {
 		if (offImage != null)
 			rd = offImage.createGraphics();
 
-        //timer.setDelay(delay);
- 	}
+		//timer.setDelay(delay);
+	}
 
 	int counted = 0;
+
 	public void laterComponentStuff() {
 
+		final ActionListener animate = new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent ae) {
+				repaint();
+			}
+		};
+		final ActionListener count = new ActionListener() {
 
-		ActionListener animate = new ActionListener() {
-            public void actionPerformed(ActionEvent ae) {
-                repaint();
-            }
-        };
-        ActionListener count = new ActionListener() {
-
-			public void actionPerformed(ActionEvent ae) {
-                counted++;
-            }
-        };
-        // 33.33 - 30 fps
-        Timer timer = new Timer(50,animate);
-        timer.start();
-        Timer counter = new Timer(1, count);
-        counter.start();
+			@Override
+			public void actionPerformed(final ActionEvent ae) {
+				counted++;
+			}
+		};
+		// 33.33 - 30 fps
+		final Timer timer = new Timer(50, animate);
+		timer.start();
+		final Timer counter = new Timer(1, count);
+		counter.start();
 	}
 
 	@Override
 	public void paintComponent(final Graphics g) {
-        super.paintComponent(g);
+		super.paintComponent(g);
 
-        rd.setColor(Color.black);
-		rd.fillRect(0,0,700,475);
+		rd.setColor(Color.black);
+		rd.fillRect(0, 0, 700, 475);
 		whileTrueLoop();
 
-        g.drawImage(offImage, 0, 0, null);
+		g.drawImage(offImage, 0, 0, null);
 	}
 
 	static File contofile = new File("./o.rad");
@@ -114,7 +112,7 @@ public class F51 extends JPanel implements KeyListener {
 		final int storeozy = o.zy;
 		final int storeoy = o.y;
 		final int storeoz = o.z;
-		o = new ContO(text, medium, 350, 150, 600, this);
+		o = new ContO(text, medium, 350, 150, 600);
 		o.wxz = storeowxz;
 		o.xz = storeoxz;
 		o.xy = storeoxy;
@@ -129,7 +127,7 @@ public class F51 extends JPanel implements KeyListener {
 			final Scanner s = new Scanner(contofile);
 			final String content = s.useDelimiter("\\Z").next();
 			s.close();
-			o = new ContO(content, medium, 350, 150, 600, this);
+			o = new ContO(content, medium, 350, 150, 600);
 		} catch (final Exception e) {
 			e.printStackTrace();
 		}
@@ -139,7 +137,7 @@ public class F51 extends JPanel implements KeyListener {
 		medium.zy += 10;
 	}
 
-	public void whileTrueLoop()  {
+	public void whileTrueLoop() {
 		medium.d(rd);
 		o.d(rd);
 		if (show3)
@@ -211,14 +209,14 @@ public class F51 extends JPanel implements KeyListener {
 	Medium medium;
 
 	@Override
-	public void keyTyped(KeyEvent e) {
+	public void keyTyped(final KeyEvent e) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void keyPressed(KeyEvent e) {
-		int i = e.getKeyCode();
+	public void keyPressed(final KeyEvent e) {
+		final int i = e.getKeyCode();
 		if (i == KeyEvent.VK_NUMPAD8 || i == KeyEvent.VK_8)
 			forward = true;
 		if (i == KeyEvent.VK_NUMPAD2 || i == KeyEvent.VK_2)
@@ -250,8 +248,8 @@ public class F51 extends JPanel implements KeyListener {
 	}
 
 	@Override
-	public void keyReleased(KeyEvent e) {
-		int i = e.getKeyCode();
+	public void keyReleased(final KeyEvent e) {
+		final int i = e.getKeyCode();
 		if (i == KeyEvent.VK_NUMPAD8 || i == KeyEvent.VK_8)
 			forward = false;
 		if (i == KeyEvent.VK_NUMPAD2 || i == KeyEvent.VK_2)

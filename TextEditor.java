@@ -38,8 +38,6 @@ import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rtextarea.RTextScrollPane;
 import org.fife.ui.rtextarea.SearchContext;
 import org.fife.ui.rtextarea.SearchEngine;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.ChangeEvent;
 
 /*
  * A simple Text Editor.  This demonstrates the use of a
@@ -84,8 +82,8 @@ public class TextEditor implements ActionListener {
 	private final JPanel panel_4;
 	private final JMenu mnTools;
 	boolean fffff = false;
-	private JCheckBox chckbxSchizznti;
-	private JPanel panel_2;
+	private final JCheckBox chckbxSchizznti;
+	private final JPanel panel_2;
 
 	// Creates the GUI
 	public TextEditor(final F51 f51, final RunApp runapp) {
@@ -263,19 +261,19 @@ public class TextEditor implements ActionListener {
 				final File[] files = fd.getFiles();
 				if (files.length == 0)
 					System.out.println("You cancelled the choice");
-				else {
+				else
 					try {
 						System.out.println("You chose " + files[0]);
 						F51.contofile = files[0];
 						loadFile();
 						countPolys();
 						f51.remake(text.getText());
-					} catch (Exception er) {
+					} catch (final Exception er) {
 						System.err.println("Error loading ContO: " + er);
-						RunApp.postMsg("Error loading ContO: " + er + "\r\nIf you're sure this isn't your fault, tell rafa something went wrong and give him the full console log");
+						RunApp.postMsg("Error loading ContO: " + er
+								+ "\r\nIf you're sure this isn't your fault, tell rafa something went wrong and give him the full console log");
 						er.printStackTrace();
 					}
-				}
 			}
 		});
 		mnFile.add(mntmLoad);
@@ -317,11 +315,14 @@ public class TextEditor implements ActionListener {
 
 		chckbxSchizznti = new JCheckBox("Hide error msgs");
 		chckbxSchizznti.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent e) {
-				if (e.getStateChange() == ItemEvent.DESELECTED);
-					RunApp.suppressErrorMessages = false;
-				if (e.getStateChange() == ItemEvent.SELECTED);
-					RunApp.suppressErrorMessages = true;
+			@Override
+			public void itemStateChanged(final ItemEvent e) {
+				if (e.getStateChange() == ItemEvent.DESELECTED)
+					;
+				RunApp.suppressErrorMessages = false;
+				if (e.getStateChange() == ItemEvent.SELECTED)
+					;
+				RunApp.suppressErrorMessages = true;
 			}
 		});
 		panel_2.add(chckbxSchizznti);
@@ -455,13 +456,13 @@ public class TextEditor implements ActionListener {
 			/*int pretx = (Math.abs((int)radius[0]) - Math.abs((int)radius[3]));
 			int prety = (Math.abs((int)radius[1]) - Math.abs((int)radius[4]));
 			int pretz = (Math.abs((int)radius[2]) - Math.abs((int)radius[5]));
-
+			
 			String outxy = "";
 			if (pretx < 0)
 				outxy = "xy(-90)";
 			else
 				outxy = "xy(90)";
-
+			
 			String outzy = "";
 			if (pretz < 0)
 				outzy = "zy(-90)";
@@ -557,7 +558,7 @@ public class TextEditor implements ActionListener {
 			tx(-zcoord)
 			ty(0)
 			</track>
-
+			
 			<track>
 			xy(-90)
 			radx(xcoord)
@@ -566,7 +567,7 @@ public class TextEditor implements ActionListener {
 			tx(zcoord)
 			ty(0)
 			</track>
-
+			
 			<track>
 			zy(-90)
 			radx(zcoord)
@@ -576,7 +577,7 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(zcoord)
 			</track>
-
+			
 			<track>
 			zy(90)
 			radx(zcoord)
@@ -586,7 +587,7 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(-zcoord)
 			</track>
-
+			
 			*/
 
 			//////////// old
@@ -600,8 +601,8 @@ public class TextEditor implements ActionListener {
 			tx(-ycoord)
 			ty(0)
 			</track>
-
-
+			
+			
 			<track>
 			xy(-90)
 			radx(xcoord)
@@ -610,7 +611,7 @@ public class TextEditor implements ActionListener {
 			tx(ycoord)
 			ty(0)
 			</track>
-
+			
 			<track>
 			zy(-90)
 			radx(zcoord)
@@ -620,7 +621,7 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(zcoord)
 			</track>
-
+			
 			<track>
 			zy(90)
 			radx(zcoord)
@@ -635,7 +636,7 @@ public class TextEditor implements ActionListener {
 			////////////original
 
 			/*
-
+			
 			<track>
 			xy(90)
 			radx(200)
@@ -644,7 +645,7 @@ public class TextEditor implements ActionListener {
 			tx(-700)
 			ty(0)
 			</track>
-
+			
 			<track>
 			xy(-90)
 			radx(200)
@@ -653,7 +654,7 @@ public class TextEditor implements ActionListener {
 			tx(700)
 			ty(0)
 			</track>
-
+			
 			<track>
 			zy(-90)
 			radx(700)
@@ -663,7 +664,7 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(700)
 			</track>
-
+			
 			<track>
 			zy(90)
 			radx(700)
@@ -673,14 +674,14 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(-700)
 			</track>
-
+			
 			*/
 
 			////////////flat
 
 			/*
 			<track>
-
+			
 			xy(90)
 			radx(1)
 			rady(2)
@@ -689,7 +690,7 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(0)
 			</track>
-
+			
 			*/
 
 			//final String radx = "radx(" + Math.abs(pretx) + ")";
@@ -713,13 +714,13 @@ public class TextEditor implements ActionListener {
 			/*int pretx = (Math.abs((int)radius[0]) - Math.abs((int)radius[3]));
 			int prety = (Math.abs((int)radius[1]) - Math.abs((int)radius[4]));
 			int pretz = (Math.abs((int)radius[2]) - Math.abs((int)radius[5]));
-
+			
 			String outxy = "";
 			if (pretx < 0)
 				outxy = "xy(-90)";
 			else
 				outxy = "xy(90)";
-
+			
 			String outzy = "";
 			if (pretz < 0)
 				outzy = "zy(-90)";
@@ -817,7 +818,7 @@ public class TextEditor implements ActionListener {
 			tx(-zcoord)
 			ty(0)
 			</track>
-
+			
 			<track>
 			xy(-90)
 			radx(xcoord)
@@ -826,7 +827,7 @@ public class TextEditor implements ActionListener {
 			tx(zcoord)
 			ty(0)
 			</track>
-
+			
 			<track>
 			zy(-90)
 			radx(zcoord)
@@ -836,7 +837,7 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(zcoord)
 			</track>
-
+			
 			<track>
 			zy(90)
 			radx(zcoord)
@@ -846,7 +847,7 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(-zcoord)
 			</track>
-
+			
 			*/
 
 			//////////// old
@@ -860,8 +861,8 @@ public class TextEditor implements ActionListener {
 			tx(-ycoord)
 			ty(0)
 			</track>
-
-
+			
+			
 			<track>
 			xy(-90)
 			radx(xcoord)
@@ -870,7 +871,7 @@ public class TextEditor implements ActionListener {
 			tx(ycoord)
 			ty(0)
 			</track>
-
+			
 			<track>
 			zy(-90)
 			radx(zcoord)
@@ -880,7 +881,7 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(zcoord)
 			</track>
-
+			
 			<track>
 			zy(90)
 			radx(zcoord)
@@ -895,7 +896,7 @@ public class TextEditor implements ActionListener {
 			////////////original
 
 			/*
-
+			
 			<track>
 			xy(90)
 			radx(200)
@@ -904,7 +905,7 @@ public class TextEditor implements ActionListener {
 			tx(-700)
 			ty(0)
 			</track>
-
+			
 			<track>
 			xy(-90)
 			radx(200)
@@ -913,7 +914,7 @@ public class TextEditor implements ActionListener {
 			tx(700)
 			ty(0)
 			</track>
-
+			
 			<track>
 			zy(-90)
 			radx(700)
@@ -923,7 +924,7 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(700)
 			</track>
-
+			
 			<track>
 			zy(90)
 			radx(700)
@@ -933,14 +934,14 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(-700)
 			</track>
-
+			
 			*/
 
 			////////////flat
 
 			/*
 			<track>
-
+			
 			xy(90)
 			radx(1)
 			rady(2)
@@ -949,7 +950,7 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(0)
 			</track>
-
+			
 			*/
 
 			//final String radx = "radx(" + Math.abs(pretx) + ")";
@@ -1279,8 +1280,9 @@ public class TextEditor implements ActionListener {
 						"MaxRadius(300)\r\nshadow()\r\ndiv(24)\r\n\r\n\r\n\r\n\r\n\r\nw(-33,0,55,11,10,10,1)\r\nw(33,0,55,11,-10,10,1)\r\nw(-31,-1,-60,1,16,11,1)\r\nw(31,-1,-60,1,-16,11,1)");
 				try {
 					f51.remake(text.getText());
-				} catch (Exception e) {
-					JOptionPane.showMessageDialog(RunApp.frame, "Something went horribly wrong.\r\nTell rafa the \"new\" dialog threw an exception and give him the full console log");
+				} catch (final Exception e) {
+					JOptionPane.showMessageDialog(RunApp.frame,
+							"Something went horribly wrong.\r\nTell rafa the \"new\" dialog threw an exception and give him the full console log");
 					e.printStackTrace();
 				}
 				countPolys();
@@ -1308,9 +1310,10 @@ public class TextEditor implements ActionListener {
 		}
 		try {
 			f51.remake(text.getText());
-		} catch (Exception er) {
+		} catch (final Exception er) {
 			System.err.println("Error loading ContO: " + er);
-			JOptionPane.showMessageDialog(RunApp.frame, "Error loading ContO: " + er + "\r\nIf you're sure this isn't your fault, tell rafa something went wrong and give him the full console log");
+			JOptionPane.showMessageDialog(RunApp.frame, "Error loading ContO: " + er
+					+ "\r\nIf you're sure this isn't your fault, tell rafa something went wrong and give him the full console log");
 			er.printStackTrace();
 		}
 	}
@@ -1380,9 +1383,10 @@ public class TextEditor implements ActionListener {
 		try {
 			f51.remake(text.getText());
 			countPolys();
-		} catch (Exception er) {
+		} catch (final Exception er) {
 			System.err.println("Error loading ContO: " + er);
-			JOptionPane.showMessageDialog(RunApp.frame, "Error loading ContO: " + er + "\r\nIf you're sure this isn't your fault, tell rafa something went wrong and give him the full console log");
+			JOptionPane.showMessageDialog(RunApp.frame, "Error loading ContO: " + er
+					+ "\r\nIf you're sure this isn't your fault, tell rafa something went wrong and give him the full console log");
 			er.printStackTrace();
 			er.printStackTrace();
 		}
@@ -1441,9 +1445,10 @@ public class TextEditor implements ActionListener {
 			try {
 				f51.remake(text.getText());
 				countPolys();
-			} catch (Exception er) {
+			} catch (final Exception er) {
 				System.err.println("Error loading ContO: " + er);
-				JOptionPane.showMessageDialog(RunApp.frame, "Error loading ContO: " + er + "\r\nIf you're sure this isn't your fault, tell rafa something went wrong and give him the full console log");
+				JOptionPane.showMessageDialog(RunApp.frame, "Error loading ContO: " + er
+						+ "\r\nIf you're sure this isn't your fault, tell rafa something went wrong and give him the full console log");
 				er.printStackTrace();
 			}
 			//saveFile();
@@ -1476,9 +1481,10 @@ public class TextEditor implements ActionListener {
 			try {
 				f51.remake(text.getText());
 				countPolys();
-			} catch (Exception er) {
+			} catch (final Exception er) {
 				System.err.println("Error loading ContO: " + er);
-				JOptionPane.showMessageDialog(RunApp.frame, "Error loading ContO: " + er + "\r\nIf you're sure this isn't your fault, tell rafa something went wrong and give him the full console log");
+				JOptionPane.showMessageDialog(RunApp.frame, "Error loading ContO: " + er
+						+ "\r\nIf you're sure this isn't your fault, tell rafa something went wrong and give him the full console log");
 				er.printStackTrace();
 			}
 			//saveFile();
@@ -1510,7 +1516,7 @@ public class TextEditor implements ActionListener {
 			try {
 				f51.remake(text.getText());
 				countPolys();
-			} catch (Exception er) {
+			} catch (final Exception er) {
 				System.err.println("Error loading ContO: " + er);
 				JOptionPane.showMessageDialog(RunApp.frame, "Error loading ContO: " + er);
 				er.printStackTrace();
@@ -1557,7 +1563,7 @@ public class TextEditor implements ActionListener {
 				f51.remake(text.getText());
 				countPolys();
 
-			} catch (Exception er) {
+			} catch (final Exception er) {
 				System.err.println("Error loading ContO: " + er);
 				JOptionPane.showMessageDialog(RunApp.frame, "Error loading ContO: " + er);
 				er.printStackTrace();

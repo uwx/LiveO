@@ -62,7 +62,7 @@ public class RunApp extends Panel {
 				try {
 					applet.remake(t.text.getText());
 					t.countPolys();
-				} catch (Exception e) {
+				} catch (final Exception e) {
 					// DON'T WARN!
 					//System.err.println("Error loading ContO: " + e);
 					//postMsg("Error loading ContO: " + e);
@@ -132,9 +132,10 @@ public class RunApp extends Panel {
 				try {
 					applet.remake(t.text.getText());
 					t.countPolys();
-				} catch (Exception er) {
+				} catch (final Exception er) {
 					System.err.println("Error loading ContO: " + er);
-					postMsg("Error loading ContO: " + er + "\r\nIf you're sure this isn't your fault, tell rafa something went wrong and give him the full console log");
+					postMsg("Error loading ContO: " + er
+							+ "\r\nIf you're sure this isn't your fault, tell rafa something went wrong and give him the full console log");
 					er.printStackTrace();
 				}
 			}
@@ -204,7 +205,7 @@ public class RunApp extends Panel {
 																	// of your
 																	// game goes
 																	// here
-		//applet.setStub(new DesktopStub());
+																	//applet.setStub(new DesktopStub());
 
 		tabbedPane = new JTabbedPane(SwingConstants.TOP);
 		panel_3.add(tabbedPane, BorderLayout.EAST);
@@ -383,9 +384,10 @@ public class RunApp extends Panel {
 						Wheels.wheelfile = item;
 						applet.remake(t.text.getText());
 						t.countPolys();
-					} catch (Exception er) {
+					} catch (final Exception er) {
 						System.err.println("Error loading ContO: " + er);
-						postMsg("Error loading ContO: " + er + "\r\nIf you're sure this isn't your fault, tell rafa something went wrong and give him the full console log");
+						postMsg("Error loading ContO: " + er
+								+ "\r\nIf you're sure this isn't your fault, tell rafa something went wrong and give him the full console log");
 						er.printStackTrace();
 					}
 					System.out.println("autorefresh'd!");
@@ -418,18 +420,18 @@ public class RunApp extends Panel {
 					final int item = comboBox_1.getSelectedIndex();
 					final File file = carFArray[item];
 					//final File[] files = fd.getFiles();
-					if (file.exists() && !file.isDirectory()) {
+					if (file.exists() && !file.isDirectory())
 						try {
 							F51.contofile = file;
 							t.loadFile();
 							t.countPolys();
 							applet.remake(t.text.getText());
-						} catch (Exception e) {
+						} catch (final Exception e) {
 							System.err.println("Error loading ContO: " + e);
-							postMsg("Error loading ContO: " + e + "\r\nIf you're sure this isn't your fault, tell rafa something went wrong and give him the full console log");
+							postMsg("Error loading ContO: " + e
+									+ "\r\nIf you're sure this isn't your fault, tell rafa something went wrong and give him the full console log");
 							e.printStackTrace();
 						}
-					}
 				}
 			}
 		});
@@ -731,7 +733,7 @@ public class RunApp extends Panel {
 
 				final DataInputStream stream = new DataInputStream(
 						new ByteArrayInputStream(realselection.getBytes(/*StandardCharsets.UTF_8*/)));
-				applet.o = new ContO(stream, applet.medium, 350, 150, 600, applet);
+				applet.o = new ContO(stream, applet.medium, 350, 150, 600);
 				applet.o.wxz = storeo.wxz;
 				applet.o.xz = storeo.xz;
 				applet.o.xy = storeo.xy;

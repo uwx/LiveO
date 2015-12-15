@@ -4,7 +4,6 @@
 // Decompiler options: packimports(3)
 // Source File Name:   ContO.java
 
-import java.applet.Applet;
 import java.awt.AlphaComposite;
 import java.awt.BasicStroke;
 import java.awt.Graphics;
@@ -16,7 +15,8 @@ import java.io.StringReader;
 
 public class ContO {
 
-	public ContO(final String s, final Medium medium, final int i, final int j, final int k, final F51 applet) throws Exception {
+	public ContO(final String s, final Medium medium, final int i, final int j, final int k)
+			throws Exception {
 		npl = 0;
 		x = 0;
 		y = 0;
@@ -165,10 +165,10 @@ public class ContO {
 						w6 = (int) (getvalue("w", s2, 6) * f);
 					} catch (final StringIndexOutOfBoundsException e) {
 					}
-					npl += wheels.make(applet, m, p, npl, (int) (getvalue("w", s2, 0) * f * nfmm_scale[0]),
+					npl += wheels.make( m, p, npl, (int) (getvalue("w", s2, 0) * f * nfmm_scale[0]),
 							(int) (getvalue("w", s2, 1) * f * nfmm_scale[1]),
 							(int) (getvalue("w", s2, 2) * f * nfmm_scale[2]), getvalue("w", s2, 3),
-							(int) (getvalue("w", s2, 4) * f * nfmm_scale[0]), (int) (getvalue("w", s2, 5) * f), w6);
+							(int) (getvalue("w", s2, 4) * f * nfmm_scale[0]), (int) (getvalue("w", s2, 5) * f));
 					//npl += wheels.make(applet, m, p, npl, (int)((float)getvalue("w", s1, 0) * f * f1 * nfmm_scale[0]), (int)((float)getvalue("w", s1, 1) * f * nfmm_scale[1]), (int)((float)getvalue("w", s1, 2) * f * nfmm_scale[2]), getvalue("w", s1, 3), (int)((float)getvalue("w", s1, 4) * f * f1), (int)((int)getvalue("w", s1, 5) * f), i1);
 				}
 				if (s2.startsWith("<track>"))
@@ -235,8 +235,7 @@ public class ContO {
 		p[npl - 1].imlast = true;
 	}
 
-	public ContO(final DataInputStream s, final Medium medium, final int i, final int j, final int k,
-			final F51 applet) {
+	public ContO(final DataInputStream s, final Medium medium, final int i, final int j, final int k) {
 		npl = 0;
 		x = 0;
 		y = 0;
@@ -293,7 +292,7 @@ public class ContO {
 		final float nfmm_scale[] = { 1.0F, 1.0F, 1.0F };
 
 		try {
-			BufferedReader r = new BufferedReader(new InputStreamReader(s));
+			final BufferedReader r = new BufferedReader(new InputStreamReader(s));
 			String s1;
 			while ((s1 = r.readLine()) != null) {
 				final String s2 = new StringBuilder().append("").append(s1.trim()).toString();
@@ -369,10 +368,9 @@ public class ContO {
 					flag = false;
 				}
 				if (s2.startsWith("w"))
-					npl += wheels.make(applet, m, p, npl, (int) (getvalue("w", s2, 0) * f),
+					npl += wheels.make(m, p, npl, (int) (getvalue("w", s2, 0) * f),
 							(int) (getvalue("w", s2, 1) * f), (int) (getvalue("w", s2, 2) * f), getvalue("w", s2, 3),
-							(int) (getvalue("w", s2, 4) * f), (int) (getvalue("w", s2, 5) * f),
-							(int) (getvalue("w", s2, 6) * f));
+							(int) (getvalue("w", s2, 4) * f), (int) (getvalue("w", s2, 5) * f));
 				if (s2.startsWith("<track>"))
 					track = -1;
 				if (track == -1) {
