@@ -343,10 +343,12 @@ public class RunApp extends Panel {
 		btnLights.setVerticalAlignment(SwingConstants.BOTTOM);
 
 		btnTransGlass = new JButton("Trans. Glass");
+		btnTransGlass.setToolTipText("Toggles transparent glass");
 		btnTransGlass.setAlignmentX(Component.CENTER_ALIGNMENT);
 		panel_7.add(btnTransGlass);
 
 		btnAa = new JButton("Antialiasing");
+		btnAa.setToolTipText("Toggles Anti-aliasing (disable jagged edges)");
 		btnAa.setAlignmentX(Component.CENTER_ALIGNMENT);
 		panel_7.add(btnAa);
 
@@ -390,7 +392,8 @@ public class RunApp extends Panel {
 
 		lblArrowKeys = new JLabel("Arrow Keys - IDK");
 		panel_18.add(lblArrowKeys);
-		//scrollPane.setSize(dimension);
+
+		packScrollPane();
 
 		btnAa.addActionListener(new ActionListener() {
 			@Override
@@ -731,13 +734,6 @@ public class RunApp extends Panel {
 
 		frame.pack();
 
-
-		Dimension dimension = scrollPane.getSize();
-		dimension.height -= 32;
-		scrollPane.setPreferredSize(dimension);
-
-		//frame.pack();
-
 		frame.setMinimumSize(frame.getSize());
 		t.fourTwenty();
 		frame.setVisible(true);
@@ -967,5 +963,21 @@ public class RunApp extends Panel {
 	public static void postMsg(final String msg) {
 		if (!suppressErrorMessages)
 			JOptionPane.showMessageDialog(frame, msg);
+	}
+
+	private void packScrollPane() {
+
+		// required
+
+		frame.pack();
+
+
+		Dimension dimension = scrollPane.getSize();
+		dimension.height -= 32;
+		scrollPane.setPreferredSize(dimension);
+
+		// end required
+
+		//scrollPane.setSize(dimension);
 	}
 }
