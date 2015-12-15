@@ -688,6 +688,7 @@ public class RunApp extends Panel {
 		panel_7.add(btnWireframe);
 
 		btnPointWire = new JButton("Point wire");
+		btnShowAxis.setToolTipText("Toggles point wireframe (only polygon points are drawn)");
 		btnPointWire.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Medium.pointwire = !Medium.pointwire;
@@ -697,6 +698,7 @@ public class RunApp extends Panel {
 		panel_7.add(btnPointWire);
 
 		btnShowAxis = new JButton("Show axis");
+		btnShowAxis.setToolTipText("Draws XYZ axis");
 		btnShowAxis.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				applet.show3 = !applet.show3;
