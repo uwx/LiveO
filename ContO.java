@@ -506,7 +506,7 @@ public class ContO {
 							+ (j - m.cz) * Math.cos(m.zy * 0.017453292519943295D));
 					if (ys(l + maxR, j1) > 0 && ys(l - maxR, j1) < m.h)
 						for (int k1 = 0; k1 < npl; k1++)
-							p[k1].s(g, x - m.x, y - m.y, z - m.z, xz, xy, zy, loom);
+							p[k1].s(g, x - m.x, y - m.y, z - m.z, xz, xy, zy);
 				}
 				final int i1 = m.cy + (int) ((y - m.y - m.cy) * Math.cos(m.zy * 0.017453292519943295D)
 						- (j - m.cz) * Math.sin(m.zy * 0.017453292519943295D));
@@ -528,7 +528,7 @@ public class ContO {
 							if (ai[k2] == i2) {
 								if (F51.trans && p[k2].glass)
 									((Graphics2D) g).setComposite(AlphaComposite.getInstance(3, 0.7F));
-								p[k2].d((Graphics2D) g, x - m.x, y - m.y, z - m.z, xz, xy, zy, wxz, wire, loom,
+								p[k2].d((Graphics2D) g, x - m.x, y - m.y, z - m.z, xz, xy, zy, wxz,
 										stonecold);
 								if (F51.trans && p[k2].glass)
 									((Graphics2D) g).setComposite(AlphaComposite.getInstance(3, 1.0F));

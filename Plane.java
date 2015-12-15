@@ -81,7 +81,7 @@ public class Plane {
 	}
 
 	public void d(final Graphics2D g, final int i, final int j, final int k, final int l, final int i1, final int j1,
-			final int k1, final boolean flag, final boolean flag1, boolean toofar) {
+			final int k1, boolean toofar) {
 		final int ai[] = new int[n];
 		final int ai1[] = new int[n];
 		final int ai2[] = new int[n];
@@ -314,8 +314,7 @@ public class Plane {
 		}
 	}
 
-	public void s(final Graphics g, final int i, final int j, final int k, final int l, final int i1, final int j1,
-			final boolean flag) {
+	public void s(final Graphics g, final int i, final int j, final int k, final int l, final int i1, final int j1) {
 		if (gr <= 0 && av < m.fade[7] && av != 0) {
 			final int ai[] = new int[n];
 			final int ai1[] = new int[n];
