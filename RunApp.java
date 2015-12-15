@@ -76,7 +76,25 @@ public class RunApp extends Panel {
 		}
 	}
 
+	public class SaveThread extends Thread {
+		@Override
+		public void run() {
+			while (true) {
+				try {
+					t.saveFile();
+				} catch (final Exception e) {
+				}
+				System.out.println("autosave'd!");
+				try {
+					sleep(30000L);
+				} catch (final InterruptedException e) {
+				}
+			}
+		}
+	}
+
 	static File carfolder = new File("./");
+	protected SaveThread st;
 
 	public RunApp() {
 		Storage.load();
@@ -296,6 +314,23 @@ public class RunApp extends Panel {
 				} else {
 					rt.stop();
 					rt = null;
+				}
+			}
+		});
+
+		chckbxAutosave = new JCheckBox("Autosave");
+		chckbxAutosave.setAlignmentX(Component.CENTER_ALIGNMENT);
+		panel_7.add(chckbxAutosave);
+		chckbxAutosave.addActionListener(new ActionListener() {
+			@Override
+			@SuppressWarnings("deprecation")
+			public void actionPerformed(final ActionEvent e) {
+				if (chckbxAutosave.isSelected() && st == null) {
+					st = new SaveThread();
+					st.start();
+				} else {
+					st.stop();
+					st = null;
 				}
 			}
 		});
@@ -792,6 +827,7 @@ public class RunApp extends Panel {
 	private final JButton btnSetColor;
 	private final JPanel panel_15;
 	private final JButton btnSet;
+	private JCheckBox chckbxAutosave;
 
 	/**
 	 * Fetches icons of 16, 32 and 48 pixels from the 'data' folder.
