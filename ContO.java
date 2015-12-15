@@ -159,11 +159,6 @@ public class ContO {
 					flag = false;
 				}
 				if (s2.startsWith("w")) {
-					int w6 = 0;
-					try {
-						w6 = (int) (getvalue("w", s2, 6) * f);
-					} catch (final StringIndexOutOfBoundsException e) {
-					}
 					npl += wheels.make( m, p, npl, (int) (getvalue("w", s2, 0) * f * nfmm_scale[0]),
 							(int) (getvalue("w", s2, 1) * f * nfmm_scale[1]),
 							(int) (getvalue("w", s2, 2) * f * nfmm_scale[2]), getvalue("w", s2, 3),
@@ -366,9 +361,9 @@ public class ContO {
 					flag = false;
 				}
 				if (s2.startsWith("w"))
-					npl += wheels.make(m, p, npl, (int) (getvalue("w", s2, 0) * f),
-							(int) (getvalue("w", s2, 1) * f), (int) (getvalue("w", s2, 2) * f), getvalue("w", s2, 3),
-							(int) (getvalue("w", s2, 4) * f), (int) (getvalue("w", s2, 5) * f));
+					npl += wheels.make(m, p, npl, (int) (getvalue("w", s2, 0) * f), (int) (getvalue("w", s2, 1) * f),
+							(int) (getvalue("w", s2, 2) * f), getvalue("w", s2, 3), (int) (getvalue("w", s2, 4) * f),
+							(int) (getvalue("w", s2, 5) * f));
 				if (s2.startsWith("<track>"))
 					track = -1;
 				if (track == -1) {
@@ -525,8 +520,7 @@ public class ContO {
 							if (ai[k2] == i2) {
 								if (F51.trans && p[k2].glass)
 									((Graphics2D) g).setComposite(AlphaComposite.getInstance(3, 0.7F));
-								p[k2].d((Graphics2D) g, x - m.x, y - m.y, z - m.z, xz, xy, zy, wxz,
-										stonecold);
+								p[k2].d((Graphics2D) g, x - m.x, y - m.y, z - m.z, xz, xy, zy, wxz, stonecold);
 								if (F51.trans && p[k2].glass)
 									((Graphics2D) g).setComposite(AlphaComposite.getInstance(3, 1.0F));
 							}

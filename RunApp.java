@@ -41,16 +41,16 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
 
 public class RunApp extends Panel {
 
@@ -202,63 +202,63 @@ public class RunApp extends Panel {
 		panel_6.add(panel_2);
 		panel_2.setLayout(new BoxLayout(panel_2, BoxLayout.Y_AXIS));
 
-				panel_8 = new JPanel();
-				panel_2.add(panel_8);
+		panel_8 = new JPanel();
+		panel_2.add(panel_8);
 
-						slider = new JSlider();
-						slider.setAlignmentX(Component.RIGHT_ALIGNMENT);
-						slider.setMinimum(-360);
-						slider.setMaximum(360);
-						slider.setValue(0);
-						slider.addChangeListener(new ChangeListener() {
-							@Override
-							public void stateChanged(final ChangeEvent e) {
-								applet.o.zy = -slider.getValue();
-							}
-						});
-						slider.setOrientation(SwingConstants.VERTICAL);
+		slider = new JSlider();
+		slider.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		slider.setMinimum(-360);
+		slider.setMaximum(360);
+		slider.setValue(0);
+		slider.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(final ChangeEvent e) {
+				applet.o.zy = -slider.getValue();
+			}
+		});
+		slider.setOrientation(SwingConstants.VERTICAL);
 
-								slider_1 = new JSlider();
-								slider_1.setMinimum(-360);
-								slider_1.setMaximum(360);
-								slider_1.setValue(0);
+		slider_1 = new JSlider();
+		slider_1.setMinimum(-360);
+		slider_1.setMaximum(360);
+		slider_1.setValue(0);
 
-										slider_2 = new JSlider();
-										slider_2.setValue(0);
-										slider_2.setMinimum(-360);
-										slider_2.setMaximum(360);
-										slider_2.addChangeListener(new ChangeListener() {
-											@Override
-											public void stateChanged(final ChangeEvent e) {
-												applet.o.xz = -slider_2.getValue();
-											}
-										});
-										final GroupLayout gl_panel_8 = new GroupLayout(panel_8);
-										gl_panel_8.setHorizontalGroup(gl_panel_8.createParallelGroup(Alignment.LEADING).addGroup(gl_panel_8
-												.createSequentialGroup().addGap(1)
-												.addComponent(slider, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-												.addGroup(gl_panel_8.createParallelGroup(Alignment.LEADING)
-														.addGroup(gl_panel_8.createSequentialGroup().addGap(1).addComponent(slider_1,
-																GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE))
-														.addGroup(gl_panel_8.createSequentialGroup().addGap(1).addComponent(slider_2,
-																GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)))
-												.addGap(1)));
-										gl_panel_8.setVerticalGroup(gl_panel_8.createParallelGroup(Alignment.LEADING).addGroup(gl_panel_8
-												.createSequentialGroup().addGap(1)
-												.addGroup(gl_panel_8.createParallelGroup(Alignment.LEADING, false)
-														.addGroup(gl_panel_8.createSequentialGroup()
-																.addComponent(slider_1, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE)
-																.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-																.addComponent(slider_2, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE))
-														.addComponent(slider, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE))
-												.addGap(1)));
-										panel_8.setLayout(gl_panel_8);
-										slider_1.addChangeListener(new ChangeListener() {
-											@Override
-											public void stateChanged(final ChangeEvent e) {
-												applet.o.xy = -slider_1.getValue();
-											}
-										});
+		slider_2 = new JSlider();
+		slider_2.setValue(0);
+		slider_2.setMinimum(-360);
+		slider_2.setMaximum(360);
+		slider_2.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(final ChangeEvent e) {
+				applet.o.xz = -slider_2.getValue();
+			}
+		});
+		final GroupLayout gl_panel_8 = new GroupLayout(panel_8);
+		gl_panel_8.setHorizontalGroup(gl_panel_8.createParallelGroup(Alignment.LEADING).addGroup(gl_panel_8
+				.createSequentialGroup().addGap(1)
+				.addComponent(slider, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+				.addGroup(gl_panel_8.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_8.createSequentialGroup().addGap(1).addComponent(slider_1,
+								GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panel_8.createSequentialGroup().addGap(1).addComponent(slider_2,
+								GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)))
+				.addGap(1)));
+		gl_panel_8.setVerticalGroup(gl_panel_8.createParallelGroup(Alignment.LEADING).addGroup(gl_panel_8
+				.createSequentialGroup().addGap(1)
+				.addGroup(gl_panel_8.createParallelGroup(Alignment.LEADING, false)
+						.addGroup(gl_panel_8.createSequentialGroup()
+								.addComponent(slider_1, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(slider_2, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE))
+						.addComponent(slider, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE))
+				.addGap(1)));
+		panel_8.setLayout(gl_panel_8);
+		slider_1.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(final ChangeEvent e) {
+				applet.o.xy = -slider_1.getValue();
+			}
+		});
 
 		panel_17 = new JPanel();
 		panel_2.add(panel_17);
@@ -300,19 +300,19 @@ public class RunApp extends Panel {
 
 		lblArrowKeys = new JLabel("Arrow Keys - IDK");
 		panel_18.add(lblArrowKeys);
-		
+
 		lblNewLabel_4 = new JLabel("W - Wireframe");
 		panel_18.add(lblNewLabel_4);
-		
+
 		lblPPoint = new JLabel("P - Point wire");
 		panel_18.add(lblPPoint);
-		
+
 		lblOTr = new JLabel("O - Tr. glass");
 		panel_18.add(lblOTr);
-		
+
 		lblTShow = new JLabel("T - Show axis");
 		panel_18.add(lblTShow);
-		
+
 		lblM = new JLabel("M - ???");
 		panel_18.add(lblM);
 
@@ -484,62 +484,62 @@ public class RunApp extends Panel {
 		textField_2.setColumns(10);
 		panel_12.add(textField_2);
 
-		JPanel panel_16 = new JPanel();
+		final JPanel panel_16 = new JPanel();
 		final GroupLayout gl_panel_15 = new GroupLayout(panel_15);
-		gl_panel_15.setHorizontalGroup(
-			gl_panel_15.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_panel_15.createSequentialGroup()
-					.addGap(1)
-					.addGroup(gl_panel_15.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_15.createSequentialGroup()
-							.addComponent(panel_10, GroupLayout.PREFERRED_SIZE, 11, Short.MAX_VALUE)
-							.addGap(1))
-						.addGroup(gl_panel_15.createSequentialGroup()
-							.addComponent(panel_11, GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
-							.addGap(1))
+		gl_panel_15
+				.setHorizontalGroup(gl_panel_15.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_panel_15
+								.createSequentialGroup().addGap(
+										1)
+								.addGroup(
+										gl_panel_15.createParallelGroup(Alignment.LEADING)
+												.addGroup(gl_panel_15.createSequentialGroup()
+														.addComponent(panel_10, GroupLayout.PREFERRED_SIZE, 11,
+																Short.MAX_VALUE)
+														.addGap(1))
+								.addGroup(gl_panel_15.createSequentialGroup()
+										.addComponent(panel_11, GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
+										.addGap(1))
 						.addComponent(panel_12, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-					.addGap(1))
-				.addGroup(gl_panel_15.createSequentialGroup()
-					.addGap(1)
-					.addComponent(panel_16, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addGap(1))
-		);
-		gl_panel_15.setVerticalGroup(
-			gl_panel_15.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_15.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(panel_10, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(1)
-					.addComponent(panel_11, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(1)
-					.addComponent(panel_12, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
-					.addComponent(panel_16, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(45))
-		);
+				.addGap(1))
+				.addGroup(gl_panel_15.createSequentialGroup().addGap(1)
+						.addComponent(panel_16, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addGap(1)));
+		gl_panel_15.setVerticalGroup(gl_panel_15.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_15.createSequentialGroup().addContainerGap()
+						.addComponent(panel_10, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+								GroupLayout.PREFERRED_SIZE)
+						.addGap(1)
+						.addComponent(panel_11, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+								GroupLayout.PREFERRED_SIZE)
+				.addGap(1)
+				.addComponent(panel_12, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+						GroupLayout.PREFERRED_SIZE).addPreferredGap(ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
+				.addComponent(panel_16, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+						GroupLayout.PREFERRED_SIZE).addGap(45)));
 
-				btnSet = new JButton("Set");
-				panel_16.add(btnSet);
-				btnSet.addActionListener(new ActionListener() {
-					@Override
-					public void actionPerformed(final ActionEvent e) { //can't do this without try catch... for whatever reason
-						try {
-							t.setDiv(Integer.valueOf(textField.getText()));
-						} catch (final NumberFormatException er) {
-							System.err.println("div is empty");
-						}
-						try {
-							t.setiDiv(Integer.valueOf(textField_1.getText()));
-						} catch (final NumberFormatException er) {
-							System.err.println("idiv is empty");
-						}
-						try {
-							t.setiWid(Integer.valueOf(textField_2.getText()));
-						} catch (final NumberFormatException er) {
-							System.err.println("iwid is empty");
-						}
-					}
-				});
+		btnSet = new JButton("Set");
+		panel_16.add(btnSet);
+		btnSet.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent e) { //can't do this without try catch... for whatever reason
+				try {
+					t.setDiv(Integer.valueOf(textField.getText()));
+				} catch (final NumberFormatException er) {
+					System.err.println("div is empty");
+				}
+				try {
+					t.setiDiv(Integer.valueOf(textField_1.getText()));
+				} catch (final NumberFormatException er) {
+					System.err.println("idiv is empty");
+				}
+				try {
+					t.setiWid(Integer.valueOf(textField_2.getText()));
+				} catch (final NumberFormatException er) {
+					System.err.println("iwid is empty");
+				}
+			}
+		});
 		panel_15.setLayout(gl_panel_15);
 
 		panel_14 = new JPanel();
@@ -605,122 +605,123 @@ public class RunApp extends Panel {
 								.addGap(4).addComponent(btnSetndColor)
 								.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 		panel_14.setLayout(gl_panel_14);
-		
+
 		panel_19 = new JPanel();
 		tabbedPane.addTab("View", null, panel_19, null);
-		
-				panel_7 = new JPanel();
-				panel_19.add(panel_7);
-				panel_7.setLayout(new BoxLayout(panel_7, BoxLayout.Y_AXIS));
-				
-						chckbxAutorefresh = new JCheckBox("Auto-refresh");
-						panel_7.add(chckbxAutorefresh);
-						chckbxAutorefresh.setAlignmentX(Component.CENTER_ALIGNMENT);
-						chckbxAutorefresh.setAlignmentY(Component.TOP_ALIGNMENT);
-						chckbxAutorefresh.setVerticalAlignment(SwingConstants.TOP);
-						
-								chckbxAutorefresh.addActionListener(new ActionListener() {
-									@Override
-									public void actionPerformed(final ActionEvent e) {
-										if (chckbxAutorefresh.isSelected() && rt == null) {
-						
-											final ActionListener refresh = new ActionListener() {
-												@Override
-												public void actionPerformed(final ActionEvent e) {
-													try {
-														applet.remake(t.text.getText());
-														t.countPolys();
-													} catch (final Exception er) {
-														// DON'T WARN!
-														//System.err.println("Error loading ContO: " + e);
-														//postMsg("Error loading ContO: " + e);
-													}
-													System.out.println("autorefresh'd!");
-												}
-											};
-						
-											rt = new Timer(1000, refresh);
-											rt.start();
-										} else {
-											rt.stop();
-											rt = null;
-										}
-									}
-								});
-								
-										chckbxAutosave = new JCheckBox("Autosave");
-										chckbxAutosave.setAlignmentX(Component.CENTER_ALIGNMENT);
-										panel_7.add(chckbxAutosave);
-										chckbxAutosave.addActionListener(new ActionListener() {
-											@Override
-											public void actionPerformed(final ActionEvent e) {
-												if (chckbxAutosave.isSelected() && st == null) {
 
-													final ActionListener autosave = new ActionListener() {
-														@Override
-														public void actionPerformed(final ActionEvent e) {
-															try {
-																t.saveFile();
-															} catch (final Exception er) {
-															}
-															System.out.println("autosave'd!");
-														}
-													};
+		panel_7 = new JPanel();
+		panel_19.add(panel_7);
+		panel_7.setLayout(new BoxLayout(panel_7, BoxLayout.Y_AXIS));
 
-													st = new Timer(30000, autosave);
-													st.start();
-												} else {
-													st.stop();
-													st = null;
-												}
-											}
-										});
-										
-												btnWireframe = new JButton("Wireframe");
-												btnWireframe.setToolTipText("Toggles wireframe (only polygon outlines are drawn)");
-												btnWireframe.addActionListener(new ActionListener() {
-													public void actionPerformed(ActionEvent e) {
-														Medium.wire = !Medium.wire;
-													}
-												});
-												btnWireframe.setAlignmentX(Component.CENTER_ALIGNMENT);
-												panel_7.add(btnWireframe);
-												
-														btnLights = new JButton("Lights");
-														btnLights.setToolTipText("Turns vehicle lights on/off");
-														panel_7.add(btnLights);
-														btnLights.setAlignmentX(Component.CENTER_ALIGNMENT);
-														btnLights.setAlignmentY(Component.TOP_ALIGNMENT);
-														btnLights.setVerticalAlignment(SwingConstants.BOTTOM);
-														
-																btnTransGlass = new JButton("Trans. Glass");
-																btnTransGlass.setToolTipText("Toggles transparent glass");
-																btnTransGlass.setAlignmentX(Component.CENTER_ALIGNMENT);
-																panel_7.add(btnTransGlass);
-																
-																		btnAa = new JButton("Antialiasing");
-																		btnAa.setToolTipText("Toggles Anti-aliasing (disable jagged edges)");
-																		btnAa.setAlignmentX(Component.CENTER_ALIGNMENT);
-																		panel_7.add(btnAa);
-																		
-																				btnAa.addActionListener(new ActionListener() {
-																					@Override
-																					public void actionPerformed(final ActionEvent e) {
-																						applet.aa = !applet.aa;
-																					}
-																				});
-																				btnTransGlass.addActionListener(new ActionListener() {
-																					@Override
-																					public void actionPerformed(final ActionEvent e) {
-																						F51.trans = !F51.trans;
-																					}
-																				});
-																				btnLights.addActionListener(new ActionListener() {
-																					@Override
-																					public void actionPerformed(final ActionEvent e) {
-																						applet.medium.lightson = !applet.medium.lightson;
-																					}
-																				});
+		chckbxAutorefresh = new JCheckBox("Auto-refresh");
+		panel_7.add(chckbxAutorefresh);
+		chckbxAutorefresh.setAlignmentX(Component.CENTER_ALIGNMENT);
+		chckbxAutorefresh.setAlignmentY(Component.TOP_ALIGNMENT);
+		chckbxAutorefresh.setVerticalAlignment(SwingConstants.TOP);
+
+		chckbxAutorefresh.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent e) {
+				if (chckbxAutorefresh.isSelected() && rt == null) {
+
+					final ActionListener refresh = new ActionListener() {
+						@Override
+						public void actionPerformed(final ActionEvent e) {
+							try {
+								applet.remake(t.text.getText());
+								t.countPolys();
+							} catch (final Exception er) {
+								// DON'T WARN!
+								//System.err.println("Error loading ContO: " + e);
+								//postMsg("Error loading ContO: " + e);
+							}
+							System.out.println("autorefresh'd!");
+						}
+					};
+
+					rt = new Timer(1000, refresh);
+					rt.start();
+				} else {
+					rt.stop();
+					rt = null;
+				}
+			}
+		});
+
+		chckbxAutosave = new JCheckBox("Autosave");
+		chckbxAutosave.setAlignmentX(Component.CENTER_ALIGNMENT);
+		panel_7.add(chckbxAutosave);
+		chckbxAutosave.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent e) {
+				if (chckbxAutosave.isSelected() && st == null) {
+
+					final ActionListener autosave = new ActionListener() {
+						@Override
+						public void actionPerformed(final ActionEvent e) {
+							try {
+								t.saveFile();
+							} catch (final Exception er) {
+							}
+							System.out.println("autosave'd!");
+						}
+					};
+
+					st = new Timer(30000, autosave);
+					st.start();
+				} else {
+					st.stop();
+					st = null;
+				}
+			}
+		});
+
+		btnWireframe = new JButton("Wireframe");
+		btnWireframe.setToolTipText("Toggles wireframe (only polygon outlines are drawn)");
+		btnWireframe.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent e) {
+				Medium.wire = !Medium.wire;
+			}
+		});
+		btnWireframe.setAlignmentX(Component.CENTER_ALIGNMENT);
+		panel_7.add(btnWireframe);
+
+		btnLights = new JButton("Lights");
+		btnLights.setToolTipText("Turns vehicle lights on/off");
+		panel_7.add(btnLights);
+		btnLights.setAlignmentX(Component.CENTER_ALIGNMENT);
+		btnLights.setAlignmentY(Component.TOP_ALIGNMENT);
+		btnLights.setVerticalAlignment(SwingConstants.BOTTOM);
+
+		btnTransGlass = new JButton("Trans. Glass");
+		btnTransGlass.setToolTipText("Toggles transparent glass");
+		btnTransGlass.setAlignmentX(Component.CENTER_ALIGNMENT);
+		panel_7.add(btnTransGlass);
+
+		btnAa = new JButton("Antialiasing");
+		btnAa.setToolTipText("Toggles Anti-aliasing (disable jagged edges)");
+		btnAa.setAlignmentX(Component.CENTER_ALIGNMENT);
+		panel_7.add(btnAa);
+
+		btnAa.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent e) {
+				applet.aa = !applet.aa;
+			}
+		});
+		btnTransGlass.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent e) {
+				F51.trans = !F51.trans;
+			}
+		});
+		btnLights.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent e) {
+				applet.medium.lightson = !applet.medium.lightson;
+			}
+		});
 
 		/*List<File> dong = new ArrayList<File>();
 		try {
@@ -909,26 +910,26 @@ public class RunApp extends Panel {
 	private final JButton btnSetColor;
 	private final JPanel panel_15;
 	private final JButton btnSet;
-	private JCheckBox chckbxAutosave;
-	private JButton btnWireframe;
-	private JPanel panel_17;
-	private JLabel lblAllanPleaseAdd;
-	private JScrollPane scrollPane;
-	private JPanel panel_18;
-	private JLabel lblNewLabel_1;
-	private JLabel lblNewLabel_2;
-	private JLabel lblNewLabel_3;
-	private JLabel lblUp;
-	private JLabel lblDown;
-	private JLabel lblZoom;
-	private JLabel lblZoom_1;
-	private JLabel lblArrowKeys;
-	private JLabel lblNewLabel_4;
-	private JLabel lblOTr;
-	private JLabel lblPPoint;
-	private JLabel lblTShow;
-	private JLabel lblM;
-	private JPanel panel_19;
+	private final JCheckBox chckbxAutosave;
+	private final JButton btnWireframe;
+	private final JPanel panel_17;
+	private final JLabel lblAllanPleaseAdd;
+	private final JScrollPane scrollPane;
+	private final JPanel panel_18;
+	private final JLabel lblNewLabel_1;
+	private final JLabel lblNewLabel_2;
+	private final JLabel lblNewLabel_3;
+	private final JLabel lblUp;
+	private final JLabel lblDown;
+	private final JLabel lblZoom;
+	private final JLabel lblZoom_1;
+	private final JLabel lblArrowKeys;
+	private final JLabel lblNewLabel_4;
+	private final JLabel lblOTr;
+	private final JLabel lblPPoint;
+	private final JLabel lblTShow;
+	private final JLabel lblM;
+	private final JPanel panel_19;
 
 	/**
 	 * Fetches icons of 16, 32 and 48 pixels from the 'data' folder.
@@ -997,8 +998,7 @@ public class RunApp extends Panel {
 
 		frame.pack();
 
-
-		Dimension dimension = scrollPane.getSize();
+		final Dimension dimension = scrollPane.getSize();
 		dimension.height -= 128;
 		scrollPane.setPreferredSize(dimension);
 
