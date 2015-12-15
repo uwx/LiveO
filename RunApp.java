@@ -394,6 +394,21 @@ public class RunApp extends Panel {
 
 		lblArrowKeys = new JLabel("Arrow Keys - IDK");
 		panel_18.add(lblArrowKeys);
+		
+		lblNewLabel_4 = new JLabel("W - Wireframe");
+		panel_18.add(lblNewLabel_4);
+		
+		lblPPoint = new JLabel("P - Point wire");
+		panel_18.add(lblPPoint);
+		
+		lblOTr = new JLabel("O - Tr. glass");
+		panel_18.add(lblOTr);
+		
+		lblTShow = new JLabel("T - Show axis");
+		panel_18.add(lblTShow);
+		
+		lblM = new JLabel("M - ???");
+		panel_18.add(lblM);
 
 		packScrollPane();
 
@@ -905,6 +920,11 @@ public class RunApp extends Panel {
 	private JLabel lblZoom;
 	private JLabel lblZoom_1;
 	private JLabel lblArrowKeys;
+	private JLabel lblNewLabel_4;
+	private JLabel lblOTr;
+	private JLabel lblPPoint;
+	private JLabel lblTShow;
+	private JLabel lblM;
 
 	/**
 	 * Fetches icons of 16, 32 and 48 pixels from the 'data' folder.
@@ -975,7 +995,7 @@ public class RunApp extends Panel {
 
 
 		Dimension dimension = scrollPane.getSize();
-		dimension.height -= 32;
+		dimension.height -= 128;
 		scrollPane.setPreferredSize(dimension);
 
 		// end required
