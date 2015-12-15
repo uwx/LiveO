@@ -485,38 +485,78 @@ public class RunApp extends Panel {
 		panel_12.add(textField_2);
 
 		final JPanel panel_16 = new JPanel();
+
+		panel_20 = new JPanel();
+		panel_20.setAlignmentY(0.0f);
+
+		lblScalex = new JLabel("ScaleX");
+		panel_20.add(lblScalex);
+
+		textField_3 = new JTextField();
+		textField_3.setColumns(10);
+		panel_20.add(textField_3);
+
+		panel_21 = new JPanel();
+		panel_21.setAlignmentY(0.0f);
+
+		lblScaley = new JLabel("ScaleY");
+		panel_21.add(lblScaley);
+
+		textField_4 = new JTextField();
+		textField_4.setColumns(10);
+		panel_21.add(textField_4);
+
+		panel_22 = new JPanel();
+		panel_22.setAlignmentY(0.0f);
+
+		lblScalez = new JLabel("ScaleZ");
+		panel_22.add(lblScalez);
+
+		textField_5 = new JTextField();
+		textField_5.setColumns(10);
+		panel_22.add(textField_5);
 		final GroupLayout gl_panel_15 = new GroupLayout(panel_15);
-		gl_panel_15
-				.setHorizontalGroup(gl_panel_15.createParallelGroup(Alignment.TRAILING)
-						.addGroup(gl_panel_15
-								.createSequentialGroup().addGap(
-										1)
-								.addGroup(
-										gl_panel_15.createParallelGroup(Alignment.LEADING)
-												.addGroup(gl_panel_15.createSequentialGroup()
-														.addComponent(panel_10, GroupLayout.PREFERRED_SIZE, 11,
-																Short.MAX_VALUE)
-														.addGap(1))
+		gl_panel_15.setHorizontalGroup(
+			gl_panel_15.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_15.createSequentialGroup()
+					.addGroup(gl_panel_15.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_15.createSequentialGroup()
+							.addGap(1)
+							.addGroup(gl_panel_15.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_panel_15.createSequentialGroup()
-										.addComponent(panel_11, GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
-										.addGap(1))
-						.addComponent(panel_12, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-				.addGap(1))
-				.addGroup(gl_panel_15.createSequentialGroup().addGap(1)
-						.addComponent(panel_16, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addGap(1)));
-		gl_panel_15.setVerticalGroup(gl_panel_15.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_15.createSequentialGroup().addContainerGap()
-						.addComponent(panel_10, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE)
-						.addGap(1)
-						.addComponent(panel_11, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE)
-				.addGap(1)
-				.addComponent(panel_12, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-						GroupLayout.PREFERRED_SIZE).addPreferredGap(ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
-				.addComponent(panel_16, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-						GroupLayout.PREFERRED_SIZE).addGap(45)));
+									.addComponent(panel_10, GroupLayout.PREFERRED_SIZE, 215, Short.MAX_VALUE)
+									.addGap(1))
+								.addGroup(gl_panel_15.createSequentialGroup()
+									.addComponent(panel_11, GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
+									.addGap(1))
+								.addComponent(panel_12, GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
+								.addComponent(panel_16, GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)))
+						.addComponent(panel_20, GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
+						.addComponent(panel_21, GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE))
+					.addGap(1))
+				.addGroup(gl_panel_15.createSequentialGroup()
+					.addComponent(panel_22, GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
+					.addGap(1))
+		);
+		gl_panel_15.setVerticalGroup(
+			gl_panel_15.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_15.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(panel_10, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(1)
+					.addComponent(panel_11, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(1)
+					.addComponent(panel_12, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(1)
+					.addComponent(panel_20, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+					.addGap(1)
+					.addComponent(panel_21, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+					.addGap(1)
+					.addComponent(panel_22, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED, 1, Short.MAX_VALUE)
+					.addComponent(panel_16, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(45))
+		);
 
 		btnSet = new JButton("Set");
 		panel_16.add(btnSet);
@@ -537,6 +577,21 @@ public class RunApp extends Panel {
 					t.setiWid(Integer.valueOf(textField_2.getText()));
 				} catch (final NumberFormatException er) {
 					System.err.println("iwid is empty");
+				}
+				try {
+					t.setScaleX(Integer.valueOf(textField_3.getText()));
+				} catch (final NumberFormatException er) {
+					System.err.println("scalex is empty");
+				}
+				try {
+					t.setScaleY(Integer.valueOf(textField_4.getText()));
+				} catch (final NumberFormatException er) {
+					System.err.println("scaley is empty");
+				}
+				try {
+					t.setScaleZ(Integer.valueOf(textField_5.getText()));
+				} catch (final NumberFormatException er) {
+					System.err.println("scalez is empty");
 				}
 			}
 		});
@@ -952,6 +1007,15 @@ public class RunApp extends Panel {
 	private final JPanel panel_19;
 	private JButton btnPointWire;
 	private JButton btnShowAxis;
+	private JPanel panel_20;
+	private JLabel lblScalex;
+	private JTextField textField_3;
+	private JPanel panel_21;
+	private JLabel lblScaley;
+	private JTextField textField_4;
+	private JPanel panel_22;
+	private JLabel lblScalez;
+	private JTextField textField_5;
 
 	/**
 	 * Fetches icons of 16, 32 and 48 pixels from the 'data' folder.

@@ -28,9 +28,11 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -142,6 +144,8 @@ public class F51 extends JPanel implements KeyListener, MouseListener {
 			final String content = s.useDelimiter("\\Z").next();
 			s.close();
 			o = new ContO(content, medium, 350, 150, 600);
+		} catch (final FileNotFoundException e) {
+			JOptionPane.showMessageDialog(RunApp.frame, "Hey! You need an \"o.rad\" file in your LiveO folder! Sorry!");
 		} catch (final Exception e) {
 			e.printStackTrace();
 		}

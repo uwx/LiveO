@@ -462,13 +462,13 @@ public class TextEditor implements ActionListener {
 			/*int pretx = (Math.abs((int)radius[0]) - Math.abs((int)radius[3]));
 			int prety = (Math.abs((int)radius[1]) - Math.abs((int)radius[4]));
 			int pretz = (Math.abs((int)radius[2]) - Math.abs((int)radius[5]));
-			
+
 			String outxy = "";
 			if (pretx < 0)
 				outxy = "xy(-90)";
 			else
 				outxy = "xy(90)";
-			
+
 			String outzy = "";
 			if (pretz < 0)
 				outzy = "zy(-90)";
@@ -564,7 +564,7 @@ public class TextEditor implements ActionListener {
 			tx(-zcoord)
 			ty(0)
 			</track>
-			
+
 			<track>
 			xy(-90)
 			radx(xcoord)
@@ -573,7 +573,7 @@ public class TextEditor implements ActionListener {
 			tx(zcoord)
 			ty(0)
 			</track>
-			
+
 			<track>
 			zy(-90)
 			radx(zcoord)
@@ -583,7 +583,7 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(zcoord)
 			</track>
-			
+
 			<track>
 			zy(90)
 			radx(zcoord)
@@ -593,7 +593,7 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(-zcoord)
 			</track>
-			
+
 			*/
 
 			//////////// old
@@ -607,8 +607,8 @@ public class TextEditor implements ActionListener {
 			tx(-ycoord)
 			ty(0)
 			</track>
-			
-			
+
+
 			<track>
 			xy(-90)
 			radx(xcoord)
@@ -617,7 +617,7 @@ public class TextEditor implements ActionListener {
 			tx(ycoord)
 			ty(0)
 			</track>
-			
+
 			<track>
 			zy(-90)
 			radx(zcoord)
@@ -627,7 +627,7 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(zcoord)
 			</track>
-			
+
 			<track>
 			zy(90)
 			radx(zcoord)
@@ -642,7 +642,7 @@ public class TextEditor implements ActionListener {
 			////////////original
 
 			/*
-			
+
 			<track>
 			xy(90)
 			radx(200)
@@ -651,7 +651,7 @@ public class TextEditor implements ActionListener {
 			tx(-700)
 			ty(0)
 			</track>
-			
+
 			<track>
 			xy(-90)
 			radx(200)
@@ -660,7 +660,7 @@ public class TextEditor implements ActionListener {
 			tx(700)
 			ty(0)
 			</track>
-			
+
 			<track>
 			zy(-90)
 			radx(700)
@@ -670,7 +670,7 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(700)
 			</track>
-			
+
 			<track>
 			zy(90)
 			radx(700)
@@ -680,14 +680,14 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(-700)
 			</track>
-			
+
 			*/
 
 			////////////flat
 
 			/*
 			<track>
-			
+
 			xy(90)
 			radx(1)
 			rady(2)
@@ -696,7 +696,7 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(0)
 			</track>
-			
+
 			*/
 
 			//final String radx = "radx(" + Math.abs(pretx) + ")";
@@ -720,13 +720,13 @@ public class TextEditor implements ActionListener {
 			/*int pretx = (Math.abs((int)radius[0]) - Math.abs((int)radius[3]));
 			int prety = (Math.abs((int)radius[1]) - Math.abs((int)radius[4]));
 			int pretz = (Math.abs((int)radius[2]) - Math.abs((int)radius[5]));
-			
+
 			String outxy = "";
 			if (pretx < 0)
 				outxy = "xy(-90)";
 			else
 				outxy = "xy(90)";
-			
+
 			String outzy = "";
 			if (pretz < 0)
 				outzy = "zy(-90)";
@@ -824,7 +824,7 @@ public class TextEditor implements ActionListener {
 			tx(-zcoord)
 			ty(0)
 			</track>
-			
+
 			<track>
 			xy(-90)
 			radx(xcoord)
@@ -833,7 +833,7 @@ public class TextEditor implements ActionListener {
 			tx(zcoord)
 			ty(0)
 			</track>
-			
+
 			<track>
 			zy(-90)
 			radx(zcoord)
@@ -843,7 +843,7 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(zcoord)
 			</track>
-			
+
 			<track>
 			zy(90)
 			radx(zcoord)
@@ -853,7 +853,7 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(-zcoord)
 			</track>
-			
+
 			*/
 
 			//////////// old
@@ -867,8 +867,8 @@ public class TextEditor implements ActionListener {
 			tx(-ycoord)
 			ty(0)
 			</track>
-			
-			
+
+
 			<track>
 			xy(-90)
 			radx(xcoord)
@@ -877,7 +877,7 @@ public class TextEditor implements ActionListener {
 			tx(ycoord)
 			ty(0)
 			</track>
-			
+
 			<track>
 			zy(-90)
 			radx(zcoord)
@@ -887,7 +887,7 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(zcoord)
 			</track>
-			
+
 			<track>
 			zy(90)
 			radx(zcoord)
@@ -902,7 +902,7 @@ public class TextEditor implements ActionListener {
 			////////////original
 
 			/*
-			
+
 			<track>
 			xy(90)
 			radx(200)
@@ -911,7 +911,7 @@ public class TextEditor implements ActionListener {
 			tx(-700)
 			ty(0)
 			</track>
-			
+
 			<track>
 			xy(-90)
 			radx(200)
@@ -920,7 +920,7 @@ public class TextEditor implements ActionListener {
 			tx(700)
 			ty(0)
 			</track>
-			
+
 			<track>
 			zy(-90)
 			radx(700)
@@ -930,7 +930,7 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(700)
 			</track>
-			
+
 			<track>
 			zy(90)
 			radx(700)
@@ -940,14 +940,14 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(-700)
 			</track>
-			
+
 			*/
 
 			////////////flat
 
 			/*
 			<track>
-			
+
 			xy(90)
 			radx(1)
 			rady(2)
@@ -956,7 +956,7 @@ public class TextEditor implements ActionListener {
 			ty(0)
 			tz(0)
 			</track>
-			
+
 			*/
 
 			//final String radx = "radx(" + Math.abs(pretx) + ")";
@@ -1525,6 +1525,111 @@ public class TextEditor implements ActionListener {
 			} catch (final Exception er) {
 				System.err.println("Error loading ContO: " + er);
 				JOptionPane.showMessageDialog(RunApp.frame, "Error loading ContO: " + er);
+				er.printStackTrace();
+			}
+			//saveFile();
+		} catch (final IOException e) {
+		}
+	}
+
+	void setScaleX(final int d) {
+
+		try {
+			final BufferedReader reader = new BufferedReader(new StringReader(text.getText()));
+			String benis2 = reader.readLine();
+			String fullbenis2 = "";
+			boolean caughtdiv = false;
+			while (benis2 != null) {
+				benis2 = benis2.trim();
+
+				if (benis2.startsWith("ScaleX(")) {
+					benis2 = "ScaleX(" + d + ")";
+					caughtdiv = true;
+				}
+
+				fullbenis2 = fullbenis2 + benis2 + "\r\n";
+				benis2 = reader.readLine();
+			}
+			if (!caughtdiv)
+				fullbenis2 = "ScaleX(" + d + ")\r\n" + fullbenis2; //prepend
+			text.setText(fullbenis2);
+			try {
+				f51.remake(text.getText());
+				countPolys();
+			} catch (final Exception er) {
+				System.err.println("Error loading ContO: " + er);
+				JOptionPane.showMessageDialog(RunApp.frame, "Error loading ContO: " + er
+						+ "\r\nIf you're sure this isn't your fault, tell rafa something went wrong and give him the full console log");
+				er.printStackTrace();
+			}
+			//saveFile();
+		} catch (final IOException e) {
+		}
+	}
+
+	void setScaleY(final int d) {
+
+		try {
+			final BufferedReader reader = new BufferedReader(new StringReader(text.getText()));
+			String benis2 = reader.readLine();
+			String fullbenis2 = "";
+			boolean caughtdiv = false;
+			while (benis2 != null) {
+				benis2 = benis2.trim();
+
+				if (benis2.startsWith("ScaleY(")) {
+					benis2 = "ScaleY(" + d + ")";
+					caughtdiv = true;
+				}
+
+				fullbenis2 = fullbenis2 + benis2 + "\r\n";
+				benis2 = reader.readLine();
+			}
+			if (!caughtdiv)
+				fullbenis2 = "ScaleY(" + d + ")\r\n" + fullbenis2; //prepend
+			text.setText(fullbenis2);
+			try {
+				f51.remake(text.getText());
+				countPolys();
+			} catch (final Exception er) {
+				System.err.println("Error loading ContO: " + er);
+				JOptionPane.showMessageDialog(RunApp.frame, "Error loading ContO: " + er
+						+ "\r\nIf you're sure this isn't your fault, tell rafa something went wrong and give him the full console log");
+				er.printStackTrace();
+			}
+			//saveFile();
+		} catch (final IOException e) {
+		}
+	}
+
+	void setScaleZ(final int d) {
+
+		try {
+			final BufferedReader reader = new BufferedReader(new StringReader(text.getText()));
+			String benis2 = reader.readLine();
+			String fullbenis2 = "";
+			boolean caughtdiv = false;
+			while (benis2 != null) {
+				benis2 = benis2.trim();
+
+				if (benis2.startsWith("ScaleZ(")) {
+					benis2 = "ScaleZ(" + d + ")";
+					caughtdiv = true;
+				}
+
+				fullbenis2 = fullbenis2 + benis2 + "\r\n";
+				benis2 = reader.readLine();
+			}
+			if (!caughtdiv)
+				fullbenis2 = "ScaleZ(" + d + ")\r\n" + fullbenis2; //prepend
+			text.setText(fullbenis2);
+			try {
+				f51.remake(text.getText());
+				countPolys();
+			} catch (final Exception er) {
+				System.err.println("Error loading ContO: " + er);
+				JOptionPane.showMessageDialog(RunApp.frame, "Error loading ContO: " + er
+						+ "\r\nIf you're sure this isn't your fault, tell rafa something went wrong and give him the full console log");
 				er.printStackTrace();
 			}
 			//saveFile();
