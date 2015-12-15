@@ -6,4 +6,4 @@ jdk:
   - openjdk6
   
 script:
-  - javac -classpath "jgoodies-forms-1.8.0.jar;miglayout15-swing.jar;rsyntaxtextarea-2.5.8.jar" *.java -Xlint:deprecation
+  - javac -classpath "jgoodies-forms-1.8.0.jar:miglayout15-swing.jar:rsyntaxtextarea-2.5.8.jar" *.java -Xlint:deprecation
