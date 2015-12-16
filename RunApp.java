@@ -743,7 +743,7 @@ public class RunApp extends Panel {
 		panel_7.add(btnWireframe);
 
 		btnPointWire = new JButton("Point wire");
-		btnShowAxis.setToolTipText("Toggles point wireframe (only polygon points are drawn)");
+		btnPointWire.setToolTipText("Toggles point wireframe (only polygon points are drawn)");
 		btnPointWire.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Medium.pointwire = !Medium.pointwire;
