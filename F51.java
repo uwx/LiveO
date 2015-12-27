@@ -148,6 +148,9 @@ public class F51 extends JPanel implements KeyListener, MouseListener {
 			JOptionPane.showMessageDialog(RunApp.frame, "Hey! You need an \"o.rad\" file in your LiveO folder! Sorry!");
 		} catch (final Exception e) {
 			e.printStackTrace();
+		} finally {
+		    if (o == null)
+		        System.exit(3);
 		}
 		o.y = 120;
 		o.z += 200;
@@ -158,6 +161,7 @@ public class F51 extends JPanel implements KeyListener, MouseListener {
 	public void whileTrueLoop() {
 		medium.d(rd);
 		o.d(rd);
+		o.dCols(rd);
 		if (show3)
 			medium.d3p(rd);
 		if (forward)
@@ -241,9 +245,9 @@ public class F51 extends JPanel implements KeyListener, MouseListener {
 			rotr = true;
 		if (i == KeyEvent.VK_NUMPAD4 || i == KeyEvent.VK_4)
 			rotl = true;
-		if (i == KeyEvent.VK_PLUS)
+		if (i == KeyEvent.VK_M)
 			plus = true;
-		if (i == KeyEvent.VK_MINUS)
+		if (i == KeyEvent.VK_N)
 			minus = true;
 		if (i == KeyEvent.VK_ASTERISK || i == KeyEvent.VK_MULTIPLY)
 			in = true;
@@ -280,10 +284,10 @@ public class F51 extends JPanel implements KeyListener, MouseListener {
 			rotr = false;
 		if (i == KeyEvent.VK_NUMPAD4 || i == KeyEvent.VK_4)
 			rotl = false;
-		if (i == KeyEvent.VK_PLUS)
-			plus = false;
-		if (i == KeyEvent.VK_MINUS)
-			minus = false;
+        if (i == KeyEvent.VK_M)
+            plus = false;
+        if (i == KeyEvent.VK_N)
+            minus = false;
 		if (i == KeyEvent.VK_ASTERISK || i == KeyEvent.VK_MULTIPLY)
 			in = false;
 		if (i == KeyEvent.VK_SLASH || i == KeyEvent.VK_DIVIDE)
