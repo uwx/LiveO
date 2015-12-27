@@ -161,7 +161,6 @@ public class F51 extends JPanel implements KeyListener, MouseListener {
 	public void whileTrueLoop() {
 		medium.d(rd);
 		o.d(rd);
-		o.dCols(rd);
 		if (show3)
 			medium.d3p(rd);
 		if (forward)

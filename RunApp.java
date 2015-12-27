@@ -950,6 +950,8 @@ public class RunApp extends Panel {
 	static JFrame frame;
 	static F51 applet;
 	public static ArrayList<Image> icons;
+
+    static boolean solidsApproachScreen = false;
 	private final JButton button, button_1, button_2, btnNewButton, button_3, btnTransGlass, btnAa, btnReset;
 	private Timer rt;
 	private final JCheckBox chckbxAutorefresh;

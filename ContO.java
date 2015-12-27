@@ -18,7 +18,6 @@ public class ContO {
 	public ContO(final String s, final Medium medium, final int i, final int j, final int k)
 			throws Exception {
 		npl = 0;
-		ntrackerspl = 0;
 		x = 0;
 		y = 0;
 		z = 0;
@@ -43,7 +42,6 @@ public class ContO {
 		grat = 0;
 		m = medium;
 		p = new Plane[0x186a0];
-		displayTrackers = new Plane[5000];
 		x = i;
 		y = j;
 		z = k;
@@ -241,8 +239,7 @@ public class ContO {
             m.tr.notwall[m.tr.nt] = true;
         }
         if (line.startsWith("</track>")) {
-          // p[npl] = new Plane(m, pointX, pointZ, pointY, nPoints, color, flag1, gr, fs, 0, 0, light, hidepoly, randomcolor, randoutline, customstroke, strokewidth, strokecap, strokejoin, strokemtlimit);
-
+          //
 
             int x1 = m.tr.x[m.tr.nt] - m.tr.radx[m.tr.nt];
             int x2 = m.tr.x[m.tr.nt] + m.tr.radx[m.tr.nt];
@@ -285,33 +282,37 @@ public class ContO {
             </p>
             */
 
+            int ggr = 0;
+            if (RunApp.solidsApproachScreen)
+                ggr = -10;
             int[] pc = { 255, 0, 0 };
             int[] px = { x1, x1 , x1 , x1 ,};
             int[] py = { y2, y2 , y1 , y1 ,};
             int[] pz = { z2, z1 , z1 , z2 ,};
-            displayTrackers[ntrackerspl] = p[npl] = new Plane(m, px, pz, py, 4, pc, false, 0, 0, 0, 0, (byte) 0, false, false /*rndcolor*/, false, false, 0, 0, 0, 0);
-            ntrackerspl++;
+
+            p[npl] = new Plane(m, px, pz, py, 4, pc, false, ggr, 0, 0, 0, (byte) 0, false, false /*rndcolor*/, false, false, 0, 0, 0, 0);
+            npl++;
 
             int[] apc = { 0, 255, 0 };
             int[] apx = { x2, x2 , x1 , x1 ,};
             int[] apy = { y1, y2 , y2 , y1 ,};
             int[] apz = { z2, z2 , z2 , z2 ,};
-            displayTrackers[ntrackerspl] = p[npl] = new Plane(m, apx, apz, apy, 4, apc, false, 0, 0, 0, 0, (byte) 0, false, false /*rndcolor*/, false, false, 0, 0, 0, 0);
-            ntrackerspl++;
+            p[npl] = new Plane(m, apx, apz, apy, 4, apc, false, ggr, 0, 0, 0, (byte) 0, false, false /*rndcolor*/, false, false, 0, 0, 0, 0);
+            npl++;
 
             int[] bpc = { 0, 0, 255 };
             int[] bpx = { x2, x2 , x2 , x2 ,};
             int[] bpy = { y1, y2 , y2 , y1 ,};
             int[] bpz = { z2, z2 , z1 , z1 ,};
-            displayTrackers[ntrackerspl] = p[npl] = new Plane(m, bpx, bpz, bpy, 4, bpc, false, 0, 0, 0, 0, (byte) 0, false, false /*rndcolor*/, false, false, 0, 0, 0, 0);
-            ntrackerspl++;
+            p[npl] = new Plane(m, bpx, bpz, bpy, 4, bpc, false, ggr, 0, 0, 0, (byte) 0, false, false /*rndcolor*/, false, false, 0, 0, 0, 0);
+            npl++;
 
             int[] cpc = { 255, 255, 255 };
             int[] cpx = { x2, x1 , x1 , x2 ,};
             int[] cpy = { y2, y2 , y1 , y1 ,};
             int[] cpz = { z1, z1 , z1 , z1 ,};
-            displayTrackers[ntrackerspl] = p[npl] = new Plane(m, cpx, cpz, cpy, 4, cpc, false, 0, 0, 0, 0, (byte) 0, false, false /*rndcolor*/, false, false, 0, 0, 0, 0);
-            ntrackerspl++;
+            p[npl] = new Plane(m, cpx, cpz, cpy, 4, cpc, false, ggr, 0, 0, 0, (byte) 0, false, false /*rndcolor*/, false, false, 0, 0, 0, 0);
+            npl++;
 
             /*int[] px = { m.tr.x[m.tr.nt] - m.tr.radx[m.tr.nt], m.tr.x[m.tr.nt] - m.tr.radx[m.tr.nt], m.tr.x[m.tr.nt] + m.tr.radx[m.tr.nt], m.tr.x[m.tr.nt] + m.tr.radx[m.tr.nt], };
               int[] py = { m.tr.y[m.tr.nt] - m.tr.rady[m.tr.nt], m.tr.y[m.tr.nt] + m.tr.rady[m.tr.nt], m.tr.y[m.tr.nt] + m.tr.rady[m.tr.nt], m.tr.y[m.tr.nt] - m.tr.rady[m.tr.nt],  }; // may need inverting + and -
@@ -676,68 +677,6 @@ public class ContO {
 		}*/
 	}
 
-	public void dCols(final Graphics g) {
-        if (dist != 0) {
-            dist = 0;
-            //if (track != -2)
-            //    m.tr.in[track] = false;
-        }
-        if (!out) {
-            final int i = m.cx + (int) ((x - m.x - m.cx) * Math.cos(m.xz * 0.017453292519943295D)
-                    - (z - m.z - m.cz) * Math.sin(m.xz * 0.017453292519943295D));
-            final int j = m.cz + (int) ((x - m.x - m.cx) * Math.sin(m.xz * 0.017453292519943295D)
-                    + (z - m.z - m.cz) * Math.cos(m.xz * 0.017453292519943295D));
-            final int k = m.cz + (int) ((y - m.y - m.cy) * Math.sin(m.zy * 0.017453292519943295D)
-                    + (j - m.cz) * Math.cos(m.zy * 0.017453292519943295D));
-            if (xs(i + maxR, k) > 0 && xs(i - maxR, k) < m.w && k > -maxR && k < m.fade[7]
-                    && xs(i + maxR, k) - xs(i - maxR, k) > disp) {
-                if (shadow) {
-                    final int l = m.cy + (int) ((m.ground - m.cy) * Math.cos(m.zy * 0.017453292519943295D)
-                            - (j - m.cz) * Math.sin(m.zy * 0.017453292519943295D));
-                    final int j1 = m.cz + (int) ((m.ground - m.cy) * Math.sin(m.zy * 0.017453292519943295D)
-                            + (j - m.cz) * Math.cos(m.zy * 0.017453292519943295D));
-                    if (ys(l + maxR, j1) > 0 && ys(l - maxR, j1) < m.h)
-                        for (int k1 = 0; k1 < ntrackerspl; k1++)
-                            displayTrackers[k1].s(g, x - m.x, y - m.y, z - m.z, xz, xy, zy);
-                }
-                final int i1 = m.cy + (int) ((y - m.y - m.cy) * Math.cos(m.zy * 0.017453292519943295D)
-                        - (j - m.cz) * Math.sin(m.zy * 0.017453292519943295D));
-                if (ys(i1 + maxR, k) > 0 && ys(i1 - maxR, k) < m.h) {
-                    final int ai[] = new int[ntrackerspl];
-                    for (int l1 = 0; l1 < ntrackerspl; l1++) {
-                        ai[l1] = 0;
-                        for (int j2 = 0; j2 < ntrackerspl; j2++)
-                            if (displayTrackers[l1].av != displayTrackers[j2].av) {
-                                if (displayTrackers[l1].av < displayTrackers[j2].av)
-                                    ai[l1]++;
-                            } else if (l1 > j2)
-                                ai[l1]++;
-
-                    }
-
-                    for (int i2 = 0; i2 < ntrackerspl; i2++)
-                        for (int k2 = 0; k2 < ntrackerspl; k2++)
-                            if (ai[k2] == i2) {
-                                if (F51.trans && displayTrackers[k2].glass)
-                                    ((Graphics2D) g).setComposite(AlphaComposite.getInstance(3, 0.7F));
-                                displayTrackers[k2].d((Graphics2D) g, x - m.x, y - m.y, z - m.z, xz, xy, zy, wxz, stonecold);
-                                if (F51.trans && displayTrackers[k2].glass)
-                                    ((Graphics2D) g).setComposite(AlphaComposite.getInstance(3, 1.0F));
-                            }
-
-                    dist = (int) Math.sqrt((int) Math.sqrt((m.x + m.cx - x) * (m.x + m.cx - x) + (m.z - z) * (m.z - z)
-                            + (m.y + m.cy - y) * (m.y + m.cy - y))) * grounded;
-                }
-            }
-        }
-        /*if (dist != 0 && track != -2) {
-            m.tr.in[track] = true;
-            m.tr.x[track] = x - m.x;
-            m.tr.y[track] = y - m.y;
-            m.tr.z[track] = z - m.z;
-        }*/
-    }
-
 	public void reset() {
 		nhits = 0;
 		xz = 0;
@@ -811,8 +750,6 @@ public class ContO {
 
 	Medium m;
 	Plane p[];
-	Plane displayTrackers[];
-	int ntrackerspl;
 
 	F51 f51;
 	int npl;
