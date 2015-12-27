@@ -260,7 +260,7 @@ public class ContO {
             p(-x,y,z)
             p(-x,y,-z)
             p(-x,-y,-z)
-            p(-x,-y,z) // dafuq
+            p(-x,-y,z) // human eyes careful
             </p>
 
             <p>
@@ -272,7 +272,7 @@ public class ContO {
 
             <p>
             p(x,-y,z)
-            p(x,y,z) // dafuq
+            p(x,y,z) // human eyes careful
             p(x,y,-z)
             p(x,-y,-z)
             </p>
@@ -301,8 +301,8 @@ public class ContO {
 
             int[] bpc = { 0, 0, 255 };
             int[] bpx = { x2, x2 , x2 , x2 ,};
-            int[] bpy = { y1, y2 , y1 , y2 ,};
-            if (F51.fuckA)
+            int[] bpy = { y1, y2 , y2 , y1 ,};
+            /*if (F51.fuckA)
                 bpy[0] = y1;
             else
                 bpy[0] = y2;
@@ -317,10 +317,8 @@ public class ContO {
             if (F51.fuckD)
                 bpy[3] = y1;
             else
-                bpy[3] = y2;
-            System.out.println("" + F51.fuckA + F51.fuckB + F51.fuckC + F51.fuckD);
-
-            int[] bpz = { z2, z2 , z2 , z1 ,};
+                bpy[3] = y2;*/
+            int[] bpz = { z2, z2 , z1 , z1 ,};
             displayTrackers[ntrackerspl] = p[npl] = new Plane(m, bpx, bpz, bpy, 4, bpc, false, 0, 0, 0, 0, (byte) 0, false, false /*rndcolor*/, false, false, 0, 0, 0, 0);
             ntrackerspl++;
 
