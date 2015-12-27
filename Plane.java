@@ -412,7 +412,7 @@ public class Plane {
 		return (j - m.focus_point) * (m.cy - i) / j + i;
 	}
 
-	public void rot(final int ai[], final int ai1[], final int i, final int j, final int k, final int l) {
+	public static void rot(final int ai[], final int ai1[], final int i, final int j, final int k, final int l) {
 		if (k != 0)
 			for (int i1 = 0; i1 < l; i1++) {
 				final int j1 = ai[i1];
