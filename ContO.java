@@ -283,36 +283,38 @@ public class ContO {
             */
 
             int ggr = 0;
-            if (RunApp.solidsApproachScreen)
-                ggr = -10;
-            int[] pc = { 255, 0, 0 };
-            int[] px = { x1, x1 , x1 , x1 ,};
-            int[] py = { y2, y2 , y1 , y1 ,};
-            int[] pz = { z2, z1 , z1 , z2 ,};
+            //if (RunApp.solidsApproachScreen)
+            //    ggr = -51;
+            if (RunApp.showSolids) {
+                int[] pc = { 255, 0, 0 };
+                int[] px = { x1, x1 , x1 , x1 ,};
+                int[] py = { y2, y2 , y1 , y1 ,};
+                int[] pz = { z2, z1 , z1 , z2 ,};
 
-            p[npl] = new Plane(m, px, pz, py, 4, pc, false, ggr, 0, 0, 0, (byte) 0, false, false /*rndcolor*/, false, false, 0, 0, 0, 0);
-            npl++;
+                p[npl] = new Plane(m, px, pz, py, 4, pc, false, ggr, 0, 0, 0, (byte) 0, false, false /*rndcolor*/, false, false, 0, 0, 0, 0);
+                npl++;
 
-            int[] apc = { 0, 255, 0 };
-            int[] apx = { x2, x2 , x1 , x1 ,};
-            int[] apy = { y1, y2 , y2 , y1 ,};
-            int[] apz = { z2, z2 , z2 , z2 ,};
-            p[npl] = new Plane(m, apx, apz, apy, 4, apc, false, ggr, 0, 0, 0, (byte) 0, false, false /*rndcolor*/, false, false, 0, 0, 0, 0);
-            npl++;
+                int[] apc = { 0, 255, 0 };
+                int[] apx = { x2, x2 , x1 , x1 ,};
+                int[] apy = { y1, y2 , y2 , y1 ,};
+                int[] apz = { z2, z2 , z2 , z2 ,};
+                p[npl] = new Plane(m, apx, apz, apy, 4, apc, false, ggr, 0, 0, 0, (byte) 0, false, false /*rndcolor*/, false, false, 0, 0, 0, 0);
+                npl++;
 
-            int[] bpc = { 0, 0, 255 };
-            int[] bpx = { x2, x2 , x2 , x2 ,};
-            int[] bpy = { y1, y2 , y2 , y1 ,};
-            int[] bpz = { z2, z2 , z1 , z1 ,};
-            p[npl] = new Plane(m, bpx, bpz, bpy, 4, bpc, false, ggr, 0, 0, 0, (byte) 0, false, false /*rndcolor*/, false, false, 0, 0, 0, 0);
-            npl++;
+                int[] bpc = { 0, 0, 255 };
+                int[] bpx = { x2, x2 , x2 , x2 ,};
+                int[] bpy = { y1, y2 , y2 , y1 ,};
+                int[] bpz = { z2, z2 , z1 , z1 ,};
+                p[npl] = new Plane(m, bpx, bpz, bpy, 4, bpc, false, ggr, 0, 0, 0, (byte) 0, false, false /*rndcolor*/, false, false, 0, 0, 0, 0);
+                npl++;
 
-            int[] cpc = { 255, 255, 255 };
-            int[] cpx = { x2, x1 , x1 , x2 ,};
-            int[] cpy = { y2, y2 , y1 , y1 ,};
-            int[] cpz = { z1, z1 , z1 , z1 ,};
-            p[npl] = new Plane(m, cpx, cpz, cpy, 4, cpc, false, ggr, 0, 0, 0, (byte) 0, false, false /*rndcolor*/, false, false, 0, 0, 0, 0);
-            npl++;
+                int[] cpc = { 255, 255, 255 };
+                int[] cpx = { x2, x1 , x1 , x2 ,};
+                int[] cpy = { y2, y2 , y1 , y1 ,};
+                int[] cpz = { z1, z1 , z1 , z1 ,};
+                p[npl] = new Plane(m, cpx, cpz, cpy, 4, cpc, false, ggr, 0, 0, 0, (byte) 0, false, false /*rndcolor*/, false, false, 0, 0, 0, 0);
+                npl++;
+            }
 
             /*int[] px = { m.tr.x[m.tr.nt] - m.tr.radx[m.tr.nt], m.tr.x[m.tr.nt] - m.tr.radx[m.tr.nt], m.tr.x[m.tr.nt] + m.tr.radx[m.tr.nt], m.tr.x[m.tr.nt] + m.tr.radx[m.tr.nt], };
               int[] py = { m.tr.y[m.tr.nt] - m.tr.rady[m.tr.nt], m.tr.y[m.tr.nt] + m.tr.rady[m.tr.nt], m.tr.y[m.tr.nt] + m.tr.rady[m.tr.nt], m.tr.y[m.tr.nt] - m.tr.rady[m.tr.nt],  }; // may need inverting + and -

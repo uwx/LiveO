@@ -739,6 +739,24 @@ public class RunApp extends Panel {
 				Medium.wire = !Medium.wire;
 			}
 		});
+
+		chckbxNewCheckBox = new JCheckBox("Show solids");
+		chckbxNewCheckBox.setSelected(true); //doesn't trigger actionevent
+		chckbxNewCheckBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                RunApp.showSolids = chckbxNewCheckBox.isSelected();
+                try {
+                    // no need to count polys
+                    applet.remake(t.text.getText());
+                } catch (Exception e1) {
+                    postMsg("Error loading ContO: " + e
+                            + "\r\nIf you're sure this isn't your fault, tell rafa something went wrong and give him the full console log");
+                }
+            }
+        });
+		chckbxNewCheckBox.setAlignmentX(Component.CENTER_ALIGNMENT);
+		panel_7.add(chckbxNewCheckBox);
 		btnWireframe.setAlignmentX(Component.CENTER_ALIGNMENT);
 		panel_7.add(btnWireframe);
 
@@ -951,7 +969,7 @@ public class RunApp extends Panel {
 	static F51 applet;
 	public static ArrayList<Image> icons;
 
-    static boolean solidsApproachScreen = false;
+    static boolean showSolids = true;
 	private final JButton button, button_1, button_2, btnNewButton, button_3, btnTransGlass, btnAa, btnReset;
 	private Timer rt;
 	private final JCheckBox chckbxAutorefresh;
@@ -1018,6 +1036,7 @@ public class RunApp extends Panel {
 	private JPanel panel_22;
 	private JLabel lblScalez;
 	private JTextField textField_5;
+	private JCheckBox chckbxNewCheckBox;
 
 	/**
 	 * Fetches icons of 16, 32 and 48 pixels from the 'data' folder.
