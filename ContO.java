@@ -318,18 +318,45 @@ public class ContO {
             
             /* Track Flats / Faces */
         	/* Captures RadX and RadZ, RadY can be interpreted/determined by model */
-        	
-        	int[] px = { m.tr.x[m.tr.nt] - m.tr.radx[m.tr.nt], m.tr.x[m.tr.nt] - m.tr.radx[m.tr.nt], m.tr.x[m.tr.nt] + m.tr.radx[m.tr.nt], m.tr.x[m.tr.nt] + m.tr.radx[m.tr.nt]};
-            int[] py = { m.tr.y[m.tr.nt], m.tr.y[m.tr.nt], m.tr.y[m.tr.nt], m.tr.y[m.tr.nt]};
-            int[] pz = { m.tr.z[m.tr.nt] - m.tr.radz[m.tr.nt], m.tr.z[m.tr.nt] + m.tr.radz[m.tr.nt], m.tr.z[m.tr.nt] + m.tr.radz[m.tr.nt], m.tr.z[m.tr.nt] - m.tr.radz[m.tr.nt]}; // may need changing
-            int[] pc = { 255, 0, 0 };
-                
-            Plane.rot(py, pz, m.tr.y[m.tr.nt], m.tr.z[m.tr.nt], -m.tr.zy[m.tr.nt], 4);
-            Plane.rot(py, px, m.tr.y[m.tr.nt], m.tr.x[m.tr.nt], -m.tr.xy[m.tr.nt], 4);
-
-            p[npl] = new Plane(m, px, pz, py, 4, pc, false, 0, 0, 0, 0, (byte) 0, false, false /*rndcolor*/, false, false, 0, 0, 0, 0);
-            npl++;
-        	
+        	if(RunApp.showTrackFaces)
+        	{
+	        	if((m.tr.zy[m.tr.nt] == 90 || m.tr.zy[m.tr.nt] == -90) && m.tr.xy[m.tr.nt] == 0)
+	        	{
+		            int[] px = { m.tr.x[m.tr.nt] - m.tr.radx[m.tr.nt], m.tr.x[m.tr.nt] - m.tr.radx[m.tr.nt], m.tr.x[m.tr.nt] + m.tr.radx[m.tr.nt], m.tr.x[m.tr.nt] + m.tr.radx[m.tr.nt]};
+		            int[] py = { m.tr.y[m.tr.nt], m.tr.y[m.tr.nt], m.tr.y[m.tr.nt], m.tr.y[m.tr.nt]};
+		            int[] pz = { m.tr.z[m.tr.nt] - m.tr.rady[m.tr.nt], m.tr.z[m.tr.nt] + m.tr.rady[m.tr.nt], m.tr.z[m.tr.nt] + m.tr.rady[m.tr.nt], m.tr.z[m.tr.nt] - m.tr.rady[m.tr.nt]}; // may need changing
+		            int[] pc = { 255, 255, 0 };
+		                
+		            Plane.rot(py, pz, m.tr.y[m.tr.nt], m.tr.z[m.tr.nt], -m.tr.zy[m.tr.nt], 4);
+		
+		            p[npl] = new Plane(m, px, pz, py, 4, pc, false, 0, 0, 0, 0, (byte) 0, false, false /*rndcolor*/, false, false, 0, 0, 0, 0);
+		            npl++;
+	        	}
+	        	else if((m.tr.xy[m.tr.nt] == 90 || m.tr.xy[m.tr.nt] == -90) && m.tr.zy[m.tr.nt] == 0)
+	        	{
+	        		int[] px = { m.tr.x[m.tr.nt] - m.tr.rady[m.tr.nt], m.tr.x[m.tr.nt] - m.tr.rady[m.tr.nt], m.tr.x[m.tr.nt] + m.tr.rady[m.tr.nt], m.tr.x[m.tr.nt] + m.tr.rady[m.tr.nt]};
+		            int[] py = { m.tr.y[m.tr.nt], m.tr.y[m.tr.nt], m.tr.y[m.tr.nt], m.tr.y[m.tr.nt]};
+		            int[] pz = { m.tr.z[m.tr.nt] - m.tr.radz[m.tr.nt], m.tr.z[m.tr.nt] + m.tr.radz[m.tr.nt], m.tr.z[m.tr.nt] + m.tr.radz[m.tr.nt], m.tr.z[m.tr.nt] - m.tr.radz[m.tr.nt]}; // may need changing
+		            int[] pc = { 255, 255, 0 };
+		                
+		            Plane.rot(py, px, m.tr.y[m.tr.nt], m.tr.x[m.tr.nt], -m.tr.xy[m.tr.nt], 4);
+		
+		            p[npl] = new Plane(m, px, pz, py, 4, pc, false, 0, 0, 0, 0, (byte) 0, false, false /*rndcolor*/, false, false, 0, 0, 0, 0);
+		            npl++;
+	        	} else
+	        	{
+	        		int[] px = { m.tr.x[m.tr.nt] - m.tr.radx[m.tr.nt], m.tr.x[m.tr.nt] - m.tr.radx[m.tr.nt], m.tr.x[m.tr.nt] + m.tr.radx[m.tr.nt], m.tr.x[m.tr.nt] + m.tr.radx[m.tr.nt]};
+		            int[] py = { m.tr.y[m.tr.nt], m.tr.y[m.tr.nt], m.tr.y[m.tr.nt], m.tr.y[m.tr.nt]};
+		            int[] pz = { m.tr.z[m.tr.nt] - m.tr.radz[m.tr.nt], m.tr.z[m.tr.nt] + m.tr.radz[m.tr.nt], m.tr.z[m.tr.nt] + m.tr.radz[m.tr.nt], m.tr.z[m.tr.nt] - m.tr.radz[m.tr.nt]}; // may need changing
+		            int[] pc = { 255, 255, 0 };
+		                
+		            Plane.rot(py, px, m.tr.y[m.tr.nt], m.tr.x[m.tr.nt], -m.tr.xy[m.tr.nt], 4);
+		            Plane.rot(py, pz, m.tr.y[m.tr.nt], m.tr.z[m.tr.nt], -m.tr.zy[m.tr.nt], 4);
+		
+		            p[npl] = new Plane(m, px, pz, py, 4, pc, false, 0, 0, 0, 0, (byte) 0, false, false /*rndcolor*/, false, false, 0, 0, 0, 0);
+		            npl++;
+	        	}
+        	}
         	track = m.tr.nt;
             m.tr.nt++;
         }
@@ -554,7 +581,10 @@ public class ContO {
 				if (s2.startsWith("grounded"))
 					grounded = getvalue("grounded", s2, 0);
 				if (s2.startsWith("div"))
+				{
 					f = getvalue("div", s2, 0) / 10F;
+					maxR = 300;
+				}
 				if (s2.startsWith("idiv"))
 					f = getvalue("idiv", s1, 0) / 100F;
 				if (s2.startsWith("iwid"))
