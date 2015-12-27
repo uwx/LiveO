@@ -145,7 +145,7 @@ public class F51 extends JPanel implements KeyListener, MouseListener {
 			s.close();
 			o = new ContO(content, medium, 350, 150, 600);
 		} catch (final FileNotFoundException e) {
-			JOptionPane.showMessageDialog(RunApp.frame, "Hey! You need an \"o.rad\" file in your LiveO folder! Sorry!");
+			RunApp.postMsg("Hey! You need an \"o.rad\" file in your LiveO folder! Sorry!");
 		} catch (final Exception e) {
 			e.printStackTrace();
 		} finally {

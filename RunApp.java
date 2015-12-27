@@ -15,6 +15,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.beans.Beans;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
@@ -204,7 +205,6 @@ public class RunApp extends Panel {
 
 		panel_8 = new JPanel();
 		panel_2.add(panel_8);
-
 		slider = new JSlider();
 		slider.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		slider.setMinimum(-360);
@@ -1076,7 +1076,7 @@ public class RunApp extends Panel {
 	}
 
 	public static void postMsg(final String msg) {
-		if (!suppressErrorMessages)
+		if (!suppressErrorMessages && !Beans.isDesignTime()) //beans.isdesigntime avoids joptionpanes when using windowbuilder
 			JOptionPane.showMessageDialog(frame, msg);
 	}
 
