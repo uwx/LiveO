@@ -243,7 +243,6 @@ public class ContO {
         if (line.startsWith("</track>")) {
           // p[npl] = new Plane(m, pointX, pointZ, pointY, nPoints, color, flag1, gr, fs, 0, 0, light, hidepoly, randomcolor, randoutline, customstroke, strokewidth, strokecap, strokejoin, strokemtlimit);
 
-            int[] pc = { 255, 0, 0 };
 
             int x1 = m.tr.x[m.tr.nt] - m.tr.radx[m.tr.nt];
             int x2 = m.tr.x[m.tr.nt] + m.tr.radx[m.tr.nt];
@@ -286,28 +285,50 @@ public class ContO {
             </p>
             */
 
+            int[] pc = { 255, 0, 0 };
             int[] px = { x1, x1 , x1 , x1 ,};
             int[] py = { y2, y2 , y1 , y1 ,};
             int[] pz = { z2, z1 , z1 , z2 ,};
             displayTrackers[ntrackerspl] = p[npl] = new Plane(m, px, pz, py, 4, pc, false, 0, 0, 0, 0, (byte) 0, false, false /*rndcolor*/, false, false, 0, 0, 0, 0);
             ntrackerspl++;
 
+            int[] apc = { 0, 255, 0 };
             int[] apx = { x2, x2 , x1 , x1 ,};
             int[] apy = { y1, y2 , y2 , y1 ,};
             int[] apz = { z2, z2 , z2 , z2 ,};
-            displayTrackers[ntrackerspl] = p[npl] = new Plane(m, apx, apz, apy, 4, pc, false, 0, 0, 0, 0, (byte) 0, false, false /*rndcolor*/, false, false, 0, 0, 0, 0);
+            displayTrackers[ntrackerspl] = p[npl] = new Plane(m, apx, apz, apy, 4, apc, false, 0, 0, 0, 0, (byte) 0, false, false /*rndcolor*/, false, false, 0, 0, 0, 0);
             ntrackerspl++;
 
+            int[] bpc = { 0, 0, 255 };
             int[] bpx = { x2, x2 , x2 , x2 ,};
-            int[] bpy = { y1, y2 , y2 , y1 ,};
+            int[] bpy = { y1, y2 , y1 , y2 ,};
+            if (F51.fuckA)
+                bpy[0] = y1;
+            else
+                bpy[0] = y2;
+            if (F51.fuckB)
+                bpy[1] = y1;
+            else
+                bpy[1] = y2;
+            if (F51.fuckC)
+                bpy[2] = y1;
+            else
+                bpy[2] = y2;
+            if (F51.fuckD)
+                bpy[3] = y1;
+            else
+                bpy[3] = y2;
+            System.out.println("" + F51.fuckA + F51.fuckB + F51.fuckC + F51.fuckD);
+
             int[] bpz = { z2, z2 , z2 , z1 ,};
-            displayTrackers[ntrackerspl] = p[npl] = new Plane(m, bpx, bpz, bpy, 4, pc, false, 0, 0, 0, 0, (byte) 0, false, false /*rndcolor*/, false, false, 0, 0, 0, 0);
+            displayTrackers[ntrackerspl] = p[npl] = new Plane(m, bpx, bpz, bpy, 4, bpc, false, 0, 0, 0, 0, (byte) 0, false, false /*rndcolor*/, false, false, 0, 0, 0, 0);
             ntrackerspl++;
 
+            int[] cpc = { 255, 255, 255 };
             int[] cpx = { x2, x1 , x1 , x2 ,};
             int[] cpy = { y2, y2 , y1 , y1 ,};
             int[] cpz = { z1, z1 , z1 , z1 ,};
-            displayTrackers[ntrackerspl] = p[npl] = new Plane(m, cpx, cpz, cpy, 4, pc, false, 0, 0, 0, 0, (byte) 0, false, false /*rndcolor*/, false, false, 0, 0, 0, 0);
+            displayTrackers[ntrackerspl] = p[npl] = new Plane(m, cpx, cpz, cpy, 4, cpc, false, 0, 0, 0, 0, (byte) 0, false, false /*rndcolor*/, false, false, 0, 0, 0, 0);
             ntrackerspl++;
 
             /*int[] px = { m.tr.x[m.tr.nt] - m.tr.radx[m.tr.nt], m.tr.x[m.tr.nt] - m.tr.radx[m.tr.nt], m.tr.x[m.tr.nt] + m.tr.radx[m.tr.nt], m.tr.x[m.tr.nt] + m.tr.radx[m.tr.nt], };
