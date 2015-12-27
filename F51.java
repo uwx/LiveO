@@ -263,28 +263,16 @@ public class F51 extends JPanel implements KeyListener, MouseListener {
 			up = true;
 		if (i == KeyEvent.VK_O)
 			trans = !trans;
-		//if (i == KeyEvent.VK_W)
-		//	Medium.wire = !Medium.wire;
+		if (i == KeyEvent.VK_W)
+			Medium.wire = !Medium.wire;
 		if (i == KeyEvent.VK_P)
 			Medium.pointwire = !Medium.pointwire;
 		if (i == KeyEvent.VK_T)
 			show3 = !show3;
 		if (i == KeyEvent.VK_Z)
 			switchmode();
-		if (i == KeyEvent.VK_Q)
-            fuckA = !fuckA;
-		if (i == KeyEvent.VK_W)
-            fuckB = !fuckB;
-		if (i == KeyEvent.VK_E)
-            fuckC = !fuckC;
-		if (i == KeyEvent.VK_R)
-            fuckD = !fuckD;
 
 	}
-    static boolean fuckA = false;
-    static boolean fuckB = false;
-    static boolean fuckC = false;
-    static boolean fuckD = false;
 
 	@Override
 	public void keyReleased(final KeyEvent e) {
