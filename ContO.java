@@ -242,13 +242,79 @@ public class ContO {
         }
         if (line.startsWith("</track>")) {
           // p[npl] = new Plane(m, pointX, pointZ, pointY, nPoints, color, flag1, gr, fs, 0, 0, light, hidepoly, randomcolor, randoutline, customstroke, strokewidth, strokecap, strokejoin, strokemtlimit);
-          int[] px = { m.tr.x[m.tr.nt] - m.tr.radx[m.tr.nt], m.tr.x[m.tr.nt] - m.tr.radx[m.tr.nt], m.tr.x[m.tr.nt] + m.tr.radx[m.tr.nt], m.tr.x[m.tr.nt] + m.tr.radx[m.tr.nt], };
-          int[] py = { m.tr.y[m.tr.nt] - m.tr.rady[m.tr.nt], m.tr.y[m.tr.nt] + m.tr.rady[m.tr.nt], m.tr.y[m.tr.nt] + m.tr.rady[m.tr.nt], m.tr.y[m.tr.nt] - m.tr.rady[m.tr.nt],  }; // may need inverting + and -
-          int[] pz = { m.tr.z[m.tr.nt] - m.tr.radz[m.tr.nt], m.tr.z[m.tr.nt] - m.tr.radz[m.tr.nt], m.tr.z[m.tr.nt] + m.tr.radz[m.tr.nt], m.tr.z[m.tr.nt] + m.tr.radz[m.tr.nt], }; // may need changing
-          int[] pc = { 255, 0, 0 };
 
-          displayTrackers[ntrackerspl] = p[npl] = new Plane(m, px, pz, py, 4, pc, false, 0, 0, 0, 0, (byte) 0, false, false /*rndcolor*/, false, false, 0, 0, 0, 0);
-          ntrackerspl++;
+            int[] pc = { 255, 0, 0 };
+
+            int x1 = m.tr.x[m.tr.nt] - m.tr.radx[m.tr.nt];
+            int x2 = m.tr.x[m.tr.nt] + m.tr.radx[m.tr.nt];
+            int y1 = m.tr.y[m.tr.nt] - m.tr.rady[m.tr.nt];
+            int y2 = m.tr.y[m.tr.nt] + m.tr.rady[m.tr.nt];
+            int z1 = m.tr.z[m.tr.nt] - m.tr.radz[m.tr.nt];
+            int z2 = m.tr.z[m.tr.nt] + m.tr.radz[m.tr.nt];
+
+            /*
+             * x = 200
+             * y = 100
+             * z = 300
+             *
+            <p>
+            p(-x,y,z)
+            p(-x,y,-z)
+            p(-x,-y,-z)
+            p(-x,-y,z) // dafuq
+            </p>
+
+            <p>
+            p(x,-y,z)
+            p(x,y,z)
+            p(-x,y,z)
+            p(-x,-y,z)
+            </p>
+
+            <p>
+            p(x,-y,z)
+            p(x,y,z) // dafuq
+            p(x,y,-z)
+            p(x,-y,-z)
+            </p>
+
+            <p>
+            p(x,y,-z)
+            p(-x,y,-z)
+            p(-x,-y,-z)
+            p(x,-y,-z)
+            </p>
+            */
+
+            int[] px = { x1, x1 , x1 , x1 ,};
+            int[] py = { y2, y2 , y1 , y1 ,};
+            int[] pz = { z2, z1 , z1 , z2 ,};
+            displayTrackers[ntrackerspl] = p[npl] = new Plane(m, px, pz, py, 4, pc, false, 0, 0, 0, 0, (byte) 0, false, false /*rndcolor*/, false, false, 0, 0, 0, 0);
+            ntrackerspl++;
+
+            int[] apx = { x2, x2 , x1 , x1 ,};
+            int[] apy = { y1, y2 , y2 , y1 ,};
+            int[] apz = { z2, z2 , z2 , z2 ,};
+            displayTrackers[ntrackerspl] = p[npl] = new Plane(m, apx, apz, apy, 4, pc, false, 0, 0, 0, 0, (byte) 0, false, false /*rndcolor*/, false, false, 0, 0, 0, 0);
+            ntrackerspl++;
+
+            int[] bpx = { x2, x2 , x2 , x2 ,};
+            int[] bpy = { y1, y2 , y2 , y1 ,};
+            int[] bpz = { z2, z2 , z2 , z1 ,};
+            displayTrackers[ntrackerspl] = p[npl] = new Plane(m, bpx, bpz, bpy, 4, pc, false, 0, 0, 0, 0, (byte) 0, false, false /*rndcolor*/, false, false, 0, 0, 0, 0);
+            ntrackerspl++;
+
+            int[] cpx = { x2, x1 , x1 , x2 ,};
+            int[] cpy = { y2, y2 , y1 , y1 ,};
+            int[] cpz = { z1, z1 , z1 , z1 ,};
+            displayTrackers[ntrackerspl] = p[npl] = new Plane(m, cpx, cpz, cpy, 4, pc, false, 0, 0, 0, 0, (byte) 0, false, false /*rndcolor*/, false, false, 0, 0, 0, 0);
+            ntrackerspl++;
+
+            /*int[] px = { m.tr.x[m.tr.nt] - m.tr.radx[m.tr.nt], m.tr.x[m.tr.nt] - m.tr.radx[m.tr.nt], m.tr.x[m.tr.nt] + m.tr.radx[m.tr.nt], m.tr.x[m.tr.nt] + m.tr.radx[m.tr.nt], };
+              int[] py = { m.tr.y[m.tr.nt] - m.tr.rady[m.tr.nt], m.tr.y[m.tr.nt] + m.tr.rady[m.tr.nt], m.tr.y[m.tr.nt] + m.tr.rady[m.tr.nt], m.tr.y[m.tr.nt] - m.tr.rady[m.tr.nt],  }; // may need inverting + and -
+              int[] pz = { m.tr.z[m.tr.nt] - m.tr.radz[m.tr.nt], m.tr.z[m.tr.nt] - m.tr.radz[m.tr.nt], m.tr.z[m.tr.nt] + m.tr.radz[m.tr.nt], m.tr.z[m.tr.nt] + m.tr.radz[m.tr.nt], }; // may need changing
+             */
+
 
           track = m.tr.nt;
           m.tr.nt++;
