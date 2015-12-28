@@ -84,7 +84,7 @@ public class ContO {
 				if ((s1 = datainputstream.readLine()) == null)
 					break;
 				final String line = new StringBuilder().append("").append(s1.trim()).toString();
-				if (line.startsWith("<p>")) {
+				if (line.startsWith("<p>") && RunApp.showModel) {
 					flag = true;
 					nPoints = 0;
 					gr = 0;
@@ -155,13 +155,13 @@ public class ContO {
 						strokemtlimit = getvalue("$outlineMtlimit", line, 0);
 
 				}
-				if (line.startsWith("</p>")) {
+				if (line.startsWith("</p>") && RunApp.showModel) {
 					p[npl] = new Plane(m, pointX, pointZ, pointY, nPoints, color, glass, gr, fs, 0, 0, light, hidepoly, randomcolor,
 							randoutline, customstroke, strokewidth, strokecap, strokejoin, strokemtlimit);
 					npl++;
 					flag = false;
 				}
-				if (line.startsWith("w")) {
+				if (line.startsWith("w") && RunApp.showModel) {
 					npl += wheels.make( m, p, npl, (int) (getvalue("w", line, 0) * div * nfmm_scale[0]),
 							(int) (getvalue("w", line, 1) * div * nfmm_scale[1]),
 							(int) (getvalue("w", line, 2) * div * nfmm_scale[2]), getvalue("w", line, 3),
