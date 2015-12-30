@@ -30,5 +30,5 @@ public class Trackers {
     int[] y = new int[95000];
     int[] z = new int[95000];
     int[] zy = new int[95000];
-	boolean in[];
+	boolean in[] = new boolean[95000];
 }

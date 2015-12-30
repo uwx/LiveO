@@ -315,7 +315,7 @@ public class ContO {
                 p[npl] = new Plane(m, cpx, cpz, cpy, 4, cpc, false, ggr, 0, 0, 0, (byte) 0, false, false /*rndcolor*/, false, false, 0, 0, 0, 0);
                 npl++;
             }
-            
+
             /* Track Flats / Faces */
         	/* Captures RadX and RadZ, RadY can be interpreted/determined by model */
         	if(RunApp.showTrackFaces)
@@ -326,9 +326,9 @@ public class ContO {
 		            int[] py = { m.tr.y[m.tr.nt], m.tr.y[m.tr.nt], m.tr.y[m.tr.nt], m.tr.y[m.tr.nt]};
 		            int[] pz = { m.tr.z[m.tr.nt] - m.tr.rady[m.tr.nt], m.tr.z[m.tr.nt] + m.tr.rady[m.tr.nt], m.tr.z[m.tr.nt] + m.tr.rady[m.tr.nt], m.tr.z[m.tr.nt] - m.tr.rady[m.tr.nt]}; // may need changing
 		            int[] pc = { 255, 255, 0 };
-		                
+
 		            Plane.rot(py, pz, m.tr.y[m.tr.nt], m.tr.z[m.tr.nt], -m.tr.zy[m.tr.nt], 4);
-		
+
 		            p[npl] = new Plane(m, px, pz, py, 4, pc, false, 0, 0, 0, 0, (byte) 0, false, false /*rndcolor*/, false, false, 0, 0, 0, 0);
 		            npl++;
 	        	}
@@ -338,9 +338,9 @@ public class ContO {
 		            int[] py = { m.tr.y[m.tr.nt], m.tr.y[m.tr.nt], m.tr.y[m.tr.nt], m.tr.y[m.tr.nt]};
 		            int[] pz = { m.tr.z[m.tr.nt] - m.tr.radz[m.tr.nt], m.tr.z[m.tr.nt] + m.tr.radz[m.tr.nt], m.tr.z[m.tr.nt] + m.tr.radz[m.tr.nt], m.tr.z[m.tr.nt] - m.tr.radz[m.tr.nt]}; // may need changing
 		            int[] pc = { 255, 255, 0 };
-		                
+
 		            Plane.rot(py, px, m.tr.y[m.tr.nt], m.tr.x[m.tr.nt], -m.tr.xy[m.tr.nt], 4);
-		
+
 		            p[npl] = new Plane(m, px, pz, py, 4, pc, false, 0, 0, 0, 0, (byte) 0, false, false /*rndcolor*/, false, false, 0, 0, 0, 0);
 		            npl++;
 	        	} else
@@ -349,10 +349,10 @@ public class ContO {
 		            int[] py = { m.tr.y[m.tr.nt], m.tr.y[m.tr.nt], m.tr.y[m.tr.nt], m.tr.y[m.tr.nt]};
 		            int[] pz = { m.tr.z[m.tr.nt] - m.tr.radz[m.tr.nt], m.tr.z[m.tr.nt] + m.tr.radz[m.tr.nt], m.tr.z[m.tr.nt] + m.tr.radz[m.tr.nt], m.tr.z[m.tr.nt] - m.tr.radz[m.tr.nt]}; // may need changing
 		            int[] pc = { 255, 255, 0 };
-		                
+
 		            Plane.rot(py, px, m.tr.y[m.tr.nt], m.tr.x[m.tr.nt], -m.tr.xy[m.tr.nt], 4);
 		            Plane.rot(py, pz, m.tr.y[m.tr.nt], m.tr.z[m.tr.nt], -m.tr.zy[m.tr.nt], 4);
-		
+
 		            p[npl] = new Plane(m, px, pz, py, 4, pc, false, 0, 0, 0, 0, (byte) 0, false, false /*rndcolor*/, false, false, 0, 0, 0, 0);
 		            npl++;
 	        	}
@@ -360,6 +360,7 @@ public class ContO {
         	track = m.tr.nt;
             m.tr.nt++;
         }
+        m.tr.prepare();
 
 
 				if (line.startsWith("MaxRadius"))

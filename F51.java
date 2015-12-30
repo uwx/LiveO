@@ -114,7 +114,12 @@ public class F51 extends JPanel implements KeyListener, MouseListener {
 
 		rd.setColor(Color.black);
 		rd.fillRect(0, 0, 700, 475);
-		whileTrueLoop();
+		try {
+		    whileTrueLoop();
+		} catch (Exception e) {
+		    e.printStackTrace();
+		    System.exit(3);
+		}
 
 		g.drawImage(offImage, 0, 0, null);
 	}
