@@ -264,27 +264,27 @@ public class RunApp extends Panel {
 		panel_2.add(panel_17);
 		panel_17.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
-		scrollPane = new JScrollPane();
-		scrollPane.setToolTipText("Controls");
-		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		panel_17.add(scrollPane);
+		controlsScrollPane = new JScrollPane();
+		controlsScrollPane.setToolTipText("Controls");
+		controlsScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		controlsScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		panel_17.add(controlsScrollPane);
 
 		panel_18 = new JPanel();
-		scrollPane.setViewportView(panel_18);
+		controlsScrollPane.setViewportView(panel_18);
 		panel_18.setLayout(new BoxLayout(panel_18, BoxLayout.Y_AXIS));
 
-		lblAllanPleaseAdd = new JLabel("8 - Forward");
-		panel_18.add(lblAllanPleaseAdd);
+		lblForward = new JLabel("8 - Forward");
+		panel_18.add(lblForward);
 
-		lblNewLabel_1 = new JLabel("2 - Back");
-		panel_18.add(lblNewLabel_1);
+		lblBack = new JLabel("2 - Back");
+		panel_18.add(lblBack);
 
-		lblNewLabel_2 = new JLabel("6 - Right\r\n");
-		panel_18.add(lblNewLabel_2);
+		lblRight = new JLabel("6 - Right\r\n");
+		panel_18.add(lblRight);
 
-		lblNewLabel_3 = new JLabel("4 - Left\r\n");
-		panel_18.add(lblNewLabel_3);
+		lblLeft = new JLabel("4 - Left\r\n");
+		panel_18.add(lblLeft);
 
 		lblUp = new JLabel("+ - Up");
 		panel_18.add(lblUp);
@@ -1044,12 +1044,12 @@ public class RunApp extends Panel {
 	private final JCheckBox chckbxAutosave;
 	private final JButton btnWireframe;
 	private final JPanel panel_17;
-	private final JLabel lblAllanPleaseAdd;
-	private final JScrollPane scrollPane;
+	private final JLabel lblForward;
+	private final JScrollPane controlsScrollPane;
 	private final JPanel panel_18;
-	private final JLabel lblNewLabel_1;
-	private final JLabel lblNewLabel_2;
-	private final JLabel lblNewLabel_3;
+	private final JLabel lblBack;
+	private final JLabel lblRight;
+	private final JLabel lblLeft;
 	private final JLabel lblUp;
 	private final JLabel lblDown;
 	private final JLabel lblZoom;
@@ -1074,7 +1074,7 @@ public class RunApp extends Panel {
 	private JTextField textField_5;
 	private JCheckBox chckbxNewCheckBox;
 	private JCheckBox chckTrackFaces;
-	private JCheckBox chckModel; 
+	private JCheckBox chckModel;
 
 	/**
 	 * Fetches icons of 16, 32 and 48 pixels from the 'data' folder.
@@ -1143,9 +1143,9 @@ public class RunApp extends Panel {
 
 		frame.pack();
 
-		final Dimension dimension = scrollPane.getSize();
+		final Dimension dimension = controlsScrollPane.getSize();
 		dimension.height -= 128;
-		scrollPane.setPreferredSize(dimension);
+		controlsScrollPane.setPreferredSize(dimension);
 
 		// end required
 
