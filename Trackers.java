@@ -5,11 +5,11 @@
 
 public class Trackers {
 
-	public void prepare() {
-		for (int i = 0; i < nt; i++)
-			in[i] = false;
+    public void prepare() {
+        for (int i = 0; i < nt; i++)
+            in[i] = false;
 
-	}
+    }
 
     int[][] c = new int[95000][3];
     int[] dam = new int[95000];
@@ -30,5 +30,5 @@ public class Trackers {
     int[] y = new int[95000];
     int[] z = new int[95000];
     int[] zy = new int[95000];
-	boolean in[] = new boolean[95000];
+    boolean in[] = new boolean[95000];
 }

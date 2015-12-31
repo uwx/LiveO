@@ -11,60 +11,60 @@ import java.net.URL;
  */
 public class DesktopStub implements AppletStub {
 
-	AppletContext context = new DesktopContext();
+    AppletContext context = new DesktopContext();
 
-	/**
-	 * @inheritdoc
-	 */
-	@Override
-	public boolean isActive() {
-		return true;
-	}
+    /**
+     * @inheritdoc
+     */
+    @Override
+    public boolean isActive() {
+        return true;
+    }
 
-	/**
-	 * @inheritdoc
-	 */
-	@Override
-	public URL getDocumentBase() {
-		try {
-			return new URL("file:///" + System.getProperty("user.dir") + "/");
-		} catch (final MalformedURLException ex) {
-			return null;
-		}
-	}
+    /**
+     * @inheritdoc
+     */
+    @Override
+    public URL getDocumentBase() {
+        try {
+            return new URL("file:///" + System.getProperty("user.dir") + "/");
+        } catch (final MalformedURLException ex) {
+            return null;
+        }
+    }
 
-	/**
-	 * @inheritdoc
-	 */
-	@Override
-	public URL getCodeBase() {
-		try {
-			return new URL("file:///" + System.getProperty("user.dir") + "/");
-		} catch (final MalformedURLException ex) {
-			return null;
-		}
-	}
+    /**
+     * @inheritdoc
+     */
+    @Override
+    public URL getCodeBase() {
+        try {
+            return new URL("file:///" + System.getProperty("user.dir") + "/");
+        } catch (final MalformedURLException ex) {
+            return null;
+        }
+    }
 
-	/**
-	 * This method is not implemented.
-	 */
-	@Override
-	public String getParameter(final String name) {
-		return null;
-	}
+    /**
+     * This method is not implemented.
+     */
+    @Override
+    public String getParameter(final String name) {
+        return null;
+    }
 
-	/**
-	 * @inheritdoc
-	 */
-	@Override
-	public AppletContext getAppletContext() {
-		return context;
-	}
+    /**
+     * @inheritdoc
+     */
+    @Override
+    public AppletContext getAppletContext() {
+        return context;
+    }
 
-	/**
-	 * @inheritdoc
-	 */
-	@Override
-	public void appletResize(final int width, final int height) {
-	}
+    /**
+     * @inheritdoc
+     */
+    @Override
+    public void appletResize(final int width, final int height) {
+    }
 }
