@@ -16,6 +16,7 @@
 
 // IF THERE'S NO FOCUS REMEMBER TO CLICK THE RENDER PANEL, DAWG
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -29,7 +30,9 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.image.BufferedImage;
+import java.io.DataInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
@@ -56,9 +59,9 @@ public class F51 extends JPanel implements KeyListener, MouseListener, MouseWhee
         plus = false;
         minus = false;
         aa = false;
-        
+
         axis = false;
-        
+
         doComponentStuff();
         addKeyListener(this);
         addMouseListener(this);
@@ -147,6 +150,26 @@ public class F51 extends JPanel implements KeyListener, MouseListener, MouseWhee
         o.z = storeoz;
     }
 
+    static File overlayfile = new File("./o.rad");
+    static ContO overlay = null;
+    boolean drawOverlay = false;
+
+    public void remakeOverlay() throws Exception {
+        overlay = new ContO(new DataInputStream(new FileInputStream(overlayfile)), medium, 350, 150, 600);
+        overlay.wxz = o.wxz;
+        overlay.xz = o.xz;
+        overlay.xy = o.xy;
+        overlay.zy = o.zy;
+        overlay.y = o.y;
+        overlay.z = o.z;
+    }
+
+    public void drawOverlay() {
+        ((Graphics2D) rd).setComposite(AlphaComposite.getInstance(3, 0.6F));
+        overlay.d(rd);
+        ((Graphics2D) rd).setComposite(AlphaComposite.getInstance(3, 1.0F));
+    }
+
     public void begin() {
         medium = new Medium();
         try {
@@ -171,7 +194,9 @@ public class F51 extends JPanel implements KeyListener, MouseListener, MouseWhee
     public void whileTrueLoop() {
         medium.d(rd);
         o.d(rd);
-        
+        if (drawOverlay && overlay != null)
+            drawOverlay();
+
         if(medium.autorotate){
         	if(medium.autorotate_dir){
         		o.xz -= medium.movement_auto;
@@ -179,7 +204,7 @@ public class F51 extends JPanel implements KeyListener, MouseListener, MouseWhee
         		o.xz += medium.movement_auto;
         	}
         }
-        
+
         if (axis)
         	medium.axis(rd, o, medium);
         if (show3)
@@ -212,11 +237,11 @@ public class F51 extends JPanel implements KeyListener, MouseListener, MouseWhee
             ((Graphics2D) rd).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         else
             ((Graphics2D) rd).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
-        
+
         if(medium.passthru == false)
         	if(o.y > 235)
         		o.y = 235;
-        
+
         rd.setColor(new Color(0, 0, 0));
     }
 
@@ -332,7 +357,7 @@ public class F51 extends JPanel implements KeyListener, MouseListener, MouseWhee
         if (i == KeyEvent.VK_UP || i == KeyEvent.VK_W)
             up = false;
     }
-    
+
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {
     	int notches = e.getWheelRotation();
