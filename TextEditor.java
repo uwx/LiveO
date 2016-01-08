@@ -92,17 +92,17 @@ public class TextEditor implements ActionListener {
     private final JPanel panel_2;
 
     // Creates the GUI
-    
+
     public TextEditor(final F51 f51, final RunApp runapp) {
         this.f51 = f51;
-        final JFrame frame = new JFrame("Editor");    
-        
+        final JFrame frame = new JFrame("Editor");
+
         Toolkit tk = Toolkit.getDefaultToolkit();
 		Dimension screenSize = tk.getScreenSize();
 		Insets scnMax = Toolkit.getDefaultToolkit().getScreenInsets(frame.getGraphicsConfiguration());
 
 	    frame.setSize(screenSize.width / 2, screenSize.height - scnMax.bottom);
-	    
+
 
         text = new RSyntaxTextArea(NUM_ROWS, NUM_COLS);
         text.addKeyListener(new KeyAdapter() {
@@ -477,13 +477,13 @@ public class TextEditor implements ActionListener {
             /*int pretx = (Math.abs((int)radius[0]) - Math.abs((int)radius[3]));
             int prety = (Math.abs((int)radius[1]) - Math.abs((int)radius[4]));
             int pretz = (Math.abs((int)radius[2]) - Math.abs((int)radius[5]));
-            
+
             String outxy = "";
             if (pretx < 0)
             	outxy = "xy(-90)";
             else
             	outxy = "xy(90)";
-            
+
             String outzy = "";
             if (pretz < 0)
             	outzy = "zy(-90)";
@@ -579,7 +579,7 @@ public class TextEditor implements ActionListener {
             tx(-zcoord)
             ty(0)
             </track>
-            
+
             <track>
             xy(-90)
             radx(xcoord)
@@ -588,7 +588,7 @@ public class TextEditor implements ActionListener {
             tx(zcoord)
             ty(0)
             </track>
-            
+
             <track>
             zy(-90)
             radx(zcoord)
@@ -598,7 +598,7 @@ public class TextEditor implements ActionListener {
             ty(0)
             tz(zcoord)
             </track>
-            
+
             <track>
             zy(90)
             radx(zcoord)
@@ -608,7 +608,7 @@ public class TextEditor implements ActionListener {
             ty(0)
             tz(-zcoord)
             </track>
-            
+
             */
 
             //////////// old
@@ -622,8 +622,8 @@ public class TextEditor implements ActionListener {
             tx(-ycoord)
             ty(0)
             </track>
-            
-            
+
+
             <track>
             xy(-90)
             radx(xcoord)
@@ -632,7 +632,7 @@ public class TextEditor implements ActionListener {
             tx(ycoord)
             ty(0)
             </track>
-            
+
             <track>
             zy(-90)
             radx(zcoord)
@@ -642,7 +642,7 @@ public class TextEditor implements ActionListener {
             ty(0)
             tz(zcoord)
             </track>
-            
+
             <track>
             zy(90)
             radx(zcoord)
@@ -657,7 +657,7 @@ public class TextEditor implements ActionListener {
             ////////////original
 
             /*
-            
+
             <track>
             xy(90)
             radx(200)
@@ -666,7 +666,7 @@ public class TextEditor implements ActionListener {
             tx(-700)
             ty(0)
             </track>
-            
+
             <track>
             xy(-90)
             radx(200)
@@ -675,7 +675,7 @@ public class TextEditor implements ActionListener {
             tx(700)
             ty(0)
             </track>
-            
+
             <track>
             zy(-90)
             radx(700)
@@ -685,7 +685,7 @@ public class TextEditor implements ActionListener {
             ty(0)
             tz(700)
             </track>
-            
+
             <track>
             zy(90)
             radx(700)
@@ -695,14 +695,14 @@ public class TextEditor implements ActionListener {
             ty(0)
             tz(-700)
             </track>
-            
+
             */
 
             ////////////flat
 
             /*
             <track>
-            
+
             xy(90)
             radx(1)
             rady(2)
@@ -711,7 +711,7 @@ public class TextEditor implements ActionListener {
             ty(0)
             tz(0)
             </track>
-            
+
             */
 
             //final String radx = "radx(" + Math.abs(pretx) + ")";
@@ -735,13 +735,13 @@ public class TextEditor implements ActionListener {
             /*int pretx = (Math.abs((int)radius[0]) - Math.abs((int)radius[3]));
             int prety = (Math.abs((int)radius[1]) - Math.abs((int)radius[4]));
             int pretz = (Math.abs((int)radius[2]) - Math.abs((int)radius[5]));
-            
+
             String outxy = "";
             if (pretx < 0)
             	outxy = "xy(-90)";
             else
             	outxy = "xy(90)";
-            
+
             String outzy = "";
             if (pretz < 0)
             	outzy = "zy(-90)";
@@ -839,7 +839,7 @@ public class TextEditor implements ActionListener {
             tx(-zcoord)
             ty(0)
             </track>
-            
+
             <track>
             xy(-90)
             radx(xcoord)
@@ -848,7 +848,7 @@ public class TextEditor implements ActionListener {
             tx(zcoord)
             ty(0)
             </track>
-            
+
             <track>
             zy(-90)
             radx(zcoord)
@@ -858,7 +858,7 @@ public class TextEditor implements ActionListener {
             ty(0)
             tz(zcoord)
             </track>
-            
+
             <track>
             zy(90)
             radx(zcoord)
@@ -868,7 +868,7 @@ public class TextEditor implements ActionListener {
             ty(0)
             tz(-zcoord)
             </track>
-            
+
             */
 
             //////////// old
@@ -882,8 +882,8 @@ public class TextEditor implements ActionListener {
             tx(-ycoord)
             ty(0)
             </track>
-            
-            
+
+
             <track>
             xy(-90)
             radx(xcoord)
@@ -892,7 +892,7 @@ public class TextEditor implements ActionListener {
             tx(ycoord)
             ty(0)
             </track>
-            
+
             <track>
             zy(-90)
             radx(zcoord)
@@ -902,7 +902,7 @@ public class TextEditor implements ActionListener {
             ty(0)
             tz(zcoord)
             </track>
-            
+
             <track>
             zy(90)
             radx(zcoord)
@@ -917,7 +917,7 @@ public class TextEditor implements ActionListener {
             ////////////original
 
             /*
-            
+
             <track>
             xy(90)
             radx(200)
@@ -926,7 +926,7 @@ public class TextEditor implements ActionListener {
             tx(-700)
             ty(0)
             </track>
-            
+
             <track>
             xy(-90)
             radx(200)
@@ -935,7 +935,7 @@ public class TextEditor implements ActionListener {
             tx(700)
             ty(0)
             </track>
-            
+
             <track>
             zy(-90)
             radx(700)
@@ -945,7 +945,7 @@ public class TextEditor implements ActionListener {
             ty(0)
             tz(700)
             </track>
-            
+
             <track>
             zy(90)
             radx(700)
@@ -955,14 +955,14 @@ public class TextEditor implements ActionListener {
             ty(0)
             tz(-700)
             </track>
-            
+
             */
 
             ////////////flat
 
             /*
             <track>
-            
+
             xy(90)
             radx(1)
             rady(2)
@@ -971,7 +971,7 @@ public class TextEditor implements ActionListener {
             ty(0)
             tz(0)
             </track>
-            
+
             */
 
             //final String radx = "radx(" + Math.abs(pretx) + ")";
@@ -1447,7 +1447,7 @@ public class TextEditor implements ActionListener {
     }
 
     void setDiv(final int d) {
-    	if(d<0){
+    	if(d>0){
 
         try {
             final BufferedReader reader = new BufferedReader(new StringReader(text.getText()));
