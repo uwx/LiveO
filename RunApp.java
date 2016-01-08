@@ -52,6 +52,7 @@ import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.JSeparator;
 
 public class RunApp extends Panel {
 
@@ -203,6 +204,11 @@ public class RunApp extends Panel {
                 applet.o.xy = 0;
                 applet.o.zy = 0;
                 applet.o.wxz = 0;
+                
+                applet.medium.movement_coarse = 5;
+                slider_4.setValue(applet.medium.movement_coarse);
+                applet.medium.movement_auto = 2;
+                slider_3.setValue(applet.medium.movement_auto);
             }
         });
         applet = new F51();
@@ -1007,6 +1013,11 @@ public class RunApp extends Panel {
                 final int coarsity = 2;
                 try {
                     applet.medium.movement_auto = Integer.parseInt(textField_6.getText());
+                    if(applet.medium.movement_auto > 90){
+                    	slider_3.setValue(90);
+                    }else{
+                    	slider_3.setValue(applet.medium.movement_auto);
+                    }
                 } catch (final NumberFormatException e) {
                     postMsg("Did you insert a non-numeric value? memes. value reset to normal...");
                     applet.medium.movement_auto = coarsity;
@@ -1015,6 +1026,31 @@ public class RunApp extends Panel {
                 }
             }
         });
+        
+        slider_3 = new JSlider();
+        
+        slider_3.setPreferredSize(new Dimension(90, 23));
+        slider_3.setSnapToTicks(true);
+        slider_3.setMajorTickSpacing(5);
+        slider_3.setMinorTickSpacing(1);
+        slider_3.setMaximum(90);
+        slider_3.setMinimum(1);
+        slider_3.setValue(applet.medium.movement_auto);
+        slider_3.addChangeListener(new ChangeListener() {
+        	public void stateChanged(ChangeEvent arg0) {
+        		final int coarsity = 2;
+                try {
+                	textField_6.setText("" + applet.medium.movement_auto);
+                    applet.medium.movement_auto = slider_3.getValue();
+                } catch (final NumberFormatException e) {
+                    postMsg("Did you insert a non-numeric value? memes. value reset to normal...");
+                    applet.medium.movement_auto = coarsity;
+                    slider_3.setValue(applet.medium.movement_auto);
+                    e.printStackTrace();
+                }
+        	}
+        });
+        panel_26.add(slider_3);
         textField_6.setColumns(4);
         panel_26.add(textField_6);
 
@@ -1029,8 +1065,13 @@ public class RunApp extends Panel {
             @Override
             public void actionPerformed(final ActionEvent arg0) {
                 final int coarsity = 5;
-                try {
+                try {                	
                     applet.medium.movement_coarse = Integer.parseInt(txtS.getText());
+                    if(applet.medium.movement_coarse > 90){
+                    	slider_4.setValue(90);
+                    }else{
+                    	slider_4.setValue(applet.medium.movement_coarse);
+                    }
                 } catch (final NumberFormatException e) {
                     postMsg("Did you insert a non-numeric value? memes. value reset to normal...");
                     applet.medium.movement_coarse = coarsity;
@@ -1042,6 +1083,29 @@ public class RunApp extends Panel {
         txtS.setColumns(4);
         panel_24.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
         panel_24.add(lblNewLabel_1);
+        
+        slider_4 = new JSlider();
+        slider_4.setMajorTickSpacing(5);
+        slider_4.setMinorTickSpacing(1);
+        slider_4.setMaximum(90);
+        slider_4.setMinimum(1);
+        slider_4.setPreferredSize(new Dimension(90, 23));
+        panel_24.add(slider_4);
+        slider_4.setValue(applet.medium.movement_coarse);
+        slider_4.addChangeListener(new ChangeListener() {
+        	public void stateChanged(ChangeEvent arg0) {
+        		final int coarsity = 5;
+                try {
+                	txtS.setText("" + applet.medium.movement_coarse);
+                    applet.medium.movement_coarse = slider_4.getValue();
+                } catch (final NumberFormatException e) {
+                    postMsg("Did you insert a non-numeric value? memes. value reset to normal...");
+                    applet.medium.movement_coarse = coarsity;
+                    slider_4.setValue(applet.medium.movement_coarse);
+                    e.printStackTrace();
+                }
+        	}
+        });
         panel_24.add(txtS);
 
         btnAa.addActionListener(new ActionListener() {
@@ -1307,6 +1371,8 @@ public class RunApp extends Panel {
     private final JPanel panel_31;
     private final JButton btnSelect;
     private final JCheckBox chckbxShowOverlayCar;
+    private JSlider slider_3;
+    private JSlider slider_4;
 
     /**
      * Fetches icons of 16, 32 and 48 pixels from the 'data' folder.
