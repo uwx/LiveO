@@ -323,10 +323,10 @@ public class RunApp extends Panel {
         lblLeft = new JLabel("<html><b>4</b> - rotate wheels left</html>");
         panel_18.add(lblLeft);
 
-        lblUp = new JLabel("<html><b>M</b> - move car upwards</html>");
+        lblUp = new JLabel("<html><b>N</b> - move car upwards</html>");
         panel_18.add(lblUp);
 
-        lblDown = new JLabel("<html><b>N</b> - move car downwards</html>");
+        lblDown = new JLabel("<html><b>M</b> - move car downwards</html>");
         panel_18.add(lblDown);
 
         lblZoom = new JLabel("<html><b>* or [</b> - move car back</html>");
