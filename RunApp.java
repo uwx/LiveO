@@ -992,18 +992,18 @@ public class RunApp extends Panel {
         panel_23.add(panel_27);
         btnNewButton_2 = new JButton("Autorotation direction: ");
         if(applet.medium.autorotate_dir){
-        	btnNewButton_2.setText("Autorotation direction: right");
+        	btnNewButton_2.setText("Autorotation direction: clockwise");
         }else{
-        	btnNewButton_2.setText("Autorotation direction: left");
+        	btnNewButton_2.setText("Autorotation direction: counterclockwise");
         }
         btnNewButton_2.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		if(applet.medium.autorotate_dir){
         			applet.medium.autorotate_dir = false;
-        			btnNewButton_2.setText("Autorotation direction: left");
+        			btnNewButton_2.setText("Autorotation direction: counterclockwise");
         		}else{
         			applet.medium.autorotate_dir = true;
-        			btnNewButton_2.setText("Autorotation direction: right");
+        			btnNewButton_2.setText("Autorotation direction: clockwise");
         		}
         	}
         });
