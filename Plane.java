@@ -86,7 +86,7 @@ public class Plane {
         final int ai1[] = new int[n];
         final int ai2[] = new int[n];
         /*final int out[][] = RunApp.make2d(ai, ai1, ai2, n, m);
-
+        
         for (int i6 = 0; i6 < 3; i6++) {
             m.lxp[i6] = out[i6][0];
             m.lyp[i6] = out[i6][1];

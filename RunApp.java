@@ -3,13 +3,11 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GraphicsEnvironment;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
 import java.awt.Panel;
-import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,7 +15,6 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.geom.Rectangle2D;
 import java.beans.Beans;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -55,16 +52,6 @@ import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import java.awt.ComponentOrientation;
-import javax.swing.JToggleButton;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.FormSpecs;
-import com.jgoodies.forms.layout.RowSpec;
-import net.miginfocom.swing.MigLayout;
-import java.awt.CardLayout;
-import javax.swing.JTable;
-import java.awt.Checkbox;
 
 public class RunApp extends Panel {
 
@@ -96,11 +83,11 @@ public class RunApp extends Panel {
 
         //Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
-        Toolkit tk = Toolkit.getDefaultToolkit();
-		Dimension screenSize = tk.getScreenSize();
-		Insets scnMax = Toolkit.getDefaultToolkit().getScreenInsets(frame.getGraphicsConfiguration());
+        final Toolkit tk = Toolkit.getDefaultToolkit();
+        final Dimension screenSize = tk.getScreenSize();
+        final Insets scnMax = Toolkit.getDefaultToolkit().getScreenInsets(frame.getGraphicsConfiguration());
 
-        frame.setLocation((screenSize.width / 2) - (700 / 2), ((screenSize.height - scnMax.bottom) / 2) - (450 / 2));
+        frame.setLocation(screenSize.width / 2 - 700 / 2, (screenSize.height - scnMax.bottom) / 2 - 450 / 2);
 
         frame.setBackground(new Color(0, 0, 0));
         //frame.setIgnoreRepaint(true);
@@ -122,7 +109,7 @@ public class RunApp extends Panel {
                                   // out this line.
                                   // frame.pack();
                                   // frame.setMinimumSize(frame.getSize());
-        //frame.setLocationRelativeTo(null);
+                                  //frame.setLocationRelativeTo(null);
         frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.X_AXIS));
 
         panel_3 = new JPanel();
@@ -161,13 +148,13 @@ public class RunApp extends Panel {
 
         btnNewButton_1 = new JButton("Autorotate");
         btnNewButton_1.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent arg0) {
-        		if(applet.medium.autorotate == false){
-        			applet.medium.autorotate = true;
-        		}else{
-        			applet.medium.autorotate = false;
-        		}
-        	}
+            @Override
+            public void actionPerformed(final ActionEvent arg0) {
+                if (applet.medium.autorotate == false)
+                    applet.medium.autorotate = true;
+                else
+                    applet.medium.autorotate = false;
+            }
         });
         panel_1.add(btnNewButton_1);
         panel_1.add(button_2);
@@ -181,43 +168,43 @@ public class RunApp extends Panel {
         });
         panel_1.add(button_3);
 
-                                panel_25 = new JPanel();
-                                panel_1.add(panel_25);
+        panel_25 = new JPanel();
+        panel_1.add(panel_25);
 
-                                btnNewButton = new JButton("Refresh");
-                                panel_1.add(btnNewButton);
-                                btnNewButton.setHorizontalTextPosition(SwingConstants.LEFT);
-                                btnNewButton.addActionListener(new ActionListener() {
-                                    @Override
-                                    public void actionPerformed(final ActionEvent e) {
-                                        try {
-                                            applet.remake(t.text.getText());
-                                            t.countPolys();
-                                        } catch (final Exception er) {
-                                            System.err.println("Error loading ContO: " + er);
-                                            postMsg("Error loading ContO: " + er
-                                                    + "\r\nIf you're sure this isn't your fault, tell rafa something went wrong and give him the full console log");
-                                            er.printStackTrace();
-                                        }
-                                    }
-                                });
-                                btnNewButton.setHorizontalAlignment(SwingConstants.LEFT);
+        btnNewButton = new JButton("Refresh");
+        panel_1.add(btnNewButton);
+        btnNewButton.setHorizontalTextPosition(SwingConstants.LEFT);
+        btnNewButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                try {
+                    applet.remake(t.text.getText());
+                    t.countPolys();
+                } catch (final Exception er) {
+                    System.err.println("Error loading ContO: " + er);
+                    postMsg("Error loading ContO: " + er
+                            + "\r\nIf you're sure this isn't your fault, tell rafa something went wrong and give him the full console log");
+                    er.printStackTrace();
+                }
+            }
+        });
+        btnNewButton.setHorizontalAlignment(SwingConstants.LEFT);
 
-                                btnReset = new JButton("Reset");
-                                panel_1.add(btnReset);
-                                btnReset.setHorizontalAlignment(SwingConstants.RIGHT);
-                                btnReset.addActionListener(new ActionListener() {
-                                    @Override
-                                    public void actionPerformed(final ActionEvent e) {
-                                        applet.o.x = 350;
-                                        applet.o.y = 120;
-                                        applet.o.z = 800;
-                                        applet.o.xz = 0;
-                                        applet.o.xy = 0;
-                                        applet.o.zy = 0;
-                                        applet.o.wxz = 0;
-                                    }
-                                });
+        btnReset = new JButton("Reset");
+        panel_1.add(btnReset);
+        btnReset.setHorizontalAlignment(SwingConstants.RIGHT);
+        btnReset.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                applet.o.x = 350;
+                applet.o.y = 120;
+                applet.o.z = 800;
+                applet.o.xz = 0;
+                applet.o.xy = 0;
+                applet.o.zy = 0;
+                applet.o.wxz = 0;
+            }
+        });
         applet = new F51();
         applet.setIgnoreRepaint(true);
         t = new TextEditor(applet, this);
@@ -390,7 +377,7 @@ public class RunApp extends Panel {
         panel_5.setLayout(gbl_panel_5);
 
         panel_4 = new JPanel();
-        FlowLayout flowLayout_2 = (FlowLayout) panel_4.getLayout();
+        final FlowLayout flowLayout_2 = (FlowLayout) panel_4.getLayout();
         panel_4.getLayout();
         final GridBagConstraints gbc_panel_4 = new GridBagConstraints();
         gbc_panel_4.fill = GridBagConstraints.HORIZONTAL;
@@ -470,72 +457,71 @@ public class RunApp extends Panel {
         });
         panel_13.add(comboBox_1);
 
-                btnOpenCarFolder = new JButton("Select car folder");
-                btnOpenCarFolder.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(final ActionEvent e) {
-                        final JFileChooser fileChooser = new JFileChooser("./");
-                        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-                        //fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
-                        final int result = fileChooser.showOpenDialog(frame);
-                        if (result == JFileChooser.APPROVE_OPTION) {
-                            final File selectedFile = fileChooser.getSelectedFile();
-                            if (selectedFile.exists() && selectedFile.isDirectory())
-                                carfolder = selectedFile;
-                            //System.out.println("Selected file: " + selectedFile.getAbsolutePath());
-                        }
-                        makeRadCombobox();
-                        comboBox_1.setModel(new DefaultComboBoxModel<String>(carSArray));
+        btnOpenCarFolder = new JButton("Select car folder");
+        btnOpenCarFolder.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                final JFileChooser fileChooser = new JFileChooser("./");
+                fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+                //fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+                final int result = fileChooser.showOpenDialog(frame);
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    final File selectedFile = fileChooser.getSelectedFile();
+                    if (selectedFile.exists() && selectedFile.isDirectory())
+                        carfolder = selectedFile;
+                    //System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+                }
+                makeRadCombobox();
+                comboBox_1.setModel(new DefaultComboBoxModel<String>(carSArray));
+            }
+        });
+
+        panel_31 = new JPanel();
+        final FlowLayout flowLayout = (FlowLayout) panel_31.getLayout();
+        flowLayout.setVgap(0);
+        flowLayout.setHgap(0);
+        final GridBagConstraints gbc_panel_31 = new GridBagConstraints();
+        gbc_panel_31.fill = GridBagConstraints.HORIZONTAL;
+        gbc_panel_31.anchor = GridBagConstraints.NORTH;
+        gbc_panel_31.insets = new Insets(0, 0, 5, 5);
+        gbc_panel_31.gridx = 1;
+        gbc_panel_31.gridy = 2;
+        panel_5.add(panel_31, gbc_panel_31);
+
+        btnSelect = new JButton("Select overlay car");
+        btnSelect.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent arg0) {
+
+                final JFileChooser fileChooser = new JFileChooser("./");
+                fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+                final int result = fileChooser.showOpenDialog(frame);
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    final File selectedFile = fileChooser.getSelectedFile();
+                    if (selectedFile.exists() && !selectedFile.isDirectory())
+                        F51.overlayfile = selectedFile;
+                    try {
+                        applet.remakeOverlay();
+                    } catch (final Exception e) {
+                        System.err.println("Error loading ContO: " + e);
+                        postMsg("Error loading ContO: " + e
+                                + "\r\nIf you're sure this isn't your fault, tell rafa something went wrong and give him the full console log");
+                        e.printStackTrace();
                     }
-                });
+                    chckbxShowOverlayCar.setSelected(true);
+                    chckbxShowOverlayCar.repaint();
+                    applet.drawOverlay = true;
+                }
 
-                panel_31 = new JPanel();
-                FlowLayout flowLayout = (FlowLayout) panel_31.getLayout();
-                flowLayout.setVgap(0);
-                flowLayout.setHgap(0);
-                GridBagConstraints gbc_panel_31 = new GridBagConstraints();
-                gbc_panel_31.fill = GridBagConstraints.HORIZONTAL;
-                gbc_panel_31.anchor = GridBagConstraints.NORTH;
-                gbc_panel_31.insets = new Insets(0, 0, 5, 5);
-                gbc_panel_31.gridx = 1;
-                gbc_panel_31.gridy = 2;
-                panel_5.add(panel_31, gbc_panel_31);
-
-                btnSelect = new JButton("Select overlay car");
-                btnSelect.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent arg0) {
-
-
-                        final JFileChooser fileChooser = new JFileChooser("./");
-                        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-
-                        final int result = fileChooser.showOpenDialog(frame);
-                        if (result == JFileChooser.APPROVE_OPTION) {
-                            final File selectedFile = fileChooser.getSelectedFile();
-                            if (selectedFile.exists() && !selectedFile.isDirectory())
-                                F51.overlayfile = selectedFile;
-                            try {
-                                applet.remakeOverlay();
-                            } catch (Exception e) {
-                                System.err.println("Error loading ContO: " + e);
-                                postMsg("Error loading ContO: " + e
-                                        + "\r\nIf you're sure this isn't your fault, tell rafa something went wrong and give him the full console log");
-                                e.printStackTrace();
-                            }
-                            chckbxShowOverlayCar.setSelected(true);
-                            chckbxShowOverlayCar.repaint();
-                            applet.drawOverlay = true;
-                        }
-
-
-                    }
-                });
-                panel_31.add(btnSelect);
-                final GridBagConstraints gbc_btnOpenCarFolder = new GridBagConstraints();
-                gbc_btnOpenCarFolder.insets = new Insets(0, 0, 0, 5);
-                gbc_btnOpenCarFolder.gridx = 1;
-                gbc_btnOpenCarFolder.gridy = 3;
-                panel_5.add(btnOpenCarFolder, gbc_btnOpenCarFolder);
+            }
+        });
+        panel_31.add(btnSelect);
+        final GridBagConstraints gbc_btnOpenCarFolder = new GridBagConstraints();
+        gbc_btnOpenCarFolder.insets = new Insets(0, 0, 0, 5);
+        gbc_btnOpenCarFolder.gridx = 1;
+        gbc_btnOpenCarFolder.gridy = 3;
+        panel_5.add(btnOpenCarFolder, gbc_btnOpenCarFolder);
 
         panel_9 = new JPanel();
         tabbedPane.addTab("Car", null, panel_9, null);
@@ -612,45 +598,43 @@ public class RunApp extends Panel {
         textField_5.setColumns(10);
         panel_22.add(textField_5);
         final GroupLayout gl_panel_15 = new GroupLayout(panel_15);
-        gl_panel_15.setHorizontalGroup(
-            gl_panel_15.createParallelGroup(Alignment.LEADING)
-                .addGroup(gl_panel_15.createSequentialGroup()
-                    .addGroup(gl_panel_15.createParallelGroup(Alignment.LEADING)
-                        .addGroup(gl_panel_15.createSequentialGroup()
-                            .addGap(1)
-                            .addGroup(gl_panel_15.createParallelGroup(Alignment.LEADING)
-                                .addGroup(gl_panel_15.createSequentialGroup()
-                                    .addComponent(panel_10, GroupLayout.PREFERRED_SIZE, 215, Short.MAX_VALUE)
-                                    .addGap(1))
-                                .addGroup(gl_panel_15.createSequentialGroup()
-                                    .addComponent(panel_11, GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
-                                    .addGap(1))
+        gl_panel_15.setHorizontalGroup(gl_panel_15.createParallelGroup(Alignment.LEADING)
+                .addGroup(gl_panel_15.createSequentialGroup().addGroup(gl_panel_15
+                        .createParallelGroup(
+                                Alignment.LEADING)
+                        .addGroup(
+                                gl_panel_15.createSequentialGroup().addGap(1)
+                                        .addGroup(
+                                                gl_panel_15.createParallelGroup(Alignment.LEADING)
+                                                        .addGroup(gl_panel_15.createSequentialGroup()
+                                                                .addComponent(panel_10, GroupLayout.PREFERRED_SIZE, 215,
+                                                                        Short.MAX_VALUE)
+                                                                .addGap(1))
+                                        .addGroup(
+                                                gl_panel_15.createSequentialGroup()
+                                                        .addComponent(panel_11, GroupLayout.DEFAULT_SIZE, 215,
+                                                                Short.MAX_VALUE)
+                                                        .addGap(1))
                                 .addComponent(panel_12, GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
                                 .addComponent(panel_16, GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)))
                         .addComponent(panel_20, GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
                         .addComponent(panel_21, GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
-                        .addComponent(panel_22, GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE))
-                    .addGap(1))
-        );
-        gl_panel_15.setVerticalGroup(
-            gl_panel_15.createParallelGroup(Alignment.LEADING)
-                .addGroup(gl_panel_15.createSequentialGroup()
-                    .addGap(5)
-                    .addComponent(panel_10, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addGap(1)
-                    .addComponent(panel_11, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addGap(1)
-                    .addComponent(panel_12, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addGap(1)
-                    .addComponent(panel_20, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
-                    .addGap(1)
-                    .addComponent(panel_21, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
-                    .addGap(1)
-                    .addComponent(panel_22, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
-                    .addComponent(panel_16, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addGap(45))
-        );
+                        .addComponent(panel_22, GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)).addGap(1)));
+        gl_panel_15.setVerticalGroup(gl_panel_15.createParallelGroup(Alignment.LEADING)
+                .addGroup(gl_panel_15.createSequentialGroup().addGap(5)
+                        .addComponent(panel_10, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+                                GroupLayout.PREFERRED_SIZE)
+                .addGap(1)
+                .addComponent(panel_11, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+                        GroupLayout.PREFERRED_SIZE)
+                .addGap(1)
+                .addComponent(panel_12, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+                        GroupLayout.PREFERRED_SIZE).addGap(1)
+                .addComponent(panel_20, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE).addGap(1)
+                .addComponent(panel_21, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE).addGap(1)
+                .addComponent(panel_22, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(ComponentPlacement.RELATED, 50, Short.MAX_VALUE).addComponent(panel_16,
+                        GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE).addGap(45)));
 
         btnSet = new JButton("Set");
         panel_16.add(btnSet);
@@ -658,32 +642,32 @@ public class RunApp extends Panel {
             @Override
             public void actionPerformed(final ActionEvent e) { //can't do this without try catch... for whatever reason
                 try {
-                    t.setDiv((int)Integer.valueOf(textField.getText()));
+                    t.setDiv(Integer.valueOf(textField.getText()));
                 } catch (final NumberFormatException er) {
                     System.err.println("div is empty");
                 }
                 try {
-                    t.setiDiv((int)Integer.valueOf(textField_1.getText()));
+                    t.setiDiv(Integer.valueOf(textField_1.getText()));
                 } catch (final NumberFormatException er) {
                     System.err.println("idiv is empty");
                 }
                 try {
-                    t.setiWid((int)Integer.valueOf(textField_2.getText()));
+                    t.setiWid(Integer.valueOf(textField_2.getText()));
                 } catch (final NumberFormatException er) {
                     System.err.println("iwid is empty");
                 }
                 try {
-                    t.setScaleX((int)Integer.valueOf(textField_3.getText()));
+                    t.setScaleX(Integer.valueOf(textField_3.getText()));
                 } catch (final NumberFormatException er) {
                     System.err.println("scalex is empty");
                 }
                 try {
-                    t.setScaleY((int)Integer.valueOf(textField_4.getText()));
+                    t.setScaleY(Integer.valueOf(textField_4.getText()));
                 } catch (final NumberFormatException er) {
                     System.err.println("scaley is empty");
                 }
                 try {
-                    t.setScaleZ((int)Integer.valueOf(textField_5.getText()));
+                    t.setScaleZ(Integer.valueOf(textField_5.getText()));
                 } catch (final NumberFormatException er) {
                     System.err.println("scalez is empty");
                 }
@@ -860,7 +844,8 @@ public class RunApp extends Panel {
 
         chckbxShowOverlayCar = new JCheckBox(" Show overlay car");
         chckbxShowOverlayCar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
                 applet.drawOverlay = chckbxShowOverlayCar.isSelected();
             }
         });
@@ -910,58 +895,57 @@ public class RunApp extends Panel {
 
         panel_23 = new JPanel();
         tabbedPane.addTab("Settings", null, panel_23, null);
-                panel_23.setLayout(new BoxLayout(panel_23, BoxLayout.Y_AXIS));
+        panel_23.setLayout(new BoxLayout(panel_23, BoxLayout.Y_AXIS));
 
         panel_30 = new JPanel();
         panel_23.add(panel_30);
 
-                chckbxAutosave = new JCheckBox("Autosave");
-                panel_30.add(chckbxAutosave);
-                chckbxAutosave.setAlignmentX(Component.CENTER_ALIGNMENT);
-                chckbxAutosave.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(final ActionEvent e) {
-                        if (chckbxAutosave.isSelected() && st == null) {
+        chckbxAutosave = new JCheckBox("Autosave");
+        panel_30.add(chckbxAutosave);
+        chckbxAutosave.setAlignmentX(Component.CENTER_ALIGNMENT);
+        chckbxAutosave.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                if (chckbxAutosave.isSelected() && st == null) {
 
-                            final ActionListener autosave = new ActionListener() {
-                                @Override
-                                public void actionPerformed(final ActionEvent e) {
-                                    try {
-                                        t.saveFile();
-                                    } catch (final Exception er) {
-                                    }
-                                    System.out.println("autosave'd!");
-                                }
-                            };
-
-                            st = new Timer(30000, autosave);
-                            st.start();
-                        } else {
-                            st.stop();
-                            st = null;
+                    final ActionListener autosave = new ActionListener() {
+                        @Override
+                        public void actionPerformed(final ActionEvent e) {
+                            try {
+                                t.saveFile();
+                            } catch (final Exception er) {
+                            }
+                            System.out.println("autosave'd!");
                         }
-                    }
-                });
+                    };
+
+                    st = new Timer(30000, autosave);
+                    st.start();
+                } else {
+                    st.stop();
+                    st = null;
+                }
+            }
+        });
 
         panel_28 = new JPanel();
         panel_23.add(panel_28);
 
         chckbxNewCheckBox_1 = new JCheckBox("Pass below ground");
 
-        if(applet.medium.passthru){
-        	chckbxNewCheckBox_1.setSelected(true);
-        }else{
-        	chckbxNewCheckBox_1.setSelected(false);
-        }
+        if (applet.medium.passthru)
+            chckbxNewCheckBox_1.setSelected(true);
+        else
+            chckbxNewCheckBox_1.setSelected(false);
 
         chckbxNewCheckBox_1.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		if(chckbxNewCheckBox_1.isSelected()){
-        			applet.medium.passthru = true;
-        		}else{
-        			applet.medium.passthru = false;
-        		}
-        	}
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                if (chckbxNewCheckBox_1.isSelected())
+                    applet.medium.passthru = true;
+                else
+                    applet.medium.passthru = false;
+            }
         });
 
         panel_28.add(chckbxNewCheckBox_1);
@@ -971,41 +955,40 @@ public class RunApp extends Panel {
 
         chckbxNewCheckBox_2 = new JCheckBox("Mouse wheel push/pull");
 
-        if(applet.medium.pushpull){
-        	chckbxNewCheckBox_2.setSelected(true);
-        }else{
-        	chckbxNewCheckBox_2.setSelected(false);
-        }
+        if (applet.medium.pushpull)
+            chckbxNewCheckBox_2.setSelected(true);
+        else
+            chckbxNewCheckBox_2.setSelected(false);
 
         chckbxNewCheckBox_2.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		if(chckbxNewCheckBox_2.isSelected()){
-        			applet.medium.pushpull = true;
-        		}else{
-        			applet.medium.pushpull = false;
-        		}
-        	}
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                if (chckbxNewCheckBox_2.isSelected())
+                    applet.medium.pushpull = true;
+                else
+                    applet.medium.pushpull = false;
+            }
         });
         panel_29.add(chckbxNewCheckBox_2);
 
         panel_27 = new JPanel();
         panel_23.add(panel_27);
         btnNewButton_2 = new JButton("Autorotation direction: ");
-        if(applet.medium.autorotate_dir){
-        	btnNewButton_2.setText("Autorotation direction: clockwise");
-        }else{
-        	btnNewButton_2.setText("Autorotation direction: counterclockwise");
-        }
+        if (applet.medium.autorotate_dir)
+            btnNewButton_2.setText("Autorotation direction: clockwise");
+        else
+            btnNewButton_2.setText("Autorotation direction: counterclockwise");
         btnNewButton_2.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		if(applet.medium.autorotate_dir){
-        			applet.medium.autorotate_dir = false;
-        			btnNewButton_2.setText("Autorotation direction: counterclockwise");
-        		}else{
-        			applet.medium.autorotate_dir = true;
-        			btnNewButton_2.setText("Autorotation direction: clockwise");
-        		}
-        	}
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                if (applet.medium.autorotate_dir) {
+                    applet.medium.autorotate_dir = false;
+                    btnNewButton_2.setText("Autorotation direction: counterclockwise");
+                } else {
+                    applet.medium.autorotate_dir = true;
+                    btnNewButton_2.setText("Autorotation direction: clockwise");
+                }
+            }
         });
         panel_27.add(btnNewButton_2);
 
@@ -1019,17 +1002,18 @@ public class RunApp extends Panel {
         textField_6 = new JTextField();
         textField_6.setText("" + applet.medium.movement_auto);
         textField_6.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent arg0) {
-        		int coarsity = 2;
-        		try {
-					applet.medium.movement_auto = Integer.parseInt(textField_6.getText());
-				} catch (NumberFormatException e) {
-					postMsg("Did you insert a non-numeric value? memes. value reset to normal...");
-					applet.medium.movement_auto = coarsity;
-					textField_6.setText("" + applet.medium.movement_auto);
-					e.printStackTrace();
-				}
-        	}
+            @Override
+            public void actionPerformed(final ActionEvent arg0) {
+                final int coarsity = 2;
+                try {
+                    applet.medium.movement_auto = Integer.parseInt(textField_6.getText());
+                } catch (final NumberFormatException e) {
+                    postMsg("Did you insert a non-numeric value? memes. value reset to normal...");
+                    applet.medium.movement_auto = coarsity;
+                    textField_6.setText("" + applet.medium.movement_auto);
+                    e.printStackTrace();
+                }
+            }
         });
         textField_6.setColumns(4);
         panel_26.add(textField_6);
@@ -1042,17 +1026,18 @@ public class RunApp extends Panel {
         txtS = new JTextField();
         txtS.setText("" + applet.medium.movement_coarse);
         txtS.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent arg0) {
-        		int coarsity = 5;
-        		try {
-					applet.medium.movement_coarse = Integer.parseInt(txtS.getText());
-				} catch (NumberFormatException e) {
-					postMsg("Did you insert a non-numeric value? memes. value reset to normal...");
-					applet.medium.movement_coarse = coarsity;
-					txtS.setText("" + applet.medium.movement_coarse);
-					e.printStackTrace();
-				}
-        	}
+            @Override
+            public void actionPerformed(final ActionEvent arg0) {
+                final int coarsity = 5;
+                try {
+                    applet.medium.movement_coarse = Integer.parseInt(txtS.getText());
+                } catch (final NumberFormatException e) {
+                    postMsg("Did you insert a non-numeric value? memes. value reset to normal...");
+                    applet.medium.movement_coarse = coarsity;
+                    txtS.setText("" + applet.medium.movement_coarse);
+                    e.printStackTrace();
+                }
+            }
         });
         txtS.setColumns(4);
         panel_24.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
@@ -1303,25 +1288,25 @@ public class RunApp extends Panel {
     private final JCheckBox chckbxNewCheckBox;
     private final JCheckBox chckTrackFaces;
     private final JCheckBox chckModel;
-    private JPanel panel_23;
-    private JLabel lblNewLabel_1;
-    private JTextField txtS;
-    private JPanel panel_24;
-    private JPanel panel_25;
-    private JButton btnNewButton_1;
-    private JPanel panel_26;
-    private JLabel lblAutorotateCoarseness;
-    private JTextField textField_6;
-    private JPanel panel_27;
-    private JButton btnNewButton_2;
-    private JCheckBox chckbxNewCheckBox_1;
-    private JPanel panel_28;
-    private JCheckBox chckbxNewCheckBox_2;
-    private JPanel panel_29;
-    private JPanel panel_30;
-    private JPanel panel_31;
-    private JButton btnSelect;
-    private JCheckBox chckbxShowOverlayCar;
+    private final JPanel panel_23;
+    private final JLabel lblNewLabel_1;
+    private final JTextField txtS;
+    private final JPanel panel_24;
+    private final JPanel panel_25;
+    private final JButton btnNewButton_1;
+    private final JPanel panel_26;
+    private final JLabel lblAutorotateCoarseness;
+    private final JTextField textField_6;
+    private final JPanel panel_27;
+    private final JButton btnNewButton_2;
+    private final JCheckBox chckbxNewCheckBox_1;
+    private final JPanel panel_28;
+    private final JCheckBox chckbxNewCheckBox_2;
+    private final JPanel panel_29;
+    private final JPanel panel_30;
+    private final JPanel panel_31;
+    private final JButton btnSelect;
+    private final JCheckBox chckbxShowOverlayCar;
 
     /**
      * Fetches icons of 16, 32 and 48 pixels from the 'data' folder.
@@ -1401,7 +1386,7 @@ public class RunApp extends Panel {
         //scrollPane.setSize(dimension);
     }
 
-    static int[][] make2d(int[] x, int[] y, int[] z, int n, Medium m) {
+    static int[][] make2d(final int[] x, final int[] y, final int[] z, final int n, final Medium m) {
 
         final int ai[] = new int[n];
         final int ai1[] = new int[n];
@@ -1415,17 +1400,10 @@ public class RunApp extends Panel {
         //if (wx != 0)
         //    rot(ai, ai1, wx + i, wz + k, k1, n);
 
-
         /* ijk where they are angles
         Plane.rot(ai, ai2, i, j, i1, n);
         Plane.rot(ai2, ai1, j, k, j1, n);
         Plane.rot(ai, ai1, i, k, l, n);*/
-
-
-
-
-
-
 
         /*if (i1 != 0 || j1 != 0 || l != 0) {
             projf = 1.0F;
@@ -1435,11 +1413,10 @@ public class RunApp extends Panel {
                         projf *= (float) (Math
                                 .sqrt((ai[i2] - ai[j2]) * (ai[i2] - ai[j2]) + (ai1[i2] - ai1[j2]) * (ai1[i2] - ai1[j2]))
                                 / 100D);
-
+        
             projf /= 3F;
         }*/
         Plane.rot(ai, ai1, m.cx, m.cz, m.xz, n);
-
 
         Plane.rot(ai2, ai1, m.cy, m.cz, m.zy, n);
 
@@ -1451,7 +1428,7 @@ public class RunApp extends Panel {
             ai6[l5] = ys(ai2[l5], ai1[l5]);
         }
 
-        int[][] out = new int[n][2];
+        final int[][] out = new int[n][2];
 
         for (int i6 = 0; i6 < n; i6++) {
             out[i6][0] = ai5[i6];

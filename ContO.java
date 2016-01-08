@@ -15,12 +15,12 @@ import java.io.StringReader;
 
 public class ContO {
 
-	public int g_div;
-	public int g_idiv;
-	public int g_iwid;
-	public int g_scalex;
-	public int g_scaley;
-	public int g_scalez;
+    public int g_div;
+    public int g_idiv;
+    public int g_iwid;
+    public int g_scalex;
+    public int g_scaley;
+    public int g_scalez;
 
     public ContO(final String s, final Medium medium, final int i, final int j, final int k) throws Exception {
         npl = 0;
@@ -125,12 +125,11 @@ public class ContO {
                         pointX[nPoints] = (int) ((int) (getvalue("p", line, 0) * div * wid) * nfmm_scale[0]);
                         pointY[nPoints] = (int) ((int) (getvalue("p", line, 1) * div) * nfmm_scale[1]);
                         pointZ[nPoints] = (int) ((int) (getvalue("p", line, 2) * div) * nfmm_scale[2]);
-                        int maxKeks = (int)Math.sqrt(pointX[nPoints] * pointX[nPoints] + pointY[nPoints] * pointY[nPoints] + pointZ[nPoints] * pointZ[nPoints]);
-                        if(maxKeks > maxR)
-                        {
-                        	//System.out.println(maxKeks);
+                        final int maxKeks = (int) Math.sqrt(pointX[nPoints] * pointX[nPoints]
+                                + pointY[nPoints] * pointY[nPoints] + pointZ[nPoints] * pointZ[nPoints]);
+                        if (maxKeks > maxR)
+                            //System.out.println(maxKeks);
                             maxR = maxKeks;
-                        }
                         nPoints++;
                     }
                     if (line.startsWith("random()") || line.startsWith("rainbow()"))
@@ -272,21 +271,21 @@ public class ContO {
                     p(-x,-y,-z)
                     p(-x,-y,z) // human eyes careful
                     </p>
-
+                    
                     <p>
                     p(x,-y,z)
                     p(x,y,z)
                     p(-x,y,z)
                     p(-x,-y,z)
                     </p>
-
+                    
                     <p>
                     p(x,-y,z)
                     p(x,y,z) // human eyes careful
                     p(x,y,-z)
                     p(x,-y,-z)
                     </p>
-
+                    
                     <p>
                     p(x,y,-z)
                     p(-x,y,-z)
@@ -457,29 +456,29 @@ public class ContO {
                 }
                 if (line.startsWith("grounded"))
                     grounded = getvalue("grounded", line, 0);
-                if (line.startsWith("div")){
+                if (line.startsWith("div")) {
                     div = getvalue("div", line, 0) / 10F;
-                    g_div = (int)getvalue("div", line, 0);
+                    g_div = getvalue("div", line, 0);
                 }
-                if (line.startsWith("idiv")){
+                if (line.startsWith("idiv")) {
                     div = getvalue("idiv", s1, 0) / 100F;
-                    g_idiv = (int)getvalue("idiv", line, 0);
+                    g_idiv = getvalue("idiv", line, 0);
                 }
-                if (line.startsWith("iwid")){
+                if (line.startsWith("iwid")) {
                     wid = getvalue("iwid", s1, 0) / 100F;
-                    g_iwid = (int)getvalue("iwid", line, 0);
+                    g_iwid = getvalue("iwid", line, 0);
                 }
-                if (line.startsWith("ScaleX")){
+                if (line.startsWith("ScaleX")) {
                     nfmm_scale[0] = getvalue("ScaleX", s1, 0) / 100F;
-                    g_scalex = (int)getvalue("ScaleX", line, 0);
+                    g_scalex = getvalue("ScaleX", line, 0);
                 }
-                if (line.startsWith("ScaleY")){
+                if (line.startsWith("ScaleY")) {
                     nfmm_scale[1] = getvalue("ScaleY", s1, 0) / 100F;
-                    g_scaley = (int)getvalue("ScaleY", line, 0);
+                    g_scaley = getvalue("ScaleY", line, 0);
                 }
-                if (line.startsWith("ScaleZ")){
+                if (line.startsWith("ScaleZ")) {
                     nfmm_scale[2] = getvalue("ScaleZ", s1, 0) / 100F;
-                    g_scalez = (int)getvalue("ScaleZ", line, 0);
+                    g_scalez = getvalue("ScaleZ", line, 0);
                 }
                 if (line.startsWith("stonecold"))
                     stonecold = true;
@@ -596,12 +595,11 @@ public class ContO {
                         pointX[nPoints] = (int) ((int) (getvalue("p", line, 0) * div * wid) * nfmm_scale[0]);
                         pointY[nPoints] = (int) ((int) (getvalue("p", line, 1) * div) * nfmm_scale[1]);
                         pointZ[nPoints] = (int) ((int) (getvalue("p", line, 2) * div) * nfmm_scale[2]);
-                        int maxKeks = (int)Math.sqrt(pointX[nPoints] * pointX[nPoints] + pointY[nPoints] * pointY[nPoints] + pointZ[nPoints] * pointZ[nPoints]);
-                        if(maxKeks > maxR)
-                        {
+                        final int maxKeks = (int) Math.sqrt(pointX[nPoints] * pointX[nPoints]
+                                + pointY[nPoints] * pointY[nPoints] + pointZ[nPoints] * pointZ[nPoints]);
+                        if (maxKeks > maxR)
                             //System.out.println(maxKeks);
                             maxR = maxKeks;
-                        }
                         nPoints++;
                     }
                     if (line.startsWith("random()") || line.startsWith("rainbow()"))
@@ -743,21 +741,21 @@ public class ContO {
                     p(-x,-y,-z)
                     p(-x,-y,z) // human eyes careful
                     </p>
-
+                    
                     <p>
                     p(x,-y,z)
                     p(x,y,z)
                     p(-x,y,z)
                     p(-x,-y,z)
                     </p>
-
+                    
                     <p>
                     p(x,-y,z)
                     p(x,y,z) // human eyes careful
                     p(x,y,-z)
                     p(x,-y,-z)
                     </p>
-
+                    
                     <p>
                     p(x,y,-z)
                     p(-x,y,-z)
@@ -928,29 +926,29 @@ public class ContO {
                 }
                 if (line.startsWith("grounded"))
                     grounded = getvalue("grounded", line, 0);
-                if (line.startsWith("div")){
+                if (line.startsWith("div")) {
                     div = getvalue("div", line, 0) / 10F;
-                    g_div = (int)getvalue("div", line, 0);
+                    g_div = getvalue("div", line, 0);
                 }
-                if (line.startsWith("idiv")){
+                if (line.startsWith("idiv")) {
                     div = getvalue("idiv", s1, 0) / 100F;
-                    g_idiv = (int)getvalue("idiv", line, 0);
+                    g_idiv = getvalue("idiv", line, 0);
                 }
-                if (line.startsWith("iwid")){
+                if (line.startsWith("iwid")) {
                     wid = getvalue("iwid", s1, 0) / 100F;
-                    g_iwid = (int)getvalue("iwid", line, 0);
+                    g_iwid = getvalue("iwid", line, 0);
                 }
-                if (line.startsWith("ScaleX")){
+                if (line.startsWith("ScaleX")) {
                     nfmm_scale[0] = getvalue("ScaleX", s1, 0) / 100F;
-                    g_scalex = (int)getvalue("ScaleX", line, 0);
+                    g_scalex = getvalue("ScaleX", line, 0);
                 }
-                if (line.startsWith("ScaleY")){
+                if (line.startsWith("ScaleY")) {
                     nfmm_scale[1] = getvalue("ScaleY", s1, 0) / 100F;
-                    g_scaley = (int)getvalue("ScaleY", line, 0);
+                    g_scaley = getvalue("ScaleY", line, 0);
                 }
-                if (line.startsWith("ScaleZ")){
+                if (line.startsWith("ScaleZ")) {
                     nfmm_scale[2] = getvalue("ScaleZ", s1, 0) / 100F;
-                    g_scalez = (int)getvalue("ScaleZ", line, 0);
+                    g_scalez = getvalue("ScaleZ", line, 0);
                 }
                 if (line.startsWith("stonecold"))
                     stonecold = true;
@@ -1018,7 +1016,7 @@ public class ContO {
         //if (track != -2)
         //	m.tr.in[track] = false;
         if (!out) {
-        	//System.out.println(maxR);
+            //System.out.println(maxR);
             final int i = m.cx + (int) ((x - m.x - m.cx) * Math.cos(m.xz * 0.017453292519943295D)
                     - (z - m.z - m.cz) * Math.sin(m.xz * 0.017453292519943295D));
             final int j = m.cz + (int) ((x - m.x - m.cx) * Math.sin(m.xz * 0.017453292519943295D)

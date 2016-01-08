@@ -210,13 +210,11 @@ public class F51 extends JPanel implements KeyListener, MouseListener, MouseWhee
         if (drawOverlay && overlay != null)
             drawOverlay();
 
-        if(medium.autorotate){
-        	if(medium.autorotate_dir){
-        		o.xz -= medium.movement_auto;
-        	}else{
-        		o.xz += medium.movement_auto;
-        	}
-        }
+        if (medium.autorotate)
+            if (medium.autorotate_dir)
+                o.xz -= medium.movement_auto;
+            else
+                o.xz += medium.movement_auto;
 
         float movement_mult = 1F;
         if (shift && control)
@@ -227,7 +225,7 @@ public class F51 extends JPanel implements KeyListener, MouseListener, MouseWhee
             movement_mult = 0.5F;
 
         if (axis)
-        	medium.axis(rd, o, medium);
+            medium.axis(rd, o, medium);
         if (show3)
             medium.d3p(rd);
         if (forward)
@@ -259,9 +257,9 @@ public class F51 extends JPanel implements KeyListener, MouseListener, MouseWhee
         else
             ((Graphics2D) rd).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
 
-        if(medium.passthru == false)
-        	if(o.y > 235)
-        		o.y = 235;
+        if (medium.passthru == false)
+            if (o.y > 235)
+                o.y = 235;
 
         rd.setColor(new Color(0, 0, 0));
     }
@@ -315,7 +313,7 @@ public class F51 extends JPanel implements KeyListener, MouseListener, MouseWhee
     public void keyPressed(final KeyEvent e) {
         final int i = e.getKeyCode();
         if (i == KeyEvent.VK_X)
-        	axis = true;
+            axis = true;
         if (i == KeyEvent.VK_NUMPAD8 || i == KeyEvent.VK_8)
             forward = true;
         if (i == KeyEvent.VK_NUMPAD2 || i == KeyEvent.VK_2)
@@ -360,7 +358,7 @@ public class F51 extends JPanel implements KeyListener, MouseListener, MouseWhee
     public void keyReleased(final KeyEvent e) {
         final int i = e.getKeyCode();
         if (i == KeyEvent.VK_X)
-        	axis = false;
+            axis = false;
         if (i == KeyEvent.VK_NUMPAD8 || i == KeyEvent.VK_8)
             forward = false;
         if (i == KeyEvent.VK_NUMPAD2 || i == KeyEvent.VK_2)
@@ -392,7 +390,7 @@ public class F51 extends JPanel implements KeyListener, MouseListener, MouseWhee
     }
 
     @Override
-    public void mouseWheelMoved(MouseWheelEvent e) {
+    public void mouseWheelMoved(final MouseWheelEvent e) {
         float movement_mult = 1F;
         if (shift && control)
             movement_mult = 15F;
@@ -401,19 +399,17 @@ public class F51 extends JPanel implements KeyListener, MouseListener, MouseWhee
         else if (control)
             movement_mult = 0.5F;
 
-    	int notches = e.getWheelRotation();
+        final int notches = e.getWheelRotation();
         if (notches < 0) {
-        	if(medium.pushpull)
-        		o.z += medium.movement_coarse * movement_mult;
-        	else
-        		o.z -= medium.movement_coarse * movement_mult;
-        } else {
-        	if(medium.pushpull)
-        		o.z -= medium.movement_coarse * movement_mult;
-        	else
-        		o.z += medium.movement_coarse * movement_mult;
-        }
-     }
+            if (medium.pushpull)
+                o.z += medium.movement_coarse * movement_mult;
+            else
+                o.z -= medium.movement_coarse * movement_mult;
+        } else if (medium.pushpull)
+            o.z -= medium.movement_coarse * movement_mult;
+        else
+            o.z += medium.movement_coarse * movement_mult;
+    }
 
     @Override
     public void mouseClicked(final MouseEvent e) {
