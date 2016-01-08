@@ -1,9 +1,14 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.FileDialog;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GraphicsEnvironment;
+import java.awt.Insets;
+import java.awt.Rectangle;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -21,6 +26,7 @@ import java.io.StringReader;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
@@ -86,9 +92,17 @@ public class TextEditor implements ActionListener {
     private final JPanel panel_2;
 
     // Creates the GUI
+    
     public TextEditor(final F51 f51, final RunApp runapp) {
         this.f51 = f51;
-        final JFrame frame = new JFrame("Editor");
+        final JFrame frame = new JFrame("Editor");    
+        
+        Toolkit tk = Toolkit.getDefaultToolkit();
+		Dimension screenSize = tk.getScreenSize();
+		Insets scnMax = Toolkit.getDefaultToolkit().getScreenInsets(frame.getGraphicsConfiguration());
+
+	    frame.setSize(screenSize.width / 2, screenSize.height - scnMax.bottom);
+	    
 
         text = new RSyntaxTextArea(NUM_ROWS, NUM_COLS);
         text.addKeyListener(new KeyAdapter() {
@@ -392,7 +406,8 @@ public class TextEditor implements ActionListener {
         saveButton.addActionListener(saveAction);
         loadButton.addActionListener(reloadAction);
 
-        frame.pack();
+        ///idk mang i like nice sizes
+        //frame.pack();
         frame.setVisible(true);
 
     }
@@ -1432,6 +1447,7 @@ public class TextEditor implements ActionListener {
     }
 
     void setDiv(final int d) {
+    	if(d<0){
 
         try {
             final BufferedReader reader = new BufferedReader(new StringReader(text.getText()));
@@ -1464,10 +1480,11 @@ public class TextEditor implements ActionListener {
             //saveFile();
         } catch (final IOException e) {
         }
+    	}
     }
 
     void setiDiv(final int d) {
-
+    	if(d> 0){
         try {
             final BufferedReader reader = new BufferedReader(new StringReader(text.getText()));
             String benis2 = reader.readLine();
@@ -1500,10 +1517,11 @@ public class TextEditor implements ActionListener {
             //saveFile();
         } catch (final IOException e) {
         }
+    	}
     }
 
     void setiWid(final int d) {
-
+    	if(d > 0){
         try {
             final BufferedReader reader = new BufferedReader(new StringReader(text.getText()));
             String benis2 = reader.readLine();
@@ -1534,10 +1552,11 @@ public class TextEditor implements ActionListener {
             //saveFile();
         } catch (final IOException e) {
         }
+    	}
     }
 
     void setScaleX(final int d) {
-
+    	if(d > 0){
         try {
             final BufferedReader reader = new BufferedReader(new StringReader(text.getText()));
             String benis2 = reader.readLine();
@@ -1569,10 +1588,11 @@ public class TextEditor implements ActionListener {
             //saveFile();
         } catch (final IOException e) {
         }
+    	}
     }
 
     void setScaleY(final int d) {
-
+    	if(d > 0){
         try {
             final BufferedReader reader = new BufferedReader(new StringReader(text.getText()));
             String benis2 = reader.readLine();
@@ -1604,10 +1624,11 @@ public class TextEditor implements ActionListener {
             //saveFile();
         } catch (final IOException e) {
         }
+    	}
     }
 
     void setScaleZ(final int d) {
-
+    	if(d > 0){
         try {
             final BufferedReader reader = new BufferedReader(new StringReader(text.getText()));
             String benis2 = reader.readLine();
@@ -1639,6 +1660,7 @@ public class TextEditor implements ActionListener {
             //saveFile();
         } catch (final IOException e) {
         }
+    	}
     }
 
     void setColor(final Color c, final boolean second) {

@@ -3,11 +3,13 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GraphicsEnvironment;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
 import java.awt.Panel;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,6 +17,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.geom.Rectangle2D;
 import java.beans.Beans;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -52,6 +55,16 @@ import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import java.awt.ComponentOrientation;
+import javax.swing.JToggleButton;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.FormSpecs;
+import com.jgoodies.forms.layout.RowSpec;
+import net.miginfocom.swing.MigLayout;
+import java.awt.CardLayout;
+import javax.swing.JTable;
+import java.awt.Checkbox;
 
 public class RunApp extends Panel {
 
@@ -61,8 +74,8 @@ public class RunApp extends Panel {
     static boolean suppressErrorMessages = false;
 
     static File carfolder = new File("./");
-    protected Timer st;
-
+    protected Timer st;       	
+         
     public RunApp() throws Exception {
         Storage.load();
 
@@ -78,8 +91,16 @@ public class RunApp extends Panel {
 
         panel = new JPanel();
         add(panel, BorderLayout.SOUTH);
-        frame = new JFrame("LiveO");// Change this to the name of your
+        frame = new JFrame("LiveO");// Change this to the name of your        
                                     // preference
+    	
+        //Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        
+        Toolkit tk = Toolkit.getDefaultToolkit();
+		Dimension screenSize = tk.getScreenSize();
+		Insets scnMax = Toolkit.getDefaultToolkit().getScreenInsets(frame.getGraphicsConfiguration());		
+		
+        frame.setLocation((screenSize.width / 2) - (700 / 2), ((screenSize.height - scnMax.bottom) / 2) - (450 / 2));
 
         frame.setBackground(new Color(0, 0, 0));
         //frame.setIgnoreRepaint(true);
@@ -101,7 +122,7 @@ public class RunApp extends Panel {
                                   // out this line.
                                   // frame.pack();
                                   // frame.setMinimumSize(frame.getSize());
-        frame.setLocationRelativeTo(null);
+        //frame.setLocationRelativeTo(null);
         frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.X_AXIS));
 
         panel_3 = new JPanel();
@@ -109,22 +130,6 @@ public class RunApp extends Panel {
         panel_3.setLayout(new BorderLayout(0, 0));
         panel_1 = new JPanel();
         panel_3.add(panel_1, BorderLayout.SOUTH);
-
-        btnNewButton = new JButton("Refresh");
-        btnNewButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                try {
-                    applet.remake(t.text.getText());
-                    t.countPolys();
-                } catch (final Exception er) {
-                    System.err.println("Error loading ContO: " + er);
-                    postMsg("Error loading ContO: " + er
-                            + "\r\nIf you're sure this isn't your fault, tell rafa something went wrong and give him the full console log");
-                    er.printStackTrace();
-                }
-            }
-        });
 
         button_1 = new JButton("<<");
         button_1.addActionListener(new ActionListener() {
@@ -145,8 +150,6 @@ public class RunApp extends Panel {
             }
         });
         panel_1.add(button);
-        btnNewButton.setHorizontalAlignment(SwingConstants.LEFT);
-        panel_1.add(btnNewButton);
 
         button_2 = new JButton(">");
         button_2.addActionListener(new ActionListener() {
@@ -155,22 +158,18 @@ public class RunApp extends Panel {
                 applet.o.xz += 25;
             }
         });
-
-        btnReset = new JButton("Reset");
-        panel_1.add(btnReset);
-        btnReset.setHorizontalAlignment(SwingConstants.LEFT);
-        btnReset.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                applet.o.x = 350;
-                applet.o.y = 120;
-                applet.o.z = 800;
-                applet.o.xz = 0;
-                applet.o.xy = 0;
-                applet.o.zy = 0;
-                applet.o.wxz = 0;
-            }
+        
+        btnNewButton_1 = new JButton("Autorotate");
+        btnNewButton_1.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+        		if(applet.medium.autorotate == false){
+        			applet.medium.autorotate = true;
+        		}else{
+        			applet.medium.autorotate = false;
+        		}        		
+        	}
         });
+        panel_1.add(btnNewButton_1);
         panel_1.add(button_2);
 
         button_3 = new JButton(">>");
@@ -181,6 +180,44 @@ public class RunApp extends Panel {
             }
         });
         panel_1.add(button_3);
+                                
+                                panel_25 = new JPanel();
+                                panel_1.add(panel_25);
+                        
+                                btnNewButton = new JButton("Refresh");
+                                panel_1.add(btnNewButton);
+                                btnNewButton.setHorizontalTextPosition(SwingConstants.LEFT);
+                                btnNewButton.addActionListener(new ActionListener() {
+                                    @Override
+                                    public void actionPerformed(final ActionEvent e) {
+                                        try {
+                                            applet.remake(t.text.getText());
+                                            t.countPolys();
+                                        } catch (final Exception er) {
+                                            System.err.println("Error loading ContO: " + er);
+                                            postMsg("Error loading ContO: " + er
+                                                    + "\r\nIf you're sure this isn't your fault, tell rafa something went wrong and give him the full console log");
+                                            er.printStackTrace();
+                                        }
+                                    }
+                                });
+                                btnNewButton.setHorizontalAlignment(SwingConstants.LEFT);
+                        
+                                btnReset = new JButton("Reset");
+                                panel_1.add(btnReset);
+                                btnReset.setHorizontalAlignment(SwingConstants.RIGHT);
+                                btnReset.addActionListener(new ActionListener() {
+                                    @Override
+                                    public void actionPerformed(final ActionEvent e) {
+                                        applet.o.x = 350;
+                                        applet.o.y = 120;
+                                        applet.o.z = 800;
+                                        applet.o.xz = 0;
+                                        applet.o.xy = 0;
+                                        applet.o.zy = 0;
+                                        applet.o.wxz = 0;
+                                    }
+                                });
         applet = new F51();
         applet.setIgnoreRepaint(true);
         t = new TextEditor(applet, this);
@@ -266,7 +303,6 @@ public class RunApp extends Panel {
 
         controlsScrollPane = new JScrollPane();
         controlsScrollPane.setToolTipText("Controls");
-        controlsScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         controlsScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         panel_17.add(controlsScrollPane);
 
@@ -274,46 +310,47 @@ public class RunApp extends Panel {
         controlsScrollPane.setViewportView(panel_18);
         panel_18.setLayout(new BoxLayout(panel_18, BoxLayout.Y_AXIS));
 
-        lblForward = new JLabel("8 - Forward");
+        lblForward = new JLabel();
+        lblForward.setText("<html><b>8</b> - rotate wheels right</html>");
         panel_18.add(lblForward);
 
-        lblBack = new JLabel("2 - Back");
+        lblBack = new JLabel("<html><b>2</b> - rotate wheels left</html>");
         panel_18.add(lblBack);
 
-        lblRight = new JLabel("6 - Right\r\n");
+        lblRight = new JLabel("<html><b>6</b> - rotate car right</html>");
         panel_18.add(lblRight);
 
-        lblLeft = new JLabel("4 - Left\r\n");
+        lblLeft = new JLabel("<html><b>4</b> - rotate wheels left</html>");
         panel_18.add(lblLeft);
 
-        lblUp = new JLabel("+ - Up");
+        lblUp = new JLabel("<html><b>M</b> - move car upwards</html>");
         panel_18.add(lblUp);
 
-        lblDown = new JLabel("- - Down");
+        lblDown = new JLabel("<html><b>N</b> - move car downwards</html>");
         panel_18.add(lblDown);
 
-        lblZoom = new JLabel("* - Zoom In");
+        lblZoom = new JLabel("<html><b>* or [</b> - move car back</html>");
         panel_18.add(lblZoom);
 
-        lblZoom_1 = new JLabel("/ - Zoom Out");
+        lblZoom_1 = new JLabel("<html><b>/ or ]</b> - move car forwards</html>");
         panel_18.add(lblZoom_1);
 
-        lblArrowKeys = new JLabel("Arrow Keys - IDK");
+        lblArrowKeys = new JLabel("<html><b>Arrows / WASD</b> - rotate</html>");
         panel_18.add(lblArrowKeys);
 
-        lblNewLabel_4 = new JLabel("W - Wireframe");
+        lblNewLabel_4 = new JLabel("<html><b>U</b> - view wireframe</html>");
         panel_18.add(lblNewLabel_4);
 
-        lblPPoint = new JLabel("P - Point wire");
+        lblPPoint = new JLabel("<html><b>P</b> - vew point wire</html>");
         panel_18.add(lblPPoint);
 
-        lblOTr = new JLabel("O - Tr. glass");
+        lblOTr = new JLabel("<html><b>O</b> - view transparent glass</html>");
         panel_18.add(lblOTr);
 
-        lblTShow = new JLabel("T - Show axis");
+        lblTShow = new JLabel("<html><b>T</b> - view axis</html>");
         panel_18.add(lblTShow);
 
-        lblM = new JLabel("M - ???");
+        lblM = new JLabel("<html><b>X</b> - view axis [new]</html>");
         panel_18.add(lblM);
 
         packScrollPane();
@@ -469,6 +506,7 @@ public class RunApp extends Panel {
         panel_10.add(lblNewLabel);
 
         textField = new JTextField();
+        textField.setText("" + applet.o.g_div);
         panel_10.add(textField);
         textField.setColumns(10);
 
@@ -480,6 +518,7 @@ public class RunApp extends Panel {
 
         textField_1 = new JTextField();
         textField_1.setColumns(10);
+        textField_1.setText("" + applet.o.g_idiv);
         panel_11.add(textField_1);
 
         panel_12 = new JPanel();
@@ -490,6 +529,7 @@ public class RunApp extends Panel {
 
         textField_2 = new JTextField();
         textField_2.setColumns(10);
+        textField_2.setText("" + applet.o.g_iwid);
         panel_12.add(textField_2);
 
         final JPanel panel_16 = new JPanel();
@@ -502,6 +542,7 @@ public class RunApp extends Panel {
 
         textField_3 = new JTextField();
         textField_3.setColumns(10);
+        textField_3.setText("" + applet.o.g_scalex);
         panel_20.add(textField_3);
 
         panel_21 = new JPanel();
@@ -512,6 +553,7 @@ public class RunApp extends Panel {
 
         textField_4 = new JTextField();
         textField_4.setColumns(10);
+        textField_4.setText("" + applet.o.g_scaley);
         panel_21.add(textField_4);
 
         panel_22 = new JPanel();
@@ -521,6 +563,7 @@ public class RunApp extends Panel {
         panel_22.add(lblScalez);
 
         textField_5 = new JTextField();
+        textField_5.setText("" + applet.o.g_scalez);
         textField_5.setColumns(10);
         panel_22.add(textField_5);
         final GroupLayout gl_panel_15 = new GroupLayout(panel_15);
@@ -569,32 +612,32 @@ public class RunApp extends Panel {
             @Override
             public void actionPerformed(final ActionEvent e) { //can't do this without try catch... for whatever reason
                 try {
-                    t.setDiv(Integer.valueOf(textField.getText()));
+                    t.setDiv((int)Integer.valueOf(textField.getText()));
                 } catch (final NumberFormatException er) {
                     System.err.println("div is empty");
                 }
                 try {
-                    t.setiDiv(Integer.valueOf(textField_1.getText()));
+                    t.setiDiv((int)Integer.valueOf(textField_1.getText()));
                 } catch (final NumberFormatException er) {
                     System.err.println("idiv is empty");
                 }
                 try {
-                    t.setiWid(Integer.valueOf(textField_2.getText()));
+                    t.setiWid((int)Integer.valueOf(textField_2.getText()));
                 } catch (final NumberFormatException er) {
                     System.err.println("iwid is empty");
                 }
                 try {
-                    t.setScaleX(Integer.valueOf(textField_3.getText()));
+                    t.setScaleX((int)Integer.valueOf(textField_3.getText()));
                 } catch (final NumberFormatException er) {
                     System.err.println("scalex is empty");
                 }
                 try {
-                    t.setScaleY(Integer.valueOf(textField_4.getText()));
+                    t.setScaleY((int)Integer.valueOf(textField_4.getText()));
                 } catch (final NumberFormatException er) {
                     System.err.println("scaley is empty");
                 }
                 try {
-                    t.setScaleZ(Integer.valueOf(textField_5.getText()));
+                    t.setScaleZ((int)Integer.valueOf(textField_5.getText()));
                 } catch (final NumberFormatException er) {
                     System.err.println("scalez is empty");
                 }
@@ -708,34 +751,6 @@ public class RunApp extends Panel {
             }
         });
 
-        chckbxAutosave = new JCheckBox("Autosave");
-        chckbxAutosave.setAlignmentX(Component.CENTER_ALIGNMENT);
-        panel_7.add(chckbxAutosave);
-        chckbxAutosave.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                if (chckbxAutosave.isSelected() && st == null) {
-
-                    final ActionListener autosave = new ActionListener() {
-                        @Override
-                        public void actionPerformed(final ActionEvent e) {
-                            try {
-                                t.saveFile();
-                            } catch (final Exception er) {
-                            }
-                            System.out.println("autosave'd!");
-                        }
-                    };
-
-                    st = new Timer(30000, autosave);
-                    st.start();
-                } else {
-                    st.stop();
-                    st = null;
-                }
-            }
-        });
-
         btnWireframe = new JButton("Wireframe");
         btnWireframe.setToolTipText("Toggles wireframe (only polygon outlines are drawn)");
         btnWireframe.addActionListener(new ActionListener() {
@@ -837,6 +852,157 @@ public class RunApp extends Panel {
         btnAa.setToolTipText("Toggles Anti-aliasing (disable jagged edges)");
         btnAa.setAlignmentX(Component.CENTER_ALIGNMENT);
         panel_7.add(btnAa);
+        
+        panel_23 = new JPanel();
+        tabbedPane.addTab("Settings", null, panel_23, null);
+                panel_23.setLayout(new BoxLayout(panel_23, BoxLayout.Y_AXIS));
+        
+        panel_30 = new JPanel();
+        panel_23.add(panel_30);
+        
+                chckbxAutosave = new JCheckBox("Autosave");
+                panel_30.add(chckbxAutosave);
+                chckbxAutosave.setAlignmentX(Component.CENTER_ALIGNMENT);
+                chckbxAutosave.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(final ActionEvent e) {
+                        if (chckbxAutosave.isSelected() && st == null) {
+
+                            final ActionListener autosave = new ActionListener() {
+                                @Override
+                                public void actionPerformed(final ActionEvent e) {
+                                    try {
+                                        t.saveFile();
+                                    } catch (final Exception er) {
+                                    }
+                                    System.out.println("autosave'd!");
+                                }
+                            };
+
+                            st = new Timer(30000, autosave);
+                            st.start();
+                        } else {
+                            st.stop();
+                            st = null;
+                        }
+                    }
+                });
+        
+        panel_28 = new JPanel();
+        panel_23.add(panel_28);
+        
+        chckbxNewCheckBox_1 = new JCheckBox("Pass below ground");
+        
+        if(applet.medium.passthru){
+        	chckbxNewCheckBox_1.setSelected(true);
+        }else{
+        	chckbxNewCheckBox_1.setSelected(false);
+        }
+        
+        chckbxNewCheckBox_1.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		if(chckbxNewCheckBox_1.isSelected()){
+        			applet.medium.passthru = true;
+        		}else{
+        			applet.medium.passthru = false;
+        		}
+        	}
+        });
+        
+        panel_28.add(chckbxNewCheckBox_1);
+        
+        panel_29 = new JPanel();
+        panel_23.add(panel_29);
+        
+        chckbxNewCheckBox_2 = new JCheckBox("Mouse wheel push/pull");
+        
+        if(applet.medium.pushpull){
+        	chckbxNewCheckBox_2.setSelected(true);
+        }else{
+        	chckbxNewCheckBox_2.setSelected(false);
+        }
+        
+        chckbxNewCheckBox_2.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		if(chckbxNewCheckBox_2.isSelected()){
+        			applet.medium.pushpull = true;
+        		}else{
+        			applet.medium.pushpull = false;
+        		}
+        	}
+        });
+        panel_29.add(chckbxNewCheckBox_2);
+        
+        panel_27 = new JPanel();
+        panel_23.add(panel_27);
+        btnNewButton_2 = new JButton("Autorotation direction: ");
+        if(applet.medium.autorotate_dir){
+        	btnNewButton_2.setText("Autorotation direction: right");
+        }else{
+        	btnNewButton_2.setText("Autorotation direction: left");
+        }        
+        btnNewButton_2.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		if(applet.medium.autorotate_dir){
+        			applet.medium.autorotate_dir = false;
+        			btnNewButton_2.setText("Autorotation direction: left");
+        		}else{
+        			applet.medium.autorotate_dir = true;
+        			btnNewButton_2.setText("Autorotation direction: right");
+        		}
+        	}
+        });
+        panel_27.add(btnNewButton_2);
+        
+        panel_26 = new JPanel();
+        panel_23.add(panel_26);
+        panel_26.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+        
+        lblAutorotateCoarseness = new JLabel("Autorotate Coarseness");
+        panel_26.add(lblAutorotateCoarseness);
+        
+        textField_6 = new JTextField();
+        textField_6.setText("" + applet.medium.movement_auto);
+        textField_6.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+        		int coarsity = 2;
+        		try {	
+					applet.medium.movement_auto = Integer.parseInt(textField_6.getText());	
+				} catch (NumberFormatException e) {
+					postMsg("Did you insert a non-numeric value? memes. value reset to normal...");
+					applet.medium.movement_auto = coarsity;
+					textField_6.setText("" + applet.medium.movement_auto);
+					e.printStackTrace();
+				}
+        	}
+        });
+        textField_6.setColumns(4);
+        panel_26.add(textField_6);
+        
+        panel_24 = new JPanel();
+        panel_23.add(panel_24);
+        
+        lblNewLabel_1 = new JLabel("Movement Coarseness");
+        
+        txtS = new JTextField();
+        txtS.setText("" + applet.medium.movement_coarse);
+        txtS.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+        		int coarsity = 5;
+        		try {	
+					applet.medium.movement_coarse = Integer.parseInt(txtS.getText());	
+				} catch (NumberFormatException e) {
+					postMsg("Did you insert a non-numeric value? memes. value reset to normal...");
+					applet.medium.movement_coarse = coarsity;
+					txtS.setText("" + applet.medium.movement_coarse);
+					e.printStackTrace();
+				}
+        	}
+        });
+        txtS.setColumns(4);
+        panel_24.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+        panel_24.add(lblNewLabel_1);
+        panel_24.add(txtS);
 
         btnAa.addActionListener(new ActionListener() {
             @Override
@@ -1082,6 +1248,22 @@ public class RunApp extends Panel {
     private final JCheckBox chckbxNewCheckBox;
     private final JCheckBox chckTrackFaces;
     private final JCheckBox chckModel;
+    private JPanel panel_23;
+    private JLabel lblNewLabel_1;
+    private JTextField txtS;
+    private JPanel panel_24;
+    private JPanel panel_25;
+    private JButton btnNewButton_1;
+    private JPanel panel_26;
+    private JLabel lblAutorotateCoarseness;
+    private JTextField textField_6;
+    private JPanel panel_27;
+    private JButton btnNewButton_2;
+    private JCheckBox chckbxNewCheckBox_1;
+    private JPanel panel_28;
+    private JCheckBox chckbxNewCheckBox_2;
+    private JPanel panel_29;
+    private JPanel panel_30;
 
     /**
      * Fetches icons of 16, 32 and 48 pixels from the 'data' folder.
@@ -1106,7 +1288,7 @@ public class RunApp extends Panel {
             javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager.getSystemLookAndFeelClassName());
         } catch (final Exception ex) {
             System.out.println("Could not setup System Look&Feel: " + ex.toString());
-        }
+        }        
         new RunApp();
         // startup();
 
@@ -1154,7 +1336,7 @@ public class RunApp extends Panel {
 
         final Dimension dimension = controlsScrollPane.getSize();
         dimension.height -= 128;
-        controlsScrollPane.setPreferredSize(dimension);
+        controlsScrollPane.setPreferredSize(new Dimension(150, 198));
 
         // end required
 

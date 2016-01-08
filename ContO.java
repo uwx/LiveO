@@ -14,6 +14,13 @@ import java.io.InputStreamReader;
 import java.io.StringReader;
 
 public class ContO {
+	
+	public int g_div;
+	public int g_idiv;
+	public int g_iwid;
+	public int g_scalex;
+	public int g_scaley;
+	public int g_scalez;
 
     public ContO(final String s, final Medium medium, final int i, final int j, final int k) throws Exception {
         npl = 0;
@@ -118,6 +125,12 @@ public class ContO {
                         pointX[nPoints] = (int) ((int) (getvalue("p", line, 0) * div * wid) * nfmm_scale[0]);
                         pointY[nPoints] = (int) ((int) (getvalue("p", line, 1) * div) * nfmm_scale[1]);
                         pointZ[nPoints] = (int) ((int) (getvalue("p", line, 2) * div) * nfmm_scale[2]);
+                        int maxKeks = (int)Math.sqrt(pointX[nPoints] * pointX[nPoints] + pointY[nPoints] * pointY[nPoints] + pointZ[nPoints] * pointZ[nPoints]);                        
+                        if(maxKeks > maxR)
+                        {
+                        	//System.out.println(maxKeks);
+                            maxR = maxKeks;
+                        }
                         nPoints++;
                     }
                     if (line.startsWith("random()") || line.startsWith("rainbow()"))
@@ -444,18 +457,30 @@ public class ContO {
                 }
                 if (line.startsWith("grounded"))
                     grounded = getvalue("grounded", line, 0);
-                if (line.startsWith("div"))
+                if (line.startsWith("div")){
                     div = getvalue("div", line, 0) / 10F;
-                if (line.startsWith("idiv"))
+                    g_div = (int)getvalue("div", line, 0);                    
+                }
+                if (line.startsWith("idiv")){
                     div = getvalue("idiv", s1, 0) / 100F;
-                if (line.startsWith("iwid"))
+                    g_idiv = (int)getvalue("idiv", line, 0);       
+                }
+                if (line.startsWith("iwid")){
                     wid = getvalue("iwid", s1, 0) / 100F;
-                if (line.startsWith("ScaleX"))
+                    g_iwid = (int)getvalue("iwid", line, 0);       
+                }
+                if (line.startsWith("ScaleX")){                	
                     nfmm_scale[0] = getvalue("ScaleX", s1, 0) / 100F;
-                if (line.startsWith("ScaleY"))
+                    g_scalex = (int)getvalue("ScaleX", line, 0);       
+                }
+                if (line.startsWith("ScaleY")){
                     nfmm_scale[1] = getvalue("ScaleY", s1, 0) / 100F;
-                if (line.startsWith("ScaleZ"))
+                    g_scaley = (int)getvalue("ScaleY", line, 0);       
+                }
+                if (line.startsWith("ScaleZ")){
                     nfmm_scale[2] = getvalue("ScaleZ", s1, 0) / 100F;
+                    g_scalez = (int)getvalue("ScaleZ", line, 0);       
+                }
                 if (line.startsWith("stonecold"))
                     stonecold = true;
             } while (true);
@@ -558,6 +583,12 @@ public class ContO {
                         ai[l] = (int) ((int) (getvalue("p", s2, 0) * f * f1) * nfmm_scale[0]);
                         ai1[l] = (int) ((int) (getvalue("p", s2, 1) * f) * nfmm_scale[0]);
                         ai2[l] = (int) ((int) (getvalue("p", s2, 2) * f) * nfmm_scale[0]);
+                        int maxKeks = (int)Math.sqrt(ai[l] * ai[l] + ai1[l] * ai1[l] + ai2[l] * ai2[l]);
+                        System.out.println(maxKeks);
+                        if(maxKeks > maxR)
+                        {
+                            maxR = maxKeks;
+                        }
                         l++;
                     }
                     if (s2.startsWith("random()") || s2.startsWith("rainbow()"))
@@ -647,7 +678,7 @@ public class ContO {
                     grounded = getvalue("grounded", s2, 0);
                 if (s2.startsWith("div")) {
                     f = getvalue("div", s2, 0) / 10F;
-                    maxR = 300;
+                    //maxR = 300;                    
                 }
                 if (s2.startsWith("idiv"))
                     f = getvalue("idiv", s1, 0) / 100F;
@@ -725,6 +756,7 @@ public class ContO {
         //if (track != -2)
         //	m.tr.in[track] = false;
         if (!out) {
+        	//System.out.println(maxR);
             final int i = m.cx + (int) ((x - m.x - m.cx) * Math.cos(m.xz * 0.017453292519943295D)
                     - (z - m.z - m.cz) * Math.sin(m.xz * 0.017453292519943295D));
             final int j = m.cz + (int) ((x - m.x - m.cx) * Math.sin(m.xz * 0.017453292519943295D)
