@@ -61,6 +61,8 @@ public class F51 extends JPanel implements KeyListener, MouseListener, MouseWhee
         aa = false;
 
         axis = false;
+        shift = false;
+        control = false;
 
         doComponentStuff();
         addKeyListener(this);
@@ -216,34 +218,42 @@ public class F51 extends JPanel implements KeyListener, MouseListener, MouseWhee
         	}
         }
 
+        float movement_mult = 1F;
+        if (shift && control)
+            movement_mult = 15F;
+        else if (shift)
+            movement_mult = 5F;
+        else if (control)
+            movement_mult = 0.5F;
+
         if (axis)
         	medium.axis(rd, o, medium);
         if (show3)
             medium.d3p(rd);
         if (forward)
-            o.wxz -= medium.movement_coarse;
+            o.wxz -= medium.movement_coarse * movement_mult;
         if (back)
-            o.wxz += medium.movement_coarse;
+            o.wxz += medium.movement_coarse * movement_mult;
         if (rotr)
-            o.xz -= medium.movement_coarse;
+            o.xz -= medium.movement_coarse * movement_mult;
         if (rotl)
-            o.xz += medium.movement_coarse;
+            o.xz += medium.movement_coarse * movement_mult;
         if (left)
-            o.xy -= medium.movement_coarse;
+            o.xy -= medium.movement_coarse * movement_mult;
         if (right)
-            o.xy += medium.movement_coarse;
+            o.xy += medium.movement_coarse * movement_mult;
         if (up)
-            o.zy -= medium.movement_coarse;
+            o.zy -= medium.movement_coarse * movement_mult;
         if (down)
-            o.zy += medium.movement_coarse;
+            o.zy += medium.movement_coarse * movement_mult;
         if (plus)
-            o.y += medium.movement_coarse;
+            o.y += medium.movement_coarse * movement_mult;
         if (minus)
-            o.y -= medium.movement_coarse;
+            o.y -= medium.movement_coarse * movement_mult;
         if (in)
-            o.z += medium.movement_coarse + 5;
+            o.z += (medium.movement_coarse + 5) * movement_mult;
         if (out)
-            o.z -= medium.movement_coarse + 5;
+            o.z -= (medium.movement_coarse + 5) * movement_mult;
         if (aa)
             ((Graphics2D) rd).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         else
@@ -290,6 +300,11 @@ public class F51 extends JPanel implements KeyListener, MouseListener, MouseWhee
     boolean show3;
     boolean axis;
     static boolean trans;
+
+    boolean shift;
+    boolean control;
+    //boolean alt;
+
     Medium medium;
 
     @Override
@@ -335,7 +350,10 @@ public class F51 extends JPanel implements KeyListener, MouseListener, MouseWhee
             show3 = !show3;
         if (i == KeyEvent.VK_Z)
             switchmode();
-
+        if (i == KeyEvent.VK_SHIFT)
+            shift = true;
+        if (i == KeyEvent.VK_CONTROL)
+            control = true;
     }
 
     @Override
@@ -367,21 +385,33 @@ public class F51 extends JPanel implements KeyListener, MouseListener, MouseWhee
             down = false;
         if (i == KeyEvent.VK_UP || i == KeyEvent.VK_W)
             up = false;
+        if (i == KeyEvent.VK_SHIFT)
+            shift = false;
+        if (i == KeyEvent.VK_CONTROL)
+            control = false;
     }
 
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {
+        float movement_mult = 1F;
+        if (shift && control)
+            movement_mult = 15F;
+        else if (shift)
+            movement_mult = 5F;
+        else if (control)
+            movement_mult = 0.5F;
+
     	int notches = e.getWheelRotation();
         if (notches < 0) {
         	if(medium.pushpull)
-        		o.z += medium.movement_coarse;
+        		o.z += medium.movement_coarse * movement_mult;
         	else
-        		o.z -= medium.movement_coarse;
+        		o.z -= medium.movement_coarse * movement_mult;
         } else {
         	if(medium.pushpull)
-        		o.z -= medium.movement_coarse;
+        		o.z -= medium.movement_coarse * movement_mult;
         	else
-        		o.z += medium.movement_coarse;
+        		o.z += medium.movement_coarse * movement_mult;
         }
      }
 
