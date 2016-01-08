@@ -1400,4 +1400,76 @@ public class RunApp extends Panel {
 
         //scrollPane.setSize(dimension);
     }
+
+    static int[][] make2d(int[] x, int[] y, int[] z, int n, Medium m) {
+
+        final int ai[] = new int[n];
+        final int ai1[] = new int[n];
+        final int ai2[] = new int[n];
+        for (int l1 = 0; l1 < n; l1++) {
+            ai[l1] = x[l1];
+            ai2[l1] = y[l1];
+            ai1[l1] = z[l1];
+        }
+
+        //if (wx != 0)
+        //    rot(ai, ai1, wx + i, wz + k, k1, n);
+
+
+        /* ijk where they are angles
+        Plane.rot(ai, ai2, i, j, i1, n);
+        Plane.rot(ai2, ai1, j, k, j1, n);
+        Plane.rot(ai, ai1, i, k, l, n);*/
+
+
+
+
+
+
+
+        /*if (i1 != 0 || j1 != 0 || l != 0) {
+            projf = 1.0F;
+            for (int i2 = 0; i2 < 3; i2++)
+                for (int j2 = 0; j2 < 3; j2++)
+                    if (j2 != i2)
+                        projf *= (float) (Math
+                                .sqrt((ai[i2] - ai[j2]) * (ai[i2] - ai[j2]) + (ai1[i2] - ai1[j2]) * (ai1[i2] - ai1[j2]))
+                                / 100D);
+
+            projf /= 3F;
+        }*/
+        Plane.rot(ai, ai1, m.cx, m.cz, m.xz, n);
+
+
+        Plane.rot(ai2, ai1, m.cy, m.cz, m.zy, n);
+
+        final int ai5[] = new int[n];
+        final int ai6[] = new int[n];
+
+        for (int l5 = 0; l5 < n; l5++) {
+            ai5[l5] = xs(ai[l5], ai1[l5]);
+            ai6[l5] = ys(ai2[l5], ai1[l5]);
+        }
+
+        int[][] out = new int[n][2];
+
+        for (int i6 = 0; i6 < n; i6++) {
+            out[i6][0] = ai5[i6];
+            out[i6][1] = ai6[i6];
+        }
+
+        return out;
+    }
+
+    public static int xs(final int i, int j) {
+        if (j < 10)
+            j = 10;
+        return (j - applet.medium.focus_point) * (applet.medium.cx - i) / j + i;
+    }
+
+    public static int ys(final int i, int j) {
+        if (j < 10)
+            j = 10;
+        return (j - applet.medium.focus_point) * (applet.medium.cy - i) / j + i;
+    }
 }
