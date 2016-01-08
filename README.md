@@ -25,10 +25,16 @@ This version of LiveO was modified by [ApexNova](http://aimgames.forummotion.com
 - Changeable 1st color/2nd color
 - Browse through a car folder
 - Display selected part
-- Actively updated
 - Settings menu with, well, settings
 - Much faster than the Car Maker
 - Automatic building through Travis CI
 - Toggle wireframe and point wireframe
 - Display XYZ axis
 - Switch mode? allan please add info
+- Visually set div, idiv, iwid, ScaleX, ScaleY, ScaleZ
+- Scroll wheel to zoom in and out
+- Auto-rotate car
+- Show solid parts and collision faces
+- Overlay any car over your car
+- Hold shift/control to move/rotate faster/slower
+- Actively updated
