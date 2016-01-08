@@ -208,13 +208,13 @@ public class Medium {
             g.drawOval(lxp[j], lyp[j], 4, 4);
 
     }
-    
+
     public int xs(final int i, int i_338_) {
         if (i_338_ < cz)
             i_338_ = cz;
         return (i_338_ - focus_point) * (cx - i) / i_338_ + i;
     }
-    
+
     public void rot(final int[] is, final int[] is_331_, final int i, final int i_332_, final int i_333_,
             final int i_334_) {
         if (i_333_ != 0)
@@ -225,9 +225,9 @@ public class Medium {
                 is_331_[i_335_] = i_332_ + (int) ((i_336_ - i) * sin(i_333_) + (i_337_ - i_332_) * cos(i_333_));
             }
     }
-    
+
     public void axis(final Graphics g, ContO o, Medium m){ ///I guess this needs to be "fixed", mang
-    	
+
             final int[] x_array = {
                     50 + adna[0], -50 - adna[1], 0, 0, 0, 0
             };
@@ -242,17 +242,17 @@ public class Medium {
                 y_array[i_12_] += o.y - m.y;
                 z_array[i_12_] += o.z - m.z;
             }
-            
+
             rot(x_array, y_array, o.x - m.x, o.y - m.y, o.xy, 6);
-            
+
             rot(y_array, z_array, o.y - m.y, o.z - m.z, o.zy, 6);
-            
+
             rot(x_array, z_array, o.x - m.x, o.z - m.z, o.xz, 6);
-            
+
             rot(x_array, z_array, m.cx, m.cz, m.xz, 6);
-            
+
             rot(y_array, z_array, m.cy, m.cz, m.zy, 6);
-            
+
             final int[] is_13_ = new int[6];
             final int[] is_14_ = new int[6];
             for (int i_15_ = 0; i_15_ < 6; i_15_++) {
@@ -287,7 +287,7 @@ public class Medium {
                     adna[i_16_] = 276;
                 if (adna[i_16_] < 0)
                     adna[i_16_] = 0;
-            }        
+            }
     }
 
     public void d(Graphics g)
@@ -389,7 +389,7 @@ public class Medium {
             g.fillPolygon(ai, ai1, 4);
         }
     }
-    
+
     public float sin(int i) {
         for (/**/; i >= 360; i -= 360) {
             /* empty */
@@ -399,7 +399,7 @@ public class Medium {
         }
         return tsin[i];
     }
-    
+
     public float cos(int i) {
         for (/**/; i >= 360; i -= 360) {
             /* empty */
@@ -416,7 +416,7 @@ public class Medium {
             j = 10;
         return ((j - focus_point) * (cy - i)) / j + i;
     }
-    
+
     Trackers tr;
     boolean isun;
     int focus_point;
@@ -456,27 +456,28 @@ public class Medium {
     int vxz;
     int adv;
     boolean vert;
-    
+    static boolean hideoutlines = false;
+
     boolean pushpull = true;
-    
+
     boolean passthru = true;
-    
+
     int movement_coarse = 5;
-    
+
     int movement_auto = 2;
 
     boolean autorotate_dir;
-    
+
     boolean autorotate;
 
     boolean lightson;
     static boolean pointwire = false;
     static boolean wire = false;
-    
+
     int[] adna = {
             276, 276, 276, 276, 276, 276
     };
-    
+
     float[] tsin = new float[360];
     float[] tcos = new float[360];
 }

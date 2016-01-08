@@ -165,8 +165,19 @@ public class F51 extends JPanel implements KeyListener, MouseListener, MouseWhee
     }
 
     public void drawOverlay() {
+        //updates
+        overlay.wxz = o.wxz;
+        overlay.xz = o.xz;
+        overlay.xy = o.xy;
+        overlay.zy = o.zy;
+        overlay.y = o.y;
+        overlay.z = o.z;
+
+        //draws
         ((Graphics2D) rd).setComposite(AlphaComposite.getInstance(3, 0.6F));
+        Medium.hideoutlines = true;
         overlay.d(rd);
+        Medium.hideoutlines = false;
         ((Graphics2D) rd).setComposite(AlphaComposite.getInstance(3, 1.0F));
     }
 
