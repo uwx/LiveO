@@ -26,6 +26,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -35,7 +37,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class F51 extends JPanel implements KeyListener, MouseListener {
+public class F51 extends JPanel implements KeyListener, MouseListener, MouseWheelListener {
     /**
      *
      */
@@ -54,9 +56,13 @@ public class F51 extends JPanel implements KeyListener, MouseListener {
         plus = false;
         minus = false;
         aa = false;
+        
+        axis = false;
+        
         doComponentStuff();
         addKeyListener(this);
         addMouseListener(this);
+        addMouseWheelListener(this);
         //addMouseMotionListener(this);
         setFocusable(true);
         requestFocus();
@@ -165,36 +171,52 @@ public class F51 extends JPanel implements KeyListener, MouseListener {
     public void whileTrueLoop() {
         medium.d(rd);
         o.d(rd);
+        
+        if(medium.autorotate){
+        	if(medium.autorotate_dir){
+        		o.xz -= medium.movement_auto;
+        	}else{
+        		o.xz += medium.movement_auto;
+        	}
+        }
+        
+        if (axis)
+        	medium.axis(rd, o, medium);
         if (show3)
             medium.d3p(rd);
         if (forward)
-            o.wxz += 5;
+            o.wxz -= medium.movement_coarse;
         if (back)
-            o.wxz -= 5;
+            o.wxz += medium.movement_coarse;
         if (rotr)
-            o.xz -= 5;
+            o.xz -= medium.movement_coarse;
         if (rotl)
-            o.xz += 5;
+            o.xz += medium.movement_coarse;
         if (left)
-            o.xy -= 5;
+            o.xy -= medium.movement_coarse;
         if (right)
-            o.xy += 5;
+            o.xy += medium.movement_coarse;
         if (up)
-            o.zy -= 5;
+            o.zy -= medium.movement_coarse;
         if (down)
-            o.zy += 5;
+            o.zy += medium.movement_coarse;
         if (plus)
-            o.y += 5;
+            o.y += medium.movement_coarse;
         if (minus)
-            o.y -= 5;
+            o.y -= medium.movement_coarse;
         if (in)
-            o.z += 10;
+            o.z += medium.movement_coarse + 5;
         if (out)
-            o.z -= 10;
+            o.z -= medium.movement_coarse + 5;
         if (aa)
             ((Graphics2D) rd).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         else
             ((Graphics2D) rd).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
+        
+        if(medium.passthru == false)
+        	if(o.y > 235)
+        		o.y = 235;
+        
         rd.setColor(new Color(0, 0, 0));
     }
 
@@ -230,6 +252,7 @@ public class F51 extends JPanel implements KeyListener, MouseListener {
     boolean in;
     boolean out;
     boolean show3;
+    boolean axis;
     static boolean trans;
     Medium medium;
 
@@ -240,6 +263,8 @@ public class F51 extends JPanel implements KeyListener, MouseListener {
     @Override
     public void keyPressed(final KeyEvent e) {
         final int i = e.getKeyCode();
+        if (i == KeyEvent.VK_X)
+        	axis = true;
         if (i == KeyEvent.VK_NUMPAD8 || i == KeyEvent.VK_8)
             forward = true;
         if (i == KeyEvent.VK_NUMPAD2 || i == KeyEvent.VK_2)
@@ -252,21 +277,21 @@ public class F51 extends JPanel implements KeyListener, MouseListener {
             plus = true;
         if (i == KeyEvent.VK_N)
             minus = true;
-        if (i == KeyEvent.VK_ASTERISK || i == KeyEvent.VK_MULTIPLY)
+        if (i == KeyEvent.VK_ASTERISK || i == KeyEvent.VK_MULTIPLY || i == KeyEvent.VK_OPEN_BRACKET)
             in = true;
-        if (i == KeyEvent.VK_SLASH || i == KeyEvent.VK_DIVIDE)
+        if (i == KeyEvent.VK_SLASH || i == KeyEvent.VK_DIVIDE || i == KeyEvent.VK_CLOSE_BRACKET)
             out = true;
-        if (i == KeyEvent.VK_LEFT)
+        if (i == KeyEvent.VK_LEFT || i == KeyEvent.VK_A)
             left = true;
-        if (i == KeyEvent.VK_RIGHT)
+        if (i == KeyEvent.VK_RIGHT || i == KeyEvent.VK_D)
             right = true;
-        if (i == KeyEvent.VK_DOWN)
+        if (i == KeyEvent.VK_DOWN || i == KeyEvent.VK_S)
             down = true;
-        if (i == KeyEvent.VK_UP)
+        if (i == KeyEvent.VK_UP || i == KeyEvent.VK_W)
             up = true;
         if (i == KeyEvent.VK_O)
             trans = !trans;
-        if (i == KeyEvent.VK_W)
+        if (i == KeyEvent.VK_U)
             Medium.wire = !Medium.wire;
         if (i == KeyEvent.VK_P)
             Medium.pointwire = !Medium.pointwire;
@@ -280,6 +305,8 @@ public class F51 extends JPanel implements KeyListener, MouseListener {
     @Override
     public void keyReleased(final KeyEvent e) {
         final int i = e.getKeyCode();
+        if (i == KeyEvent.VK_X)
+        	axis = false;
         if (i == KeyEvent.VK_NUMPAD8 || i == KeyEvent.VK_8)
             forward = false;
         if (i == KeyEvent.VK_NUMPAD2 || i == KeyEvent.VK_2)
@@ -292,19 +319,35 @@ public class F51 extends JPanel implements KeyListener, MouseListener {
             plus = false;
         if (i == KeyEvent.VK_N)
             minus = false;
-        if (i == KeyEvent.VK_ASTERISK || i == KeyEvent.VK_MULTIPLY)
+        if (i == KeyEvent.VK_ASTERISK || i == KeyEvent.VK_MULTIPLY || i == KeyEvent.VK_OPEN_BRACKET)
             in = false;
-        if (i == KeyEvent.VK_SLASH || i == KeyEvent.VK_DIVIDE)
+        if (i == KeyEvent.VK_SLASH || i == KeyEvent.VK_DIVIDE || i == KeyEvent.VK_CLOSE_BRACKET)
             out = false;
-        if (i == KeyEvent.VK_LEFT)
+        if (i == KeyEvent.VK_LEFT || i == KeyEvent.VK_A)
             left = false;
-        if (i == KeyEvent.VK_RIGHT)
+        if (i == KeyEvent.VK_RIGHT || i == KeyEvent.VK_D)
             right = false;
-        if (i == KeyEvent.VK_DOWN)
+        if (i == KeyEvent.VK_DOWN || i == KeyEvent.VK_S)
             down = false;
-        if (i == KeyEvent.VK_UP)
+        if (i == KeyEvent.VK_UP || i == KeyEvent.VK_W)
             up = false;
     }
+    
+    @Override
+    public void mouseWheelMoved(MouseWheelEvent e) {
+    	int notches = e.getWheelRotation();
+        if (notches < 0) {
+        	if(medium.pushpull)
+        		o.z += medium.movement_coarse;
+        	else
+        		o.z -= medium.movement_coarse;
+        } else {
+        	if(medium.pushpull)
+        		o.z -= medium.movement_coarse;
+        	else
+        		o.z += medium.movement_coarse;
+        }
+     }
 
     @Override
     public void mouseClicked(final MouseEvent e) {
