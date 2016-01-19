@@ -13,7 +13,7 @@ import java.io.DataInputStream;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 
-public class ContO {
+class ContO {
 
     public int g_div;
     public int g_idiv;

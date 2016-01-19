@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 
-public class Storage {
+class Storage {
     public static void save() {
         try {
             final File file = new File("./saved.data");

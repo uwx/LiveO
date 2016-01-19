@@ -47,7 +47,7 @@ import org.fife.ui.rtextarea.SearchEngine;
  * JFileChooser for the user to select a file to read from or write to.
  * It also demonstrates reading and writing text files.
  */
-public class TextEditor implements ActionListener {
+class TextEditor implements ActionListener {
     // Size of editing text area.
     private static final int NUM_ROWS = 25;
     private static final int NUM_COLS = 50;

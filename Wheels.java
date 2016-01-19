@@ -10,7 +10,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
-public class Wheels {
+class Wheels {
 
     static String wheelfile = "throwbacks.rad";
 

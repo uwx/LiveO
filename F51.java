@@ -40,7 +40,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class F51 extends JPanel implements KeyListener, MouseListener, MouseWheelListener {
+class F51 extends JPanel implements KeyListener, MouseListener, MouseWheelListener {
     /**
      *
      */

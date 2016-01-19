@@ -20,7 +20,7 @@ import java.util.List;
  *
  * @author DragShot
  */
-public class DesktopContext implements AppletContext, Runnable {
+class DesktopContext implements AppletContext, Runnable {
     List<DesktopSoundClip> clips = Collections.synchronizedList(new LinkedList<DesktopSoundClip>());
     Thread clipper;
 
