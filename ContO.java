@@ -36,16 +36,11 @@ class ContO {
         disp = 0;
         shadow = false;
         stonecold = false;
-        loom = false;
         grounded = 1;
-        colides = false;
         rcol = 0;
         pcol = 0;
         track = -2;
         out = false;
-        nhits = 0;
-        maxhits = -1;
-        grat = 0;
         m = medium;
         p = new Plane[0x186a0];
         x = i;
@@ -271,21 +266,21 @@ class ContO {
                     p(-x,-y,-z)
                     p(-x,-y,z) // human eyes careful
                     </p>
-                    
+
                     <p>
                     p(x,-y,z)
                     p(x,y,z)
                     p(-x,y,z)
                     p(-x,-y,z)
                     </p>
-                    
+
                     <p>
                     p(x,-y,z)
                     p(x,y,z) // human eyes careful
                     p(x,y,-z)
                     p(x,-y,-z)
                     </p>
-                    
+
                     <p>
                     p(x,y,-z)
                     p(-x,y,-z)
@@ -443,14 +438,9 @@ class ContO {
                     disp = getvalue("disp", line, 0);
                 if (line.startsWith("shadow"))
                     shadow = true;
-                if (line.startsWith("loom"))
-                    loom = true;
                 if (line.startsWith("out"))
                     out = true;
-                if (line.startsWith("hits"))
-                    maxhits = getvalue("hits", line, 0);
                 if (line.startsWith("colid")) {
-                    colides = true;
                     rcol = getvalue("colid", line, 0);
                     pcol = getvalue("colid", line, 1);
                 }
@@ -488,7 +478,6 @@ class ContO {
             throw exception;
         }
         System.out.println(new StringBuilder().append("polygantos: ").append(npl).toString());
-        grat = wheels.ground;
         p[npl - 1].imlast = true;
     }
 
@@ -506,16 +495,11 @@ class ContO {
         disp = 0;
         shadow = false;
         stonecold = false;
-        loom = false;
         grounded = 1;
-        colides = false;
         rcol = 0;
         pcol = 0;
         track = -2;
         out = false;
-        nhits = 0;
-        maxhits = -1;
-        grat = 0;
         m = medium;
         p = new Plane[0x186a0];
         x = i;
@@ -741,21 +725,21 @@ class ContO {
                     p(-x,-y,-z)
                     p(-x,-y,z) // human eyes careful
                     </p>
-                    
+
                     <p>
                     p(x,-y,z)
                     p(x,y,z)
                     p(-x,y,z)
                     p(-x,-y,z)
                     </p>
-                    
+
                     <p>
                     p(x,-y,z)
                     p(x,y,z) // human eyes careful
                     p(x,y,-z)
                     p(x,-y,-z)
                     </p>
-                    
+
                     <p>
                     p(x,y,-z)
                     p(-x,y,-z)
@@ -913,14 +897,9 @@ class ContO {
                     disp = getvalue("disp", line, 0);
                 if (line.startsWith("shadow"))
                     shadow = true;
-                if (line.startsWith("loom"))
-                    loom = true;
                 if (line.startsWith("out"))
                     out = true;
-                if (line.startsWith("hits"))
-                    maxhits = getvalue("hits", line, 0);
                 if (line.startsWith("colid")) {
-                    colides = true;
                     rcol = getvalue("colid", line, 0);
                     pcol = getvalue("colid", line, 1);
                 }
@@ -958,56 +937,7 @@ class ContO {
             throw exception;
         }
         System.out.println(new StringBuilder().append("polygantos: ").append(npl).toString());
-        grat = wheels.ground;
         p[npl - 1].imlast = true;
-    }
-
-    public ContO(final Medium medium, final ContO conto, final int i, final int j, final int k) {
-        npl = 0;
-        x = 0;
-        y = 0;
-        z = 0;
-        xz = 0;
-        xy = 0;
-        zy = 0;
-        wxz = 0;
-        dist = 0;
-        maxR = 0;
-        disp = 0;
-        shadow = false;
-        loom = false;
-        stonecold = conto.stonecold;
-        grounded = 1;
-        colides = false;
-        rcol = 0;
-        pcol = 0;
-        track = -2;
-        out = false;
-        nhits = 0;
-        maxhits = -1;
-        grat = 0;
-        m = medium;
-        npl = conto.npl;
-        maxR = conto.maxR;
-        disp = conto.disp;
-        loom = conto.loom;
-        colides = conto.colides;
-        maxhits = conto.maxhits;
-        out = conto.out;
-        rcol = conto.rcol;
-        pcol = conto.pcol;
-        shadow = conto.shadow;
-        grounded = conto.grounded;
-        p = new Plane[conto.npl];
-        x = i;
-        y = j;
-        z = k;
-        for (int l = 0; l < npl; l++)
-            p[l] = new Plane(m, conto.p[l].ox, conto.p[l].oz, conto.p[l].oy, conto.p[l].n, conto.p[l].c,
-                    conto.p[l].glass, conto.p[l].gr, conto.p[l].fs, conto.p[l].wx, conto.p[l].wz, conto.p[l].light,
-                    conto.p[l].hidepoly, conto.p[l].randomcolor, conto.p[l].randoutline, conto.p[l].customstroke,
-                    conto.p[l].strokewidth, conto.p[l].strokecap, conto.p[l].strokejoin, conto.p[l].strokemtlimit);
-
     }
 
     public void d(final Graphics g) {
@@ -1073,7 +1003,6 @@ class ContO {
     }
 
     private void reset() {
-        nhits = 0;
         xz = 0;
         xy = 0;
         zy = 0;
@@ -1146,7 +1075,6 @@ class ContO {
     private Medium m;
     private Plane p[];
 
-    F51 f51;
     private int npl;
     int x;
     int y;
@@ -1159,15 +1087,10 @@ class ContO {
     private int maxR;
     private int disp;
     private boolean shadow;
-    private boolean loom;
     private boolean stonecold;
     private int grounded;
-    private boolean colides;
     private int rcol;
     private int pcol;
     private int track;
     private boolean out;
-    private int nhits;
-    private int maxhits;
-    private int grat;
 }
