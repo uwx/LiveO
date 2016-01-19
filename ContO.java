@@ -1143,11 +1143,11 @@ class ContO {
         return (i - x) / 10 * ((i - x) / 10) + (j - y) / 10 * ((j - y) / 10) + (k - z) / 10 * ((k - z) / 10);
     }
 
-    Medium m;
+    private Medium m;
     private Plane p[];
 
     F51 f51;
-    int npl;
+    private int npl;
     int x;
     int y;
     int z;
@@ -1155,19 +1155,19 @@ class ContO {
     int xy;
     int zy;
     int wxz;
-    int dist;
-    int maxR;
-    int disp;
-    boolean shadow;
-    boolean loom;
+    private int dist;
+    private int maxR;
+    private int disp;
+    private boolean shadow;
+    private boolean loom;
     private boolean stonecold;
     private int grounded;
     private boolean colides;
-    int rcol;
-    int pcol;
-    int track;
-    boolean out;
-    int nhits;
+    private int rcol;
+    private int pcol;
+    private int track;
+    private boolean out;
+    private int nhits;
     private int maxhits;
-    int grat;
+    private int grat;
 }

@@ -15,10 +15,10 @@ import javax.sound.sampled.DataLine;
  */
 class DesktopSoundClip implements AudioClip {
 
-    Clip clip = null;
-    AudioInputStream sound;
-    boolean loaded = false;
-    int lfrpo = -1;
+    private Clip clip = null;
+    private AudioInputStream sound;
+    private boolean loaded = false;
+    private int lfrpo = -1;
     private int cntcheck = 0;
 
     /**

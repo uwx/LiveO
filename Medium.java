@@ -252,7 +252,7 @@ class Medium {
     }
 
     Trackers tr;
-    boolean isun;
+    private boolean isun;
     int focus_point;
     int ground;
     private int skyline;
@@ -279,17 +279,17 @@ class Medium {
     int z;
     int w;
     int h;
-    int tart;
-    int yart;
-    int zart;
-    int ztgo;
+    private int tart;
+    private int yart;
+    private int zart;
+    private int ztgo;
     int mode;
     int lxp[];
     int lyp[];
-    boolean td;
-    int vxz;
-    int adv;
-    boolean vert;
+    private boolean td;
+    private int vxz;
+    private int adv;
+    private boolean vert;
     static boolean hideoutlines = false;
 
     boolean pushpull = true;
@@ -308,10 +308,10 @@ class Medium {
     static boolean pointwire = false;
     static boolean wire = false;
 
-    int[] adna = {
+    private int[] adna = {
             276, 276, 276, 276, 276, 276
     };
 
-    float[] tsin = new float[360];
-    float[] tcos = new float[360];
+    private float[] tsin = new float[360];
+    private float[] tcos = new float[360];
 }

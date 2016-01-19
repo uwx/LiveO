@@ -61,7 +61,7 @@ class RunApp extends Panel {
     static boolean suppressErrorMessages = false;
 
     static File carfolder = new File("./");
-    protected Timer st;
+    private Timer st;
 
     public RunApp() throws Exception {
         Storage.load();
@@ -1131,8 +1131,8 @@ class RunApp extends Panel {
             carSArray[i] = carFArray[i].getName();
     }
 
-    boolean show = false;
-    ContO storeo;
+    private boolean show = false;
+    private ContO storeo;
 
     void showSelectedPolygons(final String benis, final String selection) {
         try {
@@ -1213,8 +1213,8 @@ class RunApp extends Panel {
      */
     private static final long serialVersionUID = 1337L;
     static JFrame frame;
-    static F51 applet;
-    public static ArrayList<Image> icons;
+    private static F51 applet;
+    private static ArrayList<Image> icons;
 
     static boolean showSolids = true;
     static boolean showTrackFaces = true;

@@ -84,7 +84,7 @@ class TextEditor implements ActionListener {
     private final JMenu mnSettings;
     private final JPanel panel_4;
     private final JMenu mnTools;
-    boolean fffff = false;
+    private boolean fffff = false;
     private final JCheckBox chckbxSchizznti;
     private final JPanel panel_2;
 

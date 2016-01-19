@@ -435,13 +435,13 @@ class Plane {
         return (int) Math.sqrt((i - m.cx) * (i - m.cx) + j * j);
     }
 
-    Medium m;
+    private Medium m;
     int ox[];
     int oy[];
     int oz[];
     int n;
     int c[];
-    float hsb[];
+    private float hsb[];
     boolean glass;
     boolean randomcolor;
     boolean hidepoly;
@@ -451,10 +451,10 @@ class Plane {
     int fs;
     int wx;
     int wz;
-    float deltaf;
-    float projf;
+    private float deltaf;
+    private float projf;
     int av;
-    int lav;
+    private int lav;
     boolean imlast;
     boolean customstroke;
     int strokewidth;

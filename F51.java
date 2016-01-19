@@ -278,28 +278,28 @@ class F51 extends JPanel implements KeyListener, MouseListener, MouseWheelListen
             show3 = true;
     }
 
-    Graphics rd;
+    private Graphics rd;
     private BufferedImage offImage;
     Thread gamer;
     ContO o;
     boolean aa;
-    boolean right;
-    boolean left;
-    boolean up;
-    boolean down;
+    private boolean right;
+    private boolean left;
+    private boolean up;
+    private boolean down;
     private boolean forward;
-    boolean back;
-    boolean rotl;
-    boolean rotr;
-    boolean plus;
-    boolean minus;
-    boolean in;
-    boolean out;
+    private boolean back;
+    private boolean rotl;
+    private boolean rotr;
+    private boolean plus;
+    private boolean minus;
+    private boolean in;
+    private boolean out;
     boolean show3;
-    boolean axis;
+    private boolean axis;
     static boolean trans;
 
-    boolean shift;
+    private boolean shift;
     private boolean control;
     //boolean alt;
 
