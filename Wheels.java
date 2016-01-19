@@ -79,7 +79,7 @@ class Wheels {
         return wheelNum;
     }
 
-    public float getValue(String s1, final int i) {
+    private float getValue(String s1, final int i) {
         s1 = s1.substring(s1.indexOf("(") + 1, s1.indexOf(")"));
         final String parts[] = s1.split(",");
         return Float.parseFloat(parts[i]);

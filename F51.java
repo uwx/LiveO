@@ -76,7 +76,7 @@ class F51 extends JPanel implements KeyListener, MouseListener, MouseWheelListen
         laterComponentStuff();
     }
 
-    public void doComponentStuff() {
+    private void doComponentStuff() {
         setBorder(BorderFactory.createLineBorder(Color.black));
         //
         setBackground(new Color(0, 0, 0));
@@ -96,7 +96,7 @@ class F51 extends JPanel implements KeyListener, MouseListener, MouseWheelListen
 
     private int counted = 0;
 
-    public void laterComponentStuff() {
+    private void laterComponentStuff() {
 
         final ActionListener animate = new ActionListener() {
             @Override
@@ -166,7 +166,7 @@ class F51 extends JPanel implements KeyListener, MouseListener, MouseWheelListen
         overlay.z = o.z;
     }
 
-    public void drawOverlay() {
+    private void drawOverlay() {
         //updates
         overlay.wxz = o.wxz;
         overlay.xz = o.xz;
@@ -204,7 +204,7 @@ class F51 extends JPanel implements KeyListener, MouseListener, MouseWheelListen
         medium.zy += 10;
     }
 
-    public void whileTrueLoop() {
+    private void whileTrueLoop() {
         medium.d(rd);
         o.d(rd);
         if (drawOverlay && overlay != null)
@@ -264,7 +264,7 @@ class F51 extends JPanel implements KeyListener, MouseListener, MouseWheelListen
         rd.setColor(new Color(0, 0, 0));
     }
 
-    public void switchmode() {
+    private void switchmode() {
         if (medium.mode == 0)
             medium.mode = 1;
         else

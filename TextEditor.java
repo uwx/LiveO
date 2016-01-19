@@ -443,7 +443,7 @@ class TextEditor implements ActionListener {
         }
     }
 
-    public void solidifyRoof() {
+    private void solidifyRoof() {
         try {
             final Object[] radius = getSelectedRadius();
 
@@ -466,7 +466,7 @@ class TextEditor implements ActionListener {
         }
     }
 
-    public void solidifyWall() {
+    private void solidifyWall() {
         try {
             final Object[] radius = getSelectedRadius();
 
@@ -724,7 +724,7 @@ class TextEditor implements ActionListener {
 
     }
 
-    public void solidifyWallOld() {
+    private void solidifyWallOld() {
         try {
             final Object[] radius = getSelectedRadius();
 
@@ -984,7 +984,7 @@ class TextEditor implements ActionListener {
 
     }
 
-    public void solidifyRoad() {
+    private void solidifyRoad() {
         //Object[] radius = getSelectedRadius();
 
         Object maxX = null;
@@ -1078,7 +1078,7 @@ class TextEditor implements ActionListener {
 
     }
 
-    public void solidifyRoadOld() {
+    private void solidifyRoadOld() {
         try {
             final Object[] radius = getSelectedRadius();
 
@@ -1098,7 +1098,7 @@ class TextEditor implements ActionListener {
         }
     }
 
-    public void getTracks() {
+    private void getTracks() {
         int trax = 0;
         try {
             final BufferedReader reader = new BufferedReader(new StringReader(text.getText()));
@@ -1240,7 +1240,7 @@ class TextEditor implements ActionListener {
         throw new RuntimeException("could not get value " + s + " in text");
     }
 
-    public int getvalue(final String s, final String s1, final int i) {
+    private int getvalue(final String s, final String s1, final int i) {
         int k = 0;
         String s3 = "";
         for (int j = s.length() + 1; j < s1.length(); j++) {

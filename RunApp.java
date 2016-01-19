@@ -1111,7 +1111,7 @@ class RunApp extends Panel {
     private static String[] carSArray;
     private static File[] carFArray;
 
-    public static void makeRadCombobox() {
+    private static void makeRadCombobox() {
         carSArray = null;
         final List<File> dong = new ArrayList<File>();
         try {
@@ -1311,7 +1311,7 @@ class RunApp extends Panel {
     /**
      * Fetches icons of 16, 32 and 48 pixels from the 'data' folder.
      */
-    public static ArrayList<Image> getIcons() {
+    private static ArrayList<Image> getIcons() {
         if (icons == null) {
             icons = new ArrayList<Image>();
             final int[] resols = {
@@ -1337,7 +1337,7 @@ class RunApp extends Panel {
 
     }
 
-    public static void exitsequance() {
+    private static void exitsequance() {
         frame.removeAll();
         try {
             Thread.sleep(200L);
@@ -1347,7 +1347,7 @@ class RunApp extends Panel {
         System.exit(0);
     }
 
-    public static String getString(final String tag, final String str, final int id) {
+    private static String getString(final String tag, final String str, final int id) {
         int k = 0;
         String s3 = "";
         for (int j = tag.length() + 1; j < str.length(); j++) {
