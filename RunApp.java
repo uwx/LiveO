@@ -32,7 +32,6 @@ import java.util.function.Consumer;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JColorChooser;
@@ -46,13 +45,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
-import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.JSeparator;
 
 class RunApp extends Panel {
 
@@ -204,7 +203,7 @@ class RunApp extends Panel {
                 applet.o.xy = 0;
                 applet.o.zy = 0;
                 applet.o.wxz = 0;
-                
+
                 applet.medium.movement_coarse = 5;
                 slider_4.setValue(applet.medium.movement_coarse);
                 applet.medium.movement_auto = 2;
@@ -1024,9 +1023,9 @@ class RunApp extends Panel {
                 }
             }
         });
-        
+
         slider_3 = new JSlider();
-        
+
         slider_3.setPreferredSize(new Dimension(90, 23));
         slider_3.setSnapToTicks(true);
         slider_3.setMajorTickSpacing(5);
@@ -1063,7 +1062,7 @@ class RunApp extends Panel {
             @Override
             public void actionPerformed(final ActionEvent arg0) {
                 final int coarsity = 5;
-                try {                	
+                try {
                     applet.medium.movement_coarse = Integer.parseInt(txtS.getText());
                     if(applet.medium.movement_coarse > 90){
                     	slider_4.setValue(90);
@@ -1081,7 +1080,7 @@ class RunApp extends Panel {
         txtS.setColumns(4);
         panel_24.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
         panel_24.add(lblNewLabel_1);
-        
+
         slider_4 = new JSlider();
         slider_4.setMajorTickSpacing(5);
         slider_4.setMinorTickSpacing(1);
