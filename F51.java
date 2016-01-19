@@ -183,7 +183,7 @@ class F51 extends JPanel implements KeyListener, MouseListener, MouseWheelListen
         ((Graphics2D) rd).setComposite(AlphaComposite.getInstance(3, 1.0F));
     }
 
-    public void begin() {
+    private void begin() {
         medium = new Medium();
         try {
             final Scanner s = new Scanner(contofile);

@@ -407,13 +407,13 @@ class Plane {
         }
     }
 
-    public int xs(final int i, int j) {
+    private int xs(final int i, int j) {
         if (j < 10)
             j = 10;
         return (j - m.focus_point) * (m.cx - i) / j + i;
     }
 
-    public int ys(final int i, int j) {
+    private int ys(final int i, int j) {
         if (j < 10)
             j = 10;
         return (j - m.focus_point) * (m.cy - i) / j + i;
@@ -431,7 +431,7 @@ class Plane {
             }
     }
 
-    public int spy(final int i, final int j) {
+    private int spy(final int i, final int j) {
         return (int) Math.sqrt((i - m.cx) * (i - m.cx) + j * j);
     }
 

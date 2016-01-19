@@ -1438,13 +1438,13 @@ class RunApp extends Panel {
         return out;
     }
 
-    public static int xs(final int i, int j) {
+    private static int xs(final int i, int j) {
         if (j < 10)
             j = 10;
         return (j - applet.medium.focus_point) * (applet.medium.cx - i) / j + i;
     }
 
-    public static int ys(final int i, int j) {
+    private static int ys(final int i, int j) {
         if (j < 10)
             j = 10;
         return (j - applet.medium.focus_point) * (applet.medium.cy - i) / j + i;

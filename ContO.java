@@ -1072,7 +1072,7 @@ class ContO {
         }*/
     }
 
-    public void reset() {
+    private void reset() {
         nhits = 0;
         xz = 0;
         xy = 0;
@@ -1111,13 +1111,13 @@ class ContO {
         }
     }
 
-    public int xs(final int i, int j) {
+    private int xs(final int i, int j) {
         if (j < 10)
             j = 10;
         return (j - m.focus_point) * (m.cx - i) / j + i;
     }
 
-    public int ys(final int i, int j) {
+    private int ys(final int i, int j) {
         if (j < 10)
             j = 10;
         return (j - m.focus_point) * (m.cy - i) / j + i;
@@ -1139,7 +1139,7 @@ class ContO {
         return Integer.valueOf(s3).intValue();
     }
 
-    public int getpy(final int i, final int j, final int k) {
+    private int getpy(final int i, final int j, final int k) {
         return (i - x) / 10 * ((i - x) / 10) + (j - y) / 10 * ((j - y) / 10) + (k - z) / 10 * ((k - z) / 10);
     }
 

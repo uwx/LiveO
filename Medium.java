@@ -50,13 +50,13 @@ class Medium {
 
     }
 
-    public int xs(final int i, int i_338_) {
+    private int xs(final int i, int i_338_) {
         if (i_338_ < cz)
             i_338_ = cz;
         return (i_338_ - focus_point) * (cx - i) / i_338_ + i;
     }
 
-    public void rot(final int[] is, final int[] is_331_, final int i, final int i_332_, final int i_333_,
+    private void rot(final int[] is, final int[] is_331_, final int i, final int i_332_, final int i_333_,
             final int i_334_) {
         if (i_333_ != 0)
             for (int i_335_ = 0; i_335_ < i_334_; i_335_++) {
@@ -225,7 +225,7 @@ class Medium {
         }
     }
 
-    public float sin(int i) {
+    private float sin(int i) {
         for (/**/; i >= 360; i -= 360) {
             /* empty */
         }
@@ -235,7 +235,7 @@ class Medium {
         return tsin[i];
     }
 
-    public float cos(int i) {
+    private float cos(int i) {
         for (/**/; i >= 360; i -= 360) {
             /* empty */
         }
@@ -245,7 +245,7 @@ class Medium {
         return tcos[i];
     }
 
-    public int ys(final int i, int j) {
+    private int ys(final int i, int j) {
         if (j < 10)
             j = 10;
         return (j - focus_point) * (cy - i) / j + i;
