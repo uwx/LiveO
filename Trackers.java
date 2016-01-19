@@ -5,7 +5,7 @@
 
 class Trackers {
 
-    public void prepare() {
+    void prepare() {
         for (int i = 0; i < nt; i++)
             in[i] = false;
 

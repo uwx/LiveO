@@ -69,7 +69,7 @@ class Plane {
         deltaf /= 3F;
     }
 
-    public void loadprojf() {
+    void loadprojf() {
         projf = 1.0F;
         for (int i = 0; i < 3; i++)
             for (int j = 0; j < 3; j++)

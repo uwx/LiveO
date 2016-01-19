@@ -413,7 +413,7 @@ class Medium {
     boolean isun;
     int focus_point;
     int ground;
-    int skyline;
+    private int skyline;
     int csky[] = {
             170, 220, 255
     };

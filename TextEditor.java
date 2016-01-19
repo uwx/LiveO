@@ -55,7 +55,7 @@ class TextEditor implements ActionListener {
 
     // Buttons to save and load files.
     private final JButton saveButton, loadButton;
-    JMenuItem newButton;
+    private JMenuItem newButton;
 
     // Area where the user does the editing
     final RSyntaxTextArea text;
@@ -90,7 +90,7 @@ class TextEditor implements ActionListener {
 
     // Creates the GUI
 
-    public TextEditor(final F51 f51, final RunApp runapp) {
+    TextEditor(final F51 f51, final RunApp runapp) {
         this.f51 = f51;
         final JFrame frame = new JFrame("Editor");
 
@@ -411,7 +411,7 @@ class TextEditor implements ActionListener {
     /**
      * does that initializing stuff
      */
-    public void fourTwenty() {
+    void fourTwenty() {
         loadFile();
         countPolys();
         getRadius();
@@ -1256,7 +1256,7 @@ class TextEditor implements ActionListener {
         return Integer.valueOf(s3).intValue();
     }
 
-    public void countPolys() {
+    void countPolys() {
         int polys = 0;
         int points = 0;
         boolean flag = false;
@@ -1318,7 +1318,7 @@ class TextEditor implements ActionListener {
     // to save to. Then write the contents of the text area
     // to that file. Does nothing if the user cancels out
     // of the file chooser.
-    public void saveFile() {
+    void saveFile() {
         final File file = F51.contofile;
 
         try {

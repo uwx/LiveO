@@ -94,7 +94,7 @@ class F51 extends JPanel implements KeyListener, MouseListener, MouseWheelListen
         //timer.setDelay(delay);
     }
 
-    int counted = 0;
+    private int counted = 0;
 
     public void laterComponentStuff() {
 
@@ -153,10 +153,10 @@ class F51 extends JPanel implements KeyListener, MouseListener, MouseWheelListen
     }
 
     static File overlayfile = new File("./o.rad");
-    static ContO overlay = null;
+    private static ContO overlay = null;
     boolean drawOverlay = false;
 
-    public void remakeOverlay() throws Exception {
+    void remakeOverlay() throws Exception {
         overlay = new ContO(new DataInputStream(new FileInputStream(overlayfile)), medium, 350, 150, 600);
         overlay.wxz = o.wxz;
         overlay.xz = o.xz;
@@ -279,7 +279,7 @@ class F51 extends JPanel implements KeyListener, MouseListener, MouseWheelListen
     }
 
     Graphics rd;
-    BufferedImage offImage;
+    private BufferedImage offImage;
     Thread gamer;
     ContO o;
     boolean aa;
@@ -287,7 +287,7 @@ class F51 extends JPanel implements KeyListener, MouseListener, MouseWheelListen
     boolean left;
     boolean up;
     boolean down;
-    boolean forward;
+    private boolean forward;
     boolean back;
     boolean rotl;
     boolean rotr;
@@ -300,7 +300,7 @@ class F51 extends JPanel implements KeyListener, MouseListener, MouseWheelListen
     static boolean trans;
 
     boolean shift;
-    boolean control;
+    private boolean control;
     //boolean alt;
 
     Medium medium;

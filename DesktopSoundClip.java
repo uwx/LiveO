@@ -19,7 +19,7 @@ class DesktopSoundClip implements AudioClip {
     AudioInputStream sound;
     boolean loaded = false;
     int lfrpo = -1;
-    int cntcheck = 0;
+    private int cntcheck = 0;
 
     /**
      * Creates an unloaded, empty SoundClip.
@@ -33,7 +33,7 @@ class DesktopSoundClip implements AudioClip {
      * @param is
      *            An array of bytes with the audio file data.
      */
-    public DesktopSoundClip(final byte[] is) {
+    DesktopSoundClip(final byte[] is) {
         try {
             final ByteArrayInputStream bytearrayinputstream = new ByteArrayInputStream(is);
             sound = AudioSystem.getAudioInputStream(bytearrayinputstream);
@@ -114,7 +114,7 @@ class DesktopSoundClip implements AudioClip {
      * helps to save memory and CPU resources in general, overall in cases where
      * a lot of sounds are played.
      */
-    public void checkopen() {
+    void checkopen() {
         if (loaded && clip.isOpen() && lfrpo != -2)
             if (cntcheck == 0) {
                 final int i = clip.getFramePosition();

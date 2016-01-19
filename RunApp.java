@@ -1108,8 +1108,8 @@ class RunApp extends Panel {
 
     }
 
-    static String[] carSArray;
-    static File[] carFArray;
+    private static String[] carSArray;
+    private static File[] carFArray;
 
     public static void makeRadCombobox() {
         carSArray = null;
@@ -1134,7 +1134,7 @@ class RunApp extends Panel {
     boolean show = false;
     ContO storeo;
 
-    public void showSelectedPolygons(final String benis, final String selection) {
+    void showSelectedPolygons(final String benis, final String selection) {
         try {
             if (!show) {
                 show = true;
@@ -1366,7 +1366,7 @@ class RunApp extends Panel {
         return Integer.parseInt(getString(tag, str, id));
     }
 
-    public static void postMsg(final String msg) {
+    static void postMsg(final String msg) {
         if (!suppressErrorMessages && !Beans.isDesignTime()) //beans.isdesigntime avoids joptionpanes when using windowbuilder
             JOptionPane.showMessageDialog(frame, msg);
     }

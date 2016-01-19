@@ -1123,7 +1123,7 @@ class ContO {
         return (j - m.focus_point) * (m.cy - i) / j + i;
     }
 
-    public int getvalue(final String s, final String s1, final int i) {
+    int getvalue(final String s, final String s1, final int i) {
         int k = 0;
         String s3 = "";
         for (int j = s.length() + 1; j < s1.length(); j++) {
@@ -1144,7 +1144,7 @@ class ContO {
     }
 
     Medium m;
-    Plane p[];
+    private Plane p[];
 
     F51 f51;
     int npl;
@@ -1160,14 +1160,14 @@ class ContO {
     int disp;
     boolean shadow;
     boolean loom;
-    boolean stonecold;
-    int grounded;
-    boolean colides;
+    private boolean stonecold;
+    private int grounded;
+    private boolean colides;
     int rcol;
     int pcol;
     int track;
     boolean out;
     int nhits;
-    int maxhits;
+    private int maxhits;
     int grat;
 }
