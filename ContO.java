@@ -1008,38 +1008,6 @@ class ContO {
         zy = 0;
     }
 
-    public void loadrots(final boolean flag) {
-        if (!flag)
-            reset();
-        for (int i = 0; i < npl; i++) {
-            Plane.rot(p[i].ox, p[i].oy, 0, 0, xy, p[i].n);
-            Plane.rot(p[i].oy, p[i].oz, 0, 0, zy, p[i].n);
-            Plane.rot(p[i].ox, p[i].oz, 0, 0, xz, p[i].n);
-            p[i].loadprojf();
-        }
-
-        if (flag)
-            reset();
-    }
-
-    public void tryexp(final ContO conto) {
-        if (!out) {
-            final int i = getpy(conto.x, conto.y, conto.z);
-            if (i < maxR / 10 * (maxR / 10) + conto.maxR / 10 * (conto.maxR / 10) && i > 0) {
-                if (pcol != 0)
-                    for (int j = 0; j < npl; j++)
-                        for (int k = 0; k < p[j].n && (conto.x - (x + p[j].ox[k])) * (conto.x - (x + p[j].ox[k]))
-                                + (conto.y - (y + p[j].oy[k])) * (conto.y - (y + p[j].oy[k]))
-                                + (conto.z - (z + p[j].oz[k])) * (conto.z - (z + p[j].oz[k])) >= conto.maxR * 10 / pcol
-                                        * (conto.maxR * 10 / pcol); k++)
-                            ;
-                if (rcol != 0)
-                    if (i < maxR / (10 * rcol) * (maxR / (10 * rcol)) + conto.maxR / 10 * (conto.maxR / 10))
-                        ;
-            }
-        }
-    }
-
     private int xs(final int i, int j) {
         if (j < 10)
             j = 10;

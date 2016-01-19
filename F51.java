@@ -271,13 +271,6 @@ class F51 extends JPanel implements KeyListener, MouseListener, MouseWheelListen
             medium.mode = 0;
     }
 
-    public void showthree() {
-        if (show3)
-            show3 = false;
-        else
-            show3 = true;
-    }
-
     private Graphics rd;
     private BufferedImage offImage;
     ContO o;

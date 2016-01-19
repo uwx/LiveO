@@ -377,8 +377,6 @@ class RunApp extends Panel {
         panel_5.setLayout(gbl_panel_5);
 
         panel_4 = new JPanel();
-        final FlowLayout flowLayout_2 = (FlowLayout) panel_4.getLayout();
-        panel_4.getLayout();
         final GridBagConstraints gbc_panel_4 = new GridBagConstraints();
         gbc_panel_4.fill = GridBagConstraints.HORIZONTAL;
         gbc_panel_4.anchor = GridBagConstraints.NORTH;
@@ -1413,7 +1411,7 @@ class RunApp extends Panel {
                         projf *= (float) (Math
                                 .sqrt((ai[i2] - ai[j2]) * (ai[i2] - ai[j2]) + (ai1[i2] - ai1[j2]) * (ai1[i2] - ai1[j2]))
                                 / 100D);
-        
+
             projf /= 3F;
         }*/
         Plane.rot(ai, ai1, m.cx, m.cz, m.xz, n);
