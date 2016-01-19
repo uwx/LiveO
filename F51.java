@@ -280,7 +280,6 @@ class F51 extends JPanel implements KeyListener, MouseListener, MouseWheelListen
 
     private Graphics rd;
     private BufferedImage offImage;
-    Thread gamer;
     ContO o;
     boolean aa;
     private boolean right;

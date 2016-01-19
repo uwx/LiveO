@@ -11,7 +11,6 @@ class Medium {
 
     public Medium() {
         tr = new Trackers();
-        isun = false;
         focus_point = 400;
         ground = 250;
         skyline = -300;
@@ -25,17 +24,9 @@ class Medium {
         z = 0;
         w = 700;
         h = 475;
-        tart = 0;
-        yart = -100;
-        zart = 0;
-        ztgo = 0;
         mode = 0;
         lxp = new int[3];
         lyp = new int[3];
-        td = false;
-        vxz = 0;
-        adv = -500;
-        vert = false;
         lightson = true;
     }
 
@@ -252,7 +243,6 @@ class Medium {
     }
 
     Trackers tr;
-    private boolean isun;
     int focus_point;
     int ground;
     private int skyline;
@@ -268,7 +258,6 @@ class Medium {
     int fade[] = {
             3000, 5000, 7000, 9000, 11000, 13000, 15000, 17000
     };
-    int mom[];
     int cx;
     int cy;
     int cz;
@@ -279,17 +268,9 @@ class Medium {
     int z;
     int w;
     int h;
-    private int tart;
-    private int yart;
-    private int zart;
-    private int ztgo;
     int mode;
     int lxp[];
     int lyp[];
-    private boolean td;
-    private int vxz;
-    private int adv;
-    private boolean vert;
     static boolean hideoutlines = false;
 
     boolean pushpull = true;
