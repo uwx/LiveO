@@ -28,6 +28,7 @@ class Medium {
         lxp = new int[3];
         lyp = new int[3];
         lightson = true;
+        skyState = true;
     }
 
     public void d3p(final Graphics g) {
@@ -130,90 +131,120 @@ class Medium {
         if (y > 0)
             y = 0;
         ground = 250 - y;
-        final int ai[] = new int[4];
-        final int ai1[] = new int[4];
-        int i = cgrnd[0];
-        int j = cgrnd[1];
-        int k = cgrnd[2];
-        int l = h;
-        for (int i1 = 0; i1 < 8; i1++) {
-            int k1 = fade[i1];
-            int i2 = ground;
-            if (zy != 0) {
-                i2 = cy + (int) ((ground - cy) * Math.cos(zy * 0.017453292519943295D)
-                        - (fade[i1] - cz) * Math.sin(zy * 0.017453292519943295D));
-                k1 = cz + (int) ((ground - cy) * Math.sin(zy * 0.017453292519943295D)
-                        + (fade[i1] - cz) * Math.cos(zy * 0.017453292519943295D));
+        
+        /////sky code        
+        
+        if(skyState){
+        	final int ai[] = new int[4];
+            final int ai1[] = new int[4];
+            int i = cgrnd[0];
+            int j = cgrnd[1];
+            int k = cgrnd[2];
+            int l = h;
+            for (int i1 = 0; i1 < 8; i1++) {
+                int k1 = fade[i1];
+                int i2 = ground;
+                if (zy != 0) {
+                    i2 = cy + (int) ((ground - cy) * Math.cos(zy * 0.017453292519943295D)
+                            - (fade[i1] - cz) * Math.sin(zy * 0.017453292519943295D));
+                    k1 = cz + (int) ((ground - cy) * Math.sin(zy * 0.017453292519943295D)
+                            + (fade[i1] - cz) * Math.cos(zy * 0.017453292519943295D));
+                }
+                ai[0] = 0;
+                ai1[0] = ys(i2, k1);
+                if (ai1[0] < 0)
+                    ai1[0] = 0;
+                ai[1] = 0;
+                ai1[1] = l;
+                ai[2] = w;
+                ai1[2] = l;
+                ai[3] = w;
+                ai1[3] = ai1[0];
+                l = ai1[0];
+                if (i1 > 0) {
+                    i = (i * 3 + cfade[0]) / 4;
+                    j = (j * 3 + cfade[1]) / 4;
+                    k = (k * 3 + cfade[2]) / 4;
+                }
+                if (ai1[0] < h && ai1[1] > 0) {
+                    g.setColor(new Color(i, j, k));
+                    g.fillPolygon(ai, ai1, 4);
+                }
             }
+
+            i = csky[0];
+            j = csky[1];
+            k = csky[2];
+            int j1 = 0;
+            for (int l1 = 0; l1 < 8; l1++) {
+                int j2 = fade[l1];
+                int k2 = skyline;
+                if (zy != 0) {
+                    k2 = cy + (int) ((skyline - cy) * Math.cos(zy * 0.017453292519943295D)
+                            - (fade[l1] - cz) * Math.sin(zy * 0.017453292519943295D));
+                    j2 = cz + (int) ((skyline - cy) * Math.sin(zy * 0.017453292519943295D)
+                            + (fade[l1] - cz) * Math.cos(zy * 0.017453292519943295D));
+                }
+                ai[0] = 0;
+                ai1[0] = ys(k2, j2);
+                if (ai1[0] > h)
+                    ai1[0] = h;
+                ai[1] = 0;
+                ai1[1] = j1;
+                ai[2] = w;
+                ai1[2] = j1;
+                ai[3] = w;
+                ai1[3] = ai1[0];
+                j1 = ai1[0];
+                if (l1 > 0) {
+                    i = (i * 3 + cfade[0]) / 4;
+                    j = (j * 3 + cfade[1]) / 4;
+                    k = (k * 3 + cfade[2]) / 4;
+                }
+                if (ai1[0] > 0 && ai1[1] < h) {
+                    g.setColor(new Color(i, j, k));
+                    g.fillPolygon(ai, ai1, 4);
+                }
+            }
+
             ai[0] = 0;
-            ai1[0] = ys(i2, k1);
-            if (ai1[0] < 0)
-                ai1[0] = 0;
+            ai1[0] = j1;
             ai[1] = 0;
             ai1[1] = l;
             ai[2] = w;
             ai1[2] = l;
             ai[3] = w;
-            ai1[3] = ai1[0];
-            l = ai1[0];
-            if (i1 > 0) {
-                i = (i * 3 + cfade[0]) / 4;
-                j = (j * 3 + cfade[1]) / 4;
-                k = (k * 3 + cfade[2]) / 4;
-            }
+            ai1[3] = j1;
             if (ai1[0] < h && ai1[1] > 0) {
-                g.setColor(new Color(i, j, k));
+                g.setColor(new Color(cfade[0], cfade[1], cfade[2]));
                 g.fillPolygon(ai, ai1, 4);
-            }
-        }
+            }        	
+        }else{
+        	final int ai[] = new int[4];
+            final int ai1[] = new int[4];
+            int i = cgrnd[0];
+            int j = cgrnd[1];
+            int k = cgrnd[2];
+            int l = h;
 
-        i = csky[0];
-        j = csky[1];
-        k = csky[2];
-        int j1 = 0;
-        for (int l1 = 0; l1 < 8; l1++) {
-            int j2 = fade[l1];
-            int k2 = skyline;
-            if (zy != 0) {
-                k2 = cy + (int) ((skyline - cy) * Math.cos(zy * 0.017453292519943295D)
-                        - (fade[l1] - cz) * Math.sin(zy * 0.017453292519943295D));
-                j2 = cz + (int) ((skyline - cy) * Math.sin(zy * 0.017453292519943295D)
-                        + (fade[l1] - cz) * Math.cos(zy * 0.017453292519943295D));
-            }
-            ai[0] = 0;
-            ai1[0] = ys(k2, j2);
-            if (ai1[0] > h)
-                ai1[0] = h;
-            ai[1] = 0;
-            ai1[1] = j1;
-            ai[2] = w;
-            ai1[2] = j1;
-            ai[3] = w;
-            ai1[3] = ai1[0];
-            j1 = ai1[0];
-            if (l1 > 0) {
-                i = (i * 3 + cfade[0]) / 4;
-                j = (j * 3 + cfade[1]) / 4;
-                k = (k * 3 + cfade[2]) / 4;
-            }
-            if (ai1[0] > 0 && ai1[1] < h) {
-                g.setColor(new Color(i, j, k));
-                g.fillPolygon(ai, ai1, 4);
-            }
-        }
+			ai[0] = 0;
+			ai1[0] = 0;
+			ai[1] = 0;
+			ai1[1] = l;
+			ai[2] = w;
+			ai1[2] = l;
+			ai[3] = w;
+			ai1[3] = ai1[0];
+			l = ai1[0];
 
-        ai[0] = 0;
-        ai1[0] = j1;
-        ai[1] = 0;
-        ai1[1] = l;
-        ai[2] = w;
-        ai1[2] = l;
-        ai[3] = w;
-        ai1[3] = j1;
-        if (ai1[0] < h && ai1[1] > 0) {
-            g.setColor(new Color(cfade[0], cfade[1], cfade[2]));
-            g.fillPolygon(ai, ai1, 4);
+			i = 0;
+			j = 255;
+			k = 0;
+
+			g.setColor(new Color(i, j, k));
+			g.fillPolygon(ai, ai1, 4);
         }
+        
     }
 
     private float sin(int i) {
@@ -271,6 +302,9 @@ class Medium {
     int mode;
     int lxp[];
     int lyp[];
+    
+    static boolean skyState;
+    
     static boolean hideoutlines = false;
 
     boolean pushpull = true;

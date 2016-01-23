@@ -392,7 +392,7 @@ class Plane {
                     flag1 = true;
             }
 
-            if (flag1) {
+            if (flag1 && Medium.skyState) {
                 for (int k4 = 0; k4 < 8; k4++)
                     if (av > m.fade[k4]) {
                         l1 = (l1 * 3 + m.cfade[0]) / 4;
