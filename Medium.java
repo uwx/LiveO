@@ -29,6 +29,7 @@ class Medium {
         lyp = new int[3];
         lightson = true;
         skyState = true;
+        infiniteDistance = false;
     }
 
     public void d3p(final Graphics g) {
@@ -302,6 +303,8 @@ class Medium {
     int mode;
     int lxp[];
     int lyp[];
+    
+    static boolean infiniteDistance;
     
     static boolean skyState;
     

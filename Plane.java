@@ -247,35 +247,41 @@ class Plane {
                     i9 = ai1[j9];
             }
 
-            final int k9 = (j7 + l7) / 2;
-            final int i10 = (j8 + k8) / 2;
-            final int k10 = (l8 + i9) / 2;
-            av = (int) Math.sqrt((m.cy - k9) * (m.cy - k9) + (m.cx - i10) * (m.cx - i10) + k10 * k10 + l6 * l6 * l6);
-            if (av > m.fade[7] || av == 0) {
-                flag3 = false;
-                toofar = true;
-            }
-            if (l6 > 0 && av > 2500)
-                flag3 = false;
-            if (l6 > 0 && av > 1000)
-                toofar = true;
-            if (av > 2000)
-                toofar = true;
+            
+            
+            if(!Medium.infiniteDistance){
+            	final int k9 = (j7 + l7) / 2;
+                final int i10 = (j8 + k8) / 2;
+                final int k10 = (l8 + i9) / 2;
+                av = (int) Math.sqrt((m.cy - k9) * (m.cy - k9) + (m.cx - i10) * (m.cx - i10) + k10 * k10 + l6 * l6 * l6);
+                if (av > m.fade[7] || av == 0) {
+                    flag3 = false;
+                    toofar = true;
+                }
+                if (l6 > 0 && av > 2500)
+                    flag3 = false;
+                if (l6 > 0 && av > 1000)
+                    toofar = true;
+                if (av > 2000)
+                    toofar = true;
+            }            
         }
         if (flag3 && !Medium.wire && !Medium.pointwire) {
             float f = (float) (projf / deltaf + 0.5D);
-            if (f > 1.0F)
-                f = 1.0F;
-            if (f < 0.5D || flag2)
-                f = 0.5F;
-            if (toofar)
-                f = (float) (f * 0.90000000000000002D);
+            	if (f > 1.0F)
+                    f = 1.0F;
+                if (f < 0.5D || flag2)
+                    f = 0.5F;
+                if (toofar)
+                    f = (float) (f * 0.90000000000000002D);
+            
             new Color(c[0], c[1], c[2]);
             final Color color = Color.getHSBColor(hsb[0], hsb[1], hsb[2] * f);
             int k6 = color.getRed();
             int i7 = color.getGreen();
             int k7 = color.getBlue();
-            for (int i8 = 0; i8 < 8; i8++)
+            if(!Medium.infiniteDistance)
+            	for (int i8 = 0; i8 < 8; i8++)
                 if (av > m.fade[i8]) {
                     k6 = (k6 * 3 + m.cfade[0]) / 4;
                     i7 = (i7 * 3 + m.cfade[1]) / 4;
@@ -287,7 +293,7 @@ class Plane {
                 g.setColor(Color.getHSBColor((float) Math.random(), (float) Math.random(), (float) Math.random()));
             g.fillPolygon(ai5, ai6, n);
         }
-        if (!toofar && !hidepoly && !Medium.hideoutlines) {
+        if (!toofar && !hidepoly && !Medium.hideoutlines && !Medium.infiniteDistance) {
             int k6;
             int i7;
             int k7;
