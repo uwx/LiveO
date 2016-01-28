@@ -245,10 +245,7 @@ class Plane {
                     l8 = ai1[j9];
                 if (k11 == n)
                     i9 = ai1[j9];
-            }
-
-            
-            
+            }                        
             if(!Medium.infiniteDistance){
             	final int k9 = (j7 + l7) / 2;
                 final int i10 = (j8 + k8) / 2;
@@ -293,7 +290,7 @@ class Plane {
                 g.setColor(Color.getHSBColor((float) Math.random(), (float) Math.random(), (float) Math.random()));
             g.fillPolygon(ai5, ai6, n);
         }
-        if (!toofar && !hidepoly && !Medium.hideoutlines && !Medium.infiniteDistance) {
+        if (!toofar && !hidepoly && !Medium.hideoutlines) {
             int k6;
             int i7;
             int k7;
