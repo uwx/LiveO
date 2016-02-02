@@ -954,7 +954,7 @@ class ContO {
             final int k = m.cz + (int) ((y - m.y - m.cy) * Math.sin(m.zy * 0.017453292519943295D)
                     + (j - m.cz) * Math.cos(m.zy * 0.017453292519943295D));
             if (xs(i + maxR, k) > 0 && xs(i - maxR, k) < m.w && k > -maxR && k < m.fade[7]
-                    && xs(i + maxR, k) - xs(i - maxR, k) > disp) {
+                    && xs(i + maxR, k) - xs(i - maxR, k) > disp || Medium.infiniteDistance) {
                 if (shadow) {
                     final int l = m.cy + (int) ((m.ground - m.cy) * Math.cos(m.zy * 0.017453292519943295D)
                             - (j - m.cz) * Math.sin(m.zy * 0.017453292519943295D));

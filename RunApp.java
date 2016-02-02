@@ -838,6 +838,28 @@ class RunApp extends Panel {
                 }
             }
         });
+        
+        chckBoxGrnScrn = new JCheckBox("Green Screen");
+        chckBoxGrnScrn.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+        		Medium.skyState = !Medium.skyState;
+        	}
+        });
+        
+        checkBoxInf = new JCheckBox("Infinite Rendering");
+        checkBoxInf.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+        		Medium.infiniteDistance = !Medium.infiniteDistance;
+        	}
+        });
+        checkBoxInf.setVerticalAlignment(SwingConstants.TOP);
+        checkBoxInf.setAlignmentY(0.0f);
+        checkBoxInf.setAlignmentX(0.5f);
+        panel_7.add(checkBoxInf);
+        chckBoxGrnScrn.setVerticalAlignment(SwingConstants.TOP);
+        chckBoxGrnScrn.setAlignmentY(0.0f);
+        chckBoxGrnScrn.setAlignmentX(0.5f);
+        panel_7.add(chckBoxGrnScrn);
         chckbxNewCheckBox.setAlignmentX(Component.CENTER_ALIGNMENT);
         panel_7.add(chckbxNewCheckBox);
         chckTrackFaces.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -1370,6 +1392,8 @@ class RunApp extends Panel {
     private final JCheckBox chckbxShowOverlayCar;
     private JSlider slider_3;
     private JSlider slider_4;
+    private JCheckBox chckBoxGrnScrn;
+    private JCheckBox checkBoxInf;
 
     /**
      * Fetches icons of 16, 32 and 48 pixels from the 'data' folder.

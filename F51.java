@@ -94,8 +94,6 @@ class F51 extends JPanel implements KeyListener, MouseListener, MouseWheelListen
         //timer.setDelay(delay);
     }
 
-    private int counted = 0;
-
     private void laterComponentStuff() {
 
         final ActionListener animate = new ActionListener() {
@@ -108,7 +106,6 @@ class F51 extends JPanel implements KeyListener, MouseListener, MouseWheelListen
 
             @Override
             public void actionPerformed(final ActionEvent ae) {
-                counted++;
             }
         };
         // 33.33 - 30 fps
@@ -132,6 +129,9 @@ class F51 extends JPanel implements KeyListener, MouseListener, MouseWheelListen
         }
 
         g.drawImage(offImage, 0, 0, null);
+        //g.drawString(""+ o.x, 10, 100);
+        //g.drawString(""+ o.y, 10, 120);
+        //g.drawString(""+ o.z, 10, 140);
     }
 
     static File contofile = new File("./o.rad");
