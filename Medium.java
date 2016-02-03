@@ -221,29 +221,8 @@ class Medium {
                 g.fillPolygon(ai, ai1, 4);
             }
         }else{
-        	final int ai[] = new int[4];
-            final int ai1[] = new int[4];
-            int i = cgrnd[0];
-            int j = cgrnd[1];
-            int k = cgrnd[2];
-            int l = h;
-
-			ai[0] = 0;
-			ai1[0] = 0;
-			ai[1] = 0;
-			ai1[1] = l;
-			ai[2] = w;
-			ai1[2] = l;
-			ai[3] = w;
-			ai1[3] = ai1[0];
-			l = ai1[0];
-
-			i = 0;
-			j = 255;
-			k = 0;
-
-			g.setColor(new Color(i, j, k));
-			g.fillPolygon(ai, ai1, 4);
+			g.setColor(Color.green);
+			g.fillRect(0, 0, w, h);
         }
 
     }
