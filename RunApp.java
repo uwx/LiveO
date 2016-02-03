@@ -52,6 +52,8 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import java.awt.Font;
+import java.awt.CardLayout;
 
 class RunApp extends Panel {
 
@@ -262,25 +264,42 @@ class RunApp extends Panel {
                 applet.o.xz = -slider_2.getValue();
             }
         });
+
+        JLabel lblAngle = new JLabel("XYZ Angle");
+        lblAngle.setHorizontalAlignment(SwingConstants.CENTER);
+        lblAngle.setFont(new Font("Tahoma", Font.PLAIN, 20));
         final GroupLayout gl_panel_8 = new GroupLayout(panel_8);
-        gl_panel_8.setHorizontalGroup(gl_panel_8.createParallelGroup(Alignment.LEADING).addGroup(gl_panel_8
-                .createSequentialGroup().addGap(1)
-                .addComponent(slider, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addGroup(gl_panel_8.createParallelGroup(Alignment.LEADING)
-                        .addGroup(gl_panel_8.createSequentialGroup().addGap(1).addComponent(slider_1,
-                                GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE))
-                        .addGroup(gl_panel_8.createSequentialGroup().addGap(1).addComponent(slider_2,
-                                GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)))
-                .addGap(1)));
-        gl_panel_8.setVerticalGroup(gl_panel_8.createParallelGroup(Alignment.LEADING).addGroup(gl_panel_8
-                .createSequentialGroup().addGap(1)
-                .addGroup(gl_panel_8.createParallelGroup(Alignment.LEADING, false)
+        gl_panel_8.setHorizontalGroup(
+            gl_panel_8.createParallelGroup(Alignment.LEADING)
+                .addGroup(gl_panel_8.createSequentialGroup()
+                    .addGap(1)
+                    .addComponent(slider, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addGroup(gl_panel_8.createParallelGroup(Alignment.LEADING)
                         .addGroup(gl_panel_8.createSequentialGroup()
-                                .addComponent(slider_1, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(slider_2, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE))
+                            .addGap(1)
+                            .addGroup(gl_panel_8.createParallelGroup(Alignment.LEADING)
+                                .addComponent(slider_1, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(slider_2, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(gl_panel_8.createSequentialGroup()
+                            .addGap(1)
+                            .addComponent(lblAngle, GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
+                            .addGap(10)))
+                    .addGap(1))
+        );
+        gl_panel_8.setVerticalGroup(
+            gl_panel_8.createParallelGroup(Alignment.LEADING)
+                .addGroup(gl_panel_8.createSequentialGroup()
+                    .addGap(1)
+                    .addGroup(gl_panel_8.createParallelGroup(Alignment.LEADING)
+                        .addGroup(gl_panel_8.createSequentialGroup()
+                            .addComponent(slider_1, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE)
+                            .addGap(1)
+                            .addComponent(lblAngle, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addGap(1)
+                            .addComponent(slider_2, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE))
                         .addComponent(slider, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE))
-                .addGap(1)));
+                    .addGap(1))
+        );
         panel_8.setLayout(gl_panel_8);
         slider_1.addChangeListener(new ChangeListener() {
             @Override
@@ -838,14 +857,14 @@ class RunApp extends Panel {
                 }
             }
         });
-        
+
         chckBoxGrnScrn = new JCheckBox("Green Screen");
         chckBoxGrnScrn.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent arg0) {
         		Medium.skyState = !Medium.skyState;
         	}
         });
-        
+
         checkBoxInf = new JCheckBox("Infinite Rendering");
         checkBoxInf.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent arg0) {
@@ -1127,6 +1146,135 @@ class RunApp extends Panel {
         });
         panel_24.add(txtS);
 
+        JPanel panel_32 = new JPanel();
+        tabbedPane.addTab("Background", null, panel_32, null);
+
+                JButton btnSetSnap = new JButton("Set snap");
+                btnSetSnap.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        final JFrame f = new JFrame("Color picker");
+                        f.setBackground(new Color(0, 0, 0));
+                        //f.setIgnoreRepaint(true);
+                        f.setIconImages(getIcons());
+                        final JColorChooser tcc = new JColorChooser();
+                        tcc.getSelectionModel().addChangeListener(new ChangeListener() {
+                            @Override
+                            public void stateChanged(final ChangeEvent e) {
+                                Color c = tcc.getColor();
+                                applet.medium.setsnap((short)c.getRed(), (short)c.getGreen(), (short)c.getBlue());
+                            }
+                        });
+                        f.getContentPane().add(tcc);
+                        f.pack();
+                        f.setVisible(true);
+                    }
+                });
+
+                JButton btnSetSky = new JButton("Set sky");
+                btnSetSky.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        final JFrame f = new JFrame("Color picker");
+                        f.setBackground(new Color(0, 0, 0));
+                        //f.setIgnoreRepaint(true);
+                        f.setIconImages(getIcons());
+                        final JColorChooser tcc = new JColorChooser();
+                        tcc.getSelectionModel().addChangeListener(new ChangeListener() {
+                            @Override
+                            public void stateChanged(final ChangeEvent e) {
+                                Color c = tcc.getColor();
+                                applet.medium.setsky(c.getRed(), c.getGreen(), c.getBlue());
+                            }
+                        });
+                        f.getContentPane().add(tcc);
+                        f.pack();
+                        f.setVisible(true);
+                    }
+                });
+
+        chckbxEnableSnap = new JCheckBox("Enable snap");
+        chckbxEnableSnap.setSelected(true);
+        chckbxEnableSnap.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                Medium.snapcolor = chckbxEnableSnap.isSelected();
+            }
+        });
+
+        chckbxEnableSnap.setVerticalAlignment(SwingConstants.TOP);
+        chckbxEnableSnap.setAlignmentY(0.0f);
+        chckbxEnableSnap.setAlignmentX(0.5f);
+
+        JButton btnSetGround = new JButton("Set ground");
+        btnSetGround.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                final JFrame f = new JFrame("Color picker");
+                f.setBackground(new Color(0, 0, 0));
+                //f.setIgnoreRepaint(true);
+                f.setIconImages(getIcons());
+                final JColorChooser tcc = new JColorChooser();
+                tcc.getSelectionModel().addChangeListener(new ChangeListener() {
+                    @Override
+                    public void stateChanged(final ChangeEvent e) {
+                        Color c = tcc.getColor();
+                        applet.medium.setgrnd(c.getRed(), c.getGreen(), c.getBlue());
+                    }
+                });
+                f.getContentPane().add(tcc);
+                f.pack();
+                f.setVisible(true);
+            }
+        });
+
+        btnSetFog = new JButton("Set fog");
+        btnSetFog.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                final JFrame f = new JFrame("Color picker");
+                f.setBackground(new Color(0, 0, 0));
+                //f.setIgnoreRepaint(true);
+                f.setIconImages(getIcons());
+                final JColorChooser tcc = new JColorChooser();
+                tcc.getSelectionModel().addChangeListener(new ChangeListener() {
+                    @Override
+                    public void stateChanged(final ChangeEvent e) {
+                        Color c = tcc.getColor();
+                        applet.medium.setfade(c.getRed(), c.getGreen(), c.getBlue());
+                    }
+                });
+                f.getContentPane().add(tcc);
+                f.pack();
+                f.setVisible(true);
+            }
+        });
+        GroupLayout gl_panel_32 = new GroupLayout(panel_32);
+        gl_panel_32.setHorizontalGroup(
+            gl_panel_32.createParallelGroup(Alignment.TRAILING)
+                .addGroup(gl_panel_32.createSequentialGroup()
+                    .addContainerGap(94, Short.MAX_VALUE)
+                    .addGroup(gl_panel_32.createParallelGroup(Alignment.TRAILING)
+                        .addComponent(btnSetFog, GroupLayout.PREFERRED_SIZE, 85, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnSetSnap, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnSetSky, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(chckbxEnableSnap)
+                        .addComponent(btnSetGround))
+                    .addGap(80))
+        );
+        gl_panel_32.setVerticalGroup(
+            gl_panel_32.createParallelGroup(Alignment.LEADING)
+                .addGroup(gl_panel_32.createSequentialGroup()
+                    .addGap(1)
+                    .addComponent(btnSetSnap)
+                    .addPreferredGap(ComponentPlacement.UNRELATED)
+                    .addComponent(chckbxEnableSnap)
+                    .addPreferredGap(ComponentPlacement.UNRELATED)
+                    .addComponent(btnSetSky, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(ComponentPlacement.RELATED)
+                    .addComponent(btnSetGround)
+                    .addPreferredGap(ComponentPlacement.RELATED)
+                    .addComponent(btnSetFog)
+                    .addContainerGap(289, Short.MAX_VALUE))
+        );
+        panel_32.setLayout(gl_panel_32);
+
         btnAa.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
@@ -1394,6 +1542,8 @@ class RunApp extends Panel {
     private JSlider slider_4;
     private JCheckBox chckBoxGrnScrn;
     private JCheckBox checkBoxInf;
+    private JCheckBox chckbxEnableSnap;
+    private JButton btnSetFog;
 
     /**
      * Fetches icons of 16, 32 and 48 pixels from the 'data' folder.

@@ -245,7 +245,7 @@ class Plane {
                     l8 = ai1[j9];
                 if (k11 == n)
                     i9 = ai1[j9];
-            }                        
+            }
             if(!Medium.infiniteDistance){
             	final int k9 = (j7 + l7) / 2;
                 final int i10 = (j8 + k8) / 2;
@@ -261,7 +261,7 @@ class Plane {
                     toofar = true;
                 if (av > 2000)
                     toofar = true;
-            }            
+            }
         }
         if (flag3 && !Medium.wire && !Medium.pointwire) {
             float f = (float) (projf / deltaf + 0.5D);
@@ -271,12 +271,38 @@ class Plane {
                     f = 0.5F;
                 if (toofar)
                     f = (float) (f * 0.90000000000000002D);
-            
-            new Color(c[0], c[1], c[2]);
+
+            //new Color(c[0], c[1], c[2]);
             final Color color = Color.getHSBColor(hsb[0], hsb[1], hsb[2] * f);
             int k6 = color.getRed();
             int i7 = color.getGreen();
             int k7 = color.getBlue();
+
+            if (Medium.snapcolor) {
+                k6 = (short) (k6 + k6 * (m.snap[0] / 100.0F));
+                if (k6 > 255) {
+                    k6 = 255;
+                }
+                if (k6 < 0) {
+                    k6 = 0;
+                }
+                i7 = (short) (i7 + i7 * (m.snap[1] / 100.0F));
+                if (i7 > 255) {
+                    i7 = 255;
+                }
+                if (i7 < 0) {
+                    i7 = 0;
+                }
+                k7 = (short) (k7 + k7 * (m.snap[2] / 100.0F));
+                if (k7 > 255) {
+                    k7 = 255;
+                }
+                if (k7 < 0) {
+                    k7 = 0;
+                }
+            }
+
+
             if(!Medium.infiniteDistance)
             	for (int i8 = 0; i8 < 8; i8++)
                 if (av > m.fade[i8]) {

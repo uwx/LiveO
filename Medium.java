@@ -132,9 +132,9 @@ class Medium {
         if (y > 0)
             y = 0;
         ground = 250 - y;
-        
-        /////sky code        
-        
+
+        /////sky code
+
         if(skyState){
         	final int ai[] = new int[4];
             final int ai1[] = new int[4];
@@ -219,7 +219,7 @@ class Medium {
             if (ai1[0] < h && ai1[1] > 0) {
                 g.setColor(new Color(cfade[0], cfade[1], cfade[2]));
                 g.fillPolygon(ai, ai1, 4);
-            }        	
+            }
         }else{
         	final int ai[] = new int[4];
             final int ai1[] = new int[4];
@@ -245,7 +245,7 @@ class Medium {
 			g.setColor(new Color(i, j, k));
 			g.fillPolygon(ai, ai1, 4);
         }
-        
+
     }
 
     private float sin(int i) {
@@ -303,11 +303,11 @@ class Medium {
     int mode;
     int lxp[];
     int lyp[];
-    
+
     static boolean infiniteDistance;
-    
+
     static boolean skyState;
-    
+
     static boolean hideoutlines = false;
 
     boolean pushpull = true;
@@ -325,6 +325,7 @@ class Medium {
     boolean lightson;
     static boolean pointwire = false;
     static boolean wire = false;
+    static boolean snapcolor = true;
 
     private int[] adna = {
             276, 276, 276, 276, 276, 276
@@ -332,4 +333,86 @@ class Medium {
 
     private float[] tsin = new float[360];
     private float[] tcos = new float[360];
+
+    short[] snap = {0, 0, 0};
+
+
+
+    public void setfade(final int r, final int g, final int b) {
+        cfade[0] = (short) (r + r * (snap[0] / 100.0F));
+        if (cfade[0] > 255) {
+            cfade[0] = 255;
+        }
+        if (cfade[0] < 0) {
+            cfade[0] = 0;
+        }
+        cfade[1] = (short) (g + g * (snap[1] / 100.0F));
+        if (cfade[1] > 255) {
+            cfade[1] = 255;
+        }
+        if (cfade[1] < 0) {
+            cfade[1] = 0;
+        }
+        cfade[2] = (short) (b + b * (snap[2] / 100.0F));
+        if (cfade[2] > 255) {
+            cfade[2] = 255;
+        }
+        if (cfade[2] < 0) {
+            cfade[2] = 0;
+        }
+    }
+
+    public void setgrnd(final int r, final int g, final int b) {
+        cgrnd[0] = (short) (r + r * (snap[0] / 100.0F));
+        if (cgrnd[0] > 255) {
+            cgrnd[0] = 255;
+        }
+        if (cgrnd[0] < 0) {
+            cgrnd[0] = 0;
+        }
+        cgrnd[1] = (short) (g + g * (snap[1] / 100.0F));
+        if (cgrnd[1] > 255) {
+            cgrnd[1] = 255;
+        }
+        if (cgrnd[1] < 0) {
+            cgrnd[1] = 0;
+        }
+        cgrnd[2] = (short) (b + b * (snap[2] / 100.0F));
+        if (cgrnd[2] > 255) {
+            cgrnd[2] = 255;
+        }
+        if (cgrnd[2] < 0) {
+            cgrnd[2] = 0;
+        }
+    }
+
+    public void setsky(final int r, final int g, final int b) {
+        csky[0] = (int) (r + r * (snap[0] / 100.0F));
+        if (csky[0] > 255) {
+            csky[0] = 255;
+        }
+        if (csky[0] < 0) {
+            csky[0] = 0;
+        }
+        csky[1] = (int) (g + g * (snap[1] / 100.0F));
+        if (csky[1] > 255) {
+            csky[1] = 255;
+        }
+        if (csky[1] < 0) {
+            csky[1] = 0;
+        }
+        csky[2] = (int) (b + b * (snap[2] / 100.0F));
+        if (csky[2] > 255) {
+            csky[2] = 255;
+        }
+        if (csky[2] < 0) {
+            csky[2] = 0;
+        }
+    }
+
+    public void setsnap(final short r, final short g, final short b) {
+        snap[0] = r;
+        snap[1] = g;
+        snap[2] = b;
+    }
 }
