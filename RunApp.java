@@ -3,6 +3,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
@@ -32,6 +33,7 @@ import java.util.function.Consumer;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JColorChooser;
@@ -45,15 +47,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
+import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import java.awt.Font;
-import java.awt.CardLayout;
 
 class RunApp extends Panel {
 
@@ -152,10 +151,11 @@ class RunApp extends Panel {
         btnNewButton_1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent arg0) {
-                if (applet.medium.autorotate == false)
+                if (applet.medium.autorotate == false) {
                     applet.medium.autorotate = true;
-                else
+                } else {
                     applet.medium.autorotate = false;
+                }
             }
         });
         panel_1.add(btnNewButton_1);
@@ -184,8 +184,7 @@ class RunApp extends Panel {
                     t.countPolys();
                 } catch (final Exception er) {
                     System.err.println("Error loading ContO: " + er);
-                    postMsg("Error loading ContO: " + er
-                            + "\r\nIf you're sure this isn't your fault, tell rafa something went wrong and give him the full console log");
+                    postMsg("Error loading ContO: " + er + "\r\nIf you're sure this isn't your fault, tell rafa something went wrong and give him the full console log");
                     er.printStackTrace();
                 }
             }
@@ -265,41 +264,12 @@ class RunApp extends Panel {
             }
         });
 
-        JLabel lblAngle = new JLabel("XYZ Angle");
+        final JLabel lblAngle = new JLabel("XYZ Angle");
         lblAngle.setHorizontalAlignment(SwingConstants.CENTER);
         lblAngle.setFont(new Font("Tahoma", Font.PLAIN, 20));
         final GroupLayout gl_panel_8 = new GroupLayout(panel_8);
-        gl_panel_8.setHorizontalGroup(
-            gl_panel_8.createParallelGroup(Alignment.LEADING)
-                .addGroup(gl_panel_8.createSequentialGroup()
-                    .addGap(1)
-                    .addComponent(slider, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addGroup(gl_panel_8.createParallelGroup(Alignment.LEADING)
-                        .addGroup(gl_panel_8.createSequentialGroup()
-                            .addGap(1)
-                            .addGroup(gl_panel_8.createParallelGroup(Alignment.LEADING)
-                                .addComponent(slider_1, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
-                                .addComponent(slider_2, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(gl_panel_8.createSequentialGroup()
-                            .addGap(1)
-                            .addComponent(lblAngle, GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
-                            .addGap(10)))
-                    .addGap(1))
-        );
-        gl_panel_8.setVerticalGroup(
-            gl_panel_8.createParallelGroup(Alignment.LEADING)
-                .addGroup(gl_panel_8.createSequentialGroup()
-                    .addGap(1)
-                    .addGroup(gl_panel_8.createParallelGroup(Alignment.LEADING)
-                        .addGroup(gl_panel_8.createSequentialGroup()
-                            .addComponent(slider_1, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE)
-                            .addGap(1)
-                            .addComponent(lblAngle, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addGap(1)
-                            .addComponent(slider_2, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE))
-                        .addComponent(slider, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE))
-                    .addGap(1))
-        );
+        gl_panel_8.setHorizontalGroup(gl_panel_8.createParallelGroup(Alignment.LEADING).addGroup(gl_panel_8.createSequentialGroup().addGap(1).addComponent(slider, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE).addGroup(gl_panel_8.createParallelGroup(Alignment.LEADING).addGroup(gl_panel_8.createSequentialGroup().addGap(1).addGroup(gl_panel_8.createParallelGroup(Alignment.LEADING).addComponent(slider_1, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE).addComponent(slider_2, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE))).addGroup(gl_panel_8.createSequentialGroup().addGap(1).addComponent(lblAngle, GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE).addGap(10))).addGap(1)));
+        gl_panel_8.setVerticalGroup(gl_panel_8.createParallelGroup(Alignment.LEADING).addGroup(gl_panel_8.createSequentialGroup().addGap(1).addGroup(gl_panel_8.createParallelGroup(Alignment.LEADING).addGroup(gl_panel_8.createSequentialGroup().addComponent(slider_1, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE).addGap(1).addComponent(lblAngle, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE).addGap(1).addComponent(slider_2, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE)).addComponent(slider, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)).addGap(1)));
         panel_8.setLayout(gl_panel_8);
         slider_1.addChangeListener(new ChangeListener() {
             @Override
@@ -371,8 +341,9 @@ class RunApp extends Panel {
             Files.walk(Paths.get("./wheels/")).forEach(new Consumer<Path>() {
                 @Override
                 public void accept(final Path filePath) {
-                    if (Files.isRegularFile(filePath))
+                    if (Files.isRegularFile(filePath)) {
                         dong.add(filePath.toFile());
+                    }
                 }
             });
         } catch (final IOException e1) {
@@ -380,8 +351,9 @@ class RunApp extends Panel {
         File[] fArray = new File[dong.size()];
         fArray = dong.toArray(fArray);
         final String[] sArray = new String[dong.size()];
-        for (int i = 0; i < fArray.length; i++)
+        for (int i = 0; i < fArray.length; i++) {
             sArray[i] = fArray[i].getName();
+        }
 
         panel_5 = new JPanel();
         tabbedPane.addTab("Models", null, panel_5, null);
@@ -428,8 +400,7 @@ class RunApp extends Panel {
                         t.countPolys();
                     } catch (final Exception er) {
                         System.err.println("Error loading ContO: " + er);
-                        postMsg("Error loading ContO: " + er
-                                + "\r\nIf you're sure this isn't your fault, tell rafa something went wrong and give him the full console log");
+                        postMsg("Error loading ContO: " + er + "\r\nIf you're sure this isn't your fault, tell rafa something went wrong and give him the full console log");
                         er.printStackTrace();
                     }
                     System.out.println("autorefresh'd!");
@@ -462,7 +433,7 @@ class RunApp extends Panel {
                     final int item = comboBox_1.getSelectedIndex();
                     final File file = carFArray[item];
                     //final File[] files = fd.getFiles();
-                    if (file.exists() && !file.isDirectory())
+                    if (file.exists() && !file.isDirectory()) {
                         try {
                             F51.contofile = file;
                             t.loadFile();
@@ -470,10 +441,10 @@ class RunApp extends Panel {
                             applet.remake(t.text.getText());
                         } catch (final Exception e) {
                             System.err.println("Error loading ContO: " + e);
-                            postMsg("Error loading ContO: " + e
-                                    + "\r\nIf you're sure this isn't your fault, tell rafa something went wrong and give him the full console log");
+                            postMsg("Error loading ContO: " + e + "\r\nIf you're sure this isn't your fault, tell rafa something went wrong and give him the full console log");
                             e.printStackTrace();
                         }
+                    }
                 }
             }
         });
@@ -489,9 +460,10 @@ class RunApp extends Panel {
                 final int result = fileChooser.showOpenDialog(frame);
                 if (result == JFileChooser.APPROVE_OPTION) {
                     final File selectedFile = fileChooser.getSelectedFile();
-                    if (selectedFile.exists() && selectedFile.isDirectory())
+                    if (selectedFile.exists() && selectedFile.isDirectory()) {
                         carfolder = selectedFile;
-                    //System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+                        //System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+                    }
                 }
                 makeRadCombobox();
                 comboBox_1.setModel(new DefaultComboBoxModel<String>(carSArray));
@@ -521,14 +493,14 @@ class RunApp extends Panel {
                 final int result = fileChooser.showOpenDialog(frame);
                 if (result == JFileChooser.APPROVE_OPTION) {
                     final File selectedFile = fileChooser.getSelectedFile();
-                    if (selectedFile.exists() && !selectedFile.isDirectory())
+                    if (selectedFile.exists() && !selectedFile.isDirectory()) {
                         F51.overlayfile = selectedFile;
+                    }
                     try {
                         applet.remakeOverlay();
                     } catch (final Exception e) {
                         System.err.println("Error loading ContO: " + e);
-                        postMsg("Error loading ContO: " + e
-                                + "\r\nIf you're sure this isn't your fault, tell rafa something went wrong and give him the full console log");
+                        postMsg("Error loading ContO: " + e + "\r\nIf you're sure this isn't your fault, tell rafa something went wrong and give him the full console log");
                         e.printStackTrace();
                     }
                     chckbxShowOverlayCar.setSelected(true);
@@ -620,43 +592,8 @@ class RunApp extends Panel {
         textField_5.setColumns(10);
         panel_22.add(textField_5);
         final GroupLayout gl_panel_15 = new GroupLayout(panel_15);
-        gl_panel_15.setHorizontalGroup(gl_panel_15.createParallelGroup(Alignment.LEADING)
-                .addGroup(gl_panel_15.createSequentialGroup().addGroup(gl_panel_15
-                        .createParallelGroup(
-                                Alignment.LEADING)
-                        .addGroup(
-                                gl_panel_15.createSequentialGroup().addGap(1)
-                                        .addGroup(
-                                                gl_panel_15.createParallelGroup(Alignment.LEADING)
-                                                        .addGroup(gl_panel_15.createSequentialGroup()
-                                                                .addComponent(panel_10, GroupLayout.PREFERRED_SIZE, 215,
-                                                                        Short.MAX_VALUE)
-                                                                .addGap(1))
-                                        .addGroup(
-                                                gl_panel_15.createSequentialGroup()
-                                                        .addComponent(panel_11, GroupLayout.DEFAULT_SIZE, 215,
-                                                                Short.MAX_VALUE)
-                                                        .addGap(1))
-                                .addComponent(panel_12, GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
-                                .addComponent(panel_16, GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)))
-                        .addComponent(panel_20, GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
-                        .addComponent(panel_21, GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
-                        .addComponent(panel_22, GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)).addGap(1)));
-        gl_panel_15.setVerticalGroup(gl_panel_15.createParallelGroup(Alignment.LEADING)
-                .addGroup(gl_panel_15.createSequentialGroup().addGap(5)
-                        .addComponent(panel_10, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-                                GroupLayout.PREFERRED_SIZE)
-                .addGap(1)
-                .addComponent(panel_11, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-                        GroupLayout.PREFERRED_SIZE)
-                .addGap(1)
-                .addComponent(panel_12, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-                        GroupLayout.PREFERRED_SIZE).addGap(1)
-                .addComponent(panel_20, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE).addGap(1)
-                .addComponent(panel_21, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE).addGap(1)
-                .addComponent(panel_22, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(ComponentPlacement.RELATED, 50, Short.MAX_VALUE).addComponent(panel_16,
-                        GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE).addGap(45)));
+        gl_panel_15.setHorizontalGroup(gl_panel_15.createParallelGroup(Alignment.LEADING).addGroup(gl_panel_15.createSequentialGroup().addGroup(gl_panel_15.createParallelGroup(Alignment.LEADING).addGroup(gl_panel_15.createSequentialGroup().addGap(1).addGroup(gl_panel_15.createParallelGroup(Alignment.LEADING).addGroup(gl_panel_15.createSequentialGroup().addComponent(panel_10, GroupLayout.PREFERRED_SIZE, 215, Short.MAX_VALUE).addGap(1)).addGroup(gl_panel_15.createSequentialGroup().addComponent(panel_11, GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE).addGap(1)).addComponent(panel_12, GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE).addComponent(panel_16, GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE))).addComponent(panel_20, GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE).addComponent(panel_21, GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE).addComponent(panel_22, GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)).addGap(1)));
+        gl_panel_15.setVerticalGroup(gl_panel_15.createParallelGroup(Alignment.LEADING).addGroup(gl_panel_15.createSequentialGroup().addGap(5).addComponent(panel_10, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE).addGap(1).addComponent(panel_11, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE).addGap(1).addComponent(panel_12, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE).addGap(1).addComponent(panel_20, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE).addGap(1).addComponent(panel_21, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE).addGap(1).addComponent(panel_22, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE).addPreferredGap(ComponentPlacement.RELATED, 50, Short.MAX_VALUE).addComponent(panel_16, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE).addGap(45)));
 
         btnSet = new JButton("Set");
         panel_16.add(btnSet);
@@ -746,19 +683,8 @@ class RunApp extends Panel {
             }
         });
         final GroupLayout gl_panel_14 = new GroupLayout(panel_14);
-        gl_panel_14.setHorizontalGroup(gl_panel_14.createParallelGroup(Alignment.LEADING)
-                .addGroup(gl_panel_14.createSequentialGroup().addGap(12)
-                        .addGroup(gl_panel_14.createParallelGroup(Alignment.TRAILING, false)
-                                .addComponent(btnSetColor, Alignment.LEADING, GroupLayout.DEFAULT_SIZE,
-                                        GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnSetndColor, Alignment.LEADING, GroupLayout.DEFAULT_SIZE,
-                                        GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap()));
-        gl_panel_14
-                .setVerticalGroup(gl_panel_14.createParallelGroup(Alignment.LEADING)
-                        .addGroup(gl_panel_14.createSequentialGroup().addContainerGap().addComponent(btnSetColor)
-                                .addGap(4).addComponent(btnSetndColor)
-                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+        gl_panel_14.setHorizontalGroup(gl_panel_14.createParallelGroup(Alignment.LEADING).addGroup(gl_panel_14.createSequentialGroup().addGap(12).addGroup(gl_panel_14.createParallelGroup(Alignment.TRAILING, false).addComponent(btnSetColor, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE).addComponent(btnSetndColor, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)).addContainerGap()));
+        gl_panel_14.setVerticalGroup(gl_panel_14.createParallelGroup(Alignment.LEADING).addGroup(gl_panel_14.createSequentialGroup().addContainerGap().addComponent(btnSetColor).addGap(4).addComponent(btnSetndColor).addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
         panel_14.setLayout(gl_panel_14);
 
         panel_19 = new JPanel();
@@ -822,8 +748,7 @@ class RunApp extends Panel {
                     // no need to count polys
                     applet.remake(t.text.getText());
                 } catch (final Exception e1) {
-                    postMsg("Error loading ContO: " + e
-                            + "\r\nIf you're sure this isn't your fault, tell rafa something went wrong and give him the full console log");
+                    postMsg("Error loading ContO: " + e + "\r\nIf you're sure this isn't your fault, tell rafa something went wrong and give him the full console log");
                 }
             }
         });
@@ -837,8 +762,7 @@ class RunApp extends Panel {
                     // no need to count polys
                     applet.remake(t.text.getText());
                 } catch (final Exception e1) {
-                    postMsg("Error loading ContO: " + e
-                            + "\r\nIf you're sure this isn't your fault, tell rafa something went wrong and give him the full console log");
+                    postMsg("Error loading ContO: " + e + "\r\nIf you're sure this isn't your fault, tell rafa something went wrong and give him the full console log");
                 }
             }
         });
@@ -852,33 +776,10 @@ class RunApp extends Panel {
                     // no need to count polys
                     applet.remake(t.text.getText());
                 } catch (final Exception e1) {
-                    postMsg("Error loading ContO: " + e
-                            + "\r\nIf you're sure this isn't your fault, tell rafa something went wrong and give him the full console log");
+                    postMsg("Error loading ContO: " + e + "\r\nIf you're sure this isn't your fault, tell rafa something went wrong and give him the full console log");
                 }
             }
         });
-
-        chckBoxGrnScrn = new JCheckBox("Green Screen");
-        chckBoxGrnScrn.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent arg0) {
-        		Medium.skyState = !Medium.skyState;
-        	}
-        });
-
-        checkBoxInf = new JCheckBox("Infinite Rendering");
-        checkBoxInf.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent arg0) {
-        		Medium.infiniteDistance = !Medium.infiniteDistance;
-        	}
-        });
-        checkBoxInf.setVerticalAlignment(SwingConstants.TOP);
-        checkBoxInf.setAlignmentY(0.0f);
-        checkBoxInf.setAlignmentX(0.5f);
-        panel_7.add(checkBoxInf);
-        chckBoxGrnScrn.setVerticalAlignment(SwingConstants.TOP);
-        chckBoxGrnScrn.setAlignmentY(0.0f);
-        chckBoxGrnScrn.setAlignmentX(0.5f);
-        panel_7.add(chckBoxGrnScrn);
         chckbxNewCheckBox.setAlignmentX(Component.CENTER_ALIGNMENT);
         panel_7.add(chckbxNewCheckBox);
         chckTrackFaces.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -977,18 +878,20 @@ class RunApp extends Panel {
 
         chckbxNewCheckBox_1 = new JCheckBox("Pass below ground");
 
-        if (applet.medium.passthru)
+        if (applet.medium.passthru) {
             chckbxNewCheckBox_1.setSelected(true);
-        else
+        } else {
             chckbxNewCheckBox_1.setSelected(false);
+        }
 
         chckbxNewCheckBox_1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                if (chckbxNewCheckBox_1.isSelected())
+                if (chckbxNewCheckBox_1.isSelected()) {
                     applet.medium.passthru = true;
-                else
+                } else {
                     applet.medium.passthru = false;
+                }
             }
         });
 
@@ -999,18 +902,20 @@ class RunApp extends Panel {
 
         chckbxNewCheckBox_2 = new JCheckBox("Mouse wheel push/pull");
 
-        if (applet.medium.pushpull)
+        if (applet.medium.pushpull) {
             chckbxNewCheckBox_2.setSelected(true);
-        else
+        } else {
             chckbxNewCheckBox_2.setSelected(false);
+        }
 
         chckbxNewCheckBox_2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                if (chckbxNewCheckBox_2.isSelected())
+                if (chckbxNewCheckBox_2.isSelected()) {
                     applet.medium.pushpull = true;
-                else
+                } else {
                     applet.medium.pushpull = false;
+                }
             }
         });
         panel_29.add(chckbxNewCheckBox_2);
@@ -1018,10 +923,11 @@ class RunApp extends Panel {
         panel_27 = new JPanel();
         panel_23.add(panel_27);
         btnNewButton_2 = new JButton("Autorotation direction: ");
-        if (applet.medium.autorotate_dir)
+        if (applet.medium.autorotate_dir) {
             btnNewButton_2.setText("Autorotation direction: clockwise");
-        else
+        } else {
             btnNewButton_2.setText("Autorotation direction: counterclockwise");
+        }
         btnNewButton_2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
@@ -1051,10 +957,10 @@ class RunApp extends Panel {
                 final int coarsity = 2;
                 try {
                     applet.medium.movement_auto = Integer.parseInt(textField_6.getText());
-                    if(applet.medium.movement_auto > 90){
-                    	slider_3.setValue(90);
-                    }else{
-                    	slider_3.setValue(applet.medium.movement_auto);
+                    if (applet.medium.movement_auto > 90) {
+                        slider_3.setValue(90);
+                    } else {
+                        slider_3.setValue(applet.medium.movement_auto);
                     }
                 } catch (final NumberFormatException e) {
                     postMsg("Did you insert a non-numeric value? memes. value reset to normal...");
@@ -1075,10 +981,11 @@ class RunApp extends Panel {
         slider_3.setMinimum(1);
         slider_3.setValue(applet.medium.movement_auto);
         slider_3.addChangeListener(new ChangeListener() {
-        	public void stateChanged(ChangeEvent arg0) {
-        		final int coarsity = 2;
+            @Override
+            public void stateChanged(final ChangeEvent arg0) {
+                final int coarsity = 2;
                 try {
-                	textField_6.setText("" + applet.medium.movement_auto);
+                    textField_6.setText("" + applet.medium.movement_auto);
                     applet.medium.movement_auto = slider_3.getValue();
                 } catch (final NumberFormatException e) {
                     postMsg("Did you insert a non-numeric value? memes. value reset to normal...");
@@ -1086,7 +993,7 @@ class RunApp extends Panel {
                     slider_3.setValue(applet.medium.movement_auto);
                     e.printStackTrace();
                 }
-        	}
+            }
         });
         panel_26.add(slider_3);
         textField_6.setColumns(4);
@@ -1105,10 +1012,10 @@ class RunApp extends Panel {
                 final int coarsity = 5;
                 try {
                     applet.medium.movement_coarse = Integer.parseInt(txtS.getText());
-                    if(applet.medium.movement_coarse > 90){
-                    	slider_4.setValue(90);
-                    }else{
-                    	slider_4.setValue(applet.medium.movement_coarse);
+                    if (applet.medium.movement_coarse > 90) {
+                        slider_4.setValue(90);
+                    } else {
+                        slider_4.setValue(applet.medium.movement_coarse);
                     }
                 } catch (final NumberFormatException e) {
                     postMsg("Did you insert a non-numeric value? memes. value reset to normal...");
@@ -1131,10 +1038,11 @@ class RunApp extends Panel {
         panel_24.add(slider_4);
         slider_4.setValue(applet.medium.movement_coarse);
         slider_4.addChangeListener(new ChangeListener() {
-        	public void stateChanged(ChangeEvent arg0) {
-        		final int coarsity = 5;
+            @Override
+            public void stateChanged(final ChangeEvent arg0) {
+                final int coarsity = 5;
                 try {
-                	txtS.setText("" + applet.medium.movement_coarse);
+                    txtS.setText("" + applet.medium.movement_coarse);
                     applet.medium.movement_coarse = slider_4.getValue();
                 } catch (final NumberFormatException e) {
                     postMsg("Did you insert a non-numeric value? memes. value reset to normal...");
@@ -1142,54 +1050,84 @@ class RunApp extends Panel {
                     slider_4.setValue(applet.medium.movement_coarse);
                     e.printStackTrace();
                 }
-        	}
+            }
         });
         panel_24.add(txtS);
 
-        JPanel panel_32 = new JPanel();
+        final JPanel panel_32 = new JPanel();
         tabbedPane.addTab("Background", null, panel_32, null);
 
-                JButton btnSetSnap = new JButton("Set snap");
-                btnSetSnap.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        final JFrame f = new JFrame("Color picker");
-                        f.setBackground(new Color(0, 0, 0));
-                        //f.setIgnoreRepaint(true);
-                        f.setIconImages(getIcons());
-                        final JColorChooser tcc = new JColorChooser();
-                        tcc.getSelectionModel().addChangeListener(new ChangeListener() {
-                            @Override
-                            public void stateChanged(final ChangeEvent e) {
-                                Color c = tcc.getColor();
-                                applet.medium.setsnap((short)c.getRed(), (short)c.getGreen(), (short)c.getBlue());
-                            }
-                        });
-                        f.getContentPane().add(tcc);
-                        f.pack();
-                        f.setVisible(true);
+        final JButton btnSetGround = new JButton("Set ground");
+        btnSetGround.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnSetGround.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                final JFrame f = new JFrame("Color picker");
+                f.setBackground(new Color(0, 0, 0));
+                //f.setIgnoreRepaint(true);
+                f.setIconImages(getIcons());
+                final JColorChooser tcc = new JColorChooser();
+                tcc.getSelectionModel().addChangeListener(new ChangeListener() {
+                    @Override
+                    public void stateChanged(final ChangeEvent e) {
+                        final Color c = tcc.getColor();
+                        applet.medium.setgrnd(c.getRed(), c.getGreen(), c.getBlue());
                     }
                 });
+                f.getContentPane().add(tcc);
+                f.pack();
+                f.setVisible(true);
+            }
+        });
 
-                JButton btnSetSky = new JButton("Set sky");
-                btnSetSky.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        final JFrame f = new JFrame("Color picker");
-                        f.setBackground(new Color(0, 0, 0));
-                        //f.setIgnoreRepaint(true);
-                        f.setIconImages(getIcons());
-                        final JColorChooser tcc = new JColorChooser();
-                        tcc.getSelectionModel().addChangeListener(new ChangeListener() {
-                            @Override
-                            public void stateChanged(final ChangeEvent e) {
-                                Color c = tcc.getColor();
-                                applet.medium.setsky(c.getRed(), c.getGreen(), c.getBlue());
-                            }
-                        });
-                        f.getContentPane().add(tcc);
-                        f.pack();
-                        f.setVisible(true);
+        final JCheckBox checkBox = new JCheckBox("Green Screen");
+        checkBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent arg0) {
+                Medium.skyState = !Medium.skyState;
+            }
+        });
+        checkBox.setVerticalAlignment(SwingConstants.TOP);
+        checkBox.setAlignmentY(0.0f);
+        checkBox.setAlignmentX(Component.CENTER_ALIGNMENT);
+        panel_32.setLayout(new BoxLayout(panel_32, BoxLayout.Y_AXIS));
+
+        final JCheckBox checkBox_1 = new JCheckBox("Infinite Rendering");
+        checkBox_1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent arg0) {
+                Medium.infiniteDistance = !Medium.infiniteDistance;
+            }
+        });
+        checkBox_1.setVerticalAlignment(SwingConstants.TOP);
+        checkBox_1.setAlignmentY(0.0f);
+        checkBox_1.setAlignmentX(Component.CENTER_ALIGNMENT);
+        panel_32.add(checkBox_1);
+        panel_32.add(checkBox);
+
+        final JButton btnSetSnap = new JButton("Set snap");
+        btnSetSnap.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnSetSnap.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                final JFrame f = new JFrame("Color picker");
+                f.setBackground(new Color(0, 0, 0));
+                //f.setIgnoreRepaint(true);
+                f.setIconImages(getIcons());
+                final JColorChooser tcc = new JColorChooser();
+                tcc.getSelectionModel().addChangeListener(new ChangeListener() {
+                    @Override
+                    public void stateChanged(final ChangeEvent e) {
+                        final Color c = tcc.getColor();
+                        applet.medium.setsnap((short) c.getRed(), (short) c.getGreen(), (short) c.getBlue());
                     }
                 });
+                f.getContentPane().add(tcc);
+                f.pack();
+                f.setVisible(true);
+            }
+        });
+        panel_32.add(btnSetSnap);
 
         chckbxEnableSnap = new JCheckBox("Enable snap");
         chckbxEnableSnap.setSelected(true);
@@ -1202,11 +1140,14 @@ class RunApp extends Panel {
 
         chckbxEnableSnap.setVerticalAlignment(SwingConstants.TOP);
         chckbxEnableSnap.setAlignmentY(0.0f);
-        chckbxEnableSnap.setAlignmentX(0.5f);
+        chckbxEnableSnap.setAlignmentX(Component.CENTER_ALIGNMENT);
+        panel_32.add(chckbxEnableSnap);
 
-        JButton btnSetGround = new JButton("Set ground");
-        btnSetGround.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+        final JButton btnSetSky = new JButton("Set sky");
+        btnSetSky.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnSetSky.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
                 final JFrame f = new JFrame("Color picker");
                 f.setBackground(new Color(0, 0, 0));
                 //f.setIgnoreRepaint(true);
@@ -1215,8 +1156,8 @@ class RunApp extends Panel {
                 tcc.getSelectionModel().addChangeListener(new ChangeListener() {
                     @Override
                     public void stateChanged(final ChangeEvent e) {
-                        Color c = tcc.getColor();
-                        applet.medium.setgrnd(c.getRed(), c.getGreen(), c.getBlue());
+                        final Color c = tcc.getColor();
+                        applet.medium.setsky(c.getRed(), c.getGreen(), c.getBlue());
                     }
                 });
                 f.getContentPane().add(tcc);
@@ -1224,56 +1165,32 @@ class RunApp extends Panel {
                 f.setVisible(true);
             }
         });
+        panel_32.add(btnSetSky);
 
-        btnSetFog = new JButton("Set fog");
-        btnSetFog.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                final JFrame f = new JFrame("Color picker");
-                f.setBackground(new Color(0, 0, 0));
-                //f.setIgnoreRepaint(true);
-                f.setIconImages(getIcons());
-                final JColorChooser tcc = new JColorChooser();
-                tcc.getSelectionModel().addChangeListener(new ChangeListener() {
+                btnSetFog = new JButton("Set fog");
+                btnSetFog.setAlignmentX(Component.CENTER_ALIGNMENT);
+                btnSetFog.addActionListener(new ActionListener() {
                     @Override
-                    public void stateChanged(final ChangeEvent e) {
-                        Color c = tcc.getColor();
-                        applet.medium.setfade(c.getRed(), c.getGreen(), c.getBlue());
+                    public void actionPerformed(final ActionEvent e) {
+                        final JFrame f = new JFrame("Color picker");
+                        f.setBackground(new Color(0, 0, 0));
+                        //f.setIgnoreRepaint(true);
+                        f.setIconImages(getIcons());
+                        final JColorChooser tcc = new JColorChooser();
+                        tcc.getSelectionModel().addChangeListener(new ChangeListener() {
+                            @Override
+                            public void stateChanged(final ChangeEvent e) {
+                                final Color c = tcc.getColor();
+                                applet.medium.setfade(c.getRed(), c.getGreen(), c.getBlue());
+                            }
+                        });
+                        f.getContentPane().add(tcc);
+                        f.pack();
+                        f.setVisible(true);
                     }
                 });
-                f.getContentPane().add(tcc);
-                f.pack();
-                f.setVisible(true);
-            }
-        });
-        GroupLayout gl_panel_32 = new GroupLayout(panel_32);
-        gl_panel_32.setHorizontalGroup(
-            gl_panel_32.createParallelGroup(Alignment.TRAILING)
-                .addGroup(gl_panel_32.createSequentialGroup()
-                    .addContainerGap(94, Short.MAX_VALUE)
-                    .addGroup(gl_panel_32.createParallelGroup(Alignment.TRAILING)
-                        .addComponent(btnSetFog, GroupLayout.PREFERRED_SIZE, 85, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnSetSnap, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnSetSky, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(chckbxEnableSnap)
-                        .addComponent(btnSetGround))
-                    .addGap(80))
-        );
-        gl_panel_32.setVerticalGroup(
-            gl_panel_32.createParallelGroup(Alignment.LEADING)
-                .addGroup(gl_panel_32.createSequentialGroup()
-                    .addGap(1)
-                    .addComponent(btnSetSnap)
-                    .addPreferredGap(ComponentPlacement.UNRELATED)
-                    .addComponent(chckbxEnableSnap)
-                    .addPreferredGap(ComponentPlacement.UNRELATED)
-                    .addComponent(btnSetSky, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(ComponentPlacement.RELATED)
-                    .addComponent(btnSetGround)
-                    .addPreferredGap(ComponentPlacement.RELATED)
-                    .addComponent(btnSetFog)
-                    .addContainerGap(289, Short.MAX_VALUE))
-        );
-        panel_32.setLayout(gl_panel_32);
+                panel_32.add(btnSetFog);
+        panel_32.add(btnSetGround);
 
         btnAa.addActionListener(new ActionListener() {
             @Override
@@ -1320,9 +1237,9 @@ class RunApp extends Panel {
             t.loadFile();
             t.countPolys();
             applet.remake(t.text.getText());
-        } else
-            JOptionPane.showMessageDialog(frame,
-                    "There seems to have been a problem loading the ContO, please try again manually");
+        } else {
+            JOptionPane.showMessageDialog(frame, "There seems to have been a problem loading the ContO, please try again manually");
+        }
 
         frame.pack();
 
@@ -1349,8 +1266,9 @@ class RunApp extends Panel {
             Files.walk(Paths.get(carfolder.toURI())).forEach(new Consumer<Path>() {
                 @Override
                 public void accept(final Path filePath) {
-                    if (Files.isRegularFile(filePath) && filePath.toString().endsWith(".rad"))
+                    if (Files.isRegularFile(filePath) && filePath.toString().endsWith(".rad")) {
                         dong.add(filePath.toFile());
+                    }
                 }
             });
         } catch (final IOException e1) {
@@ -1358,8 +1276,9 @@ class RunApp extends Panel {
         carFArray = new File[dong.size()];
         carFArray = dong.toArray(carFArray);
         carSArray = new String[dong.size()];
-        for (int i = 0; i < carFArray.length; i++)
+        for (int i = 0; i < carFArray.length; i++) {
             carSArray[i] = carFArray[i].getName();
+        }
     }
 
     private boolean show = false;
@@ -1384,18 +1303,24 @@ class RunApp extends Panel {
                 while (benis2 != null) {
                     benis2 = benis2.trim();
                     System.out.println(benis2.startsWith("div"));
-                    if (benis2.startsWith("div"))
+                    if (benis2.startsWith("div")) {
                         benis_div = applet.o.getvalue("div", benis2, 0);
-                    if (benis2.startsWith("iwid"))
+                    }
+                    if (benis2.startsWith("iwid")) {
                         benis_iwid = applet.o.getvalue("iwid", benis2, 0);
-                    if (benis2.startsWith("idiv"))
+                    }
+                    if (benis2.startsWith("idiv")) {
                         benis_idiv = applet.o.getvalue("idiv", benis2, 0);
-                    if (benis2.startsWith("ScaleZ"))
+                    }
+                    if (benis2.startsWith("ScaleZ")) {
                         benis_scalez = applet.o.getvalue("ScaleZ", benis2, 0);
-                    if (benis2.startsWith("ScaleX"))
+                    }
+                    if (benis2.startsWith("ScaleX")) {
                         benis_scalex = applet.o.getvalue("ScaleX", benis2, 0);
-                    if (benis2.startsWith("ScaleY"))
+                    }
+                    if (benis2.startsWith("ScaleY")) {
                         benis_scaley = applet.o.getvalue("ScaleY", benis2, 0);
+                    }
                     benis2 = reader.readLine();
                 }
                 reader.close();
@@ -1404,24 +1329,29 @@ class RunApp extends Panel {
                 //System.out.println(selection);
 
                 String realselection = "MaxRadius(300)";
-                if (benis_scalez != 0)
+                if (benis_scalez != 0) {
                     realselection = realselection + "\r\n" + "ScaleZ(" + benis_scalez + ")";
-                if (benis_scalex != 0)
+                }
+                if (benis_scalex != 0) {
                     realselection = realselection + "\r\n" + "ScaleX(" + benis_scalex + ")";
-                if (benis_scaley != 0)
+                }
+                if (benis_scaley != 0) {
                     realselection = realselection + "\r\n" + "ScaleY(" + benis_scaley + ")";
-                if (benis_div != 0)
+                }
+                if (benis_div != 0) {
                     realselection = realselection + "\r\n" + "div(" + benis_div + ")";
-                if (benis_iwid != 0)
+                }
+                if (benis_iwid != 0) {
                     realselection = realselection + "\r\n" + "iwid(" + benis_iwid + ")";
-                if (benis_idiv != 0)
+                }
+                if (benis_idiv != 0) {
                     realselection = realselection + "\r\n" + "idiv(" + benis_idiv + ")";
+                }
                 //System.out.println(realselection);
                 realselection = realselection + "\r\n" + selection;
                 //System.out.println(realselection);
 
-                final DataInputStream stream = new DataInputStream(
-                        new ByteArrayInputStream(realselection.getBytes(/*StandardCharsets.UTF_8*/)));
+                final DataInputStream stream = new DataInputStream(new ByteArrayInputStream(realselection.getBytes(/*StandardCharsets.UTF_8*/)));
                 applet.o = new ContO(stream, applet.medium, 350, 150, 600);
                 applet.o.wxz = storeo.wxz;
                 applet.o.xz = storeo.xz;
@@ -1538,12 +1468,10 @@ class RunApp extends Panel {
     private final JPanel panel_31;
     private final JButton btnSelect;
     private final JCheckBox chckbxShowOverlayCar;
-    private JSlider slider_3;
-    private JSlider slider_4;
-    private JCheckBox chckBoxGrnScrn;
-    private JCheckBox checkBoxInf;
-    private JCheckBox chckbxEnableSnap;
-    private JButton btnSetFog;
+    private final JSlider slider_3;
+    private final JSlider slider_4;
+    private final JCheckBox chckbxEnableSnap;
+    private final JButton btnSetFog;
 
     /**
      * Fetches icons of 16, 32 and 48 pixels from the 'data' folder.
@@ -1554,8 +1482,9 @@ class RunApp extends Panel {
             final int[] resols = {
                     16, 32, 48
             };
-            for (final int res : resols)
+            for (final int res : resols) {
                 icons.add(Toolkit.getDefaultToolkit().createImage("data/ico_" + res + ".png"));
+            }
         }
         return icons;
     }
@@ -1593,8 +1522,9 @@ class RunApp extends Panel {
                 k++;
                 j++;
             }
-            if (k == id)
+            if (k == id) {
                 s3 += str.charAt(j);
+            }
         }
         return s3;
     }
@@ -1604,8 +1534,9 @@ class RunApp extends Panel {
     }
 
     static void postMsg(final String msg) {
-        if (!suppressErrorMessages && !Beans.isDesignTime()) //beans.isdesigntime avoids joptionpanes when using windowbuilder
+        if (!suppressErrorMessages && !Beans.isDesignTime()) {
             JOptionPane.showMessageDialog(frame, msg);
+        }
     }
 
     private void packScrollPane() {
@@ -1676,14 +1607,16 @@ class RunApp extends Panel {
     }
 
     private static int xs(final int i, int j) {
-        if (j < 10)
+        if (j < 10) {
             j = 10;
+        }
         return (j - applet.medium.focus_point) * (applet.medium.cx - i) / j + i;
     }
 
     private static int ys(final int i, int j) {
-        if (j < 10)
+        if (j < 10) {
             j = 10;
+        }
         return (j - applet.medium.focus_point) * (applet.medium.cy - i) / j + i;
     }
 }

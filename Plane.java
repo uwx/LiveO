@@ -264,13 +264,15 @@ class Plane {
             }
         }
         if (flag3 && !Medium.wire && !Medium.pointwire) {
-            float f = (float) (projf / deltaf + 0.5D);
-            	if (f > 1.0F)
-                    f = 1.0F;
-                if (f < 0.5D || flag2)
-                    f = 0.5F;
-                if (toofar)
-                    f = (float) (f * 0.90000000000000002D);
+            float f = 1.0F;
+            if (!Medium.fullbright)
+                f = (float) (projf / deltaf + 0.5D);
+        	if (f > 1.0F)
+                f = 1.0F;
+            if (f < 0.5D || flag2)
+                f = 0.5F;
+            if (toofar)
+                f = (float) (f * 0.90000000000000002D);
 
             //new Color(c[0], c[1], c[2]);
             final Color color = Color.getHSBColor(hsb[0], hsb[1], hsb[2] * f);

@@ -305,6 +305,8 @@ class Medium {
     static boolean pointwire = false;
     static boolean wire = false;
     static boolean snapcolor = true;
+    static boolean fullbright = true;
+
 
     private int[] adna = {
             276, 276, 276, 276, 276, 276
