@@ -293,19 +293,19 @@ class Medium {
 
     boolean passthru = true;
 
-    int movement_coarse = 5;
+    int movementCoarseness = 5;
 
-    int movement_auto = 2;
+    int autorotateCoarseness = 2;
 
-    boolean autorotate_dir;
+    boolean autorotateDirection;
 
     boolean autorotate;
 
     boolean lightson;
     static boolean pointwire = false;
     static boolean wire = false;
-    static boolean snapcolor = true;
-    static boolean fullbright = true;
+    static boolean snapEnabled = true;
+    static boolean fullBright = true;
 
 
     private int[] adna = {

@@ -205,10 +205,10 @@ class RunApp extends Panel {
                 applet.o.zy = 0;
                 applet.o.wxz = 0;
 
-                applet.medium.movement_coarse = 5;
-                slider_4.setValue(applet.medium.movement_coarse);
-                applet.medium.movement_auto = 2;
-                slider_3.setValue(applet.medium.movement_auto);
+                applet.medium.movementCoarseness = 5;
+                slider_4.setValue(applet.medium.movementCoarseness);
+                applet.medium.autorotateCoarseness = 2;
+                slider_3.setValue(applet.medium.autorotateCoarseness);
             }
         });
         applet = new F51();
@@ -923,7 +923,7 @@ class RunApp extends Panel {
         panel_27 = new JPanel();
         panel_23.add(panel_27);
         btnNewButton_2 = new JButton("Autorotation direction: ");
-        if (applet.medium.autorotate_dir) {
+        if (applet.medium.autorotateDirection) {
             btnNewButton_2.setText("Autorotation direction: clockwise");
         } else {
             btnNewButton_2.setText("Autorotation direction: counterclockwise");
@@ -931,11 +931,11 @@ class RunApp extends Panel {
         btnNewButton_2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                if (applet.medium.autorotate_dir) {
-                    applet.medium.autorotate_dir = false;
+                if (applet.medium.autorotateDirection) {
+                    applet.medium.autorotateDirection = false;
                     btnNewButton_2.setText("Autorotation direction: counterclockwise");
                 } else {
-                    applet.medium.autorotate_dir = true;
+                    applet.medium.autorotateDirection = true;
                     btnNewButton_2.setText("Autorotation direction: clockwise");
                 }
             }
@@ -950,22 +950,22 @@ class RunApp extends Panel {
         panel_26.add(lblAutorotateCoarseness);
 
         textField_6 = new JTextField();
-        textField_6.setText("" + applet.medium.movement_auto);
+        textField_6.setText("" + applet.medium.autorotateCoarseness);
         textField_6.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent arg0) {
                 final int coarsity = 2;
                 try {
-                    applet.medium.movement_auto = Integer.parseInt(textField_6.getText());
-                    if (applet.medium.movement_auto > 90) {
+                    applet.medium.autorotateCoarseness = Integer.parseInt(textField_6.getText());
+                    if (applet.medium.autorotateCoarseness > 90) {
                         slider_3.setValue(90);
                     } else {
-                        slider_3.setValue(applet.medium.movement_auto);
+                        slider_3.setValue(applet.medium.autorotateCoarseness);
                     }
                 } catch (final NumberFormatException e) {
                     postMsg("Did you insert a non-numeric value? memes. value reset to normal...");
-                    applet.medium.movement_auto = coarsity;
-                    textField_6.setText("" + applet.medium.movement_auto);
+                    applet.medium.autorotateCoarseness = coarsity;
+                    textField_6.setText("" + applet.medium.autorotateCoarseness);
                     e.printStackTrace();
                 }
             }
@@ -979,18 +979,18 @@ class RunApp extends Panel {
         slider_3.setMinorTickSpacing(1);
         slider_3.setMaximum(90);
         slider_3.setMinimum(1);
-        slider_3.setValue(applet.medium.movement_auto);
+        slider_3.setValue(applet.medium.autorotateCoarseness);
         slider_3.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(final ChangeEvent arg0) {
                 final int coarsity = 2;
                 try {
-                    textField_6.setText("" + applet.medium.movement_auto);
-                    applet.medium.movement_auto = slider_3.getValue();
+                    textField_6.setText("" + applet.medium.autorotateCoarseness);
+                    applet.medium.autorotateCoarseness = slider_3.getValue();
                 } catch (final NumberFormatException e) {
                     postMsg("Did you insert a non-numeric value? memes. value reset to normal...");
-                    applet.medium.movement_auto = coarsity;
-                    slider_3.setValue(applet.medium.movement_auto);
+                    applet.medium.autorotateCoarseness = coarsity;
+                    slider_3.setValue(applet.medium.autorotateCoarseness);
                     e.printStackTrace();
                 }
             }
@@ -1005,22 +1005,22 @@ class RunApp extends Panel {
         lblNewLabel_1 = new JLabel("Movement Coarseness");
 
         txtS = new JTextField();
-        txtS.setText("" + applet.medium.movement_coarse);
+        txtS.setText("" + applet.medium.movementCoarseness);
         txtS.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent arg0) {
                 final int coarsity = 5;
                 try {
-                    applet.medium.movement_coarse = Integer.parseInt(txtS.getText());
-                    if (applet.medium.movement_coarse > 90) {
+                    applet.medium.movementCoarseness = Integer.parseInt(txtS.getText());
+                    if (applet.medium.movementCoarseness > 90) {
                         slider_4.setValue(90);
                     } else {
-                        slider_4.setValue(applet.medium.movement_coarse);
+                        slider_4.setValue(applet.medium.movementCoarseness);
                     }
                 } catch (final NumberFormatException e) {
                     postMsg("Did you insert a non-numeric value? memes. value reset to normal...");
-                    applet.medium.movement_coarse = coarsity;
-                    txtS.setText("" + applet.medium.movement_coarse);
+                    applet.medium.movementCoarseness = coarsity;
+                    txtS.setText("" + applet.medium.movementCoarseness);
                     e.printStackTrace();
                 }
             }
@@ -1036,18 +1036,18 @@ class RunApp extends Panel {
         slider_4.setMinimum(1);
         slider_4.setPreferredSize(new Dimension(90, 23));
         panel_24.add(slider_4);
-        slider_4.setValue(applet.medium.movement_coarse);
+        slider_4.setValue(applet.medium.movementCoarseness);
         slider_4.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(final ChangeEvent arg0) {
                 final int coarsity = 5;
                 try {
-                    txtS.setText("" + applet.medium.movement_coarse);
-                    applet.medium.movement_coarse = slider_4.getValue();
+                    txtS.setText("" + applet.medium.movementCoarseness);
+                    applet.medium.movementCoarseness = slider_4.getValue();
                 } catch (final NumberFormatException e) {
                     postMsg("Did you insert a non-numeric value? memes. value reset to normal...");
-                    applet.medium.movement_coarse = coarsity;
-                    slider_4.setValue(applet.medium.movement_coarse);
+                    applet.medium.movementCoarseness = coarsity;
+                    slider_4.setValue(applet.medium.movementCoarseness);
                     e.printStackTrace();
                 }
             }
@@ -1134,7 +1134,7 @@ class RunApp extends Panel {
         chckbxEnableSnap.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                Medium.snapcolor = chckbxEnableSnap.isSelected();
+                Medium.snapEnabled = chckbxEnableSnap.isSelected();
             }
         });
 

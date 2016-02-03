@@ -265,7 +265,7 @@ class Plane {
         }
         if (flag3 && !Medium.wire && !Medium.pointwire) {
             float f = 1.0F;
-            if (!Medium.fullbright)
+            if (!Medium.fullBright)
                 f = (float) (projf / deltaf + 0.5D);
         	if (f > 1.0F)
                 f = 1.0F;
@@ -280,7 +280,7 @@ class Plane {
             int i7 = color.getGreen();
             int k7 = color.getBlue();
 
-            if (Medium.snapcolor) {
+            if (Medium.snapEnabled) {
                 k6 = (short) (k6 + k6 * (m.snap[0] / 100.0F));
                 if (k6 > 255) {
                     k6 = 255;

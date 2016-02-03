@@ -211,10 +211,10 @@ class F51 extends JPanel implements KeyListener, MouseListener, MouseWheelListen
             drawOverlay();
 
         if (medium.autorotate)
-            if (medium.autorotate_dir)
-                o.xz -= medium.movement_auto;
+            if (medium.autorotateDirection)
+                o.xz -= medium.autorotateCoarseness;
             else
-                o.xz += medium.movement_auto;
+                o.xz += medium.autorotateCoarseness;
 
         float movement_mult = 1F;
         if (shift && control)
@@ -229,29 +229,29 @@ class F51 extends JPanel implements KeyListener, MouseListener, MouseWheelListen
         if (show3)
             medium.d3p(rd);
         if (forward)
-            o.wxz -= medium.movement_coarse * movement_mult;
+            o.wxz -= medium.movementCoarseness * movement_mult;
         if (back)
-            o.wxz += medium.movement_coarse * movement_mult;
+            o.wxz += medium.movementCoarseness * movement_mult;
         if (rotr)
-            o.xz -= medium.movement_coarse * movement_mult;
+            o.xz -= medium.movementCoarseness * movement_mult;
         if (rotl)
-            o.xz += medium.movement_coarse * movement_mult;
+            o.xz += medium.movementCoarseness * movement_mult;
         if (left)
-            o.xy -= medium.movement_coarse * movement_mult;
+            o.xy -= medium.movementCoarseness * movement_mult;
         if (right)
-            o.xy += medium.movement_coarse * movement_mult;
+            o.xy += medium.movementCoarseness * movement_mult;
         if (up)
-            o.zy -= medium.movement_coarse * movement_mult;
+            o.zy -= medium.movementCoarseness * movement_mult;
         if (down)
-            o.zy += medium.movement_coarse * movement_mult;
+            o.zy += medium.movementCoarseness * movement_mult;
         if (plus)
-            o.y += medium.movement_coarse * movement_mult;
+            o.y += medium.movementCoarseness * movement_mult;
         if (minus)
-            o.y -= medium.movement_coarse * movement_mult;
+            o.y -= medium.movementCoarseness * movement_mult;
         if (in)
-            o.z += (medium.movement_coarse + 5) * movement_mult;
+            o.z += (medium.movementCoarseness + 5) * movement_mult;
         if (out)
-            o.z -= (medium.movement_coarse + 5) * movement_mult;
+            o.z -= (medium.movementCoarseness + 5) * movement_mult;
         if (aa)
             ((Graphics2D) rd).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         else
@@ -394,13 +394,13 @@ class F51 extends JPanel implements KeyListener, MouseListener, MouseWheelListen
         final int notches = e.getWheelRotation();
         if (notches < 0) {
             if (medium.pushpull)
-                o.z += medium.movement_coarse * movement_mult;
+                o.z += medium.movementCoarseness * movement_mult;
             else
-                o.z -= medium.movement_coarse * movement_mult;
+                o.z -= medium.movementCoarseness * movement_mult;
         } else if (medium.pushpull)
-            o.z -= medium.movement_coarse * movement_mult;
+            o.z -= medium.movementCoarseness * movement_mult;
         else
-            o.z += medium.movement_coarse * movement_mult;
+            o.z += medium.movementCoarseness * movement_mult;
     }
 
     @Override
