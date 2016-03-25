@@ -375,39 +375,39 @@ class Plane {
             for (int k2 = 0; k2 < n; k2++)
                 ai2[k2] = m.ground;
 
-            for (int l2 = 0; l2 < m.tr.nt; l2++)
-                if (m.tr.in[l2]) {
+            for (int l2 = 0; l2 < Trackers.nt; l2++)
+                if (Trackers.in[l2]) {
                     int i3 = 0;
                     for (int j3 = 0; j3 < n; j3++)
-                        if (Math.abs(ai[j3] - m.tr.x[l2]) < m.tr.radx[l2]
-                                && Math.abs(ai1[j3] - m.tr.z[l2]) < m.tr.radz[l2])
+                        if (Math.abs(ai[j3] - Trackers.x[l2]) < Trackers.radx[l2]
+                                && Math.abs(ai1[j3] - Trackers.z[l2]) < Trackers.radz[l2])
                             i3++;
 
                     if (i3 == n) {
                         for (int k3 = 0; k3 < n; k3++)
-                            ai2[k3] = m.tr.y[l2];
+                            ai2[k3] = Trackers.y[l2];
 
-                        if (m.tr.xy[l2] != 0) {
+                        if (Trackers.xy[l2] != 0) {
                             for (int l3 = 0; l3 < n; l3++) {
                                 ai[l3] -= i;
-                                ai[l3] = (int) (ai[l3] * (1.0D / Math.cos(m.tr.xy[l2] * 0.017453292519943295D)));
+                                ai[l3] = (int) (ai[l3] * (1.0D / Math.cos(Trackers.xy[l2] * 0.017453292519943295D)));
                                 ai[l3] += i;
                             }
 
-                            rot(ai, ai2, m.tr.x[l2], m.tr.y[l2], m.tr.xy[l2], n);
+                            rot(ai, ai2, Trackers.x[l2], Trackers.y[l2], Trackers.xy[l2], n);
                         }
-                        if (m.tr.zy[l2] != 0) {
+                        if (Trackers.zy[l2] != 0) {
                             for (int i4 = 0; i4 < n; i4++) {
                                 ai1[i4] -= k;
-                                ai1[i4] = (int) (ai1[i4] * (1.0D / Math.cos(m.tr.zy[l2] * 0.017453292519943295D)));
+                                ai1[i4] = (int) (ai1[i4] * (1.0D / Math.cos(Trackers.zy[l2] * 0.017453292519943295D)));
                                 ai1[i4] += k;
                             }
 
-                            rot(ai1, ai2, m.tr.z[l2], m.tr.y[l2], m.tr.zy[l2], n);
+                            rot(ai1, ai2, Trackers.z[l2], Trackers.y[l2], Trackers.zy[l2], n);
                         }
-                        l1 = (int) (m.tr.c[l2][0] / 1.5D);
-                        i2 = (int) (m.tr.c[l2][1] / 1.5D);
-                        j2 = (int) (m.tr.c[l2][2] / 1.5D);
+                        l1 = (int) (Trackers.c[l2][0] / 1.5D);
+                        i2 = (int) (Trackers.c[l2][1] / 1.5D);
+                        j2 = (int) (Trackers.c[l2][2] / 1.5D);
                     }
                 }
 

@@ -197,63 +197,63 @@ class ContO {
                   track = m.tr.nt;
                   m.tr.nt++;
                 }*/
-                if (m.tr.nt + 1 > m.tr.xy.length)
+                if (Trackers.nt + 1 > Trackers.xy.length)
                     throw new RuntimeException("increase tracks()");
                 if (line.startsWith("<track>")) {
-                    m.tr.notwall[m.tr.nt] = false;
-                    m.tr.dam[m.tr.nt] = 1;
-                    m.tr.skd[m.tr.nt] = 0;
-                    m.tr.y[m.tr.nt] = 0;
-                    m.tr.x[m.tr.nt] = 0;
-                    m.tr.z[m.tr.nt] = 0;
-                    m.tr.xy[m.tr.nt] = 0;
-                    m.tr.zy[m.tr.nt] = 0;
-                    m.tr.rady[m.tr.nt] = 0;
-                    m.tr.radx[m.tr.nt] = 0;
-                    m.tr.radz[m.tr.nt] = 0;
-                    m.tr.c[m.tr.nt][0] = 0;
-                    m.tr.c[m.tr.nt][1] = 0;
-                    m.tr.c[m.tr.nt][2] = 0;
+                    Trackers.notwall[Trackers.nt] = false;
+                    Trackers.dam[Trackers.nt] = 1;
+                    Trackers.skd[Trackers.nt] = 0;
+                    Trackers.y[Trackers.nt] = 0;
+                    Trackers.x[Trackers.nt] = 0;
+                    Trackers.z[Trackers.nt] = 0;
+                    Trackers.xy[Trackers.nt] = 0;
+                    Trackers.zy[Trackers.nt] = 0;
+                    Trackers.rady[Trackers.nt] = 0;
+                    Trackers.radx[Trackers.nt] = 0;
+                    Trackers.radz[Trackers.nt] = 0;
+                    Trackers.c[Trackers.nt][0] = 0;
+                    Trackers.c[Trackers.nt][1] = 0;
+                    Trackers.c[Trackers.nt][2] = 0;
                     track = -1;
                 }
                 if (track == -1) {
                     if (line.startsWith("c")) {
-                        m.tr.c[m.tr.nt][0] = getvalue("c", line, 0);
-                        m.tr.c[m.tr.nt][1] = getvalue("c", line, 1);
-                        m.tr.c[m.tr.nt][2] = getvalue("c", line, 2);
+                        Trackers.c[Trackers.nt][0] = getvalue("c", line, 0);
+                        Trackers.c[Trackers.nt][1] = getvalue("c", line, 1);
+                        Trackers.c[Trackers.nt][2] = getvalue("c", line, 2);
                     }
                     if (line.startsWith("xy"))
-                        m.tr.xy[m.tr.nt] = getvalue("xy", line, 0);
+                        Trackers.xy[Trackers.nt] = getvalue("xy", line, 0);
                     if (line.startsWith("zy"))
-                        m.tr.zy[m.tr.nt] = getvalue("zy", line, 0);
+                        Trackers.zy[Trackers.nt] = getvalue("zy", line, 0);
                     if (line.startsWith("radx"))
-                        m.tr.radx[m.tr.nt] = (int) (getvalue("radx", line, 0) * div);
+                        Trackers.radx[Trackers.nt] = (int) (getvalue("radx", line, 0) * div);
                     if (line.startsWith("rady"))
-                        m.tr.rady[m.tr.nt] = (int) (getvalue("rady", line, 0) * div);
+                        Trackers.rady[Trackers.nt] = (int) (getvalue("rady", line, 0) * div);
                     if (line.startsWith("radz"))
-                        m.tr.radz[m.tr.nt] = (int) (getvalue("radz", line, 0) * div);
+                        Trackers.radz[Trackers.nt] = (int) (getvalue("radz", line, 0) * div);
                     if (line.startsWith("ty"))
-                        m.tr.y[m.tr.nt] = (int) (getvalue("ty", line, 0) * div);
+                        Trackers.y[Trackers.nt] = (int) (getvalue("ty", line, 0) * div);
                     if (line.startsWith("tx"))
-                        m.tr.x[m.tr.nt] = (int) (getvalue("tx", line, 0) * div);
+                        Trackers.x[Trackers.nt] = (int) (getvalue("tx", line, 0) * div);
                     if (line.startsWith("tz"))
-                        m.tr.z[m.tr.nt] = (int) (getvalue("tz", line, 0) * div);
+                        Trackers.z[Trackers.nt] = (int) (getvalue("tz", line, 0) * div);
                     if (line.startsWith("skid"))
-                        m.tr.skd[m.tr.nt] = getvalue("skid", line, 0);
+                        Trackers.skd[Trackers.nt] = getvalue("skid", line, 0);
                     if (line.startsWith("dam"))
-                        m.tr.dam[m.tr.nt] = 3;
+                        Trackers.dam[Trackers.nt] = 3;
                     if (line.startsWith("notwall"))
-                        m.tr.notwall[m.tr.nt] = true;
+                        Trackers.notwall[Trackers.nt] = true;
                 }
                 if (line.startsWith("</track>")) {
                     //
 
-                    final int x1 = m.tr.x[m.tr.nt] - m.tr.radx[m.tr.nt];
-                    final int x2 = m.tr.x[m.tr.nt] + m.tr.radx[m.tr.nt];
-                    final int y1 = m.tr.y[m.tr.nt] - m.tr.rady[m.tr.nt];
-                    final int y2 = m.tr.y[m.tr.nt] + m.tr.rady[m.tr.nt];
-                    final int z1 = m.tr.z[m.tr.nt] - m.tr.radz[m.tr.nt];
-                    final int z2 = m.tr.z[m.tr.nt] + m.tr.radz[m.tr.nt];
+                    final int x1 = Trackers.x[Trackers.nt] - Trackers.radx[Trackers.nt];
+                    final int x2 = Trackers.x[Trackers.nt] + Trackers.radx[Trackers.nt];
+                    final int y1 = Trackers.y[Trackers.nt] - Trackers.rady[Trackers.nt];
+                    final int y2 = Trackers.y[Trackers.nt] + Trackers.rady[Trackers.nt];
+                    final int z1 = Trackers.z[Trackers.nt] - Trackers.radz[Trackers.nt];
+                    final int z2 = Trackers.z[Trackers.nt] + Trackers.radz[Trackers.nt];
 
                     /*
                      * x = 200
@@ -362,75 +362,75 @@ class ContO {
                     /* Track Flats / Faces */
                     /* Captures RadX and RadZ, RadY can be interpreted/determined by model */
                     if (RunApp.showTrackFaces)
-                        if ((m.tr.zy[m.tr.nt] == 90 || m.tr.zy[m.tr.nt] == -90) && m.tr.xy[m.tr.nt] == 0) {
+                        if ((Trackers.zy[Trackers.nt] == 90 || Trackers.zy[Trackers.nt] == -90) && Trackers.xy[Trackers.nt] == 0) {
                             final int[] px = {
-                                    m.tr.x[m.tr.nt] - m.tr.radx[m.tr.nt], m.tr.x[m.tr.nt] - m.tr.radx[m.tr.nt],
-                                    m.tr.x[m.tr.nt] + m.tr.radx[m.tr.nt], m.tr.x[m.tr.nt] + m.tr.radx[m.tr.nt]
+                                    Trackers.x[Trackers.nt] - Trackers.radx[Trackers.nt], Trackers.x[Trackers.nt] - Trackers.radx[Trackers.nt],
+                                    Trackers.x[Trackers.nt] + Trackers.radx[Trackers.nt], Trackers.x[Trackers.nt] + Trackers.radx[Trackers.nt]
                             };
                             final int[] py = {
-                                    m.tr.y[m.tr.nt], m.tr.y[m.tr.nt], m.tr.y[m.tr.nt], m.tr.y[m.tr.nt]
+                                    Trackers.y[Trackers.nt], Trackers.y[Trackers.nt], Trackers.y[Trackers.nt], Trackers.y[Trackers.nt]
                             };
                             final int[] pz = {
-                                    m.tr.z[m.tr.nt] - m.tr.rady[m.tr.nt], m.tr.z[m.tr.nt] + m.tr.rady[m.tr.nt],
-                                    m.tr.z[m.tr.nt] + m.tr.rady[m.tr.nt], m.tr.z[m.tr.nt] - m.tr.rady[m.tr.nt]
+                                    Trackers.z[Trackers.nt] - Trackers.rady[Trackers.nt], Trackers.z[Trackers.nt] + Trackers.rady[Trackers.nt],
+                                    Trackers.z[Trackers.nt] + Trackers.rady[Trackers.nt], Trackers.z[Trackers.nt] - Trackers.rady[Trackers.nt]
                             }; // may need changing
                             final int[] pc = {
                                     255, 255, 0
                             };
 
-                            Plane.rot(py, pz, m.tr.y[m.tr.nt], m.tr.z[m.tr.nt], -m.tr.zy[m.tr.nt], 4);
+                            Plane.rot(py, pz, Trackers.y[Trackers.nt], Trackers.z[Trackers.nt], -Trackers.zy[Trackers.nt], 4);
 
                             p[npl] = new Plane(m, px, pz, py, 4, pc, false, 0, 0, 0, 0, (byte) 0, false,
                                     false /*rndcolor*/, false, false, 0, 0, 0, 0);
                             npl++;
-                        } else if ((m.tr.xy[m.tr.nt] == 90 || m.tr.xy[m.tr.nt] == -90) && m.tr.zy[m.tr.nt] == 0) {
+                        } else if ((Trackers.xy[Trackers.nt] == 90 || Trackers.xy[Trackers.nt] == -90) && Trackers.zy[Trackers.nt] == 0) {
                             final int[] px = {
-                                    m.tr.x[m.tr.nt] - m.tr.rady[m.tr.nt], m.tr.x[m.tr.nt] - m.tr.rady[m.tr.nt],
-                                    m.tr.x[m.tr.nt] + m.tr.rady[m.tr.nt], m.tr.x[m.tr.nt] + m.tr.rady[m.tr.nt]
+                                    Trackers.x[Trackers.nt] - Trackers.rady[Trackers.nt], Trackers.x[Trackers.nt] - Trackers.rady[Trackers.nt],
+                                    Trackers.x[Trackers.nt] + Trackers.rady[Trackers.nt], Trackers.x[Trackers.nt] + Trackers.rady[Trackers.nt]
                             };
                             final int[] py = {
-                                    m.tr.y[m.tr.nt], m.tr.y[m.tr.nt], m.tr.y[m.tr.nt], m.tr.y[m.tr.nt]
+                                    Trackers.y[Trackers.nt], Trackers.y[Trackers.nt], Trackers.y[Trackers.nt], Trackers.y[Trackers.nt]
                             };
                             final int[] pz = {
-                                    m.tr.z[m.tr.nt] - m.tr.radz[m.tr.nt], m.tr.z[m.tr.nt] + m.tr.radz[m.tr.nt],
-                                    m.tr.z[m.tr.nt] + m.tr.radz[m.tr.nt], m.tr.z[m.tr.nt] - m.tr.radz[m.tr.nt]
+                                    Trackers.z[Trackers.nt] - Trackers.radz[Trackers.nt], Trackers.z[Trackers.nt] + Trackers.radz[Trackers.nt],
+                                    Trackers.z[Trackers.nt] + Trackers.radz[Trackers.nt], Trackers.z[Trackers.nt] - Trackers.radz[Trackers.nt]
                             }; // may need changing
                             final int[] pc = {
                                     255, 255, 0
                             };
 
-                            Plane.rot(py, px, m.tr.y[m.tr.nt], m.tr.x[m.tr.nt], -m.tr.xy[m.tr.nt], 4);
+                            Plane.rot(py, px, Trackers.y[Trackers.nt], Trackers.x[Trackers.nt], -Trackers.xy[Trackers.nt], 4);
 
                             p[npl] = new Plane(m, px, pz, py, 4, pc, false, 0, 0, 0, 0, (byte) 0, false,
                                     false /*rndcolor*/, false, false, 0, 0, 0, 0);
                             npl++;
                         } else {
                             final int[] px = {
-                                    m.tr.x[m.tr.nt] - m.tr.radx[m.tr.nt], m.tr.x[m.tr.nt] - m.tr.radx[m.tr.nt],
-                                    m.tr.x[m.tr.nt] + m.tr.radx[m.tr.nt], m.tr.x[m.tr.nt] + m.tr.radx[m.tr.nt]
+                                    Trackers.x[Trackers.nt] - Trackers.radx[Trackers.nt], Trackers.x[Trackers.nt] - Trackers.radx[Trackers.nt],
+                                    Trackers.x[Trackers.nt] + Trackers.radx[Trackers.nt], Trackers.x[Trackers.nt] + Trackers.radx[Trackers.nt]
                             };
                             final int[] py = {
-                                    m.tr.y[m.tr.nt], m.tr.y[m.tr.nt], m.tr.y[m.tr.nt], m.tr.y[m.tr.nt]
+                                    Trackers.y[Trackers.nt], Trackers.y[Trackers.nt], Trackers.y[Trackers.nt], Trackers.y[Trackers.nt]
                             };
                             final int[] pz = {
-                                    m.tr.z[m.tr.nt] - m.tr.radz[m.tr.nt], m.tr.z[m.tr.nt] + m.tr.radz[m.tr.nt],
-                                    m.tr.z[m.tr.nt] + m.tr.radz[m.tr.nt], m.tr.z[m.tr.nt] - m.tr.radz[m.tr.nt]
+                                    Trackers.z[Trackers.nt] - Trackers.radz[Trackers.nt], Trackers.z[Trackers.nt] + Trackers.radz[Trackers.nt],
+                                    Trackers.z[Trackers.nt] + Trackers.radz[Trackers.nt], Trackers.z[Trackers.nt] - Trackers.radz[Trackers.nt]
                             }; // may need changing
                             final int[] pc = {
                                     255, 255, 0
                             };
 
-                            Plane.rot(py, px, m.tr.y[m.tr.nt], m.tr.x[m.tr.nt], -m.tr.xy[m.tr.nt], 4);
-                            Plane.rot(py, pz, m.tr.y[m.tr.nt], m.tr.z[m.tr.nt], -m.tr.zy[m.tr.nt], 4);
+                            Plane.rot(py, px, Trackers.y[Trackers.nt], Trackers.x[Trackers.nt], -Trackers.xy[Trackers.nt], 4);
+                            Plane.rot(py, pz, Trackers.y[Trackers.nt], Trackers.z[Trackers.nt], -Trackers.zy[Trackers.nt], 4);
 
                             p[npl] = new Plane(m, px, pz, py, 4, pc, false, 0, 0, 0, 0, (byte) 0, false,
                                     false /*rndcolor*/, false, false, 0, 0, 0, 0);
                             npl++;
                         }
-                    track = m.tr.nt;
-                    m.tr.nt++;
+                    track = Trackers.nt;
+                    Trackers.nt++;
                 }
-                m.tr.prepare();
+                Trackers.prepare();
 
                 if (line.startsWith("MaxRadius"))
                     maxR = (int) (getvalue("MaxRadius", line, 0) * div);
@@ -656,63 +656,63 @@ class ContO {
                   track = m.tr.nt;
                   m.tr.nt++;
                 }*/
-                if (m.tr.nt + 1 > m.tr.xy.length)
+                if (Trackers.nt + 1 > Trackers.xy.length)
                     throw new RuntimeException("increase tracks()");
                 if (line.startsWith("<track>")) {
-                    m.tr.notwall[m.tr.nt] = false;
-                    m.tr.dam[m.tr.nt] = 1;
-                    m.tr.skd[m.tr.nt] = 0;
-                    m.tr.y[m.tr.nt] = 0;
-                    m.tr.x[m.tr.nt] = 0;
-                    m.tr.z[m.tr.nt] = 0;
-                    m.tr.xy[m.tr.nt] = 0;
-                    m.tr.zy[m.tr.nt] = 0;
-                    m.tr.rady[m.tr.nt] = 0;
-                    m.tr.radx[m.tr.nt] = 0;
-                    m.tr.radz[m.tr.nt] = 0;
-                    m.tr.c[m.tr.nt][0] = 0;
-                    m.tr.c[m.tr.nt][1] = 0;
-                    m.tr.c[m.tr.nt][2] = 0;
+                    Trackers.notwall[Trackers.nt] = false;
+                    Trackers.dam[Trackers.nt] = 1;
+                    Trackers.skd[Trackers.nt] = 0;
+                    Trackers.y[Trackers.nt] = 0;
+                    Trackers.x[Trackers.nt] = 0;
+                    Trackers.z[Trackers.nt] = 0;
+                    Trackers.xy[Trackers.nt] = 0;
+                    Trackers.zy[Trackers.nt] = 0;
+                    Trackers.rady[Trackers.nt] = 0;
+                    Trackers.radx[Trackers.nt] = 0;
+                    Trackers.radz[Trackers.nt] = 0;
+                    Trackers.c[Trackers.nt][0] = 0;
+                    Trackers.c[Trackers.nt][1] = 0;
+                    Trackers.c[Trackers.nt][2] = 0;
                     track = -1;
                 }
                 if (track == -1) {
                     if (line.startsWith("c")) {
-                        m.tr.c[m.tr.nt][0] = getvalue("c", line, 0);
-                        m.tr.c[m.tr.nt][1] = getvalue("c", line, 1);
-                        m.tr.c[m.tr.nt][2] = getvalue("c", line, 2);
+                        Trackers.c[Trackers.nt][0] = getvalue("c", line, 0);
+                        Trackers.c[Trackers.nt][1] = getvalue("c", line, 1);
+                        Trackers.c[Trackers.nt][2] = getvalue("c", line, 2);
                     }
                     if (line.startsWith("xy"))
-                        m.tr.xy[m.tr.nt] = getvalue("xy", line, 0);
+                        Trackers.xy[Trackers.nt] = getvalue("xy", line, 0);
                     if (line.startsWith("zy"))
-                        m.tr.zy[m.tr.nt] = getvalue("zy", line, 0);
+                        Trackers.zy[Trackers.nt] = getvalue("zy", line, 0);
                     if (line.startsWith("radx"))
-                        m.tr.radx[m.tr.nt] = (int) (getvalue("radx", line, 0) * div);
+                        Trackers.radx[Trackers.nt] = (int) (getvalue("radx", line, 0) * div);
                     if (line.startsWith("rady"))
-                        m.tr.rady[m.tr.nt] = (int) (getvalue("rady", line, 0) * div);
+                        Trackers.rady[Trackers.nt] = (int) (getvalue("rady", line, 0) * div);
                     if (line.startsWith("radz"))
-                        m.tr.radz[m.tr.nt] = (int) (getvalue("radz", line, 0) * div);
+                        Trackers.radz[Trackers.nt] = (int) (getvalue("radz", line, 0) * div);
                     if (line.startsWith("ty"))
-                        m.tr.y[m.tr.nt] = (int) (getvalue("ty", line, 0) * div);
+                        Trackers.y[Trackers.nt] = (int) (getvalue("ty", line, 0) * div);
                     if (line.startsWith("tx"))
-                        m.tr.x[m.tr.nt] = (int) (getvalue("tx", line, 0) * div);
+                        Trackers.x[Trackers.nt] = (int) (getvalue("tx", line, 0) * div);
                     if (line.startsWith("tz"))
-                        m.tr.z[m.tr.nt] = (int) (getvalue("tz", line, 0) * div);
+                        Trackers.z[Trackers.nt] = (int) (getvalue("tz", line, 0) * div);
                     if (line.startsWith("skid"))
-                        m.tr.skd[m.tr.nt] = getvalue("skid", line, 0);
+                        Trackers.skd[Trackers.nt] = getvalue("skid", line, 0);
                     if (line.startsWith("dam"))
-                        m.tr.dam[m.tr.nt] = 3;
+                        Trackers.dam[Trackers.nt] = 3;
                     if (line.startsWith("notwall"))
-                        m.tr.notwall[m.tr.nt] = true;
+                        Trackers.notwall[Trackers.nt] = true;
                 }
                 if (line.startsWith("</track>")) {
                     //
 
-                    final int x1 = m.tr.x[m.tr.nt] - m.tr.radx[m.tr.nt];
-                    final int x2 = m.tr.x[m.tr.nt] + m.tr.radx[m.tr.nt];
-                    final int y1 = m.tr.y[m.tr.nt] - m.tr.rady[m.tr.nt];
-                    final int y2 = m.tr.y[m.tr.nt] + m.tr.rady[m.tr.nt];
-                    final int z1 = m.tr.z[m.tr.nt] - m.tr.radz[m.tr.nt];
-                    final int z2 = m.tr.z[m.tr.nt] + m.tr.radz[m.tr.nt];
+                    final int x1 = Trackers.x[Trackers.nt] - Trackers.radx[Trackers.nt];
+                    final int x2 = Trackers.x[Trackers.nt] + Trackers.radx[Trackers.nt];
+                    final int y1 = Trackers.y[Trackers.nt] - Trackers.rady[Trackers.nt];
+                    final int y2 = Trackers.y[Trackers.nt] + Trackers.rady[Trackers.nt];
+                    final int z1 = Trackers.z[Trackers.nt] - Trackers.radz[Trackers.nt];
+                    final int z2 = Trackers.z[Trackers.nt] + Trackers.radz[Trackers.nt];
 
                     /*
                      * x = 200
@@ -821,75 +821,75 @@ class ContO {
                     /* Track Flats / Faces */
                     /* Captures RadX and RadZ, RadY can be interpreted/determined by model */
                     if (RunApp.showTrackFaces)
-                        if ((m.tr.zy[m.tr.nt] == 90 || m.tr.zy[m.tr.nt] == -90) && m.tr.xy[m.tr.nt] == 0) {
+                        if ((Trackers.zy[Trackers.nt] == 90 || Trackers.zy[Trackers.nt] == -90) && Trackers.xy[Trackers.nt] == 0) {
                             final int[] px = {
-                                    m.tr.x[m.tr.nt] - m.tr.radx[m.tr.nt], m.tr.x[m.tr.nt] - m.tr.radx[m.tr.nt],
-                                    m.tr.x[m.tr.nt] + m.tr.radx[m.tr.nt], m.tr.x[m.tr.nt] + m.tr.radx[m.tr.nt]
+                                    Trackers.x[Trackers.nt] - Trackers.radx[Trackers.nt], Trackers.x[Trackers.nt] - Trackers.radx[Trackers.nt],
+                                    Trackers.x[Trackers.nt] + Trackers.radx[Trackers.nt], Trackers.x[Trackers.nt] + Trackers.radx[Trackers.nt]
                             };
                             final int[] py = {
-                                    m.tr.y[m.tr.nt], m.tr.y[m.tr.nt], m.tr.y[m.tr.nt], m.tr.y[m.tr.nt]
+                                    Trackers.y[Trackers.nt], Trackers.y[Trackers.nt], Trackers.y[Trackers.nt], Trackers.y[Trackers.nt]
                             };
                             final int[] pz = {
-                                    m.tr.z[m.tr.nt] - m.tr.rady[m.tr.nt], m.tr.z[m.tr.nt] + m.tr.rady[m.tr.nt],
-                                    m.tr.z[m.tr.nt] + m.tr.rady[m.tr.nt], m.tr.z[m.tr.nt] - m.tr.rady[m.tr.nt]
+                                    Trackers.z[Trackers.nt] - Trackers.rady[Trackers.nt], Trackers.z[Trackers.nt] + Trackers.rady[Trackers.nt],
+                                    Trackers.z[Trackers.nt] + Trackers.rady[Trackers.nt], Trackers.z[Trackers.nt] - Trackers.rady[Trackers.nt]
                             }; // may need changing
                             final int[] pc = {
                                     255, 255, 0
                             };
 
-                            Plane.rot(py, pz, m.tr.y[m.tr.nt], m.tr.z[m.tr.nt], -m.tr.zy[m.tr.nt], 4);
+                            Plane.rot(py, pz, Trackers.y[Trackers.nt], Trackers.z[Trackers.nt], -Trackers.zy[Trackers.nt], 4);
 
                             p[npl] = new Plane(m, px, pz, py, 4, pc, false, 0, 0, 0, 0, (byte) 0, false,
                                     false /*rndcolor*/, false, false, 0, 0, 0, 0);
                             npl++;
-                        } else if ((m.tr.xy[m.tr.nt] == 90 || m.tr.xy[m.tr.nt] == -90) && m.tr.zy[m.tr.nt] == 0) {
+                        } else if ((Trackers.xy[Trackers.nt] == 90 || Trackers.xy[Trackers.nt] == -90) && Trackers.zy[Trackers.nt] == 0) {
                             final int[] px = {
-                                    m.tr.x[m.tr.nt] - m.tr.rady[m.tr.nt], m.tr.x[m.tr.nt] - m.tr.rady[m.tr.nt],
-                                    m.tr.x[m.tr.nt] + m.tr.rady[m.tr.nt], m.tr.x[m.tr.nt] + m.tr.rady[m.tr.nt]
+                                    Trackers.x[Trackers.nt] - Trackers.rady[Trackers.nt], Trackers.x[Trackers.nt] - Trackers.rady[Trackers.nt],
+                                    Trackers.x[Trackers.nt] + Trackers.rady[Trackers.nt], Trackers.x[Trackers.nt] + Trackers.rady[Trackers.nt]
                             };
                             final int[] py = {
-                                    m.tr.y[m.tr.nt], m.tr.y[m.tr.nt], m.tr.y[m.tr.nt], m.tr.y[m.tr.nt]
+                                    Trackers.y[Trackers.nt], Trackers.y[Trackers.nt], Trackers.y[Trackers.nt], Trackers.y[Trackers.nt]
                             };
                             final int[] pz = {
-                                    m.tr.z[m.tr.nt] - m.tr.radz[m.tr.nt], m.tr.z[m.tr.nt] + m.tr.radz[m.tr.nt],
-                                    m.tr.z[m.tr.nt] + m.tr.radz[m.tr.nt], m.tr.z[m.tr.nt] - m.tr.radz[m.tr.nt]
+                                    Trackers.z[Trackers.nt] - Trackers.radz[Trackers.nt], Trackers.z[Trackers.nt] + Trackers.radz[Trackers.nt],
+                                    Trackers.z[Trackers.nt] + Trackers.radz[Trackers.nt], Trackers.z[Trackers.nt] - Trackers.radz[Trackers.nt]
                             }; // may need changing
                             final int[] pc = {
                                     255, 255, 0
                             };
 
-                            Plane.rot(py, px, m.tr.y[m.tr.nt], m.tr.x[m.tr.nt], -m.tr.xy[m.tr.nt], 4);
+                            Plane.rot(py, px, Trackers.y[Trackers.nt], Trackers.x[Trackers.nt], -Trackers.xy[Trackers.nt], 4);
 
                             p[npl] = new Plane(m, px, pz, py, 4, pc, false, 0, 0, 0, 0, (byte) 0, false,
                                     false /*rndcolor*/, false, false, 0, 0, 0, 0);
                             npl++;
                         } else {
                             final int[] px = {
-                                    m.tr.x[m.tr.nt] - m.tr.radx[m.tr.nt], m.tr.x[m.tr.nt] - m.tr.radx[m.tr.nt],
-                                    m.tr.x[m.tr.nt] + m.tr.radx[m.tr.nt], m.tr.x[m.tr.nt] + m.tr.radx[m.tr.nt]
+                                    Trackers.x[Trackers.nt] - Trackers.radx[Trackers.nt], Trackers.x[Trackers.nt] - Trackers.radx[Trackers.nt],
+                                    Trackers.x[Trackers.nt] + Trackers.radx[Trackers.nt], Trackers.x[Trackers.nt] + Trackers.radx[Trackers.nt]
                             };
                             final int[] py = {
-                                    m.tr.y[m.tr.nt], m.tr.y[m.tr.nt], m.tr.y[m.tr.nt], m.tr.y[m.tr.nt]
+                                    Trackers.y[Trackers.nt], Trackers.y[Trackers.nt], Trackers.y[Trackers.nt], Trackers.y[Trackers.nt]
                             };
                             final int[] pz = {
-                                    m.tr.z[m.tr.nt] - m.tr.radz[m.tr.nt], m.tr.z[m.tr.nt] + m.tr.radz[m.tr.nt],
-                                    m.tr.z[m.tr.nt] + m.tr.radz[m.tr.nt], m.tr.z[m.tr.nt] - m.tr.radz[m.tr.nt]
+                                    Trackers.z[Trackers.nt] - Trackers.radz[Trackers.nt], Trackers.z[Trackers.nt] + Trackers.radz[Trackers.nt],
+                                    Trackers.z[Trackers.nt] + Trackers.radz[Trackers.nt], Trackers.z[Trackers.nt] - Trackers.radz[Trackers.nt]
                             }; // may need changing
                             final int[] pc = {
                                     255, 255, 0
                             };
 
-                            Plane.rot(py, px, m.tr.y[m.tr.nt], m.tr.x[m.tr.nt], -m.tr.xy[m.tr.nt], 4);
-                            Plane.rot(py, pz, m.tr.y[m.tr.nt], m.tr.z[m.tr.nt], -m.tr.zy[m.tr.nt], 4);
+                            Plane.rot(py, px, Trackers.y[Trackers.nt], Trackers.x[Trackers.nt], -Trackers.xy[Trackers.nt], 4);
+                            Plane.rot(py, pz, Trackers.y[Trackers.nt], Trackers.z[Trackers.nt], -Trackers.zy[Trackers.nt], 4);
 
                             p[npl] = new Plane(m, px, pz, py, 4, pc, false, 0, 0, 0, 0, (byte) 0, false,
                                     false /*rndcolor*/, false, false, 0, 0, 0, 0);
                             npl++;
                         }
-                    track = m.tr.nt;
-                    m.tr.nt++;
+                    track = Trackers.nt;
+                    Trackers.nt++;
                 }
-                m.tr.prepare();
+                Trackers.prepare();
 
                 if (line.startsWith("MaxRadius"))
                     maxR = (int) (getvalue("MaxRadius", line, 0) * div);
