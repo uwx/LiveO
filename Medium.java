@@ -7,7 +7,7 @@
 import java.awt.Color;
 import java.awt.Graphics;
 
-class Medium {
+final class Medium {
 
     public Medium() {
         tr = new Trackers();

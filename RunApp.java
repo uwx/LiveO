@@ -54,7 +54,7 @@ import javax.swing.Timer;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-class RunApp extends Panel {
+final class RunApp extends Panel {
 
     /**
      * Hides error popups

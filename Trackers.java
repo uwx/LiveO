@@ -3,7 +3,7 @@
 // Decompiler options: packimports(3)
 // Source File Name:   Trackers.java
 
-class Trackers {
+final class Trackers {
 
     static void prepare() {
         for (int i = 0; i < nt; i++)

@@ -9,7 +9,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
-class Plane {
+final class Plane {
 
     public Plane(final Medium medium, final int ai[], final int ai1[], final int ai2[], final int i, final int ai3[],
             final boolean flag, final int j, final int k, final int l, final int i1, final byte light,

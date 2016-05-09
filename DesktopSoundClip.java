@@ -13,7 +13,7 @@ import javax.sound.sampled.DataLine;
  *
  * @author DragShot
  */
-class DesktopSoundClip implements AudioClip {
+final class DesktopSoundClip implements AudioClip {
 
     private Clip clip = null;
     private AudioInputStream sound;
