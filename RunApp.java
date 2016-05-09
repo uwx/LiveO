@@ -1374,7 +1374,7 @@ final class RunApp extends Panel {
      */
     private static final long serialVersionUID = 1337L;
     static JFrame frame;
-    private static F51 applet;
+    static F51 applet;
     private static ArrayList<Image> icons;
 
     static boolean showSolids = true;
@@ -1385,7 +1385,7 @@ final class RunApp extends Panel {
     private final JCheckBox chckbxAutorefresh;
     private final JSlider slider, slider_1;
     private final JPanel panel, panel_2, panel_1;
-    private final TextEditor t;
+    static TextEditor t;
     private final JPanel panel_3;
     private final JButton btnLights;
     private final JPanel panel_4;

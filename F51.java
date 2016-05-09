@@ -30,6 +30,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.image.BufferedImage;
+import java.beans.Beans;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -65,6 +66,7 @@ final class F51 extends JPanel implements KeyListener, MouseListener, MouseWheel
         control = false;
 
         doComponentStuff();
+        if (Beans.isDesignTime()) return;
         addKeyListener(this);
         addMouseListener(this);
         addMouseWheelListener(this);
