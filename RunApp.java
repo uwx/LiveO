@@ -1284,68 +1284,68 @@ final class RunApp extends Panel {
     private boolean show = false;
     private ContO storeo;
 
-    void showSelectedPolygons(final String benis, final String selection) {
+    void showSelectedPolygons(final String radData, final String selection) {
         try {
             if (!show) {
                 show = true;
                 storeo = applet.o;
 
-                int benis_scalez = 0;
-                int benis_scalex = 0;
-                int benis_scaley = 0;
-                int benis_div = 0;
-                int benis_idiv = 0;
-                int benis_iwid = 0;
+                int _scalez = 0;
+                int _scalex = 0;
+                int _scaley = 0;
+                int _div = 0;
+                int _idiv = 0;
+                int _iwid = 0;
 
-                final BufferedReader reader = new BufferedReader(new StringReader(benis));
-                String benis2 = reader.readLine();
+                final BufferedReader reader = new BufferedReader(new StringReader(radData));
+                String line = reader.readLine();
 
-                while (benis2 != null) {
-                    benis2 = benis2.trim();
-                    System.out.println(benis2.startsWith("div"));
-                    if (benis2.startsWith("div")) {
-                        benis_div = applet.o.getvalue("div", benis2, 0);
+                while (line != null) {
+                    line = line.trim();
+                    System.out.println(line.startsWith("div"));
+                    if (line.startsWith("div")) {
+                        _div = applet.o.getvalue("div", line, 0);
                     }
-                    if (benis2.startsWith("iwid")) {
-                        benis_iwid = applet.o.getvalue("iwid", benis2, 0);
+                    if (line.startsWith("iwid")) {
+                        _iwid = applet.o.getvalue("iwid", line, 0);
                     }
-                    if (benis2.startsWith("idiv")) {
-                        benis_idiv = applet.o.getvalue("idiv", benis2, 0);
+                    if (line.startsWith("idiv")) {
+                        _idiv = applet.o.getvalue("idiv", line, 0);
                     }
-                    if (benis2.startsWith("ScaleZ")) {
-                        benis_scalez = applet.o.getvalue("ScaleZ", benis2, 0);
+                    if (line.startsWith("ScaleZ")) {
+                        _scalez = applet.o.getvalue("ScaleZ", line, 0);
                     }
-                    if (benis2.startsWith("ScaleX")) {
-                        benis_scalex = applet.o.getvalue("ScaleX", benis2, 0);
+                    if (line.startsWith("ScaleX")) {
+                        _scalex = applet.o.getvalue("ScaleX", line, 0);
                     }
-                    if (benis2.startsWith("ScaleY")) {
-                        benis_scaley = applet.o.getvalue("ScaleY", benis2, 0);
+                    if (line.startsWith("ScaleY")) {
+                        _scaley = applet.o.getvalue("ScaleY", line, 0);
                     }
-                    benis2 = reader.readLine();
+                    line = reader.readLine();
                 }
                 reader.close();
 
-                //System.out.println(benis_div);
+                //System.out.println(_div);
                 //System.out.println(selection);
 
                 String realselection = "MaxRadius(300)";
-                if (benis_scalez != 0) {
-                    realselection = realselection + "\r\n" + "ScaleZ(" + benis_scalez + ")";
+                if (_scalez != 0) {
+                    realselection = realselection + "\r\n" + "ScaleZ(" + _scalez + ")";
                 }
-                if (benis_scalex != 0) {
-                    realselection = realselection + "\r\n" + "ScaleX(" + benis_scalex + ")";
+                if (_scalex != 0) {
+                    realselection = realselection + "\r\n" + "ScaleX(" + _scalex + ")";
                 }
-                if (benis_scaley != 0) {
-                    realselection = realselection + "\r\n" + "ScaleY(" + benis_scaley + ")";
+                if (_scaley != 0) {
+                    realselection = realselection + "\r\n" + "ScaleY(" + _scaley + ")";
                 }
-                if (benis_div != 0) {
-                    realselection = realselection + "\r\n" + "div(" + benis_div + ")";
+                if (_div != 0) {
+                    realselection = realselection + "\r\n" + "div(" + _div + ")";
                 }
-                if (benis_iwid != 0) {
-                    realselection = realselection + "\r\n" + "iwid(" + benis_iwid + ")";
+                if (_iwid != 0) {
+                    realselection = realselection + "\r\n" + "iwid(" + _iwid + ")";
                 }
-                if (benis_idiv != 0) {
-                    realselection = realselection + "\r\n" + "idiv(" + benis_idiv + ")";
+                if (_idiv != 0) {
+                    realselection = realselection + "\r\n" + "idiv(" + _idiv + ")";
                 }
                 //System.out.println(realselection);
                 realselection = realselection + "\r\n" + selection;
