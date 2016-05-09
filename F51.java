@@ -66,16 +66,20 @@ final class F51 extends JPanel implements KeyListener, MouseListener, MouseWheel
         control = false;
 
         doComponentStuff();
-        if (Beans.isDesignTime()) return;
-        addKeyListener(this);
-        addMouseListener(this);
-        addMouseWheelListener(this);
-        //addMouseMotionListener(this);
-        setFocusable(true);
-        requestFocus();
-        requestFocusInWindow();
-        begin();
-        laterComponentStuff();
+        if (!Beans.isDesignTime()) { // if we are not in design mode
+            addKeyListener(this);
+            addMouseListener(this);
+            addMouseWheelListener(this);
+            //addMouseMotionListener(this);
+            setFocusable(true);
+            requestFocus();
+            requestFocusInWindow();
+            begin();
+            laterComponentStuff();
+        } else { // set some placeholders
+            setBackground(new Color(0, 255, 255));
+            setForeground(new Color(0, 255, 255));
+        }
     }
 
     private void doComponentStuff() {
@@ -127,7 +131,8 @@ final class F51 extends JPanel implements KeyListener, MouseListener, MouseWheel
             whileTrueLoop();
         } catch (final Exception e) {
             e.printStackTrace();
-            System.exit(3);
+            if (!Beans.isDesignTime())
+                System.exit(3);
         }
 
         g.drawImage(offImage, 0, 0, null);
@@ -198,7 +203,9 @@ final class F51 extends JPanel implements KeyListener, MouseListener, MouseWheel
             e.printStackTrace();
         } finally {
             if (o == null)
-                System.exit(3);
+                if (!Beans.isDesignTime())
+                    System.exit(3);
+                else return;
         }
         o.y = 120;
         o.z += 200;

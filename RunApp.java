@@ -1535,7 +1535,7 @@ final class RunApp extends Panel {
 
     static void postMsg(final String msg) {
         if (!suppressErrorMessages && !Beans.isDesignTime()) {
-            JOptionPane.showMessageDialog(frame, msg);
+            JOptionPane.showMessageDialog(frame, msg, "LiveO", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
