@@ -4,11 +4,12 @@
 // Source File Name:   Trackers.java
 
 final class Trackers {
+    
+    private Trackers() {}
 
     static void prepare() {
         for (int i = 0; i < nt; i++)
             in[i] = false;
-
     }
 
     static int[][] c = new int[95000][3];

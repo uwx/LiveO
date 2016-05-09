@@ -11,7 +11,7 @@ import java.awt.Graphics2D;
 
 final class Plane {
 
-    public Plane(final Medium medium, final int ai[], final int ai1[], final int ai2[], final int i, final int ai3[],
+    public Plane(final int ai[], final int ai1[], final int ai2[], final int i, final int ai3[],
             final boolean flag, final int j, final int k, final int l, final int i1, final byte light,
             final boolean hidepoly, final boolean randomcolor, final boolean randoutline, final boolean customstroke,
             final int strokewidth, final int strokecap, final int strokejoin, final int strokemtlimit) {
@@ -36,7 +36,6 @@ final class Plane {
         projf = 1.0F;
         av = 0;
         imlast = false;
-        m = medium;
         n = i;
         ox = new int[n];
         oz = new int[n];
@@ -53,7 +52,7 @@ final class Plane {
                 c[k1] = ai3[k1];
         else
             for (int l1 = 0; l1 < 3; l1++)
-                c[l1] = m.csky[l1];
+                c[l1] = Medium.csky[l1];
         Color.RGBtoHSB(c[0], c[1], c[2], hsb);
         gr = j;
         fs = k;
@@ -113,7 +112,7 @@ final class Plane {
 
             projf /= 3F;
         }
-        rot(ai, ai1, m.cx, m.cz, m.xz, n);
+        rot(ai, ai1, Medium.cx, Medium.cz, Medium.xz, n);
         boolean flag2 = false;
         final int ai3[] = new int[n];
         final int ai4[] = new int[n];
@@ -142,15 +141,15 @@ final class Plane {
             flag2 = true;
             int i4 = 0;
             for (int k4 = 0; k4 < n; k4++)
-                if (ai1[k4] < 50 && ai2[k4] > m.cy)
+                if (ai1[k4] < 50 && ai2[k4] > Medium.cy)
                     flag2 = false;
                 else if (ai2[k4] == ai2[0])
                     i4++;
 
-            if (i4 == n && ai2[0] > m.cy)
+            if (i4 == n && ai2[0] > Medium.cy)
                 flag2 = false;
         }
-        rot(ai2, ai1, m.cy, m.cz, m.zy, n);
+        rot(ai2, ai1, Medium.cy, Medium.cz, Medium.zy, n);
         boolean flag3 = true;
         final int ai5[] = new int[n];
         final int ai6[] = new int[n];
@@ -163,11 +162,11 @@ final class Plane {
             ai6[l5] = ys(ai2[l5], ai1[l5]);
             if (ai6[l5] < 0 || ai1[l5] < 10)
                 l4++;
-            if (ai6[l5] > m.h || ai1[l5] < 10)
+            if (ai6[l5] > Medium.h || ai1[l5] < 10)
                 i5++;
             if (ai5[l5] < 0 || ai1[l5] < 10)
                 j5++;
-            if (ai5[l5] > m.w || ai1[l5] < 10)
+            if (ai5[l5] > Medium.w || ai1[l5] < 10)
                 k5++;
         }
 
@@ -178,8 +177,8 @@ final class Plane {
         if (flag3) {
             if (imlast)
                 for (int i6 = 0; i6 < 3; i6++) {
-                    m.lxp[i6] = ai5[i6];
-                    m.lyp[i6] = ai6[i6];
+                    Medium.lxp[i6] = ai5[i6];
+                    Medium.lyp[i6] = ai6[i6];
                 }
             int j6 = 1;
             byte byte0 = 1;
@@ -201,7 +200,7 @@ final class Plane {
                 j6 *= fs;
                 if (j6 == -1) {
                     l6 += 40;
-                    if (m.mode == 0)
+                    if (Medium.mode == 0)
                         flag3 = false;
                 }
             }
@@ -250,8 +249,8 @@ final class Plane {
             	final int k9 = (j7 + l7) / 2;
                 final int i10 = (j8 + k8) / 2;
                 final int k10 = (l8 + i9) / 2;
-                av = (int) Math.sqrt((m.cy - k9) * (m.cy - k9) + (m.cx - i10) * (m.cx - i10) + k10 * k10 + l6 * l6 * l6);
-                if (av > m.fade[7] || av == 0) {
+                av = (int) Math.sqrt((Medium.cy - k9) * (Medium.cy - k9) + (Medium.cx - i10) * (Medium.cx - i10) + k10 * k10 + l6 * l6 * l6);
+                if (av > Medium.fade[7] || av == 0) {
                     flag3 = false;
                     toofar = true;
                 }
@@ -281,21 +280,21 @@ final class Plane {
             int k7 = color.getBlue();
 
             if (Medium.snapEnabled) {
-                k6 = (short) (k6 + k6 * (m.snap[0] / 100.0F));
+                k6 = (short) (k6 + k6 * (Medium.snap[0] / 100.0F));
                 if (k6 > 255) {
                     k6 = 255;
                 }
                 if (k6 < 0) {
                     k6 = 0;
                 }
-                i7 = (short) (i7 + i7 * (m.snap[1] / 100.0F));
+                i7 = (short) (i7 + i7 * (Medium.snap[1] / 100.0F));
                 if (i7 > 255) {
                     i7 = 255;
                 }
                 if (i7 < 0) {
                     i7 = 0;
                 }
-                k7 = (short) (k7 + k7 * (m.snap[2] / 100.0F));
+                k7 = (short) (k7 + k7 * (Medium.snap[2] / 100.0F));
                 if (k7 > 255) {
                     k7 = 255;
                 }
@@ -307,10 +306,10 @@ final class Plane {
 
             if(!Medium.infiniteDistance)
             	for (int i8 = 0; i8 < 8; i8++)
-                if (av > m.fade[i8]) {
-                    k6 = (k6 * 3 + m.cfade[0]) / 4;
-                    i7 = (i7 * 3 + m.cfade[1]) / 4;
-                    k7 = (k7 * 3 + m.cfade[2]) / 4;
+                if (av > Medium.fade[i8]) {
+                    k6 = (k6 * 3 + Medium.cfade[0]) / 4;
+                    i7 = (i7 * 3 + Medium.cfade[1]) / 4;
+                    k7 = (k7 * 3 + Medium.cfade[2]) / 4;
                 }
             if (!randomcolor)
                 g.setColor(new Color(k6, i7, k7));
@@ -322,7 +321,7 @@ final class Plane {
             int k6;
             int i7;
             int k7;
-            if (m.lightson && light != 0) {
+            if (Medium.lightson && light != 0) {
                 k6 = c[0];
                 if (k6 > 255)
                     k6 = 255;
@@ -356,7 +355,7 @@ final class Plane {
     }
 
     public void s(final Graphics g, final int i, final int j, final int k, final int l, final int i1, final int j1) {
-        if (gr <= 0 && av < m.fade[7] && av != 0) {
+        if (gr <= 0 && av < Medium.fade[7] && av != 0) {
             final int ai[] = new int[n];
             final int ai1[] = new int[n];
             final int ai2[] = new int[n];
@@ -369,11 +368,11 @@ final class Plane {
             rot(ai, ai2, i, j, i1, n);
             rot(ai2, ai1, j, k, j1, n);
             rot(ai, ai1, i, k, l, n);
-            int l1 = (int) (m.cgrnd[0] / 1.5D);
-            int i2 = (int) (m.cgrnd[1] / 1.5D);
-            int j2 = (int) (m.cgrnd[2] / 1.5D);
+            int l1 = (int) (Medium.cgrnd[0] / 1.5D);
+            int i2 = (int) (Medium.cgrnd[1] / 1.5D);
+            int j2 = (int) (Medium.cgrnd[2] / 1.5D);
             for (int k2 = 0; k2 < n; k2++)
-                ai2[k2] = m.ground;
+                ai2[k2] = Medium.ground;
 
             for (int l2 = 0; l2 < Trackers.nt; l2++)
                 if (Trackers.in[l2]) {
@@ -411,24 +410,24 @@ final class Plane {
                     }
                 }
 
-            rot(ai, ai1, m.cx, m.cz, m.xz, n);
-            rot(ai2, ai1, m.cy, m.cz, m.zy, n);
+            rot(ai, ai1, Medium.cx, Medium.cz, Medium.xz, n);
+            rot(ai2, ai1, Medium.cy, Medium.cz, Medium.zy, n);
             boolean flag1 = false;
             final int ai3[] = new int[n];
             final int ai4[] = new int[n];
             for (int j4 = 0; j4 < n; j4++) {
                 ai3[j4] = xs(ai[j4], ai1[j4]);
                 ai4[j4] = ys(ai2[j4], ai1[j4]);
-                if (ai4[j4] > 0 && ai4[j4] < m.h && ai3[j4] > 0 && ai3[j4] < m.w && ai1[j4] > 10)
+                if (ai4[j4] > 0 && ai4[j4] < Medium.h && ai3[j4] > 0 && ai3[j4] < Medium.w && ai1[j4] > 10)
                     flag1 = true;
             }
 
             if (flag1 && Medium.skyState) {
                 for (int k4 = 0; k4 < 8; k4++)
-                    if (av > m.fade[k4]) {
-                        l1 = (l1 * 3 + m.cfade[0]) / 4;
-                        i2 = (i2 * 3 + m.cfade[1]) / 4;
-                        j2 = (j2 * 3 + m.cfade[2]) / 4;
+                    if (av > Medium.fade[k4]) {
+                        l1 = (l1 * 3 + Medium.cfade[0]) / 4;
+                        i2 = (i2 * 3 + Medium.cfade[1]) / 4;
+                        j2 = (j2 * 3 + Medium.cfade[2]) / 4;
                     }
 
                 g.setColor(new Color(l1, i2, j2));
@@ -440,13 +439,13 @@ final class Plane {
     private int xs(final int i, int j) {
         if (j < 10)
             j = 10;
-        return (j - m.focus_point) * (m.cx - i) / j + i;
+        return (j - Medium.focus_point) * (Medium.cx - i) / j + i;
     }
 
     private int ys(final int i, int j) {
         if (j < 10)
             j = 10;
-        return (j - m.focus_point) * (m.cy - i) / j + i;
+        return (j - Medium.focus_point) * (Medium.cy - i) / j + i;
     }
 
     public static void rot(final int ai[], final int ai1[], final int i, final int j, final int k, final int l) {
@@ -462,10 +461,9 @@ final class Plane {
     }
 
     private int spy(final int i, final int j) {
-        return (int) Math.sqrt((i - m.cx) * (i - m.cx) + j * j);
+        return (int) Math.sqrt((i - Medium.cx) * (i - Medium.cx) + j * j);
     }
 
-    private Medium m;
     int ox[];
     int oy[];
     int oz[];

@@ -8,9 +8,10 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 final class Medium {
+    
+    private Medium() {}
 
-    public Medium() {
-        tr = new Trackers();
+    static void init() {
         focus_point = 400;
         ground = 250;
         skyline = -300;
@@ -32,7 +33,7 @@ final class Medium {
         infiniteDistance = false;
     }
 
-    public void d3p(final Graphics g) {
+    public static void d3p(final Graphics g) {
         g.setColor(new Color(255, 0, 0));
         for (int i = 0; i < 3; i++)
             g.fillOval(lxp[i], lyp[i], 4, 4);
@@ -43,13 +44,13 @@ final class Medium {
 
     }
 
-    private int xs(final int i, int i_338_) {
+    private static int xs(final int i, int i_338_) {
         if (i_338_ < cz)
             i_338_ = cz;
         return (i_338_ - focus_point) * (cx - i) / i_338_ + i;
     }
 
-    private void rot(final int[] is, final int[] is_331_, final int i, final int i_332_, final int i_333_,
+    private static void rot(final int[] is, final int[] is_331_, final int i, final int i_332_, final int i_333_,
             final int i_334_) {
         if (i_333_ != 0)
             for (int i_335_ = 0; i_335_ < i_334_; i_335_++) {
@@ -60,7 +61,7 @@ final class Medium {
             }
     }
 
-    public void axis(final Graphics g, final ContO o, final Medium m) { ///I guess this needs to be "fixed", mang
+    public static void axis(final Graphics g, final ContO o) { ///I guess this needs to be "fixed", mang
 
         final int[] x_array = {
                 50 + adna[0], -50 - adna[1], 0, 0, 0, 0
@@ -72,20 +73,20 @@ final class Medium {
                 0, 0, 0, 0, 50 + adna[4], -50 - adna[5]
         };
         for (int i_12_ = 0; i_12_ < 6; i_12_++) {
-            x_array[i_12_] += o.x - m.x;
-            y_array[i_12_] += o.y - m.y;
-            z_array[i_12_] += o.z - m.z;
+            x_array[i_12_] += o.x - Medium.x;
+            y_array[i_12_] += o.y - Medium.y;
+            z_array[i_12_] += o.z - Medium.z;
         }
 
-        rot(x_array, y_array, o.x - m.x, o.y - m.y, o.xy, 6);
+        rot(x_array, y_array, o.x - Medium.x, o.y - Medium.y, o.xy, 6);
 
-        rot(y_array, z_array, o.y - m.y, o.z - m.z, o.zy, 6);
+        rot(y_array, z_array, o.y - Medium.y, o.z - Medium.z, o.zy, 6);
 
-        rot(x_array, z_array, o.x - m.x, o.z - m.z, o.xz, 6);
+        rot(x_array, z_array, o.x - Medium.x, o.z - Medium.z, o.xz, 6);
 
-        rot(x_array, z_array, m.cx, m.cz, m.xz, 6);
+        rot(x_array, z_array, Medium.cx, Medium.cz, Medium.xz, 6);
 
-        rot(y_array, z_array, m.cy, m.cz, m.zy, 6);
+        rot(y_array, z_array, Medium.cy, Medium.cz, Medium.zy, 6);
 
         final int[] is_13_ = new int[6];
         final int[] is_14_ = new int[6];
@@ -124,7 +125,7 @@ final class Medium {
         }
     }
 
-    public void d(final Graphics g) {
+    public static void d(final Graphics g) {
         if (zy > 90)
             zy = 90;
         if (zy < -90)
@@ -227,7 +228,7 @@ final class Medium {
 
     }
 
-    private float sin(int i) {
+    private static float sin(int i) {
         for (/**/; i >= 360; i -= 360) {
             /* empty */
         }
@@ -237,7 +238,7 @@ final class Medium {
         return tsin[i];
     }
 
-    private float cos(int i) {
+    private static float cos(int i) {
         for (/**/; i >= 360; i -= 360) {
             /* empty */
         }
@@ -247,79 +248,77 @@ final class Medium {
         return tcos[i];
     }
 
-    private int ys(final int i, int j) {
+    private static int ys(final int i, int j) {
         if (j < 10)
             j = 10;
         return (j - focus_point) * (cy - i) / j + i;
     }
 
-    Trackers tr;
-    int focus_point;
-    int ground;
-    private int skyline;
-    int csky[] = {
+    static int focus_point;
+    static int ground;
+    private static int skyline;
+    
+    static final int csky[] = {
             170, 220, 255
     };
-    int cgrnd[] = {
+    static final int cgrnd[] = {
             205, 200, 200
     };
-    int cfade[] = {
+    static final int cfade[] = {
             255, 220, 220
     };
-    int fade[] = {
+    static final int fade[] = {
             3000, 5000, 7000, 9000, 11000, 13000, 15000, 17000
     };
-    int cx;
-    int cy;
-    int cz;
-    int xz;
-    int zy;
-    int x;
-    int y;
-    int z;
-    int w;
-    int h;
-    int mode;
-    int lxp[];
-    int lyp[];
+    
+    static int cx;
+    static int cy;
+    static int cz;
+    static int xz;
+    static int zy;
+    
+    static int x;
+    static int y;
+    static int z;
+    static int w;
+    static int h;
+    static int mode;
+    
+    static int lxp[];
+    static int lyp[];
 
     static boolean infiniteDistance;
-
     static boolean skyState;
 
     static boolean hideoutlines = false;
+    static boolean pushpull = true;
+    static boolean passthru = true;
 
-    boolean pushpull = true;
+    static int movementCoarseness = 5;
 
-    boolean passthru = true;
+    static int autorotateCoarseness = 2;
+    static boolean autorotateDirection;
+    static boolean autorotate;
 
-    int movementCoarseness = 5;
-
-    int autorotateCoarseness = 2;
-
-    boolean autorotateDirection;
-
-    boolean autorotate;
-
-    boolean lightson;
+    static boolean lightson;
     static boolean pointwire = false;
     static boolean wire = false;
     static boolean snapEnabled = true;
     static boolean fullBright = true;
 
 
-    private int[] adna = {
+    private static int[] adna = {
             276, 276, 276, 276, 276, 276
     };
 
-    private float[] tsin = new float[360];
-    private float[] tcos = new float[360];
+    private static final float[] tsin = new float[360];
+    private static final float[] tcos = new float[360];
 
-    short[] snap = {0, 0, 0};
+    static final short[] snap = {0, 0, 0};
 
 
 
-    public void setfade(final int r, final int g, final int b) {
+    public static void setfade(final int r, final int g, final int b) {
         cfade[0] = (short) (r + r * (snap[0] / 100.0F));
         if (cfade[0] > 255) {
             cfade[0] = 255;
@@ -343,7 +342,7 @@ final class Medium {
         }
     }
 
-    public void setgrnd(final int r, final int g, final int b) {
+    public static void setgrnd(final int r, final int g, final int b) {
         cgrnd[0] = (short) (r + r * (snap[0] / 100.0F));
         if (cgrnd[0] > 255) {
             cgrnd[0] = 255;
@@ -367,7 +366,7 @@ final class Medium {
         }
     }
 
-    public void setsky(final int r, final int g, final int b) {
+    public static void setsky(final int r, final int g, final int b) {
         csky[0] = (int) (r + r * (snap[0] / 100.0F));
         if (csky[0] > 255) {
             csky[0] = 255;
@@ -391,7 +390,7 @@ final class Medium {
         }
     }
 
-    public void setsnap(final short r, final short g, final short b) {
+    public static void setsnap(final short r, final short g, final short b) {
         snap[0] = r;
         snap[1] = g;
         snap[2] = b;

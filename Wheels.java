@@ -18,7 +18,7 @@ final class Wheels {
         ground = 0;
     }
 
-    public int make(final Medium medium, final Plane aplane[], int i, final int j, final int k, final int l,
+    public int make(final Plane aplane[], int i, final int j, final int k, final int l,
             final int i1, final int j1, final int k1) {
         int l1 = 0;
         int wheelNum = 0;
@@ -62,7 +62,7 @@ final class Wheels {
                         color[1] = (int) getValue(line, 1);
                         color[2] = (int) getValue(line, 2);
                     } else if (line.equals("</p>")) {
-                        aplane[i] = new Plane(medium, tmx, tmz, tmy, npts, color, false, gr, l1, j, l, (byte) 0, false,
+                        aplane[i] = new Plane(tmx, tmz, tmy, npts, color, false, gr, l1, j, l, (byte) 0, false,
                                 false, false, false, 1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10);
                         i++;
                         npts = 0;

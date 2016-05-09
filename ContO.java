@@ -22,7 +22,7 @@ final class ContO {
     public int g_scaley;
     public int g_scalez;
 
-    public ContO(final String s, final Medium medium, final int i, final int j, final int k) throws Exception {
+    public ContO(final String s, final int i, final int j, final int k) throws Exception {
         npl = 0;
         x = 0;
         y = 0;
@@ -41,7 +41,6 @@ final class ContO {
         pcol = 0;
         track = -2;
         out = false;
-        m = medium;
         p = new Plane[0x186a0];
         x = i;
         y = j;
@@ -164,13 +163,13 @@ final class ContO {
 
                 }
                 if (line.startsWith("</p>") && RunApp.showModel) {
-                    p[npl] = new Plane(m, pointX, pointZ, pointY, nPoints, color, glass, gr, fs, 0, 0, light, hidepoly,
+                    p[npl] = new Plane(pointX, pointZ, pointY, nPoints, color, glass, gr, fs, 0, 0, light, hidepoly,
                             randomcolor, randoutline, customstroke, strokewidth, strokecap, strokejoin, strokemtlimit);
                     npl++;
                     flag = false;
                 }
                 if (line.startsWith("w") && RunApp.showModel)
-                    npl += wheels.make(m, p, npl, (int) (getvalue("w", line, 0) * div * nfmm_scale[0]),
+                    npl += wheels.make(p, npl, (int) (getvalue("w", line, 0) * div * nfmm_scale[0]),
                             (int) (getvalue("w", line, 1) * div * nfmm_scale[1]),
                             (int) (getvalue("w", line, 2) * div * nfmm_scale[2]), getvalue("w", line, 3),
                             (int) (getvalue("w", line, 4) * div * nfmm_scale[0]), (int) (getvalue("w", line, 5) * div));
@@ -306,7 +305,7 @@ final class ContO {
                                 z2, z1, z1, z2,
                         };
 
-                        p[npl] = new Plane(m, px, pz, py, 4, pc, false, ggr, 0, 0, 0, (byte) 0, false,
+                        p[npl] = new Plane(px, pz, py, 4, pc, false, ggr, 0, 0, 0, (byte) 0, false,
                                 false /*rndcolor*/, false, false, 0, 0, 0, 0);
                         npl++;
 
@@ -322,7 +321,7 @@ final class ContO {
                         final int[] apz = {
                                 z2, z2, z2, z2,
                         };
-                        p[npl] = new Plane(m, apx, apz, apy, 4, apc, false, ggr, 0, 0, 0, (byte) 0, false,
+                        p[npl] = new Plane(apx, apz, apy, 4, apc, false, ggr, 0, 0, 0, (byte) 0, false,
                                 false /*rndcolor*/, false, false, 0, 0, 0, 0);
                         npl++;
 
@@ -338,7 +337,7 @@ final class ContO {
                         final int[] bpz = {
                                 z2, z2, z1, z1,
                         };
-                        p[npl] = new Plane(m, bpx, bpz, bpy, 4, bpc, false, ggr, 0, 0, 0, (byte) 0, false,
+                        p[npl] = new Plane(bpx, bpz, bpy, 4, bpc, false, ggr, 0, 0, 0, (byte) 0, false,
                                 false /*rndcolor*/, false, false, 0, 0, 0, 0);
                         npl++;
 
@@ -354,7 +353,7 @@ final class ContO {
                         final int[] cpz = {
                                 z1, z1, z1, z1,
                         };
-                        p[npl] = new Plane(m, cpx, cpz, cpy, 4, cpc, false, ggr, 0, 0, 0, (byte) 0, false,
+                        p[npl] = new Plane(cpx, cpz, cpy, 4, cpc, false, ggr, 0, 0, 0, (byte) 0, false,
                                 false /*rndcolor*/, false, false, 0, 0, 0, 0);
                         npl++;
                     }
@@ -380,7 +379,7 @@ final class ContO {
 
                             Plane.rot(py, pz, Trackers.y[Trackers.nt], Trackers.z[Trackers.nt], -Trackers.zy[Trackers.nt], 4);
 
-                            p[npl] = new Plane(m, px, pz, py, 4, pc, false, 0, 0, 0, 0, (byte) 0, false,
+                            p[npl] = new Plane(px, pz, py, 4, pc, false, 0, 0, 0, 0, (byte) 0, false,
                                     false /*rndcolor*/, false, false, 0, 0, 0, 0);
                             npl++;
                         } else if ((Trackers.xy[Trackers.nt] == 90 || Trackers.xy[Trackers.nt] == -90) && Trackers.zy[Trackers.nt] == 0) {
@@ -401,7 +400,7 @@ final class ContO {
 
                             Plane.rot(py, px, Trackers.y[Trackers.nt], Trackers.x[Trackers.nt], -Trackers.xy[Trackers.nt], 4);
 
-                            p[npl] = new Plane(m, px, pz, py, 4, pc, false, 0, 0, 0, 0, (byte) 0, false,
+                            p[npl] = new Plane(px, pz, py, 4, pc, false, 0, 0, 0, 0, (byte) 0, false,
                                     false /*rndcolor*/, false, false, 0, 0, 0, 0);
                             npl++;
                         } else {
@@ -423,7 +422,7 @@ final class ContO {
                             Plane.rot(py, px, Trackers.y[Trackers.nt], Trackers.x[Trackers.nt], -Trackers.xy[Trackers.nt], 4);
                             Plane.rot(py, pz, Trackers.y[Trackers.nt], Trackers.z[Trackers.nt], -Trackers.zy[Trackers.nt], 4);
 
-                            p[npl] = new Plane(m, px, pz, py, 4, pc, false, 0, 0, 0, 0, (byte) 0, false,
+                            p[npl] = new Plane(px, pz, py, 4, pc, false, 0, 0, 0, 0, (byte) 0, false,
                                     false /*rndcolor*/, false, false, 0, 0, 0, 0);
                             npl++;
                         }
@@ -481,7 +480,7 @@ final class ContO {
         p[npl - 1].imlast = true;
     }
 
-    public ContO(final DataInputStream s, final Medium medium, final int i, final int j, final int k) throws Exception {
+    public ContO(final DataInputStream s, final int i, final int j, final int k) throws Exception {
         npl = 0;
         x = 0;
         y = 0;
@@ -500,7 +499,6 @@ final class ContO {
         pcol = 0;
         track = -2;
         out = false;
-        m = medium;
         p = new Plane[0x186a0];
         x = i;
         y = j;
@@ -623,13 +621,13 @@ final class ContO {
 
                 }
                 if (line.startsWith("</p>") && RunApp.showModel) {
-                    p[npl] = new Plane(m, pointX, pointZ, pointY, nPoints, color, glass, gr, fs, 0, 0, light, hidepoly,
+                    p[npl] = new Plane(pointX, pointZ, pointY, nPoints, color, glass, gr, fs, 0, 0, light, hidepoly,
                             randomcolor, randoutline, customstroke, strokewidth, strokecap, strokejoin, strokemtlimit);
                     npl++;
                     flag = false;
                 }
                 if (line.startsWith("w") && RunApp.showModel)
-                    npl += wheels.make(m, p, npl, (int) (getvalue("w", line, 0) * div * nfmm_scale[0]),
+                    npl += wheels.make(p, npl, (int) (getvalue("w", line, 0) * div * nfmm_scale[0]),
                             (int) (getvalue("w", line, 1) * div * nfmm_scale[1]),
                             (int) (getvalue("w", line, 2) * div * nfmm_scale[2]), getvalue("w", line, 3),
                             (int) (getvalue("w", line, 4) * div * nfmm_scale[0]), (int) (getvalue("w", line, 5) * div));
@@ -765,7 +763,7 @@ final class ContO {
                                 z2, z1, z1, z2,
                         };
 
-                        p[npl] = new Plane(m, px, pz, py, 4, pc, false, ggr, 0, 0, 0, (byte) 0, false,
+                        p[npl] = new Plane(px, pz, py, 4, pc, false, ggr, 0, 0, 0, (byte) 0, false,
                                 false /*rndcolor*/, false, false, 0, 0, 0, 0);
                         npl++;
 
@@ -781,7 +779,7 @@ final class ContO {
                         final int[] apz = {
                                 z2, z2, z2, z2,
                         };
-                        p[npl] = new Plane(m, apx, apz, apy, 4, apc, false, ggr, 0, 0, 0, (byte) 0, false,
+                        p[npl] = new Plane(apx, apz, apy, 4, apc, false, ggr, 0, 0, 0, (byte) 0, false,
                                 false /*rndcolor*/, false, false, 0, 0, 0, 0);
                         npl++;
 
@@ -797,7 +795,7 @@ final class ContO {
                         final int[] bpz = {
                                 z2, z2, z1, z1,
                         };
-                        p[npl] = new Plane(m, bpx, bpz, bpy, 4, bpc, false, ggr, 0, 0, 0, (byte) 0, false,
+                        p[npl] = new Plane(bpx, bpz, bpy, 4, bpc, false, ggr, 0, 0, 0, (byte) 0, false,
                                 false /*rndcolor*/, false, false, 0, 0, 0, 0);
                         npl++;
 
@@ -813,7 +811,7 @@ final class ContO {
                         final int[] cpz = {
                                 z1, z1, z1, z1,
                         };
-                        p[npl] = new Plane(m, cpx, cpz, cpy, 4, cpc, false, ggr, 0, 0, 0, (byte) 0, false,
+                        p[npl] = new Plane(cpx, cpz, cpy, 4, cpc, false, ggr, 0, 0, 0, (byte) 0, false,
                                 false /*rndcolor*/, false, false, 0, 0, 0, 0);
                         npl++;
                     }
@@ -839,7 +837,7 @@ final class ContO {
 
                             Plane.rot(py, pz, Trackers.y[Trackers.nt], Trackers.z[Trackers.nt], -Trackers.zy[Trackers.nt], 4);
 
-                            p[npl] = new Plane(m, px, pz, py, 4, pc, false, 0, 0, 0, 0, (byte) 0, false,
+                            p[npl] = new Plane(px, pz, py, 4, pc, false, 0, 0, 0, 0, (byte) 0, false,
                                     false /*rndcolor*/, false, false, 0, 0, 0, 0);
                             npl++;
                         } else if ((Trackers.xy[Trackers.nt] == 90 || Trackers.xy[Trackers.nt] == -90) && Trackers.zy[Trackers.nt] == 0) {
@@ -860,7 +858,7 @@ final class ContO {
 
                             Plane.rot(py, px, Trackers.y[Trackers.nt], Trackers.x[Trackers.nt], -Trackers.xy[Trackers.nt], 4);
 
-                            p[npl] = new Plane(m, px, pz, py, 4, pc, false, 0, 0, 0, 0, (byte) 0, false,
+                            p[npl] = new Plane(px, pz, py, 4, pc, false, 0, 0, 0, 0, (byte) 0, false,
                                     false /*rndcolor*/, false, false, 0, 0, 0, 0);
                             npl++;
                         } else {
@@ -882,7 +880,7 @@ final class ContO {
                             Plane.rot(py, px, Trackers.y[Trackers.nt], Trackers.x[Trackers.nt], -Trackers.xy[Trackers.nt], 4);
                             Plane.rot(py, pz, Trackers.y[Trackers.nt], Trackers.z[Trackers.nt], -Trackers.zy[Trackers.nt], 4);
 
-                            p[npl] = new Plane(m, px, pz, py, 4, pc, false, 0, 0, 0, 0, (byte) 0, false,
+                            p[npl] = new Plane(px, pz, py, 4, pc, false, 0, 0, 0, 0, (byte) 0, false,
                                     false /*rndcolor*/, false, false, 0, 0, 0, 0);
                             npl++;
                         }
@@ -947,26 +945,26 @@ final class ContO {
         //	m.tr.in[track] = false;
         if (!out) {
             //System.out.println(maxR);
-            final int i = m.cx + (int) ((x - m.x - m.cx) * Math.cos(m.xz * 0.017453292519943295D)
-                    - (z - m.z - m.cz) * Math.sin(m.xz * 0.017453292519943295D));
-            final int j = m.cz + (int) ((x - m.x - m.cx) * Math.sin(m.xz * 0.017453292519943295D)
-                    + (z - m.z - m.cz) * Math.cos(m.xz * 0.017453292519943295D));
-            final int k = m.cz + (int) ((y - m.y - m.cy) * Math.sin(m.zy * 0.017453292519943295D)
-                    + (j - m.cz) * Math.cos(m.zy * 0.017453292519943295D));
-            if (xs(i + maxR, k) > 0 && xs(i - maxR, k) < m.w && k > -maxR && k < m.fade[7]
+            final int i = Medium.cx + (int) ((x - Medium.x - Medium.cx) * Math.cos(Medium.xz * 0.017453292519943295D)
+                    - (z - Medium.z - Medium.cz) * Math.sin(Medium.xz * 0.017453292519943295D));
+            final int j = Medium.cz + (int) ((x - Medium.x - Medium.cx) * Math.sin(Medium.xz * 0.017453292519943295D)
+                    + (z - Medium.z - Medium.cz) * Math.cos(Medium.xz * 0.017453292519943295D));
+            final int k = Medium.cz + (int) ((y - Medium.y - Medium.cy) * Math.sin(Medium.zy * 0.017453292519943295D)
+                    + (j - Medium.cz) * Math.cos(Medium.zy * 0.017453292519943295D));
+            if (xs(i + maxR, k) > 0 && xs(i - maxR, k) < Medium.w && k > -maxR && k < Medium.fade[7]
                     && xs(i + maxR, k) - xs(i - maxR, k) > disp || Medium.infiniteDistance) {
                 if (shadow) {
-                    final int l = m.cy + (int) ((m.ground - m.cy) * Math.cos(m.zy * 0.017453292519943295D)
-                            - (j - m.cz) * Math.sin(m.zy * 0.017453292519943295D));
-                    final int j1 = m.cz + (int) ((m.ground - m.cy) * Math.sin(m.zy * 0.017453292519943295D)
-                            + (j - m.cz) * Math.cos(m.zy * 0.017453292519943295D));
-                    if (ys(l + maxR, j1) > 0 && ys(l - maxR, j1) < m.h)
+                    final int l = Medium.cy + (int) ((Medium.ground - Medium.cy) * Math.cos(Medium.zy * 0.017453292519943295D)
+                            - (j - Medium.cz) * Math.sin(Medium.zy * 0.017453292519943295D));
+                    final int j1 = Medium.cz + (int) ((Medium.ground - Medium.cy) * Math.sin(Medium.zy * 0.017453292519943295D)
+                            + (j - Medium.cz) * Math.cos(Medium.zy * 0.017453292519943295D));
+                    if (ys(l + maxR, j1) > 0 && ys(l - maxR, j1) < Medium.h)
                         for (int k1 = 0; k1 < npl; k1++)
-                            p[k1].s(g, x - m.x, y - m.y, z - m.z, xz, xy, zy);
+                            p[k1].s(g, x - Medium.x, y - Medium.y, z - Medium.z, xz, xy, zy);
                 }
-                final int i1 = m.cy + (int) ((y - m.y - m.cy) * Math.cos(m.zy * 0.017453292519943295D)
-                        - (j - m.cz) * Math.sin(m.zy * 0.017453292519943295D));
-                if (ys(i1 + maxR, k) > 0 && ys(i1 - maxR, k) < m.h) {
+                final int i1 = Medium.cy + (int) ((y - Medium.y - Medium.cy) * Math.cos(Medium.zy * 0.017453292519943295D)
+                        - (j - Medium.cz) * Math.sin(Medium.zy * 0.017453292519943295D));
+                if (ys(i1 + maxR, k) > 0 && ys(i1 - maxR, k) < Medium.h) {
                     final int ai[] = new int[npl];
                     for (int l1 = 0; l1 < npl; l1++) {
                         ai[l1] = 0;
@@ -984,13 +982,13 @@ final class ContO {
                             if (ai[k2] == i2) {
                                 if (F51.trans && p[k2].glass)
                                     ((Graphics2D) g).setComposite(AlphaComposite.getInstance(3, 0.7F));
-                                p[k2].d((Graphics2D) g, x - m.x, y - m.y, z - m.z, xz, xy, zy, wxz, stonecold);
+                                p[k2].d((Graphics2D) g, x - Medium.x, y - Medium.y, z - Medium.z, xz, xy, zy, wxz, stonecold);
                                 if (F51.trans && p[k2].glass)
                                     ((Graphics2D) g).setComposite(AlphaComposite.getInstance(3, 1.0F));
                             }
 
-                    dist = (int) Math.sqrt((int) Math.sqrt((m.x + m.cx - x) * (m.x + m.cx - x) + (m.z - z) * (m.z - z)
-                            + (m.y + m.cy - y) * (m.y + m.cy - y))) * grounded;
+                    dist = (int) Math.sqrt((int) Math.sqrt((Medium.x + Medium.cx - x) * (Medium.x + Medium.cx - x) + (Medium.z - z) * (Medium.z - z)
+                            + (Medium.y + Medium.cy - y) * (Medium.y + Medium.cy - y))) * grounded;
                 }
             }
         }
@@ -1011,13 +1009,13 @@ final class ContO {
     private int xs(final int i, int j) {
         if (j < 10)
             j = 10;
-        return (j - m.focus_point) * (m.cx - i) / j + i;
+        return (j - Medium.focus_point) * (Medium.cx - i) / j + i;
     }
 
     private int ys(final int i, int j) {
         if (j < 10)
             j = 10;
-        return (j - m.focus_point) * (m.cy - i) / j + i;
+        return (j - Medium.focus_point) * (Medium.cy - i) / j + i;
     }
 
     int getvalue(final String s, final String s1, final int i) {
@@ -1040,7 +1038,6 @@ final class ContO {
         return (i - x) / 10 * ((i - x) / 10) + (j - y) / 10 * ((j - y) / 10) + (k - z) / 10 * ((k - z) / 10);
     }
 
-    private Medium m;
     private Plane p[];
 
     private int npl;

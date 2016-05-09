@@ -151,10 +151,10 @@ final class RunApp extends Panel {
         btnNewButton_1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent arg0) {
-                if (applet.medium.autorotate == false) {
-                    applet.medium.autorotate = true;
+                if (Medium.autorotate == false) {
+                    Medium.autorotate = true;
                 } else {
-                    applet.medium.autorotate = false;
+                    Medium.autorotate = false;
                 }
             }
         });
@@ -205,10 +205,10 @@ final class RunApp extends Panel {
                 applet.o.zy = 0;
                 applet.o.wxz = 0;
 
-                applet.medium.movementCoarseness = 5;
-                slider_4.setValue(applet.medium.movementCoarseness);
-                applet.medium.autorotateCoarseness = 2;
-                slider_3.setValue(applet.medium.autorotateCoarseness);
+                Medium.movementCoarseness = 5;
+                slider_4.setValue(Medium.movementCoarseness);
+                Medium.autorotateCoarseness = 2;
+                slider_3.setValue(Medium.autorotateCoarseness);
             }
         });
         applet = new F51();
@@ -878,7 +878,7 @@ final class RunApp extends Panel {
 
         chckbxNewCheckBox_1 = new JCheckBox("Pass below ground");
 
-        if (applet.medium.passthru) {
+        if (Medium.passthru) {
             chckbxNewCheckBox_1.setSelected(true);
         } else {
             chckbxNewCheckBox_1.setSelected(false);
@@ -888,9 +888,9 @@ final class RunApp extends Panel {
             @Override
             public void actionPerformed(final ActionEvent e) {
                 if (chckbxNewCheckBox_1.isSelected()) {
-                    applet.medium.passthru = true;
+                    Medium.passthru = true;
                 } else {
-                    applet.medium.passthru = false;
+                    Medium.passthru = false;
                 }
             }
         });
@@ -902,7 +902,7 @@ final class RunApp extends Panel {
 
         chckbxNewCheckBox_2 = new JCheckBox("Mouse wheel push/pull");
 
-        if (applet.medium.pushpull) {
+        if (Medium.pushpull) {
             chckbxNewCheckBox_2.setSelected(true);
         } else {
             chckbxNewCheckBox_2.setSelected(false);
@@ -912,9 +912,9 @@ final class RunApp extends Panel {
             @Override
             public void actionPerformed(final ActionEvent e) {
                 if (chckbxNewCheckBox_2.isSelected()) {
-                    applet.medium.pushpull = true;
+                    Medium.pushpull = true;
                 } else {
-                    applet.medium.pushpull = false;
+                    Medium.pushpull = false;
                 }
             }
         });
@@ -923,7 +923,7 @@ final class RunApp extends Panel {
         panel_27 = new JPanel();
         panel_23.add(panel_27);
         btnNewButton_2 = new JButton("Autorotation direction: ");
-        if (applet.medium.autorotateDirection) {
+        if (Medium.autorotateDirection) {
             btnNewButton_2.setText("Autorotation direction: clockwise");
         } else {
             btnNewButton_2.setText("Autorotation direction: counterclockwise");
@@ -931,11 +931,11 @@ final class RunApp extends Panel {
         btnNewButton_2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                if (applet.medium.autorotateDirection) {
-                    applet.medium.autorotateDirection = false;
+                if (Medium.autorotateDirection) {
+                    Medium.autorotateDirection = false;
                     btnNewButton_2.setText("Autorotation direction: counterclockwise");
                 } else {
-                    applet.medium.autorotateDirection = true;
+                    Medium.autorotateDirection = true;
                     btnNewButton_2.setText("Autorotation direction: clockwise");
                 }
             }
@@ -950,22 +950,22 @@ final class RunApp extends Panel {
         panel_26.add(lblAutorotateCoarseness);
 
         textField_6 = new JTextField();
-        textField_6.setText("" + applet.medium.autorotateCoarseness);
+        textField_6.setText("" + Medium.autorotateCoarseness);
         textField_6.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent arg0) {
                 final int coarsity = 2;
                 try {
-                    applet.medium.autorotateCoarseness = Integer.parseInt(textField_6.getText());
-                    if (applet.medium.autorotateCoarseness > 90) {
+                    Medium.autorotateCoarseness = Integer.parseInt(textField_6.getText());
+                    if (Medium.autorotateCoarseness > 90) {
                         slider_3.setValue(90);
                     } else {
-                        slider_3.setValue(applet.medium.autorotateCoarseness);
+                        slider_3.setValue(Medium.autorotateCoarseness);
                     }
                 } catch (final NumberFormatException e) {
                     postMsg("Did you insert a non-numeric value? memes. value reset to normal...");
-                    applet.medium.autorotateCoarseness = coarsity;
-                    textField_6.setText("" + applet.medium.autorotateCoarseness);
+                    Medium.autorotateCoarseness = coarsity;
+                    textField_6.setText("" + Medium.autorotateCoarseness);
                     e.printStackTrace();
                 }
             }
@@ -979,18 +979,18 @@ final class RunApp extends Panel {
         slider_3.setMinorTickSpacing(1);
         slider_3.setMaximum(90);
         slider_3.setMinimum(1);
-        slider_3.setValue(applet.medium.autorotateCoarseness);
+        slider_3.setValue(Medium.autorotateCoarseness);
         slider_3.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(final ChangeEvent arg0) {
                 final int coarsity = 2;
                 try {
-                    textField_6.setText("" + applet.medium.autorotateCoarseness);
-                    applet.medium.autorotateCoarseness = slider_3.getValue();
+                    textField_6.setText("" + Medium.autorotateCoarseness);
+                    Medium.autorotateCoarseness = slider_3.getValue();
                 } catch (final NumberFormatException e) {
                     postMsg("Did you insert a non-numeric value? memes. value reset to normal...");
-                    applet.medium.autorotateCoarseness = coarsity;
-                    slider_3.setValue(applet.medium.autorotateCoarseness);
+                    Medium.autorotateCoarseness = coarsity;
+                    slider_3.setValue(Medium.autorotateCoarseness);
                     e.printStackTrace();
                 }
             }
@@ -1005,22 +1005,22 @@ final class RunApp extends Panel {
         lblNewLabel_1 = new JLabel("Movement Coarseness");
 
         txtS = new JTextField();
-        txtS.setText("" + applet.medium.movementCoarseness);
+        txtS.setText("" + Medium.movementCoarseness);
         txtS.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent arg0) {
                 final int coarsity = 5;
                 try {
-                    applet.medium.movementCoarseness = Integer.parseInt(txtS.getText());
-                    if (applet.medium.movementCoarseness > 90) {
+                    Medium.movementCoarseness = Integer.parseInt(txtS.getText());
+                    if (Medium.movementCoarseness > 90) {
                         slider_4.setValue(90);
                     } else {
-                        slider_4.setValue(applet.medium.movementCoarseness);
+                        slider_4.setValue(Medium.movementCoarseness);
                     }
                 } catch (final NumberFormatException e) {
                     postMsg("Did you insert a non-numeric value? memes. value reset to normal...");
-                    applet.medium.movementCoarseness = coarsity;
-                    txtS.setText("" + applet.medium.movementCoarseness);
+                    Medium.movementCoarseness = coarsity;
+                    txtS.setText("" + Medium.movementCoarseness);
                     e.printStackTrace();
                 }
             }
@@ -1036,18 +1036,18 @@ final class RunApp extends Panel {
         slider_4.setMinimum(1);
         slider_4.setPreferredSize(new Dimension(90, 23));
         panel_24.add(slider_4);
-        slider_4.setValue(applet.medium.movementCoarseness);
+        slider_4.setValue(Medium.movementCoarseness);
         slider_4.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(final ChangeEvent arg0) {
                 final int coarsity = 5;
                 try {
-                    txtS.setText("" + applet.medium.movementCoarseness);
-                    applet.medium.movementCoarseness = slider_4.getValue();
+                    txtS.setText("" + Medium.movementCoarseness);
+                    Medium.movementCoarseness = slider_4.getValue();
                 } catch (final NumberFormatException e) {
                     postMsg("Did you insert a non-numeric value? memes. value reset to normal...");
-                    applet.medium.movementCoarseness = coarsity;
-                    slider_4.setValue(applet.medium.movementCoarseness);
+                    Medium.movementCoarseness = coarsity;
+                    slider_4.setValue(Medium.movementCoarseness);
                     e.printStackTrace();
                 }
             }
@@ -1071,7 +1071,7 @@ final class RunApp extends Panel {
                     @Override
                     public void stateChanged(final ChangeEvent e) {
                         final Color c = tcc.getColor();
-                        applet.medium.setgrnd(c.getRed(), c.getGreen(), c.getBlue());
+                        Medium.setgrnd(c.getRed(), c.getGreen(), c.getBlue());
                     }
                 });
                 f.getContentPane().add(tcc);
@@ -1119,7 +1119,7 @@ final class RunApp extends Panel {
                     @Override
                     public void stateChanged(final ChangeEvent e) {
                         final Color c = tcc.getColor();
-                        applet.medium.setsnap((short) c.getRed(), (short) c.getGreen(), (short) c.getBlue());
+                        Medium.setsnap((short) c.getRed(), (short) c.getGreen(), (short) c.getBlue());
                     }
                 });
                 f.getContentPane().add(tcc);
@@ -1157,7 +1157,7 @@ final class RunApp extends Panel {
                     @Override
                     public void stateChanged(final ChangeEvent e) {
                         final Color c = tcc.getColor();
-                        applet.medium.setsky(c.getRed(), c.getGreen(), c.getBlue());
+                        Medium.setsky(c.getRed(), c.getGreen(), c.getBlue());
                     }
                 });
                 f.getContentPane().add(tcc);
@@ -1181,7 +1181,7 @@ final class RunApp extends Panel {
                             @Override
                             public void stateChanged(final ChangeEvent e) {
                                 final Color c = tcc.getColor();
-                                applet.medium.setfade(c.getRed(), c.getGreen(), c.getBlue());
+                                Medium.setfade(c.getRed(), c.getGreen(), c.getBlue());
                             }
                         });
                         f.getContentPane().add(tcc);
@@ -1207,7 +1207,7 @@ final class RunApp extends Panel {
         btnLights.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                applet.medium.lightson = !applet.medium.lightson;
+                Medium.lightson = !Medium.lightson;
             }
         });
 
@@ -1352,7 +1352,7 @@ final class RunApp extends Panel {
                 //System.out.println(realselection);
 
                 final DataInputStream stream = new DataInputStream(new ByteArrayInputStream(realselection.getBytes(/*StandardCharsets.UTF_8*/)));
-                applet.o = new ContO(stream, applet.medium, 350, 150, 600);
+                applet.o = new ContO(stream, 350, 150, 600);
                 applet.o.wxz = storeo.wxz;
                 applet.o.xz = storeo.xz;
                 applet.o.xy = storeo.xy;
@@ -1584,9 +1584,9 @@ final class RunApp extends Panel {
 
             projf /= 3F;
         }*/
-        Plane.rot(ai, ai1, m.cx, m.cz, m.xz, n);
+        Plane.rot(ai, ai1, Medium.cx, Medium.cz, Medium.xz, n);
 
-        Plane.rot(ai2, ai1, m.cy, m.cz, m.zy, n);
+        Plane.rot(ai2, ai1, Medium.cy, Medium.cz, Medium.zy, n);
 
         final int ai5[] = new int[n];
         final int ai6[] = new int[n];
@@ -1610,13 +1610,13 @@ final class RunApp extends Panel {
         if (j < 10) {
             j = 10;
         }
-        return (j - applet.medium.focus_point) * (applet.medium.cx - i) / j + i;
+        return (j - Medium.focus_point) * (Medium.cx - i) / j + i;
     }
 
     private static int ys(final int i, int j) {
         if (j < 10) {
             j = 10;
         }
-        return (j - applet.medium.focus_point) * (applet.medium.cy - i) / j + i;
+        return (j - Medium.focus_point) * (Medium.cy - i) / j + i;
     }
 }

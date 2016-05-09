@@ -150,7 +150,7 @@ final class F51 extends JPanel implements KeyListener, MouseListener, MouseWheel
         final int storeozy = o.zy;
         final int storeoy = o.y;
         final int storeoz = o.z;
-        o = new ContO(text, medium, 350, 150, 600);
+        o = new ContO(text, 350, 150, 600);
         o.wxz = storeowxz;
         o.xz = storeoxz;
         o.xy = storeoxy;
@@ -164,7 +164,7 @@ final class F51 extends JPanel implements KeyListener, MouseListener, MouseWheel
     boolean drawOverlay = false;
 
     void remakeOverlay() throws Exception {
-        overlay = new ContO(new DataInputStream(new FileInputStream(overlayfile)), medium, 350, 150, 600);
+        overlay = new ContO(new DataInputStream(new FileInputStream(overlayfile)), 350, 150, 600);
         overlay.wxz = o.wxz;
         overlay.xz = o.xz;
         overlay.xy = o.xy;
@@ -191,12 +191,12 @@ final class F51 extends JPanel implements KeyListener, MouseListener, MouseWheel
     }
 
     private void begin() {
-        medium = new Medium();
+        Medium.init();
         try {
             final Scanner s = new Scanner(contofile);
             final String content = s.useDelimiter("\\Z").next();
             s.close();
-            o = new ContO(content, medium, 350, 150, 600);
+            o = new ContO(content, 350, 150, 600);
         } catch (final FileNotFoundException e) {
             RunApp.postMsg("Hey! You need an \"o.rad\" file in your LiveO folder! Sorry!");
         } catch (final Exception e) {
@@ -209,21 +209,21 @@ final class F51 extends JPanel implements KeyListener, MouseListener, MouseWheel
         }
         o.y = 120;
         o.z += 200;
-        medium.y -= 300;
-        medium.zy += 10;
+        Medium.y -= 300;
+        Medium.zy += 10;
     }
 
     private void whileTrueLoop() {
-        medium.d(rd);
+        Medium.d(rd);
         o.d(rd);
         if (drawOverlay && overlay != null)
             drawOverlay();
 
-        if (medium.autorotate)
-            if (medium.autorotateDirection)
-                o.xz -= medium.autorotateCoarseness;
+        if (Medium.autorotate)
+            if (Medium.autorotateDirection)
+                o.xz -= Medium.autorotateCoarseness;
             else
-                o.xz += medium.autorotateCoarseness;
+                o.xz += Medium.autorotateCoarseness;
 
         float movement_mult = 1F;
         if (shift && control)
@@ -234,39 +234,39 @@ final class F51 extends JPanel implements KeyListener, MouseListener, MouseWheel
             movement_mult = 0.5F;
 
         if (axis)
-            medium.axis(rd, o, medium);
+            Medium.axis(rd, o);
         if (show3)
-            medium.d3p(rd);
+            Medium.d3p(rd);
         if (forward)
-            o.wxz -= medium.movementCoarseness * movement_mult;
+            o.wxz -= Medium.movementCoarseness * movement_mult;
         if (back)
-            o.wxz += medium.movementCoarseness * movement_mult;
+            o.wxz += Medium.movementCoarseness * movement_mult;
         if (rotr)
-            o.xz -= medium.movementCoarseness * movement_mult;
+            o.xz -= Medium.movementCoarseness * movement_mult;
         if (rotl)
-            o.xz += medium.movementCoarseness * movement_mult;
+            o.xz += Medium.movementCoarseness * movement_mult;
         if (left)
-            o.xy -= medium.movementCoarseness * movement_mult;
+            o.xy -= Medium.movementCoarseness * movement_mult;
         if (right)
-            o.xy += medium.movementCoarseness * movement_mult;
+            o.xy += Medium.movementCoarseness * movement_mult;
         if (up)
-            o.zy -= medium.movementCoarseness * movement_mult;
+            o.zy -= Medium.movementCoarseness * movement_mult;
         if (down)
-            o.zy += medium.movementCoarseness * movement_mult;
+            o.zy += Medium.movementCoarseness * movement_mult;
         if (plus)
-            o.y += medium.movementCoarseness * movement_mult;
+            o.y += Medium.movementCoarseness * movement_mult;
         if (minus)
-            o.y -= medium.movementCoarseness * movement_mult;
+            o.y -= Medium.movementCoarseness * movement_mult;
         if (in)
-            o.z += (medium.movementCoarseness + 5) * movement_mult;
+            o.z += (Medium.movementCoarseness + 5) * movement_mult;
         if (out)
-            o.z -= (medium.movementCoarseness + 5) * movement_mult;
+            o.z -= (Medium.movementCoarseness + 5) * movement_mult;
         if (aa)
             ((Graphics2D) rd).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         else
             ((Graphics2D) rd).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
 
-        if (medium.passthru == false)
+        if (Medium.passthru == false)
             if (o.y > 235)
                 o.y = 235;
 
@@ -274,10 +274,10 @@ final class F51 extends JPanel implements KeyListener, MouseListener, MouseWheel
     }
 
     private void switchmode() {
-        if (medium.mode == 0)
-            medium.mode = 1;
+        if (Medium.mode == 0)
+            Medium.mode = 1;
         else
-            medium.mode = 0;
+            Medium.mode = 0;
     }
 
     private Graphics rd;
@@ -302,9 +302,6 @@ final class F51 extends JPanel implements KeyListener, MouseListener, MouseWheel
 
     private boolean shift;
     private boolean control;
-    //boolean alt;
-
-    Medium medium;
 
     @Override
     public void keyTyped(final KeyEvent e) {
@@ -402,14 +399,14 @@ final class F51 extends JPanel implements KeyListener, MouseListener, MouseWheel
 
         final int notches = e.getWheelRotation();
         if (notches < 0) {
-            if (medium.pushpull)
-                o.z += medium.movementCoarseness * movement_mult;
+            if (Medium.pushpull)
+                o.z += Medium.movementCoarseness * movement_mult;
             else
-                o.z -= medium.movementCoarseness * movement_mult;
-        } else if (medium.pushpull)
-            o.z -= medium.movementCoarseness * movement_mult;
+                o.z -= Medium.movementCoarseness * movement_mult;
+        } else if (Medium.pushpull)
+            o.z -= Medium.movementCoarseness * movement_mult;
         else
-            o.z += medium.movementCoarseness * movement_mult;
+            o.z += Medium.movementCoarseness * movement_mult;
     }
 
     @Override
