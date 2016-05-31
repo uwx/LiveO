@@ -47,6 +47,11 @@ final class F51 extends JPanel implements KeyListener, MouseListener, MouseWheel
      *
      */
     private static final long serialVersionUID = -765181569317530304L;
+    
+    public static final byte MOUSE_RELEASED = -1;
+    public static final byte MOUSE_OFF = 0;
+    public static final byte MOUSE_DOWN = 1;
+    public static final byte MOUSE_PRESSED = 2;
 
     public F51() {
         show3 = false;
@@ -272,6 +277,12 @@ final class F51 extends JPanel implements KeyListener, MouseListener, MouseWheel
                 o.y = 235;
 
         rd.setColor(new Color(0, 0, 0));
+        
+        if (mouses == MOUSE_PRESSED) {
+            mouses = MOUSE_DOWN;
+        } else if (mouses == MOUSE_RELEASED) {
+            mouses = MOUSE_OFF;
+        }
     }
 
     private void switchmode() {
@@ -303,6 +314,7 @@ final class F51 extends JPanel implements KeyListener, MouseListener, MouseWheel
 
     private boolean shift;
     private boolean control;
+    static byte mouses;
     
     /** the mouse's X coordinate */
     static int xm;
@@ -428,12 +440,14 @@ final class F51 extends JPanel implements KeyListener, MouseListener, MouseWheel
 
     @Override
     public void mousePressed(final MouseEvent e) {
+        mouses = MOUSE_PRESSED;
         requestFocus();
         requestFocusInWindow();
     }
 
     @Override
     public void mouseReleased(final MouseEvent e) {
+        mouses = MOUSE_RELEASED;
     }
 
     @Override

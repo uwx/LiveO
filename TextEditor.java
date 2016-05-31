@@ -87,12 +87,13 @@ final class TextEditor implements ActionListener {
     private boolean fffff = false;
     private final JCheckBox chckbxSchizznti;
     private final JPanel panel_2;
+    JFrame frame;
 
     // Creates the GUI
 
     TextEditor(final F51 f51, final RunApp runapp) {
         this.f51 = f51;
-        final JFrame frame = new JFrame("Editor");
+        frame = new JFrame("Editor");
 
         final Toolkit tk = Toolkit.getDefaultToolkit();
         final Dimension screenSize = tk.getScreenSize();

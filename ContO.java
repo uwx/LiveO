@@ -6,12 +6,22 @@
 
 import java.awt.AlphaComposite;
 import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
+
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DefaultEditorKit;
+import javax.swing.text.DefaultHighlighter;
+import javax.swing.text.Highlighter;
+import javax.swing.text.Highlighter.HighlightPainter;
 
 final class ContO {
 
@@ -977,6 +987,8 @@ final class ContO {
 
                     }
 
+                    F51.mouseInPoly = -1;
+                    F51.mouseInPoint = -1;
                     for (int i2 = 0; i2 < npl; i2++)
                         for (int k2 = 0; k2 < npl; k2++)
                             if (ai[k2] == i2) {
@@ -986,6 +998,11 @@ final class ContO {
                                 if (F51.trans && p[k2].glass)
                                     ((Graphics2D) g).setComposite(AlphaComposite.getInstance(3, 1.0F));
                             }
+                    try {
+                        highlight();
+                    } catch (IOException | BadLocationException e) {
+                        e.printStackTrace();
+                    }
 
                     dist = (int) Math.sqrt((int) Math.sqrt((Medium.x + Medium.cx - x) * (Medium.x + Medium.cx - x) + (Medium.z - z) * (Medium.z - z)
                             + (Medium.y + Medium.cy - y) * (Medium.y + Medium.cy - y))) * grounded;
@@ -998,6 +1015,64 @@ final class ContO {
         	m.tr.y[track] = y - m.y;
         	m.tr.z[track] = z - m.z;
         }*/
+    }
+
+    private void highlight() throws IOException, BadLocationException {
+        if (F51.mouseInPoly != -1) {
+            //System.err.println("found it!");
+            if (F51.mouses == F51.MOUSE_PRESSED) {
+                System.err.println("clicky!");
+                
+                boolean succ = false;
+
+                final BufferedReader reader = new BufferedReader(new StringReader(RunApp.t.text.getText()));
+                String aline = reader.readLine();
+
+                boolean inp = false;
+                int lineN = 0;
+                int byteN = 0;
+                //int pstart = 0;
+                //int pend = 0;
+                int pstartindex = 0;
+                int pendindex = 0;
+                int polys = 0;
+                String s = (String)RunApp.t.text.getDocument().getProperty(DefaultEditorKit.EndOfLineStringProperty);
+                int linelength = s != null ? s.length() : "\n".length();
+                
+                for (String line; aline != null; aline = reader.readLine()) {
+                    line = aline.trim();
+                    
+                    if (line.startsWith("<p>")) {
+                        polys++;
+                        if (polys == F51.mouseInPoly) {
+                            inp = true;
+                            pstartindex = byteN;
+                            //pstart = lineN + 1;
+                        }
+                    }
+                    if (inp && line.startsWith("</p>")) {
+                        pendindex = byteN + aline.length();
+                        //pend = lineN;
+                        succ = true;
+                        break;
+                    }
+                    
+                    lineN++;
+                    byteN += aline.length() + linelength;
+                }
+                reader.close();
+
+                if (succ) {
+                    RunApp.t.text.select(pstartindex, pendindex);
+                    Highlighter.HighlightPainter p = new DefaultHighlighter.DefaultHighlightPainter(Color.pink);
+                    RunApp.t.text.getHighlighter().removeAllHighlights();
+                    RunApp.t.text.getHighlighter().addHighlight(pstartindex, pendindex, p);
+                    //RunApp.t.frame.repaint();
+                } else {
+                    System.err.println("fail!");
+                }
+            }
+        }
     }
 
     private void reset() {

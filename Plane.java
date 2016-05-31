@@ -67,6 +67,10 @@ final class Plane {
                             + (oy[j2] - oy[i2]) * (oy[j2] - oy[i2]) + (oz[j2] - oz[i2]) * (oz[j2] - oz[i2])) / 100D);
 
         deltaf /= 3F;
+
+        this.ai = new int[n];
+        this.ai1 = new int[n];
+        this.ai2 = new int[n];
     }
 
     void loadprojf() {
@@ -82,9 +86,6 @@ final class Plane {
 
     public void d(final Graphics2D g, final int i, final int j, final int k, final int l, final int i1, final int j1,
             final int k1, boolean toofar, int im) {
-        final int ai[] = new int[n];
-        final int ai1[] = new int[n];
-        final int ai2[] = new int[n];
         /*final int out[][] = RunApp.make2d(ai, ai1, ai2, n, m);
 
         for (int i6 = 0; i6 < 3; i6++) {
@@ -153,22 +154,22 @@ final class Plane {
         }
         rot(ai2, ai1, Medium.cy, Medium.cz, Medium.zy, n);
         boolean flag3 = true;
-        final int ai5[] = new int[n];
-        final int ai6[] = new int[n];
+        final int xPoints[] = new int[n];
+        final int yPoints[] = new int[n];
         int l4 = 0;
         int i5 = 0;
         int j5 = 0;
         int k5 = 0;
         for (int l5 = 0; l5 < n; l5++) {
-            ai5[l5] = xs(ai[l5], ai1[l5]);
-            ai6[l5] = ys(ai2[l5], ai1[l5]);
-            if (ai6[l5] < 0 || ai1[l5] < 10)
+            xPoints[l5] = xs(ai[l5], ai1[l5]);
+            yPoints[l5] = ys(ai2[l5], ai1[l5]);
+            if (yPoints[l5] < 0 || ai1[l5] < 10)
                 l4++;
-            if (ai6[l5] > Medium.h || ai1[l5] < 10)
+            if (yPoints[l5] > Medium.h || ai1[l5] < 10)
                 i5++;
-            if (ai5[l5] < 0 || ai1[l5] < 10)
+            if (xPoints[l5] < 0 || ai1[l5] < 10)
                 j5++;
-            if (ai5[l5] > Medium.w || ai1[l5] < 10)
+            if (xPoints[l5] > Medium.w || ai1[l5] < 10)
                 k5++;
         }
 
@@ -179,13 +180,13 @@ final class Plane {
         if (flag3) {
             if (imlast)
                 for (int i6 = 0; i6 < 3; i6++) {
-                    Medium.lxp[i6] = ai5[i6];
-                    Medium.lyp[i6] = ai6[i6];
+                    Medium.lxp[i6] = xPoints[i6];
+                    Medium.lyp[i6] = yPoints[i6];
                 }
             int j6 = 1;
             byte byte0 = 1;
             byte byte1 = 1;
-            if (Math.abs(ai6[0] - ai6[1]) > Math.abs(ai6[2] - ai6[1])) {
+            if (Math.abs(yPoints[0] - yPoints[1]) > Math.abs(yPoints[2] - yPoints[1])) {
                 byte0 = 0;
                 byte1 = 2;
             } else {
@@ -193,9 +194,9 @@ final class Plane {
                 byte1 = 0;
                 j6 *= -1;
             }
-            if (ai6[1] > ai6[byte0])
+            if (yPoints[1] > yPoints[byte0])
                 j6 *= -1;
-            if (ai5[1] > ai5[byte1])
+            if (xPoints[1] > xPoints[byte1])
                 j6 *= -1;
             int l6 = gr;
             if (fs != 0) {
@@ -277,38 +278,40 @@ final class Plane {
 
             //new Color(c[0], c[1], c[2]);
             final Color color = Color.getHSBColor(hsb[0], hsb[1], hsb[2] * f);
-            int k6 = color.getRed();
-            int i7 = color.getGreen();
-            int k7 = color.getBlue();
+            int red = color.getRed();
+            int green = color.getGreen();
+            int blue = color.getBlue();
 
             if (Medium.snapEnabled) {
-                k6 = (short) (k6 + k6 * (Medium.snap[0] / 100.0F));
-                if (k6 > 255) {
-                    k6 = 255;
+                red = (short) (red + red * (Medium.snap[0] / 100.0F));
+                if (red > 255) {
+                    red = 255;
                 }
-                if (k6 < 0) {
-                    k6 = 0;
+                if (red < 0) {
+                    red = 0;
                 }
-                i7 = (short) (i7 + i7 * (Medium.snap[1] / 100.0F));
-                if (i7 > 255) {
-                    i7 = 255;
+                green = (short) (green + green * (Medium.snap[1] / 100.0F));
+                if (green > 255) {
+                    green = 255;
                 }
-                if (i7 < 0) {
-                    i7 = 0;
+                if (green < 0) {
+                    green = 0;
                 }
-                k7 = (short) (k7 + k7 * (Medium.snap[2] / 100.0F));
-                if (k7 > 255) {
-                    k7 = 255;
+                blue = (short) (blue + blue * (Medium.snap[2] / 100.0F));
+                if (blue > 255) {
+                    blue = 255;
                 }
-                if (k7 < 0) {
-                    k7 = 0;
+                if (blue < 0) {
+                    blue = 0;
                 }
             }
 
-            Polygon p = new Polygon(ai5, ai6, n);
+            // POLY MOUSE-TRACE
+            Polygon p = new Polygon(xPoints, yPoints, n);
             if (p.contains(F51.xm, F51.ym)) {
                 F51.mouseInPoly = im;
                 
+                // TRACE POINT
                 PathIterator iter = p.getPathIterator(null);
                 float[] coords = new float[6];
                 int maxdist = Integer.MAX_VALUE;
@@ -323,22 +326,26 @@ final class Plane {
                         maxdist_index = index;
                     }
                     
-                    System.out.println("Currently at: " + coords[0] + " " + coords[1]);
+                    //System.out.println("Currently at: " + coords[0] + " " + coords[1]);
                 }
                 
                 F51.mouseInPoint = maxdist_index;
+
+                red = 100;
+                green = 255;
+                blue = 100;
             }
 
             if (!Medium.infiniteDistance) {
             	for (int i8 = 0; i8 < 8; i8++)
                 if (av > Medium.fade[i8]) {
-                    k6 = (k6 * 3 + Medium.cfade[0]) / 4;
-                    i7 = (i7 * 3 + Medium.cfade[1]) / 4;
-                    k7 = (k7 * 3 + Medium.cfade[2]) / 4;
+                    red = (red * 3 + Medium.cfade[0]) / 4;
+                    green = (green * 3 + Medium.cfade[1]) / 4;
+                    blue = (blue * 3 + Medium.cfade[2]) / 4;
                 }
             }
             if (!randomcolor)
-                g.setColor(new Color(k6, i7, k7));
+                g.setColor(new Color(red, green, blue));
             else
                 g.setColor(Color.getHSBColor((float) Math.random(), (float) Math.random(), (float) Math.random()));
             g.fillPolygon(p);
@@ -374,9 +381,9 @@ final class Plane {
                 g.setStroke(new BasicStroke());
             if (Medium.pointwire)
                 for (int z = 0; z < n; z++)
-                    g.fillRect(ai5[z], ai6[z], 1, 1);
+                    g.fillRect(xPoints[z], yPoints[z], 1, 1);
             else
-                g.drawPolygon(ai5, ai6, n);
+                g.drawPolygon(xPoints, yPoints, n);
         }
     }
 
@@ -518,4 +525,8 @@ final class Plane {
     int strokecap;
     int strokejoin;
     int strokemtlimit;
+        
+    final int ai[];
+    final int ai1[];
+    final int ai2[];
 }
