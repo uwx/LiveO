@@ -48,7 +48,7 @@ public final class OBJ {
                 }
                 bufferedreader.close();
             } catch (final Exception e) {
-                JOptionPane.showMessageDialog(null, "Unable to load material file! Error Details:\n" + e, "Car Maker", 1);
+                JOptionPane.showMessageDialog(RunApp.frame, "Unable to load material file! Error Details:\n" + e, "LiveO", 1);
             }
         }
         
@@ -109,14 +109,14 @@ public final class OBJ {
                     }
                 }
                 if (tooManyVertices) {
-                    JOptionPane.showMessageDialog(null, "Warning!\nThe number of Vertices in file " + objFile.getName() + " exceeded the maximum of " + MAX_OBJ_VERTS + " that the LiveO can read!     \n\nPlease choose a simpler model to import.\n \n", "LiveO", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(RunApp.frame, "Warning!\nThe number of Vertices in file " + objFile.getName() + " exceeded the maximum of " + MAX_OBJ_VERTS + " that the LiveO can read!     \n\nPlease choose a simpler model to import.\n \n", "LiveO", JOptionPane.ERROR_MESSAGE);
                 }
                 if (tooManyFaces) {
-                    JOptionPane.showMessageDialog(null, "Warning!\nThe number of Faces in file " + objFile.getName() + " exceeded the maximum of " + MAX_OBJ_FACES + " that the LiveO can read!     \n\nPlease choose a simpler model to import.\n \n", "LiveO", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(RunApp.frame, "Warning!\nThe number of Faces in file " + objFile.getName() + " exceeded the maximum of " + MAX_OBJ_FACES + " that the LiveO can read!     \n\nPlease choose a simpler model to import.\n \n", "LiveO", JOptionPane.ERROR_MESSAGE);
                 }
                 bufferedreader.close();
             } catch (final Exception e) {
-                JOptionPane.showMessageDialog(null, "Unable to load file! Error Details:\n" + e, "LiveO", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(RunApp.frame, "Unable to load file! Error Details:\n" + e, "LiveO", JOptionPane.ERROR_MESSAGE);
             }
             // From the Car Maker: rd.setColor(new Color(225, 225, 225));
             // From the Car Maker: rd.fillRect(116, 246 + rectW, 468, 50);
@@ -152,15 +152,15 @@ public final class OBJ {
             
             // save car to file
             boolean errored = false;
-            int saveImportedCar = JOptionPane.showConfirmDialog(null, "Save this car to " + carName + ".rad?", "LiveO", JOptionPane.YES_NO_OPTION);
+            int saveImportedCar = JOptionPane.showConfirmDialog(RunApp.frame, "Save this car to " + carName + ".rad?", "LiveO", JOptionPane.YES_NO_OPTION);
             if (saveImportedCar == JOptionPane.YES_OPTION) {
                 if (!RunApp.carfolder.exists()) {
                     if (RunApp.carfolder.mkdirs()) {
-                        JOptionPane.showMessageDialog(null, "Failed to create car file, your car folder is missing and could not be created.\n", "LiveO", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(RunApp.frame, "Failed to create car file, your car folder is missing and could not be created.\n", "LiveO", JOptionPane.ERROR_MESSAGE);
                         errored = true;
                     }
                 } else if (!RunApp.carfolder.isDirectory()) {
-                    JOptionPane.showMessageDialog(null, "Failed to create car file, your car folder is missing or invalid.\n", "LiveO", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(RunApp.frame, "Failed to create car file, your car folder is missing or invalid.\n", "LiveO", JOptionPane.ERROR_MESSAGE);
                     errored = true;
                 }
                 File carFile = new File(RunApp.carfolder + "/" + carName + ".rad");
@@ -168,7 +168,7 @@ public final class OBJ {
                 if (!errored) {
                     int popupStatus = JOptionPane.YES_OPTION;
                     if (carFile.exists()) {
-                        popupStatus = JOptionPane.showConfirmDialog(null, "Another car with the name '" + carName + "' already exists, replace it?      \n", "LiveO", JOptionPane.YES_NO_OPTION);
+                        popupStatus = JOptionPane.showConfirmDialog(RunApp.frame, "Another car with the name '" + carName + "' already exists, replace it?      \n", "LiveO", JOptionPane.YES_NO_OPTION);
                     }
                     if (popupStatus == JOptionPane.YES_OPTION) {
                         try {
@@ -179,11 +179,11 @@ public final class OBJ {
                                 carFile.delete();
                             } else {
                                 errored = true;
-                                JOptionPane.showMessageDialog(null, "Failed to replace car, its file may be in use by the system.\n", "LiveO", JOptionPane.ERROR_MESSAGE);
+                                JOptionPane.showMessageDialog(RunApp.frame, "Failed to replace car, its file may be in use by the system.\n", "LiveO", JOptionPane.ERROR_MESSAGE);
                             }
                         } catch (final Exception e) {
                             errored = true;
-                            JOptionPane.showMessageDialog(null, "Failed to replace car! Error Details:\n" + e + (e.getCause() != null ? "\nCaused by: " + e.getCause() : ""), "LiveO", JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(RunApp.frame, "Failed to replace car! Error Details:\n" + e + (e.getCause() != null ? "\nCaused by: " + e.getCause() : ""), "LiveO", JOptionPane.ERROR_MESSAGE);
                             e.printStackTrace();
                         }
                     } else {
@@ -192,7 +192,7 @@ public final class OBJ {
                 }
                 
                 if (!errored) {
-                    int openCar = JOptionPane.showConfirmDialog(null, "Open imported file " + carName + ".rad in LiveO?", "LiveO", JOptionPane.YES_NO_OPTION);
+                    int openCar = JOptionPane.showConfirmDialog(RunApp.frame, "Open imported file " + carName + ".rad in LiveO?", "LiveO", JOptionPane.YES_NO_OPTION);
                     if (openCar == JOptionPane.YES_OPTION) {
                         F51.contofile = carFile;
                         
@@ -208,7 +208,7 @@ public final class OBJ {
                 }
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Error, " + objFile.getName() + " is missing or invalid.", "LiveO", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(RunApp.frame, "Error, " + objFile.getName() + " is missing or invalid.", "LiveO", JOptionPane.ERROR_MESSAGE);
         }
         // From the Car Maker: setCursor(new Cursor(0));
     }

@@ -2,8 +2,10 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.FileDialog;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Frame;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
@@ -53,6 +55,7 @@ import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.Box;
 
 final class RunApp extends Panel {
 
@@ -1191,6 +1194,50 @@ final class RunApp extends Panel {
                 });
                 panel_32.add(btnSetFog);
         panel_32.add(btnSetGround);
+        
+        panel_33 = new JPanel();
+        tabbedPane.addTab("Import/Export", null, panel_33, null);
+        
+        JPanel panel_34 = new JPanel();
+        panel_33.add(panel_34);
+        panel_34.setLayout(new BoxLayout(panel_34, BoxLayout.Y_AXIS));
+        
+        JButton btnImportobjFile = new JButton("Import .OBJ file");
+        btnImportobjFile.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                final JFileChooser fileChooser = new JFileChooser("./");
+                fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+                final int result = fileChooser.showOpenDialog(frame);
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    final File selectedFile = fileChooser.getSelectedFile();
+                    if (selectedFile.exists() && !selectedFile.isDirectory()) {
+                        OBJ.importObj(selectedFile);
+                    } else {
+                        JOptionPane.showMessageDialog(frame, "Cannot open: " + selectedFile.getName() + ", the file may be in use by the system.", "LiveO", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }
+        });
+        panel_34.add(btnImportobjFile);
+        
+        Component verticalStrut_1 = Box.createVerticalStrut(2);
+        panel_34.add(verticalStrut_1);
+        
+        JButton btnExportobjFile = new JButton("Export .OBJ file");
+        panel_34.add(btnExportobjFile);
+        
+        Component verticalStrut = Box.createVerticalStrut(10);
+        panel_34.add(verticalStrut);
+        
+        JButton btnImportdsFile = new JButton("Import .3DS file");
+        panel_34.add(btnImportdsFile);
+        
+        Component verticalStrut_2 = Box.createVerticalStrut(2);
+        panel_34.add(verticalStrut_2);
+        
+        JButton btnExportdsFile = new JButton("Export .3DS file");
+        panel_34.add(btnExportdsFile);
 
         btnAa.addActionListener(new ActionListener() {
             @Override
@@ -1365,7 +1412,7 @@ final class RunApp extends Panel {
                 storeo = null;
             }
         } catch (final Exception e) {
-            JOptionPane.showMessageDialog(null, "Could not show selected polygons! Error:\r\n\r\n" + e);
+            JOptionPane.showMessageDialog(frame, "Could not show selected polygons! Error:\r\n\r\n" + e);
         }
     }
 
@@ -1472,6 +1519,7 @@ final class RunApp extends Panel {
     private final JSlider slider_4;
     private final JCheckBox chckbxEnableSnap;
     private final JButton btnSetFog;
+    private JPanel panel_33;
 
     /**
      * Fetches icons of 16, 32 and 48 pixels from the 'data' folder.

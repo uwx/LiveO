@@ -27,6 +27,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.image.BufferedImage;
@@ -41,7 +42,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-final class F51 extends JPanel implements KeyListener, MouseListener, MouseWheelListener {
+final class F51 extends JPanel implements KeyListener, MouseListener, MouseWheelListener, MouseMotionListener {
     /**
      *
      */
@@ -70,7 +71,7 @@ final class F51 extends JPanel implements KeyListener, MouseListener, MouseWheel
             addKeyListener(this);
             addMouseListener(this);
             addMouseWheelListener(this);
-            //addMouseMotionListener(this);
+            addMouseMotionListener(this);
             setFocusable(true);
             requestFocus();
             requestFocusInWindow();
@@ -302,6 +303,18 @@ final class F51 extends JPanel implements KeyListener, MouseListener, MouseWheel
 
     private boolean shift;
     private boolean control;
+    
+    /** the mouse's X coordinate */
+    static int xm;
+    
+    /** the mouse's Y coordinate */
+    static int ym;
+    
+    /** the Plane index which the mouse is inside */
+    static int mouseInPoly;
+    
+    /** the mouseInPoly Plane's point which the mouse is closest to */
+    static int mouseInPoint;
 
     @Override
     public void keyTyped(final KeyEvent e) {
@@ -430,6 +443,18 @@ final class F51 extends JPanel implements KeyListener, MouseListener, MouseWheel
     @Override
     public void mouseExited(final MouseEvent e) {
 
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        xm = e.getX();
+        ym = e.getY();
     }
 
 }
