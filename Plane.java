@@ -8,6 +8,8 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Polygon;
+import java.awt.geom.PathIterator;
 
 final class Plane {
 
@@ -79,7 +81,7 @@ final class Plane {
     }
 
     public void d(final Graphics2D g, final int i, final int j, final int k, final int l, final int i1, final int j1,
-            final int k1, boolean toofar) {
+            final int k1, boolean toofar, int im) {
         final int ai[] = new int[n];
         final int ai1[] = new int[n];
         final int ai2[] = new int[n];
@@ -303,19 +305,43 @@ final class Plane {
                 }
             }
 
+            Polygon p = new Polygon(ai5, ai6, n);
+            if (p.contains(F51.xm, F51.ym)) {
+                F51.mouseInPoly = im;
+                
+                PathIterator iter = p.getPathIterator(null);
+                float[] coords = new float[6];
+                int maxdist = Integer.MAX_VALUE;
+                int maxdist_index = -1;
+                
+                for (int index = 0; !iter.isDone() && index < p.npoints; index++, iter.next()) {
+                    
+                    iter.currentSegment(coords);
+                    int pdist = distance((int)coords[0], (int)coords[1], F51.xm, F51.ym);
+                    if (pdist < maxdist) {
+                        maxdist = pdist;
+                        maxdist_index = index;
+                    }
+                    
+                    System.out.println("Currently at: " + coords[0] + " " + coords[1]);
+                }
+                
+                F51.mouseInPoint = maxdist_index;
+            }
 
-            if(!Medium.infiniteDistance)
+            if (!Medium.infiniteDistance) {
             	for (int i8 = 0; i8 < 8; i8++)
                 if (av > Medium.fade[i8]) {
                     k6 = (k6 * 3 + Medium.cfade[0]) / 4;
                     i7 = (i7 * 3 + Medium.cfade[1]) / 4;
                     k7 = (k7 * 3 + Medium.cfade[2]) / 4;
                 }
+            }
             if (!randomcolor)
                 g.setColor(new Color(k6, i7, k7));
             else
                 g.setColor(Color.getHSBColor((float) Math.random(), (float) Math.random(), (float) Math.random()));
-            g.fillPolygon(ai5, ai6, n);
+            g.fillPolygon(p);
         }
         if (!toofar && !hidepoly && !Medium.hideoutlines) {
             int k6;
@@ -460,8 +486,12 @@ final class Plane {
             }
     }
 
-    private int spy(final int i, final int j) {
+    private static int spy(final int i, final int j) {
         return (int) Math.sqrt((i - Medium.cx) * (i - Medium.cx) + j * j);
+    }
+    
+    private static int distance(int x1, int y1, int x2, int y2) {
+        return (int) Math.sqrt(((x2 - x1) * (x2 - x1)) + ((y2 - y1) * (y2 - y1)));
     }
 
     int ox[];

@@ -982,7 +982,7 @@ final class ContO {
                             if (ai[k2] == i2) {
                                 if (F51.trans && p[k2].glass)
                                     ((Graphics2D) g).setComposite(AlphaComposite.getInstance(3, 0.7F));
-                                p[k2].d((Graphics2D) g, x - Medium.x, y - Medium.y, z - Medium.z, xz, xy, zy, wxz, stonecold);
+                                p[k2].d((Graphics2D) g, x - Medium.x, y - Medium.y, z - Medium.z, xz, xy, zy, wxz, stonecold, k2);
                                 if (F51.trans && p[k2].glass)
                                     ((Graphics2D) g).setComposite(AlphaComposite.getInstance(3, 1.0F));
                             }
