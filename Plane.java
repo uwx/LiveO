@@ -9,6 +9,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Line2D;
 import java.awt.geom.PathIterator;
 
 final class Plane {
@@ -68,9 +70,9 @@ final class Plane {
 
         deltaf /= 3F;
 
-        this.ai = new int[n];
-        this.ai1 = new int[n];
-        this.ai2 = new int[n];
+        this.x = new int[n];
+        this.z = new int[n];
+        this.y = new int[n];
     }
 
     void loadprojf() {
@@ -94,35 +96,35 @@ final class Plane {
         }*/
 
         for (int l1 = 0; l1 < n; l1++) {
-            ai[l1] = ox[l1] + i;
-            ai2[l1] = oy[l1] + j;
-            ai1[l1] = oz[l1] + k;
+            x[l1] = ox[l1] + i;
+            y[l1] = oy[l1] + j;
+            z[l1] = oz[l1] + k;
         }
 
         if (wx != 0)
-            rot(ai, ai1, wx + i, wz + k, k1, n);
-        rot(ai, ai2, i, j, i1, n);
-        rot(ai2, ai1, j, k, j1, n);
-        rot(ai, ai1, i, k, l, n);
+            rot(x, z, wx + i, wz + k, k1, n);
+        rot(x, y, i, j, i1, n);
+        rot(y, z, j, k, j1, n);
+        rot(x, z, i, k, l, n);
         if (i1 != 0 || j1 != 0 || l != 0) {
             projf = 1.0F;
             for (int i2 = 0; i2 < 3; i2++)
                 for (int j2 = 0; j2 < 3; j2++)
                     if (j2 != i2)
                         projf *= (float) (Math
-                                .sqrt((ai[i2] - ai[j2]) * (ai[i2] - ai[j2]) + (ai1[i2] - ai1[j2]) * (ai1[i2] - ai1[j2]))
+                                .sqrt((x[i2] - x[j2]) * (x[i2] - x[j2]) + (z[i2] - z[j2]) * (z[i2] - z[j2]))
                                 / 100D);
 
             projf /= 3F;
         }
-        rot(ai, ai1, Medium.cx, Medium.cz, Medium.xz, n);
+        rot(x, z, Medium.cx, Medium.cz, Medium.xz, n);
         boolean flag2 = false;
         final int ai3[] = new int[n];
         final int ai4[] = new int[n];
         int k2 = 500;
         for (int l2 = 0; l2 < n; l2++) {
-            ai3[l2] = xs(ai[l2], ai1[l2]);
-            ai4[l2] = ys(ai2[l2], ai1[l2]);
+            ai3[l2] = xs(x[l2], z[l2]);
+            ai4[l2] = ys(y[l2], z[l2]);
         }
 
         int i3 = 0;
@@ -140,19 +142,19 @@ final class Plane {
             i3 = j3;
             j3 = l3;
         }
-        if (spy(ai[i3], ai1[i3]) > spy(ai[j3], ai1[j3])) {
+        if (spy(x[i3], z[i3]) > spy(x[j3], z[j3])) {
             flag2 = true;
             int i4 = 0;
             for (int k4 = 0; k4 < n; k4++)
-                if (ai1[k4] < 50 && ai2[k4] > Medium.cy)
+                if (z[k4] < 50 && y[k4] > Medium.cy)
                     flag2 = false;
-                else if (ai2[k4] == ai2[0])
+                else if (y[k4] == y[0])
                     i4++;
 
-            if (i4 == n && ai2[0] > Medium.cy)
+            if (i4 == n && y[0] > Medium.cy)
                 flag2 = false;
         }
-        rot(ai2, ai1, Medium.cy, Medium.cz, Medium.zy, n);
+        rot(y, z, Medium.cy, Medium.cz, Medium.zy, n);
         boolean flag3 = true;
         final int xPoints[] = new int[n];
         final int yPoints[] = new int[n];
@@ -161,15 +163,15 @@ final class Plane {
         int j5 = 0;
         int k5 = 0;
         for (int l5 = 0; l5 < n; l5++) {
-            xPoints[l5] = xs(ai[l5], ai1[l5]);
-            yPoints[l5] = ys(ai2[l5], ai1[l5]);
-            if (yPoints[l5] < 0 || ai1[l5] < 10)
+            xPoints[l5] = xs(x[l5], z[l5]);
+            yPoints[l5] = ys(y[l5], z[l5]);
+            if (yPoints[l5] < 0 || z[l5] < 10)
                 l4++;
-            if (yPoints[l5] > Medium.h || ai1[l5] < 10)
+            if (yPoints[l5] > Medium.h || z[l5] < 10)
                 i5++;
-            if (xPoints[l5] < 0 || ai1[l5] < 10)
+            if (xPoints[l5] < 0 || z[l5] < 10)
                 j5++;
-            if (xPoints[l5] > Medium.w || ai1[l5] < 10)
+            if (xPoints[l5] > Medium.w || z[l5] < 10)
                 k5++;
         }
 
@@ -221,32 +223,32 @@ final class Plane {
                 int j11 = 0;
                 int k11 = 0;
                 for (int l11 = 0; l11 < n; l11++) {
-                    if (ai2[j9] >= ai2[l11])
+                    if (y[j9] >= y[l11])
                         l9++;
-                    if (ai2[j9] <= ai2[l11])
+                    if (y[j9] <= y[l11])
                         j10++;
-                    if (ai[j9] >= ai[l11])
+                    if (x[j9] >= x[l11])
                         l10++;
-                    if (ai[j9] <= ai[l11])
+                    if (x[j9] <= x[l11])
                         i11++;
-                    if (ai1[j9] >= ai1[l11])
+                    if (z[j9] >= z[l11])
                         j11++;
-                    if (ai1[j9] <= ai1[l11])
+                    if (z[j9] <= z[l11])
                         k11++;
                 }
 
                 if (l9 == n)
-                    j7 = ai2[j9];
+                    j7 = y[j9];
                 if (j10 == n)
-                    l7 = ai2[j9];
+                    l7 = y[j9];
                 if (l10 == n)
-                    j8 = ai[j9];
+                    j8 = x[j9];
                 if (i11 == n)
-                    k8 = ai[j9];
+                    k8 = x[j9];
                 if (j11 == n)
-                    l8 = ai1[j9];
+                    l8 = z[j9];
                 if (k11 == n)
-                    i9 = ai1[j9];
+                    i9 = z[j9];
             }
             if(!Medium.infiniteDistance){
             	final int k9 = (j7 + l7) / 2;
@@ -348,7 +350,18 @@ final class Plane {
                 g.setColor(new Color(red, green, blue));
             else
                 g.setColor(Color.getHSBColor((float) Math.random(), (float) Math.random(), (float) Math.random()));
+            
             g.fillPolygon(p);
+            
+            AffineTransform t = g.getTransform();
+            for (int ii = 3, ij = 0; ii > 0; ii--, ij++) {
+                g.setTransform(tsc[ij]);
+                
+                g.setColor(new Color(red, green, blue, 50 - ii * 7));
+                
+                g.fillPolygon(p);
+            }
+            g.setTransform(t);
         }
         if (!toofar && !hidepoly && !Medium.hideoutlines) {
             int k6;
@@ -379,6 +392,7 @@ final class Plane {
                 g.setStroke(new BasicStroke(strokewidth, strokecap, strokejoin, strokemtlimit));
             else
                 g.setStroke(new BasicStroke());
+                        
             if (Medium.pointwire)
                 for (int z = 0; z < n; z++)
                     g.fillRect(xPoints[z], yPoints[z], 1, 1);
@@ -526,7 +540,18 @@ final class Plane {
     int strokejoin;
     int strokemtlimit;
         
-    final int ai[];
-    final int ai1[];
-    final int ai2[];
+    private final int x[];
+    private final int z[];
+    private final int y[];
+    
+    private static final AffineTransform tsc[] = new AffineTransform[3];
+    
+    static {
+        for (int i = 0; i < 3; i++) {
+            tsc[i] = new AffineTransform();
+            tsc[i].translate(Medium.w / 2, Medium.h / 2);
+            tsc[i].scale(1.0 + (i * 0.05), 1.0 + (i * 0.05));
+            tsc[i].translate(-(Medium.w / 2), -(Medium.h / 2));
+        }
+    }
 }
