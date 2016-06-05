@@ -15,6 +15,11 @@ import java.awt.geom.PathIterator;
 
 final class Plane {
 
+    /**
+     * Setting to true makes the outline glow render faster, but not look as nice.
+     */
+    private static final boolean OUTLINE_GLOW_FAST = false;
+
     public Plane(final int ai[], final int ai1[], final int ai2[], final int i, final int ai3[],
             final boolean flag, final int j, final int k, final int l, final int i1, final byte light,
             final boolean hidepoly, final boolean randomcolor, final boolean randoutline, final boolean customstroke,
@@ -314,15 +319,12 @@ final class Plane {
                 F51.mouseInPoly = im;
                 
                 // TRACE POINT
-                PathIterator iter = p.getPathIterator(null);
-                float[] coords = new float[6];
                 int maxdist = Integer.MAX_VALUE;
                 int maxdist_index = -1;
                 
-                for (int index = 0; !iter.isDone() && index < p.npoints; index++, iter.next()) {
+                for (int index = 0; index < p.npoints; index++) {
                     
-                    iter.currentSegment(coords);
-                    int pdist = distance((int)coords[0], (int)coords[1], F51.xm, F51.ym);
+                    int pdist = distance(p.xpoints[index], p.ypoints[index], F51.xm, F51.ym);
                     if (pdist < maxdist) {
                         maxdist = pdist;
                         maxdist_index = index;
@@ -352,16 +354,42 @@ final class Plane {
                 g.setColor(Color.getHSBColor((float) Math.random(), (float) Math.random(), (float) Math.random()));
             
             g.fillPolygon(p);
-            
-            AffineTransform t = g.getTransform();
-            for (int ii = 3, ij = 0; ii > 0; ii--, ij++) {
-                g.setTransform(tsc[ij]);
+
+            if (OUTLINE_GLOW_FAST) {
+                final int[] axPoints = new int[n];
+                final int[] ayPoints = new int[n];
+                final int[] centroid = centroid(p);
                 
-                g.setColor(new Color(red, green, blue, 50 - ii * 7));
-                
-                g.fillPolygon(p);
+                for (int ii = 3, imult = 9; ii > 0; ii--, imult = ii * 3) {
+                    for (int l5 = 0; l5 < n; l5++) {
+                        if (xPoints[l5] > centroid[0]) {
+                            axPoints[l5] = xPoints[l5] + imult;
+                        } else {
+                            axPoints[l5] = xPoints[l5] - imult;
+                        }
+    
+                        if (yPoints[l5] > centroid[1]) {
+                            ayPoints[l5] = yPoints[l5] + imult;
+                        } else {
+                            ayPoints[l5] = yPoints[l5] - imult;
+                        }
+                    }
+                    
+                    g.setColor(new Color(red, green, blue, 50 - ii * 7));
+                    g.fillPolygon(axPoints, ayPoints, n);
+                }
+            } else {
+                AffineTransform t = g.getTransform();
+                for (int ii = 3, ij = 0; ii > 0; ii--, ij++) {
+                    g.setTransform(tsc[ij]);
+                    
+                    g.setColor(new Color(red, green, blue, 50 - ii * 7));
+                    
+                    g.fillPolygon(p);
+                }
+                g.setTransform(t);
+
             }
-            g.setTransform(t);
         }
         if (!toofar && !hidepoly && !Medium.hideoutlines) {
             int k6;
@@ -544,14 +572,52 @@ final class Plane {
     private final int z[];
     private final int y[];
     
-    private static final AffineTransform tsc[] = new AffineTransform[3];
+    private static final AffineTransform tsc[] = OUTLINE_GLOW_FAST ? new AffineTransform[3] : new AffineTransform[0];
     
     static {
-        for (int i = 0; i < 3; i++) {
-            tsc[i] = new AffineTransform();
-            tsc[i].translate(Medium.w / 2, Medium.h / 2);
-            tsc[i].scale(1.0 + (i * 0.05), 1.0 + (i * 0.05));
-            tsc[i].translate(-(Medium.w / 2), -(Medium.h / 2));
+        if (OUTLINE_GLOW_FAST) {
+            for (int i = 0; i < 3; i++) {
+                tsc[i] = new AffineTransform();
+                tsc[i].translate(Medium.w / 2, Medium.h / 2);
+                tsc[i].scale(1.0 + (i * 0.05), 1.0 + (i * 0.05));
+                tsc[i].translate(-(Medium.w / 2), -(Medium.h / 2));
+            }
         }
+    }
+
+    public static int[] centroid(Polygon p) {
+        int x = 0;
+        int y = 0;
+        for (int i = 0; i < p.npoints - 1; i++) {
+            x += p.xpoints[i];
+            y += p.ypoints[i];
+        }
+        if (p.xpoints[0] != p.xpoints[p.npoints - 1] || p.ypoints[0] != p.ypoints[p.npoints - 1]) {
+            x += p.xpoints[p.npoints - 1];
+            y += p.ypoints[p.npoints - 1];
+        }
+
+        x = (int) ((float)x/p.npoints); // - 1?
+        y = (int) ((float)y/p.npoints);
+
+        return new int[] {x, y};
+    }
+    
+    public static int[] centroid(int[] xpoints, int[] ypoints, int npoints) {
+        int x = 0;
+        int y = 0;
+        for (int i = 0; i < npoints - 1; i++) {
+            x += xpoints[i];
+            y += ypoints[i];
+        }
+        if (xpoints[0] != xpoints[npoints - 1] || ypoints[0] != ypoints[npoints - 1]) {
+            x += xpoints[npoints - 1];
+            y += ypoints[npoints - 1];
+        }
+
+        x = (int) ((float)x/npoints);
+        y = (int) ((float)y/npoints);
+
+        return new int[] {x, y};
     }
 }
