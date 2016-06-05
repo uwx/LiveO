@@ -572,10 +572,10 @@ final class Plane {
     private final int z[];
     private final int y[];
     
-    private static final AffineTransform tsc[] = OUTLINE_GLOW_FAST ? new AffineTransform[3] : new AffineTransform[0];
+    private static final AffineTransform tsc[] = !OUTLINE_GLOW_FAST ? new AffineTransform[3] : new AffineTransform[0];
     
     static {
-        if (OUTLINE_GLOW_FAST) {
+        if (!OUTLINE_GLOW_FAST) {
             for (int i = 0; i < 3; i++) {
                 tsc[i] = new AffineTransform();
                 tsc[i].translate(Medium.w / 2, Medium.h / 2);
