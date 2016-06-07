@@ -32,7 +32,8 @@ final class ContO {
     public int g_scaley;
     public int g_scalez;
 
-    public ContO(final String s, final int i, final int j, final int k) throws Exception {
+    public ContO(BufferedReader datainputstream, final int i, final int j, final int k) throws Exception {
+
         npl = 0;
         x = 0;
         y = 0;
@@ -82,6 +83,8 @@ final class ContO {
         final float nfmm_scale[] = {
                 1.0F, 1.0F, 1.0F
         };
+        
+        boolean glow = false;
 
         //final boolean hasTracks = false;
         //final boolean inTrack = false;
@@ -90,7 +93,6 @@ final class ContO {
             //final File fl = new File(s);
             //System.out.println(s.getPath());
             //final DataInputStream datainputstream = new DataInputStream(new FileInputStream(s));
-            final BufferedReader datainputstream = new BufferedReader(new StringReader(s));
             do {
                 String s1;
                 if ((s1 = datainputstream.readLine()) == null)
@@ -110,6 +112,7 @@ final class ContO {
                     strokecap = BasicStroke.CAP_BUTT;
                     strokejoin = BasicStroke.JOIN_MITER;
                     strokemtlimit = 10;
+                    glow = false;
                 }
                 if (flag) {
                     if (line.startsWith("gr("))
@@ -170,11 +173,13 @@ final class ContO {
                     }
                     if (line.startsWith("$outlineMtlimit("))
                         strokemtlimit = getvalue("$outlineMtlimit", line, 0);
+                    if (line.startsWith("$glow()") || line.startsWith("$gl()"))
+                        glow = true;
 
                 }
                 if (line.startsWith("</p>") && RunApp.showModel) {
                     p[npl] = new Plane(pointX, pointZ, pointY, nPoints, color, glass, gr, fs, 0, 0, light, hidepoly,
-                            randomcolor, randoutline, customstroke, strokewidth, strokecap, strokejoin, strokemtlimit);
+                            randomcolor, randoutline, customstroke, strokewidth, strokecap, strokejoin, strokemtlimit, glow);
                     npl++;
                     flag = false;
                 }
@@ -488,464 +493,15 @@ final class ContO {
         }
         System.out.println(new StringBuilder().append("polygantos: ").append(npl).toString());
         p[npl - 1].imlast = true;
+    
     }
 
     public ContO(final DataInputStream s, final int i, final int j, final int k) throws Exception {
-        npl = 0;
-        x = 0;
-        y = 0;
-        z = 0;
-        xz = 0;
-        xy = 0;
-        zy = 0;
-        wxz = 0;
-        dist = 0;
-        maxR = 0;
-        disp = 0;
-        shadow = false;
-        stonecold = false;
-        grounded = 1;
-        rcol = 0;
-        pcol = 0;
-        track = -2;
-        out = false;
-        p = new Plane[0x186a0];
-        x = i;
-        y = j;
-        z = k;
-        boolean flag = false;
-        int nPoints = 0;
-        float div = 1.0F;
-        final int pointX[] = new int[350];
-        final int pointY[] = new int[350];
-        final int pointZ[] = new int[350];
-        final int color[] = new int[3];
-        boolean glass = false;
-        final Wheels wheels = new Wheels();
-        int gr = 1;
-        int fs = 0;
+        this(new BufferedReader(new InputStreamReader(s)), i, j, k);
+    }
 
-        float wid = 1.0F;
-        boolean hidepoly = false;
-        boolean randomcolor = false;
-        boolean randoutline = false;
-        byte light = 0;
-
-        boolean customstroke = false;
-        int strokewidth = 1;
-        int strokecap = BasicStroke.CAP_BUTT;
-        int strokejoin = BasicStroke.JOIN_MITER;
-        int strokemtlimit = 10;
-
-        final float nfmm_scale[] = {
-                1.0F, 1.0F, 1.0F
-        };
-
-        //final boolean hasTracks = false;
-        //final boolean inTrack = false;
-
-        try {
-            //final File fl = new File(s);
-            //System.out.println(s.getPath());
-            //final DataInputStream datainputstream = new DataInputStream(new FileInputStream(s));
-            final BufferedReader datainputstream = new BufferedReader(new InputStreamReader(s));
-            do {
-                String s1;
-                if ((s1 = datainputstream.readLine()) == null)
-                    break;
-                final String line = new StringBuilder().append("").append(s1.trim()).toString();
-                if (line.startsWith("<p>") && RunApp.showModel) {
-                    flag = true;
-                    nPoints = 0;
-                    gr = 0;
-                    fs = 0;
-                    light = 0;
-                    hidepoly = false;
-                    randomcolor = false;
-                    randoutline = false;
-                    customstroke = false;
-                    strokewidth = 1;
-                    strokecap = BasicStroke.CAP_BUTT;
-                    strokejoin = BasicStroke.JOIN_MITER;
-                    strokemtlimit = 10;
-                }
-                if (flag) {
-                    if (line.startsWith("gr("))
-                        gr = getvalue("gr", line, 0);
-                    if (line.startsWith("fs("))
-                        fs = getvalue("fs", line, 0);
-                    if (line.startsWith("glass"))
-                        glass = true;
-                    if (line.startsWith("c(")) {
-                        if (glass)
-                            glass = false;
-                        color[0] = getvalue("c", line, 0);
-                        color[1] = getvalue("c", line, 1);
-                        color[2] = getvalue("c", line, 2);
-                    }
-                    if (line.startsWith("p(")) {
-                        pointX[nPoints] = (int) ((int) (getvalue("p", line, 0) * div * wid) * nfmm_scale[0]);
-                        pointY[nPoints] = (int) ((int) (getvalue("p", line, 1) * div) * nfmm_scale[1]);
-                        pointZ[nPoints] = (int) ((int) (getvalue("p", line, 2) * div) * nfmm_scale[2]);
-                        final int maxKeks = (int) Math.sqrt(pointX[nPoints] * pointX[nPoints]
-                                + pointY[nPoints] * pointY[nPoints] + pointZ[nPoints] * pointZ[nPoints]);
-                        if (maxKeks > maxR)
-                            //System.out.println(maxKeks);
-                            maxR = maxKeks;
-                        nPoints++;
-                    }
-                    if (line.startsWith("random()") || line.startsWith("rainbow()"))
-                        randomcolor = true;
-                    if (line.startsWith("randoutline()"))
-                        randoutline = true;
-                    if (line.startsWith("lightF"))
-                        light = 1;
-                    if (line.startsWith("lightB"))
-                        light = 2;
-                    if (line.startsWith("light()"))
-                        light = 1;
-                    if (line.startsWith("noOutline()"))
-                        hidepoly = true;
-                    if (line.startsWith("customOutline"))
-                        customstroke = true;
-                    if (line.startsWith("$outlineW("))
-                        strokewidth = getvalue("$outlineW", line, 0);
-                    if (line.startsWith("$outlineCap(")) {
-                        if (line.startsWith("$outlineCap(butt)"))
-                            strokecap = BasicStroke.CAP_BUTT;
-                        if (line.startsWith("$outlineCap(round)"))
-                            strokecap = BasicStroke.CAP_ROUND;
-                        if (line.startsWith("$outlineCap(square)"))
-                            strokecap = BasicStroke.CAP_SQUARE;
-                    }
-                    if (line.startsWith("$outlineJoin(")) {
-                        if (line.startsWith("$outlineJoin(bevel)"))
-                            strokejoin = BasicStroke.JOIN_BEVEL;
-                        if (line.startsWith("$outlineJoin(miter)"))
-                            strokejoin = BasicStroke.JOIN_MITER;
-                        if (line.startsWith("$outlineJoin(round)"))
-                            strokejoin = BasicStroke.JOIN_ROUND;
-                    }
-                    if (line.startsWith("$outlineMtlimit("))
-                        strokemtlimit = getvalue("$outlineMtlimit", line, 0);
-
-                }
-                if (line.startsWith("</p>") && RunApp.showModel) {
-                    p[npl] = new Plane(pointX, pointZ, pointY, nPoints, color, glass, gr, fs, 0, 0, light, hidepoly,
-                            randomcolor, randoutline, customstroke, strokewidth, strokecap, strokejoin, strokemtlimit);
-                    npl++;
-                    flag = false;
-                }
-                if (line.startsWith("w") && RunApp.showModel)
-                    npl += wheels.make(p, npl, (int) (getvalue("w", line, 0) * div * nfmm_scale[0]),
-                            (int) (getvalue("w", line, 1) * div * nfmm_scale[1]),
-                            (int) (getvalue("w", line, 2) * div * nfmm_scale[2]), getvalue("w", line, 3),
-                            (int) (getvalue("w", line, 4) * div * nfmm_scale[0]), (int) (getvalue("w", line, 5) * div));
-                        //npl += wheels.make(applet, m, p, npl, (int)((float)getvalue("w", s1, 0) * f * f1 * nfmm_scale[0]), (int)((float)getvalue("w", s1, 1) * f * nfmm_scale[1]), (int)((float)getvalue("w", s1, 2) * f * nfmm_scale[2]), getvalue("w", s1, 3), (int)((float)getvalue("w", s1, 4) * f * f1), (int)((int)getvalue("w", s1, 5) * f), i1);
-
-                /*if (s2.startsWith("<track>"))
-                  track = -1;
-                if (track == -1) {
-                  if (s2.startsWith("c")) {
-                    m.tr.c[m.tr.nt][0] = getvalue("c", s2, 0);
-                    m.tr.c[m.tr.nt][1] = getvalue("c", s2, 1);
-                    m.tr.c[m.tr.nt][2] = getvalue("c", s2, 2);
-                  }
-                  if (s2.startsWith("xy"))
-                    m.tr.xy[m.tr.nt] = getvalue("xy", s2, 0);
-                  if (s2.startsWith("zy"))
-                    m.tr.zy[m.tr.nt] = getvalue("zy", s2, 0);
-                  if (s2.startsWith("radx"))
-                    m.tr.radx[m.tr.nt] = (int) (getvalue("radx", s2, 0) * f);
-                  if (s2.startsWith("radz"))
-                    m.tr.radz[m.tr.nt] = (int) (getvalue("radz", s2, 0) * f);
-                }
-                if (s2.startsWith("</track>")) {
-                  track = m.tr.nt;
-                  m.tr.nt++;
-                }*/
-                if (Trackers.nt + 1 > Trackers.xy.length)
-                    throw new RuntimeException("increase tracks()");
-                if (line.startsWith("<track>")) {
-                    Trackers.notwall[Trackers.nt] = false;
-                    Trackers.dam[Trackers.nt] = 1;
-                    Trackers.skd[Trackers.nt] = 0;
-                    Trackers.y[Trackers.nt] = 0;
-                    Trackers.x[Trackers.nt] = 0;
-                    Trackers.z[Trackers.nt] = 0;
-                    Trackers.xy[Trackers.nt] = 0;
-                    Trackers.zy[Trackers.nt] = 0;
-                    Trackers.rady[Trackers.nt] = 0;
-                    Trackers.radx[Trackers.nt] = 0;
-                    Trackers.radz[Trackers.nt] = 0;
-                    Trackers.c[Trackers.nt][0] = 0;
-                    Trackers.c[Trackers.nt][1] = 0;
-                    Trackers.c[Trackers.nt][2] = 0;
-                    track = -1;
-                }
-                if (track == -1) {
-                    if (line.startsWith("c")) {
-                        Trackers.c[Trackers.nt][0] = getvalue("c", line, 0);
-                        Trackers.c[Trackers.nt][1] = getvalue("c", line, 1);
-                        Trackers.c[Trackers.nt][2] = getvalue("c", line, 2);
-                    }
-                    if (line.startsWith("xy"))
-                        Trackers.xy[Trackers.nt] = getvalue("xy", line, 0);
-                    if (line.startsWith("zy"))
-                        Trackers.zy[Trackers.nt] = getvalue("zy", line, 0);
-                    if (line.startsWith("radx"))
-                        Trackers.radx[Trackers.nt] = (int) (getvalue("radx", line, 0) * div);
-                    if (line.startsWith("rady"))
-                        Trackers.rady[Trackers.nt] = (int) (getvalue("rady", line, 0) * div);
-                    if (line.startsWith("radz"))
-                        Trackers.radz[Trackers.nt] = (int) (getvalue("radz", line, 0) * div);
-                    if (line.startsWith("ty"))
-                        Trackers.y[Trackers.nt] = (int) (getvalue("ty", line, 0) * div);
-                    if (line.startsWith("tx"))
-                        Trackers.x[Trackers.nt] = (int) (getvalue("tx", line, 0) * div);
-                    if (line.startsWith("tz"))
-                        Trackers.z[Trackers.nt] = (int) (getvalue("tz", line, 0) * div);
-                    if (line.startsWith("skid"))
-                        Trackers.skd[Trackers.nt] = getvalue("skid", line, 0);
-                    if (line.startsWith("dam"))
-                        Trackers.dam[Trackers.nt] = 3;
-                    if (line.startsWith("notwall"))
-                        Trackers.notwall[Trackers.nt] = true;
-                }
-                if (line.startsWith("</track>")) {
-                    //
-
-                    final int x1 = Trackers.x[Trackers.nt] - Trackers.radx[Trackers.nt];
-                    final int x2 = Trackers.x[Trackers.nt] + Trackers.radx[Trackers.nt];
-                    final int y1 = Trackers.y[Trackers.nt] - Trackers.rady[Trackers.nt];
-                    final int y2 = Trackers.y[Trackers.nt] + Trackers.rady[Trackers.nt];
-                    final int z1 = Trackers.z[Trackers.nt] - Trackers.radz[Trackers.nt];
-                    final int z2 = Trackers.z[Trackers.nt] + Trackers.radz[Trackers.nt];
-
-                    /*
-                     * x = 200
-                     * y = 100
-                     * z = 300
-                     *
-                    <p>
-                    p(-x,y,z)
-                    p(-x,y,-z)
-                    p(-x,-y,-z)
-                    p(-x,-y,z) // human eyes careful
-                    </p>
-
-                    <p>
-                    p(x,-y,z)
-                    p(x,y,z)
-                    p(-x,y,z)
-                    p(-x,-y,z)
-                    </p>
-
-                    <p>
-                    p(x,-y,z)
-                    p(x,y,z) // human eyes careful
-                    p(x,y,-z)
-                    p(x,-y,-z)
-                    </p>
-
-                    <p>
-                    p(x,y,-z)
-                    p(-x,y,-z)
-                    p(-x,-y,-z)
-                    p(x,-y,-z)
-                    </p>
-                    */
-
-                    final int ggr = 0;
-                    //if (RunApp.solidsApproachScreen)
-                    //    ggr = -51;
-                    if (RunApp.showSolids) {
-                        final int[] pc = {
-                                255, 0, 0
-                        };
-                        final int[] px = {
-                                x1, x1, x1, x1,
-                        };
-                        final int[] py = {
-                                y2, y2, y1, y1,
-                        };
-                        final int[] pz = {
-                                z2, z1, z1, z2,
-                        };
-
-                        p[npl] = new Plane(px, pz, py, 4, pc, false, ggr, 0, 0, 0, (byte) 0, false,
-                                false /*rndcolor*/, false, false, 0, 0, 0, 0);
-                        npl++;
-
-                        final int[] apc = {
-                                0, 255, 0
-                        };
-                        final int[] apx = {
-                                x2, x2, x1, x1,
-                        };
-                        final int[] apy = {
-                                y1, y2, y2, y1,
-                        };
-                        final int[] apz = {
-                                z2, z2, z2, z2,
-                        };
-                        p[npl] = new Plane(apx, apz, apy, 4, apc, false, ggr, 0, 0, 0, (byte) 0, false,
-                                false /*rndcolor*/, false, false, 0, 0, 0, 0);
-                        npl++;
-
-                        final int[] bpc = {
-                                0, 0, 255
-                        };
-                        final int[] bpx = {
-                                x2, x2, x2, x2,
-                        };
-                        final int[] bpy = {
-                                y1, y2, y2, y1,
-                        };
-                        final int[] bpz = {
-                                z2, z2, z1, z1,
-                        };
-                        p[npl] = new Plane(bpx, bpz, bpy, 4, bpc, false, ggr, 0, 0, 0, (byte) 0, false,
-                                false /*rndcolor*/, false, false, 0, 0, 0, 0);
-                        npl++;
-
-                        final int[] cpc = {
-                                255, 255, 255
-                        };
-                        final int[] cpx = {
-                                x2, x1, x1, x2,
-                        };
-                        final int[] cpy = {
-                                y2, y2, y1, y1,
-                        };
-                        final int[] cpz = {
-                                z1, z1, z1, z1,
-                        };
-                        p[npl] = new Plane(cpx, cpz, cpy, 4, cpc, false, ggr, 0, 0, 0, (byte) 0, false,
-                                false /*rndcolor*/, false, false, 0, 0, 0, 0);
-                        npl++;
-                    }
-
-                    /* Track Flats / Faces */
-                    /* Captures RadX and RadZ, RadY can be interpreted/determined by model */
-                    if (RunApp.showTrackFaces)
-                        if ((Trackers.zy[Trackers.nt] == 90 || Trackers.zy[Trackers.nt] == -90) && Trackers.xy[Trackers.nt] == 0) {
-                            final int[] px = {
-                                    Trackers.x[Trackers.nt] - Trackers.radx[Trackers.nt], Trackers.x[Trackers.nt] - Trackers.radx[Trackers.nt],
-                                    Trackers.x[Trackers.nt] + Trackers.radx[Trackers.nt], Trackers.x[Trackers.nt] + Trackers.radx[Trackers.nt]
-                            };
-                            final int[] py = {
-                                    Trackers.y[Trackers.nt], Trackers.y[Trackers.nt], Trackers.y[Trackers.nt], Trackers.y[Trackers.nt]
-                            };
-                            final int[] pz = {
-                                    Trackers.z[Trackers.nt] - Trackers.rady[Trackers.nt], Trackers.z[Trackers.nt] + Trackers.rady[Trackers.nt],
-                                    Trackers.z[Trackers.nt] + Trackers.rady[Trackers.nt], Trackers.z[Trackers.nt] - Trackers.rady[Trackers.nt]
-                            }; // may need changing
-                            final int[] pc = {
-                                    255, 255, 0
-                            };
-
-                            Plane.rot(py, pz, Trackers.y[Trackers.nt], Trackers.z[Trackers.nt], -Trackers.zy[Trackers.nt], 4);
-
-                            p[npl] = new Plane(px, pz, py, 4, pc, false, 0, 0, 0, 0, (byte) 0, false,
-                                    false /*rndcolor*/, false, false, 0, 0, 0, 0);
-                            npl++;
-                        } else if ((Trackers.xy[Trackers.nt] == 90 || Trackers.xy[Trackers.nt] == -90) && Trackers.zy[Trackers.nt] == 0) {
-                            final int[] px = {
-                                    Trackers.x[Trackers.nt] - Trackers.rady[Trackers.nt], Trackers.x[Trackers.nt] - Trackers.rady[Trackers.nt],
-                                    Trackers.x[Trackers.nt] + Trackers.rady[Trackers.nt], Trackers.x[Trackers.nt] + Trackers.rady[Trackers.nt]
-                            };
-                            final int[] py = {
-                                    Trackers.y[Trackers.nt], Trackers.y[Trackers.nt], Trackers.y[Trackers.nt], Trackers.y[Trackers.nt]
-                            };
-                            final int[] pz = {
-                                    Trackers.z[Trackers.nt] - Trackers.radz[Trackers.nt], Trackers.z[Trackers.nt] + Trackers.radz[Trackers.nt],
-                                    Trackers.z[Trackers.nt] + Trackers.radz[Trackers.nt], Trackers.z[Trackers.nt] - Trackers.radz[Trackers.nt]
-                            }; // may need changing
-                            final int[] pc = {
-                                    255, 255, 0
-                            };
-
-                            Plane.rot(py, px, Trackers.y[Trackers.nt], Trackers.x[Trackers.nt], -Trackers.xy[Trackers.nt], 4);
-
-                            p[npl] = new Plane(px, pz, py, 4, pc, false, 0, 0, 0, 0, (byte) 0, false,
-                                    false /*rndcolor*/, false, false, 0, 0, 0, 0);
-                            npl++;
-                        } else {
-                            final int[] px = {
-                                    Trackers.x[Trackers.nt] - Trackers.radx[Trackers.nt], Trackers.x[Trackers.nt] - Trackers.radx[Trackers.nt],
-                                    Trackers.x[Trackers.nt] + Trackers.radx[Trackers.nt], Trackers.x[Trackers.nt] + Trackers.radx[Trackers.nt]
-                            };
-                            final int[] py = {
-                                    Trackers.y[Trackers.nt], Trackers.y[Trackers.nt], Trackers.y[Trackers.nt], Trackers.y[Trackers.nt]
-                            };
-                            final int[] pz = {
-                                    Trackers.z[Trackers.nt] - Trackers.radz[Trackers.nt], Trackers.z[Trackers.nt] + Trackers.radz[Trackers.nt],
-                                    Trackers.z[Trackers.nt] + Trackers.radz[Trackers.nt], Trackers.z[Trackers.nt] - Trackers.radz[Trackers.nt]
-                            }; // may need changing
-                            final int[] pc = {
-                                    255, 255, 0
-                            };
-
-                            Plane.rot(py, px, Trackers.y[Trackers.nt], Trackers.x[Trackers.nt], -Trackers.xy[Trackers.nt], 4);
-                            Plane.rot(py, pz, Trackers.y[Trackers.nt], Trackers.z[Trackers.nt], -Trackers.zy[Trackers.nt], 4);
-
-                            p[npl] = new Plane(px, pz, py, 4, pc, false, 0, 0, 0, 0, (byte) 0, false,
-                                    false /*rndcolor*/, false, false, 0, 0, 0, 0);
-                            npl++;
-                        }
-                    track = Trackers.nt;
-                    Trackers.nt++;
-                }
-                Trackers.prepare();
-
-                if (line.startsWith("MaxRadius"))
-                    maxR = (int) (getvalue("MaxRadius", line, 0) * div);
-                if (line.startsWith("disp"))
-                    disp = getvalue("disp", line, 0);
-                if (line.startsWith("shadow"))
-                    shadow = true;
-                if (line.startsWith("out"))
-                    out = true;
-                if (line.startsWith("colid")) {
-                    rcol = getvalue("colid", line, 0);
-                    pcol = getvalue("colid", line, 1);
-                }
-                if (line.startsWith("grounded"))
-                    grounded = getvalue("grounded", line, 0);
-                if (line.startsWith("div")) {
-                    div = getvalue("div", line, 0) / 10F;
-                    g_div = getvalue("div", line, 0);
-                }
-                if (line.startsWith("idiv")) {
-                    div = getvalue("idiv", s1, 0) / 100F;
-                    g_idiv = getvalue("idiv", line, 0);
-                }
-                if (line.startsWith("iwid")) {
-                    wid = getvalue("iwid", s1, 0) / 100F;
-                    g_iwid = getvalue("iwid", line, 0);
-                }
-                if (line.startsWith("ScaleX")) {
-                    nfmm_scale[0] = getvalue("ScaleX", s1, 0) / 100F;
-                    g_scalex = getvalue("ScaleX", line, 0);
-                }
-                if (line.startsWith("ScaleY")) {
-                    nfmm_scale[1] = getvalue("ScaleY", s1, 0) / 100F;
-                    g_scaley = getvalue("ScaleY", line, 0);
-                }
-                if (line.startsWith("ScaleZ")) {
-                    nfmm_scale[2] = getvalue("ScaleZ", s1, 0) / 100F;
-                    g_scalez = getvalue("ScaleZ", line, 0);
-                }
-                if (line.startsWith("stonecold"))
-                    stonecold = true;
-            } while (true);
-            datainputstream.close();
-        } catch (final Exception exception) {
-            throw exception;
-        }
-        System.out.println(new StringBuilder().append("polygantos: ").append(npl).toString());
-        p[npl - 1].imlast = true;
+    public ContO(final String s, final int i, final int j, final int k) throws Exception {
+        this(new BufferedReader(new StringReader(s)), i, j, k);
     }
 
     public void d(final Graphics g) {

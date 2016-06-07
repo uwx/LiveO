@@ -20,6 +20,61 @@ final class Plane {
      */
     private static final boolean OUTLINE_GLOW_FAST = false;
 
+
+    int ox[];
+    int oy[];
+    int oz[];
+    int n;
+    int c[];
+    private float hsb[];
+    boolean glass;
+    boolean randomcolor;
+    boolean hidepoly;
+    boolean randoutline;
+    byte light;
+    int gr;
+    int fs;
+    int wx;
+    int wz;
+    private float deltaf;
+    private float projf;
+    int av;
+    boolean imlast;
+    boolean customstroke;
+    int strokewidth;
+    int strokecap;
+    int strokejoin;
+    int strokemtlimit;
+        
+    private final int x[];
+    private final int z[];
+    private final int y[];
+    
+    private static final AffineTransform tsc[] = !OUTLINE_GLOW_FAST ? new AffineTransform[3] : new AffineTransform[0];
+    
+    static {
+        if (!OUTLINE_GLOW_FAST) {
+            for (int i = 0; i < 3; i++) {
+                tsc[i] = new AffineTransform();
+                tsc[i].translate(Medium.w / 2, Medium.h / 2);
+                tsc[i].scale(1.0 + (i * 0.05), 1.0 + (i * 0.05));
+                tsc[i].translate(-(Medium.w / 2), -(Medium.h / 2));
+            }
+        }
+    }
+    private boolean glow;
+
+    public Plane(final int ai[], final int ai1[], final int ai2[], final int i, final int ai3[],
+            final boolean flag, final int j, final int k, final int l, final int i1, final byte light,
+            final boolean hidepoly, final boolean randomcolor, final boolean randoutline, final boolean customstroke,
+            final int strokewidth, final int strokecap, final int strokejoin, final int strokemtlimit,
+            
+            
+            final boolean glow) {
+        this(ai, ai1, ai2, i, ai3, flag, j, k, l, i1, light, hidepoly, randomcolor, randoutline, customstroke, strokewidth, strokecap, strokejoin, strokemtlimit);
+        this.glow = glow;
+    }
+    
     public Plane(final int ai[], final int ai1[], final int ai2[], final int i, final int ai3[],
             final boolean flag, final int j, final int k, final int l, final int i1, final byte light,
             final boolean hidepoly, final boolean randomcolor, final boolean randoutline, final boolean customstroke,
@@ -355,40 +410,41 @@ final class Plane {
             
             g.fillPolygon(p);
 
-            if (OUTLINE_GLOW_FAST) {
-                final int[] axPoints = new int[n];
-                final int[] ayPoints = new int[n];
-                final int[] centroid = centroid(p);
-                
-                for (int ii = 3, imult = 9; ii > 0; ii--, imult = ii * 3) {
-                    for (int l5 = 0; l5 < n; l5++) {
-                        if (xPoints[l5] > centroid[0]) {
-                            axPoints[l5] = xPoints[l5] + imult;
-                        } else {
-                            axPoints[l5] = xPoints[l5] - imult;
+            if (glow) {
+                if (OUTLINE_GLOW_FAST) {
+                    final int[] axPoints = new int[n];
+                    final int[] ayPoints = new int[n];
+                    final int[] centroid = centroid(p);
+                    
+                    for (int ii = 3, imult = 9; ii > 0; ii--, imult = ii * 3) {
+                        for (int l5 = 0; l5 < n; l5++) {
+                            if (xPoints[l5] > centroid[0]) {
+                                axPoints[l5] = xPoints[l5] + imult;
+                            } else {
+                                axPoints[l5] = xPoints[l5] - imult;
+                            }
+        
+                            if (yPoints[l5] > centroid[1]) {
+                                ayPoints[l5] = yPoints[l5] + imult;
+                            } else {
+                                ayPoints[l5] = yPoints[l5] - imult;
+                            }
                         }
-    
-                        if (yPoints[l5] > centroid[1]) {
-                            ayPoints[l5] = yPoints[l5] + imult;
-                        } else {
-                            ayPoints[l5] = yPoints[l5] - imult;
-                        }
+                        
+                        g.setColor(new Color(red, green, blue, 50 - ii * 7));
+                        g.fillPolygon(axPoints, ayPoints, n);
                     }
-                    
-                    g.setColor(new Color(red, green, blue, 50 - ii * 7));
-                    g.fillPolygon(axPoints, ayPoints, n);
+                } else {
+                    AffineTransform t = g.getTransform();
+                    for (int ii = 3, ij = 0; ii > 0; ii--, ij++) {
+                        g.setTransform(tsc[ij]);
+                        
+                        g.setColor(new Color(red, green, blue, 50 - ii * 7));
+                        
+                        g.fillPolygon(p);
+                    }
+                    g.setTransform(t);
                 }
-            } else {
-                AffineTransform t = g.getTransform();
-                for (int ii = 3, ij = 0; ii > 0; ii--, ij++) {
-                    g.setTransform(tsc[ij]);
-                    
-                    g.setColor(new Color(red, green, blue, 50 - ii * 7));
-                    
-                    g.fillPolygon(p);
-                }
-                g.setTransform(t);
-
             }
         }
         if (!toofar && !hidepoly && !Medium.hideoutlines) {
@@ -541,48 +597,6 @@ final class Plane {
     
     private static int distance(int x1, int y1, int x2, int y2) {
         return (int) Math.sqrt(((x2 - x1) * (x2 - x1)) + ((y2 - y1) * (y2 - y1)));
-    }
-
-    int ox[];
-    int oy[];
-    int oz[];
-    int n;
-    int c[];
-    private float hsb[];
-    boolean glass;
-    boolean randomcolor;
-    boolean hidepoly;
-    boolean randoutline;
-    byte light;
-    int gr;
-    int fs;
-    int wx;
-    int wz;
-    private float deltaf;
-    private float projf;
-    int av;
-    boolean imlast;
-    boolean customstroke;
-    int strokewidth;
-    int strokecap;
-    int strokejoin;
-    int strokemtlimit;
-        
-    private final int x[];
-    private final int z[];
-    private final int y[];
-    
-    private static final AffineTransform tsc[] = !OUTLINE_GLOW_FAST ? new AffineTransform[3] : new AffineTransform[0];
-    
-    static {
-        if (!OUTLINE_GLOW_FAST) {
-            for (int i = 0; i < 3; i++) {
-                tsc[i] = new AffineTransform();
-                tsc[i].translate(Medium.w / 2, Medium.h / 2);
-                tsc[i].scale(1.0 + (i * 0.05), 1.0 + (i * 0.05));
-                tsc[i].translate(-(Medium.w / 2), -(Medium.h / 2));
-            }
-        }
     }
 
     public static int[] centroid(Polygon p) {
