@@ -1044,7 +1044,7 @@ final class ContO {
                     
                     if (line.startsWith("<p>")) {
                         polys++;
-                        if (polys == F51.mouseInPoly) {
+                        if (polys == F51.mouseInPoly + 1) {
                             inp = true;
                             pstartindex = byteN;
                             //pstart = lineN + 1;
