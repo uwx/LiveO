@@ -10,8 +10,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.Line2D;
-import java.awt.geom.PathIterator;
 
 final class Plane {
 
@@ -46,9 +44,12 @@ final class Plane {
     int strokejoin;
     int strokemtlimit;
         
-    private final int x[];
-    private final int z[];
-    private final int y[];
+    final int x[];
+    final int z[];
+    final int y[];
+    
+    int startLine;
+    int endLine;
     
     private static final AffineTransform tsc[] = !OUTLINE_GLOW_FAST ? new AffineTransform[3] : new AffineTransform[0];
     
@@ -370,8 +371,8 @@ final class Plane {
 
             // POLY MOUSE-TRACE
             Polygon p = new Polygon(xPoints, yPoints, n);
-            if (p.contains(F51.xm, F51.ym)) {
-                F51.mouseInPoly = im;
+            if (p.contains(LiveO.xm, LiveO.ym)) {
+                LiveO.mouseInPoly = im;
                 
                 // TRACE POINT
                 int maxdist = Integer.MAX_VALUE;
@@ -379,7 +380,7 @@ final class Plane {
                 
                 for (int index = 0; index < p.npoints; index++) {
                     
-                    int pdist = distance(p.xpoints[index], p.ypoints[index], F51.xm, F51.ym);
+                    int pdist = distance(p.xpoints[index], p.ypoints[index], LiveO.xm, LiveO.ym);
                     if (pdist < maxdist) {
                         maxdist = pdist;
                         maxdist_index = index;
@@ -388,7 +389,7 @@ final class Plane {
                     //System.out.println("Currently at: " + coords[0] + " " + coords[1]);
                 }
                 
-                F51.mouseInPoint = maxdist_index;
+                LiveO.mouseInPoint = maxdist_index;
 
                 red = 100;
                 green = 255;

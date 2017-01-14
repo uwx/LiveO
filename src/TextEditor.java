@@ -61,7 +61,7 @@ final class TextEditor implements ActionListener {
     final RSyntaxTextArea text;
     private final JTextField textField;
     private final JLabel lblFontSize;
-    private final F51 f51;
+    private final LiveO f51;
     private final JButton btnMirrorXAxis, btnMirrorYAxis, btnMirrorZAxis, prevButton, nextButton;
     private final JButton btnShowSelection;
 
@@ -91,7 +91,7 @@ final class TextEditor implements ActionListener {
 
     // Creates the GUI
 
-    TextEditor(final F51 f51, final RunApp runapp) {
+    TextEditor(final LiveO f51, final RunApp runapp) {
         this.f51 = f51;
         frame = new JFrame("Editor");
 
@@ -275,7 +275,7 @@ final class TextEditor implements ActionListener {
                 else
                     try {
                         System.out.println("You chose " + files[0]);
-                        F51.contofile = files[0];
+                        LiveO.contofile = files[0];
                         loadFile();
                         countPolys();
                         f51.remake(text.getText());
@@ -1297,7 +1297,7 @@ final class TextEditor implements ActionListener {
                 System.out.println("You cancelled the choice");
             else {
                 System.out.println("You chose " + files[0]);
-                F51.contofile = files[0];
+                LiveO.contofile = files[0];
                 text.setText(
                         "MaxRadius(300)\r\nshadow()\r\ndiv(24)\r\n\r\n\r\n\r\n\r\n\r\nw(-33,0,55,11,10,10,1)\r\nw(33,0,55,11,-10,10,1)\r\nw(-31,-1,-60,1,16,11,1)\r\nw(31,-1,-60,1,-16,11,1)");
                 try {
@@ -1320,7 +1320,7 @@ final class TextEditor implements ActionListener {
     // to that file. Does nothing if the user cancels out
     // of the file chooser.
     void saveFile() {
-        final File file = F51.contofile;
+        final File file = LiveO.contofile;
 
         try {
             // Now write to the file
@@ -1419,7 +1419,7 @@ final class TextEditor implements ActionListener {
     // the user cancels the file chooser.
     void loadFile() {
         String line;
-        final File file = F51.contofile;
+        final File file = LiveO.contofile;
 
         try {
             // Open the file.

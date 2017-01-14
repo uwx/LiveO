@@ -2,10 +2,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.FileDialog;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Frame;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
@@ -23,6 +21,7 @@ import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringReader;
 import java.nio.file.Files;
@@ -32,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
@@ -55,7 +55,6 @@ import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.Box;
 
 final class RunApp extends Panel {
 
@@ -69,6 +68,8 @@ final class RunApp extends Panel {
 
     public RunApp() throws Exception {
         Storage.load();
+
+        findContoFiles();
 
         Runtime.getRuntime().addShutdownHook(new Thread() {
             @Override
@@ -126,7 +127,7 @@ final class RunApp extends Panel {
         button_1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                applet.o.xz -= 50;
+                LiveO.o.xz -= 50;
             }
         });
         panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
@@ -137,7 +138,7 @@ final class RunApp extends Panel {
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                applet.o.xz -= 25;
+                LiveO.o.xz -= 25;
             }
         });
         panel_1.add(button);
@@ -146,7 +147,7 @@ final class RunApp extends Panel {
         button_2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                applet.o.xz += 25;
+                LiveO.o.xz += 25;
             }
         });
 
@@ -168,7 +169,7 @@ final class RunApp extends Panel {
         button_3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                applet.o.xz += 50;
+                LiveO.o.xz += 50;
             }
         });
         panel_1.add(button_3);
@@ -200,13 +201,13 @@ final class RunApp extends Panel {
         btnReset.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                applet.o.x = 350;
-                applet.o.y = 120;
-                applet.o.z = 800;
-                applet.o.xz = 0;
-                applet.o.xy = 0;
-                applet.o.zy = 0;
-                applet.o.wxz = 0;
+                LiveO.o.x = 350;
+                LiveO.o.y = 120;
+                LiveO.o.z = 800;
+                LiveO.o.xz = 0;
+                LiveO.o.xy = 0;
+                LiveO.o.zy = 0;
+                LiveO.o.wxz = 0;
 
                 Medium.movementCoarseness = 5;
                 slider_4.setValue(Medium.movementCoarseness);
@@ -214,7 +215,7 @@ final class RunApp extends Panel {
                 slider_3.setValue(Medium.autorotateCoarseness);
             }
         });
-        applet = new F51();
+        applet = new LiveO();
         applet.setIgnoreRepaint(true);
         t = new TextEditor(applet, this);
         panel_3.add(applet, BorderLayout.CENTER);
@@ -246,7 +247,7 @@ final class RunApp extends Panel {
         slider.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(final ChangeEvent e) {
-                applet.o.zy = -slider.getValue();
+                LiveO.o.zy = -slider.getValue();
             }
         });
         slider.setOrientation(SwingConstants.VERTICAL);
@@ -263,7 +264,7 @@ final class RunApp extends Panel {
         slider_2.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(final ChangeEvent e) {
-                applet.o.xz = -slider_2.getValue();
+                LiveO.o.xz = -slider_2.getValue();
             }
         });
 
@@ -277,7 +278,7 @@ final class RunApp extends Panel {
         slider_1.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(final ChangeEvent e) {
-                applet.o.xy = -slider_1.getValue();
+                LiveO.o.xy = -slider_1.getValue();
             }
         });
 
@@ -424,21 +425,21 @@ final class RunApp extends Panel {
         lblCar = new JLabel("Car:");
         panel_13.add(lblCar);
 
-        makeRadCombobox();
-        comboBox_1 = new JComboBox<String>();
-        comboBox_1.setModel(new DefaultComboBoxModel<String>(carSArray));
+        comboBox_1 = new JComboBox<File>();
+        comboBox_1.setModel(ArrayListComboBoxModel.wrap(carFArray));
+        comboBox_1.setRenderer(new FileCellRenderer());
+        
         //t.countPolys();
         comboBox_1.addItemListener(new ItemListener() {
 
             @Override
             public void itemStateChanged(final ItemEvent event) {
                 if (event.getStateChange() == ItemEvent.SELECTED) {
-                    final int item = comboBox_1.getSelectedIndex();
-                    final File file = carFArray[item];
-                    //final File[] files = fd.getFiles();
+                    final File file = (File) comboBox_1.getSelectedItem();
+                    
                     if (file.exists() && !file.isDirectory()) {
                         try {
-                            F51.contofile = file;
+                            LiveO.contofile = file;
                             t.loadFile();
                             t.countPolys();
                             applet.remake(t.text.getText());
@@ -468,8 +469,8 @@ final class RunApp extends Panel {
                         //System.out.println("Selected file: " + selectedFile.getAbsolutePath());
                     }
                 }
-                makeRadCombobox();
-                comboBox_1.setModel(new DefaultComboBoxModel<String>(carSArray));
+                findContoFiles();
+                comboBox_1.setModel(ArrayListComboBoxModel.wrap(carFArray));
             }
         });
 
@@ -497,7 +498,7 @@ final class RunApp extends Panel {
                 if (result == JFileChooser.APPROVE_OPTION) {
                     final File selectedFile = fileChooser.getSelectedFile();
                     if (selectedFile.exists() && !selectedFile.isDirectory()) {
-                        F51.overlayfile = selectedFile;
+                        LiveO.overlayfile = selectedFile;
                     }
                     try {
                         applet.remakeOverlay();
@@ -534,7 +535,7 @@ final class RunApp extends Panel {
         panel_10.add(lblNewLabel);
 
         textField = new JTextField();
-        textField.setText("" + applet.o.g_div);
+        textField.setText("" + LiveO.o.g_div);
         panel_10.add(textField);
         textField.setColumns(10);
 
@@ -546,7 +547,7 @@ final class RunApp extends Panel {
 
         textField_1 = new JTextField();
         textField_1.setColumns(10);
-        textField_1.setText("" + applet.o.g_idiv);
+        textField_1.setText("" + LiveO.o.g_idiv);
         panel_11.add(textField_1);
 
         panel_12 = new JPanel();
@@ -557,7 +558,7 @@ final class RunApp extends Panel {
 
         textField_2 = new JTextField();
         textField_2.setColumns(10);
-        textField_2.setText("" + applet.o.g_iwid);
+        textField_2.setText("" + LiveO.o.g_iwid);
         panel_12.add(textField_2);
 
         final JPanel panel_16 = new JPanel();
@@ -570,7 +571,7 @@ final class RunApp extends Panel {
 
         textField_3 = new JTextField();
         textField_3.setColumns(10);
-        textField_3.setText("" + applet.o.g_scalex);
+        textField_3.setText("" + LiveO.o.g_scalex);
         panel_20.add(textField_3);
 
         panel_21 = new JPanel();
@@ -581,7 +582,7 @@ final class RunApp extends Panel {
 
         textField_4 = new JTextField();
         textField_4.setColumns(10);
-        textField_4.setText("" + applet.o.g_scaley);
+        textField_4.setText("" + LiveO.o.g_scaley);
         panel_21.add(textField_4);
 
         panel_22 = new JPanel();
@@ -591,7 +592,7 @@ final class RunApp extends Panel {
         panel_22.add(lblScalez);
 
         textField_5 = new JTextField();
-        textField_5.setText("" + applet.o.g_scalez);
+        textField_5.setText("" + LiveO.o.g_scalez);
         textField_5.setColumns(10);
         panel_22.add(textField_5);
         final GroupLayout gl_panel_15 = new GroupLayout(panel_15);
@@ -818,7 +819,7 @@ final class RunApp extends Panel {
         btnShowAxis.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                applet.show3 = !applet.show3;
+                LiveO.show3 = !LiveO.show3;
             }
         });
         btnShowAxis.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -1242,13 +1243,13 @@ final class RunApp extends Panel {
         btnAa.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                applet.aa = !applet.aa;
+                LiveO.aa = !LiveO.aa;
             }
         });
         btnTransGlass.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                F51.trans = !F51.trans;
+                LiveO.trans = !LiveO.trans;
             }
         });
         btnLights.addActionListener(new ActionListener() {
@@ -1275,11 +1276,10 @@ final class RunApp extends Panel {
         	sArray[i] = fArray[i].getName();
         }*/
 
-        final int item = comboBox_1.getSelectedIndex();
-        final File file = carFArray[item];
+        final File file = (File) comboBox_1.getSelectedItem();
         //final File[] files = fd.getFiles();
         if (file.exists() && !file.isDirectory()) {
-            F51.contofile = file;
+            LiveO.contofile = file;
             //
             t.loadFile();
             t.countPolys();
@@ -1303,28 +1303,38 @@ final class RunApp extends Panel {
 
     }
 
-    private static String[] carSArray;
-    private static File[] carFArray;
+    static ArrayList<File> carFArray;
 
-    private static void makeRadCombobox() {
-        carSArray = null;
-        final List<File> dong = new ArrayList<File>();
+    private static void findContoFiles() {
+        if (carFArray == null) {
+            carFArray = new ArrayList<>();
+        } else {
+            carFArray.clear();
+        }
+        
+                
+        File o = new File("./o.rad");
+        if (!o.exists()) {
+            try {
+                FileWriter fw = new FileWriter(o);
+                fw.write("MaxRadius(300)\ndiv(10)");
+                fw.flush();
+                fw.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        carFArray.add(o);
+        
         try {
-            Files.walk(Paths.get(carfolder.toURI())).forEach(new Consumer<Path>() {
-                @Override
-                public void accept(final Path filePath) {
-                    if (Files.isRegularFile(filePath) && filePath.toString().endsWith(".rad")) {
-                        dong.add(filePath.toFile());
-                    }
+            Files.walk(Paths.get(carfolder.toURI())).forEach(filePath -> {
+                if (Files.isRegularFile(filePath) && filePath.toString().endsWith(".rad")) {
+                    carFArray.add(filePath.toFile());
                 }
             });
         } catch (final IOException e1) {
-        }
-        carFArray = new File[dong.size()];
-        carFArray = dong.toArray(carFArray);
-        carSArray = new String[dong.size()];
-        for (int i = 0; i < carFArray.length; i++) {
-            carSArray[i] = carFArray[i].getName();
+            e1.printStackTrace();
         }
     }
 
@@ -1335,7 +1345,7 @@ final class RunApp extends Panel {
         try {
             if (!show) {
                 show = true;
-                storeo = applet.o;
+                storeo = LiveO.o;
 
                 int _scalez = 0;
                 int _scalex = 0;
@@ -1351,22 +1361,22 @@ final class RunApp extends Panel {
                     line = line.trim();
                     System.out.println(line.startsWith("div"));
                     if (line.startsWith("div")) {
-                        _div = applet.o.getvalue("div", line, 0);
+                        _div = LiveO.o.getvalue("div", line, 0);
                     }
                     if (line.startsWith("iwid")) {
-                        _iwid = applet.o.getvalue("iwid", line, 0);
+                        _iwid = LiveO.o.getvalue("iwid", line, 0);
                     }
                     if (line.startsWith("idiv")) {
-                        _idiv = applet.o.getvalue("idiv", line, 0);
+                        _idiv = LiveO.o.getvalue("idiv", line, 0);
                     }
                     if (line.startsWith("ScaleZ")) {
-                        _scalez = applet.o.getvalue("ScaleZ", line, 0);
+                        _scalez = LiveO.o.getvalue("ScaleZ", line, 0);
                     }
                     if (line.startsWith("ScaleX")) {
-                        _scalex = applet.o.getvalue("ScaleX", line, 0);
+                        _scalex = LiveO.o.getvalue("ScaleX", line, 0);
                     }
                     if (line.startsWith("ScaleY")) {
-                        _scaley = applet.o.getvalue("ScaleY", line, 0);
+                        _scaley = LiveO.o.getvalue("ScaleY", line, 0);
                     }
                     line = reader.readLine();
                 }
@@ -1399,16 +1409,16 @@ final class RunApp extends Panel {
                 //System.out.println(realselection);
 
                 final DataInputStream stream = new DataInputStream(new ByteArrayInputStream(realselection.getBytes(/*StandardCharsets.UTF_8*/)));
-                applet.o = new ContO(stream, 350, 150, 600);
-                applet.o.wxz = storeo.wxz;
-                applet.o.xz = storeo.xz;
-                applet.o.xy = storeo.xy;
-                applet.o.zy = storeo.zy;
-                applet.o.y = storeo.y;
-                applet.o.z = storeo.z;
+                LiveO.o = new ContO(stream, 350, 150, 600);
+                LiveO.o.wxz = storeo.wxz;
+                LiveO.o.xz = storeo.xz;
+                LiveO.o.xy = storeo.xy;
+                LiveO.o.zy = storeo.zy;
+                LiveO.o.y = storeo.y;
+                LiveO.o.z = storeo.z;
             } else {
                 show = false;
-                applet.o = storeo;
+                LiveO.o = storeo;
                 storeo = null;
             }
         } catch (final Exception e) {
@@ -1421,7 +1431,7 @@ final class RunApp extends Panel {
      */
     private static final long serialVersionUID = 1337L;
     static JFrame frame;
-    static F51 applet;
+    static LiveO applet;
     private static ArrayList<Image> icons;
 
     static boolean showSolids = true;
@@ -1456,7 +1466,7 @@ final class RunApp extends Panel {
     private final JTextField textField_2;
     private final JPanel panel_13;
     private final JLabel lblCar;
-    private final JComboBox<String> comboBox_1;
+    private final JComboBox<File> comboBox_1;
     private final JButton btnOpenCarFolder;
     private final JPanel panel_14;
     private final JButton btnSetColor;

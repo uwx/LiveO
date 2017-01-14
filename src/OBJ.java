@@ -1,6 +1,4 @@
 import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Font;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -194,7 +192,7 @@ public final class OBJ {
                 if (!errored) {
                     int openCar = JOptionPane.showConfirmDialog(RunApp.frame, "Open imported file " + carName + ".rad in LiveO?", "LiveO", JOptionPane.YES_NO_OPTION);
                     if (openCar == JOptionPane.YES_OPTION) {
-                        F51.contofile = carFile;
+                        LiveO.contofile = carFile;
                         
                         try {
                             RunApp.t.loadFile();

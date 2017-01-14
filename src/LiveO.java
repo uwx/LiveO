@@ -20,7 +20,10 @@ import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GraphicsConfiguration;
+import java.awt.GraphicsEnvironment;
 import java.awt.RenderingHints;
+import java.awt.Transparency;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -32,17 +35,24 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.image.BufferedImage;
 import java.beans.Beans;
+import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.Scanner;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-final class F51 extends JPanel implements KeyListener, MouseListener, MouseWheelListener, MouseMotionListener {
+final class LiveO extends JPanel implements KeyListener, MouseListener, MouseWheelListener, MouseMotionListener {
+    private static final int black = Color.black.getRGB();
+
+    private static final GraphicsConfiguration gfxConfig = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration();
+
     /**
      *
      */
@@ -53,7 +63,7 @@ final class F51 extends JPanel implements KeyListener, MouseListener, MouseWheel
     public static final byte MOUSE_DOWN = 1;
     public static final byte MOUSE_PRESSED = 2;
 
-    public F51() {
+    public LiveO() {
         show3 = false;
         right = false;
         left = false;
@@ -147,7 +157,7 @@ final class F51 extends JPanel implements KeyListener, MouseListener, MouseWheel
         //g.drawString(""+ o.z, 10, 140);
     }
 
-    static File contofile = new File("./o.rad");
+    static File contofile = RunApp.carFArray.get(0);
 
     public void remake(final String text) throws Exception {
         final int storeowxz = o.wxz;
@@ -219,7 +229,74 @@ final class F51 extends JPanel implements KeyListener, MouseListener, MouseWheel
         Medium.zy += 10;
     }
 
+    static boolean disableEverything = false;
+    public static void takeScreenshots() throws Exception {
+        RunApp.main(new String[0]);
+        disableEverything = true;
+        RunApp.showSolids = false;
+        RunApp.showTrackFaces = false;
+        //Medium.infiniteDistance = true;
+        
+        new File("./thumbs/").mkdirs();
+        boolean isInView = true;
+        
+        File[] stagerads = RunApp.carFArray.toArray(new File[RunApp.carFArray.size()]);
+        for (int i = 0; i < stagerads.length; i++) {
+            String s = stagerads[i];
+            
+            o = new ContO(new BufferedReader(new FileReader(stagerads[i])), 350, 150, 600);
+            o.dist = 0;
+            o.zy = 185;
+            o.xy = 180;
+            o.xz = -45;
+            o.y = isInView ? o.centroid()[1] + 500 : 0;
+            o.z = (int) (o.maxR *1.5f);//4510;
+            
+            Graphics2D bak = (Graphics2D) rd;
+
+            // draw once and trash it
+            BufferedImage img = gfxConfig.createCompatibleImage(700, 475,Transparency.TRANSLUCENT);
+            rd = img.getGraphics();
+            
+            o.d(rd);
+            
+            rd = bak;
+            //
+            
+            img = gfxConfig.createCompatibleImage(700, 475,Transparency.TRANSLUCENT);
+            rd = img.getGraphics();
+                        
+            o.d(rd);
+            
+            rd = bak;
+
+            if (img.getRGB(0, 0) == black) {
+                i--;
+                continue;
+            }
+            /*isInView = false;
+            mast:
+            for (int x = 0; x < 700; x++) {
+                for (int y = 0; y < 475; y++) {
+                    if (img.getRGB(0, 0) != 0x0) {
+                        isInView = true;
+                        break mast;
+                    }
+                }
+            }
+            if (!isInView) {
+                i--;
+                continue;
+            }*/
+            
+            ImageIO.write(img, "png", new File("./thumbs/" + s + ".png"));
+            Thread.sleep(50L);
+        }
+    }
+
     private void whileTrueLoop() {
+        if (disableEverything) return;
+        
         Medium.d(rd);
         o.d(rd);
         if (drawOverlay && overlay != null)
@@ -292,24 +369,24 @@ final class F51 extends JPanel implements KeyListener, MouseListener, MouseWheel
             Medium.mode = 0;
     }
 
-    private Graphics rd;
-    private BufferedImage offImage;
-    ContO o;
-    boolean aa;
-    private boolean right;
-    private boolean left;
-    private boolean up;
-    private boolean down;
-    private boolean forward;
-    private boolean back;
-    private boolean rotl;
-    private boolean rotr;
-    private boolean plus;
-    private boolean minus;
-    private boolean in;
-    private boolean out;
-    boolean show3;
-    private boolean axis;
+    static private Graphics rd;
+    static private BufferedImage offImage;
+    static ContO o;
+    static boolean aa;
+    static private boolean right;
+    static private boolean left;
+    static private boolean up;
+    static private boolean down;
+    static private boolean forward;
+    static private boolean back;
+    static private boolean rotl;
+    static private boolean rotr;
+    static private boolean plus;
+    static private boolean minus;
+    static private boolean in;
+    static private boolean out;
+    static boolean show3;
+    static private boolean axis;
     static boolean trans;
 
     private boolean shift;

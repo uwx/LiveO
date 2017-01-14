@@ -15,13 +15,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 
-import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultEditorKit;
 import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.Highlighter;
-import javax.swing.text.Highlighter.HighlightPainter;
 
 final class ContO {
 
@@ -31,6 +28,27 @@ final class ContO {
     public int g_scalex;
     public int g_scaley;
     public int g_scalez;
+
+    private Plane p[];
+
+    private int npl;
+    int x;
+    int y;
+    int z;
+    int xz;
+    int xy;
+    int zy;
+    int wxz;
+    int dist;
+    int maxR;
+    private int disp;
+    private boolean shadow;
+    private boolean stonecold;
+    private int grounded;
+    private int rcol;
+    private int pcol;
+    private int track;
+    private boolean out;
 
     public ContO(BufferedReader datainputstream, final int i, final int j, final int k) throws Exception {
 
@@ -80,11 +98,18 @@ final class ContO {
         int strokejoin = BasicStroke.JOIN_MITER;
         int strokemtlimit = 10;
 
-        final float nfmm_scale[] = {
+        final float nfmmScale[] = {
                 1.0F, 1.0F, 1.0F
         };
         
         boolean glow = false;
+        
+        int curLine = 0;
+        int pStartLine = 0;
+        // implicit: curLine on Plane creation, which is </p>
+        //int pEndLine = 0;
+
+        String s1;
 
         //final boolean hasTracks = false;
         //final boolean inTrack = false;
@@ -93,11 +118,12 @@ final class ContO {
             //final File fl = new File(s);
             //System.out.println(s.getPath());
             //final DataInputStream datainputstream = new DataInputStream(new FileInputStream(s));
-            do {
-                String s1;
+            while (true) {
                 if ((s1 = datainputstream.readLine()) == null)
                     break;
-                final String line = new StringBuilder().append("").append(s1.trim()).toString();
+                curLine++;
+                
+                final String line = new StringBuilder().append(s1.trim()).toString();
                 if (line.startsWith("<p>") && RunApp.showModel) {
                     flag = true;
                     nPoints = 0;
@@ -113,6 +139,7 @@ final class ContO {
                     strokejoin = BasicStroke.JOIN_MITER;
                     strokemtlimit = 10;
                     glow = false;
+                    pStartLine = curLine;
                 }
                 if (flag) {
                     if (line.startsWith("gr("))
@@ -129,9 +156,9 @@ final class ContO {
                         color[2] = getvalue("c", line, 2);
                     }
                     if (line.startsWith("p(")) {
-                        pointX[nPoints] = (int) ((int) (getvalue("p", line, 0) * div * wid) * nfmm_scale[0]);
-                        pointY[nPoints] = (int) ((int) (getvalue("p", line, 1) * div) * nfmm_scale[1]);
-                        pointZ[nPoints] = (int) ((int) (getvalue("p", line, 2) * div) * nfmm_scale[2]);
+                        pointX[nPoints] = (int) ((int) (getvalue("p", line, 0) * div * wid) * nfmmScale[0]);
+                        pointY[nPoints] = (int) ((int) (getvalue("p", line, 1) * div) * nfmmScale[1]);
+                        pointZ[nPoints] = (int) ((int) (getvalue("p", line, 2) * div) * nfmmScale[2]);
                         final int maxKeks = (int) Math.sqrt(pointX[nPoints] * pointX[nPoints]
                                 + pointY[nPoints] * pointY[nPoints] + pointZ[nPoints] * pointZ[nPoints]);
                         if (maxKeks > maxR)
@@ -180,14 +207,16 @@ final class ContO {
                 if (line.startsWith("</p>") && RunApp.showModel) {
                     p[npl] = new Plane(pointX, pointZ, pointY, nPoints, color, glass, gr, fs, 0, 0, light, hidepoly,
                             randomcolor, randoutline, customstroke, strokewidth, strokecap, strokejoin, strokemtlimit, glow);
+                    p[npl].startLine = pStartLine;
+                    p[npl].endLine = curLine;
                     npl++;
                     flag = false;
                 }
                 if (line.startsWith("w") && RunApp.showModel)
-                    npl += wheels.make(p, npl, (int) (getvalue("w", line, 0) * div * nfmm_scale[0]),
-                            (int) (getvalue("w", line, 1) * div * nfmm_scale[1]),
-                            (int) (getvalue("w", line, 2) * div * nfmm_scale[2]), getvalue("w", line, 3),
-                            (int) (getvalue("w", line, 4) * div * nfmm_scale[0]), (int) (getvalue("w", line, 5) * div));
+                    npl += wheels.make(p, npl, (int) (getvalue("w", line, 0) * div * nfmmScale[0]),
+                            (int) (getvalue("w", line, 1) * div * nfmmScale[1]),
+                            (int) (getvalue("w", line, 2) * div * nfmmScale[2]), getvalue("w", line, 3),
+                            (int) (getvalue("w", line, 4) * div * nfmmScale[0]), (int) (getvalue("w", line, 5) * div));
                         //npl += wheels.make(applet, m, p, npl, (int)((float)getvalue("w", s1, 0) * f * f1 * nfmm_scale[0]), (int)((float)getvalue("w", s1, 1) * f * nfmm_scale[1]), (int)((float)getvalue("w", s1, 2) * f * nfmm_scale[2]), getvalue("w", s1, 3), (int)((float)getvalue("w", s1, 4) * f * f1), (int)((int)getvalue("w", s1, 5) * f), i1);
 
                 /*if (s2.startsWith("<track>"))
@@ -473,20 +502,20 @@ final class ContO {
                     g_iwid = getvalue("iwid", line, 0);
                 }
                 if (line.startsWith("ScaleX")) {
-                    nfmm_scale[0] = getvalue("ScaleX", s1, 0) / 100F;
+                    nfmmScale[0] = getvalue("ScaleX", s1, 0) / 100F;
                     g_scalex = getvalue("ScaleX", line, 0);
                 }
                 if (line.startsWith("ScaleY")) {
-                    nfmm_scale[1] = getvalue("ScaleY", s1, 0) / 100F;
+                    nfmmScale[1] = getvalue("ScaleY", s1, 0) / 100F;
                     g_scaley = getvalue("ScaleY", line, 0);
                 }
                 if (line.startsWith("ScaleZ")) {
-                    nfmm_scale[2] = getvalue("ScaleZ", s1, 0) / 100F;
+                    nfmmScale[2] = getvalue("ScaleZ", s1, 0) / 100F;
                     g_scalez = getvalue("ScaleZ", line, 0);
                 }
                 if (line.startsWith("stonecold"))
                     stonecold = true;
-            } while (true);
+            }
             datainputstream.close();
         } catch (final Exception exception) {
             throw exception;
@@ -543,15 +572,15 @@ final class ContO {
 
                     }
 
-                    F51.mouseInPoly = -1;
-                    F51.mouseInPoint = -1;
+                    LiveO.mouseInPoly = -1;
+                    LiveO.mouseInPoint = -1;
                     for (int i2 = 0; i2 < npl; i2++)
                         for (int k2 = 0; k2 < npl; k2++)
                             if (ai[k2] == i2) {
-                                if (F51.trans && p[k2].glass)
+                                if (LiveO.trans && p[k2].glass)
                                     ((Graphics2D) g).setComposite(AlphaComposite.getInstance(3, 0.7F));
                                 p[k2].d((Graphics2D) g, x - Medium.x, y - Medium.y, z - Medium.z, xz, xy, zy, wxz, stonecold, k2);
-                                if (F51.trans && p[k2].glass)
+                                if (LiveO.trans && p[k2].glass)
                                     ((Graphics2D) g).setComposite(AlphaComposite.getInstance(3, 1.0F));
                             }
                     try {
@@ -574,59 +603,21 @@ final class ContO {
     }
 
     private void highlight() throws IOException, BadLocationException {
-        if (F51.mouseInPoly != -1) {
+        if (LiveO.mouseInPoly != -1) {
             //System.err.println("found it!");
-            if (F51.mouses == F51.MOUSE_PRESSED) {
+            if (LiveO.mouses == LiveO.MOUSE_PRESSED) {
+                int startLine = p[LiveO.mouseInPoly].startLine-1;
+                int endLine = p[LiveO.mouseInPoly].endLine;
+
+                int startIndex = RunApp.t.text.getLineStartOffset(startLine);
+                int endIndex = RunApp.t.text.getLineEndOffset(endLine);
+                
                 System.err.println("clicky!");
-                
-                boolean succ = false;
-
-                final BufferedReader reader = new BufferedReader(new StringReader(RunApp.t.text.getText()));
-                String aline = reader.readLine();
-
-                boolean inp = false;
-                int lineN = 0;
-                int byteN = 0;
-                //int pstart = 0;
-                //int pend = 0;
-                int pstartindex = 0;
-                int pendindex = 0;
-                int polys = 0;
-                String s = (String)RunApp.t.text.getDocument().getProperty(DefaultEditorKit.EndOfLineStringProperty);
-                int linelength = s != null ? s.length() : "\n".length();
-                
-                for (String line; aline != null; aline = reader.readLine()) {
-                    line = aline.trim();
-                    
-                    if (line.startsWith("<p>")) {
-                        polys++;
-                        if (polys == F51.mouseInPoly + 1) {
-                            inp = true;
-                            pstartindex = byteN;
-                            //pstart = lineN + 1;
-                        }
-                    }
-                    if (inp && line.startsWith("</p>")) {
-                        pendindex = byteN + aline.length();
-                        //pend = lineN;
-                        succ = true;
-                        break;
-                    }
-                    
-                    lineN++;
-                    byteN += aline.length() + linelength;
-                }
-                reader.close();
-
-                if (succ) {
-                    RunApp.t.text.select(pstartindex, pendindex);
-                    Highlighter.HighlightPainter p = new DefaultHighlighter.DefaultHighlightPainter(Color.pink);
-                    RunApp.t.text.getHighlighter().removeAllHighlights();
-                    RunApp.t.text.getHighlighter().addHighlight(pstartindex, pendindex, p);
-                    //RunApp.t.frame.repaint();
-                } else {
-                    System.err.println("fail!");
-                }
+            
+                RunApp.t.text.select(startIndex, endIndex);
+                Highlighter.HighlightPainter p = new DefaultHighlighter.DefaultHighlightPainter(Color.pink);
+                RunApp.t.text.getHighlighter().removeAllHighlights();
+                RunApp.t.text.getHighlighter().addHighlight(startIndex, endIndex, p);
             }
         }
     }
@@ -669,24 +660,26 @@ final class ContO {
         return (i - x) / 10 * ((i - x) / 10) + (j - y) / 10 * ((j - y) / 10) + (k - z) / 10 * ((k - z) / 10);
     }
 
-    private Plane p[];
+    public int[] centroid() {
+        int amt = 0;
+        for (int i = 0; i < npl; i++) {
+            amt += p[i].n;
+        }
+        int x = 0;
+        int y = 0;
+        int z = 0;
+        
+        for (int i = 0; i < npl; i++) {
+            for (int j = 0; j < p[i].n; j++) {
+                x += p[i].x[j];
+                y += p[i].y[j];
+                z += p[i].z[j];
+            }
+        }
 
-    private int npl;
-    int x;
-    int y;
-    int z;
-    int xz;
-    int xy;
-    int zy;
-    int wxz;
-    private int dist;
-    private int maxR;
-    private int disp;
-    private boolean shadow;
-    private boolean stonecold;
-    private int grounded;
-    private int rcol;
-    private int pcol;
-    private int track;
-    private boolean out;
+        x /= amt;
+        y /= amt;
+        z /= amt;
+        return new int[] {x, y, z};
+    }
 }
